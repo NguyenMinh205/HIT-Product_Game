@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -667331979, guid: 67dfb1fdfb2b407222eda8e23ac8b724, type: 3}
+  m_Name: NotoSans-Outline SDF
+  m_EditorClassIdentifier:
+  hashCode: 340038313
+  material: {fileID: 2100000, guid: 269b7252d8b4ac84a8fbd114b8009fa2, type: 2}
+  materialHashCode: 129067241
+  m_Version: 1.1.0
+  m_SourceFontFileGUID: 6e304dafc6a04c94d97abb15b313495f
+  m_SourceFontFile: {fileID: 12800000, guid: ba6bd0d6bded2e749b12b743b81b8761, type: 3}
+  m_AtlasPopulationMode: 1
+  m_FaceInfo:
+    m_FaceIndex: 0
+    m_FamilyName: Noto Sans
+    m_StyleName: Bold
+    m_PointSize: 90
+    m_Scale: 1
+    m_UnitsPerEM: 0
+    m_LineHeight: 122.56348
+    m_AscentLine: 96.19629
+    m_CapLine: 64
+    m_MeanLine: 49
+    m_Baseline: 0
+    m_DescentLine: -26.367188
+    m_SuperscriptOffset: 96.19629
+    m_SuperscriptSize: 0.5
+    m_SubscriptOffset: -26.367188
+    m_SubscriptSize: 0.5
+    m_UnderlineOffset: -9.008789
+    m_UnderlineThickness: 4.482422
+    m_StrikethroughOffset: 19.6
+    m_StrikethroughThickness: 4.482422
+    m_TabWidth: 23
+  m_GlyphTable: []
+  m_CharacterTable: []
+  m_AtlasTextures:
+  - {fileID: 2800000, guid: 76840b102ad69de42a5a339ea91b2023, type: 3}
+  m_AtlasTextureIndex: 0
+  m_IsMultiAtlasTexturesEnabled: 1
+  m_ClearDynamicDataOnBuild: 1
+  m_UsedGlyphRects: []
+  m_FreeGlyphRects:
+  - m_X: 0
+    m_Y: 0
+    m_Width: 1023
+    m_Height: 1023
+  m_fontInfo:
+    Name:
+    PointSize: 0
+    Scale: 0
+    CharacterCount: 0
+    LineHeight: 0
+    Baseline: 0
+    Ascender: 0
+    CapHeight: 0
+    Descender: 0
+    CenterLine: 0
+    SuperscriptOffset: 0
+    SubscriptOffset: 0
+    SubSize: 0
+    Underline: 0
+    UnderlineThickness: 0
+    strikethrough: 0
+    strikethroughThickness: 0
+    TabWidth: 0
+    Padding: 0
+    AtlasWidth: 0
+    AtlasHeight: 0
+  atlas: {fileID: 0}
+  m_AtlasWidth: 1024
+  m_AtlasHeight: 1024
+  m_AtlasPadding: 9
+  m_AtlasRenderMode: 4165
+  m_glyphInfoList: []
+  m_KerningTable:
+    kerningPairs: []
+  m_FontFeatureTable:
+    m_GlyphPairAdjustmentRecords: []
+  fallbackFontAssets: []
+  m_FallbackFontAssetTable: []
+  m_CreationSettings:
+    sourceFontFileName:
+    sourceFontFileGUID: 6e304dafc6a04c94d97abb15b313495f
+    pointSizeSamplingMode: 0
+    pointSize: 90
+    padding: 9
+    packingMode: 0
+    atlasWidth: 1024
+    atlasHeight: 1024
+    characterSetSelectionMode: 8
+    characterSequence: "\"Key\",\"Type\",\"Desc\",\"English\",\"German\",\"French\",\"Spanish\",\"Japanese\",\"Korean\",\"Polish\",\"Portuguese (Brazil)\",\"Russian\",\"Chinese (Simplified)\",\"Chinese (Traditional)\",\"Arabic\"\r\n\"Button/Exit\",\"Text\",\"Button/Exit\r\n\r\nThis text is shown on the Exit Button\",\"Exit\t\",\"Verlassen\",\"Exit\t\",\"Exit\t\",\"Exit\t\",\"Exit\t\",\"Exit\t\",\"Exit\t\",\"Exit\t\",\"Exit\t\",\"Exit\t\",\"Exit\t\"\r\n\"Button/LoadGame\",\"\",\"\",\"Load Game\",\"Spiel Laden\",\"Load Game\",\"Load Game\",\"Load Game\",\"Load Game\",\"Load Game\",\"Load Game\",\"Load Game\",\"载入游戏\",\"Load Game\",\"Load Game\"\r\n\"StartScene/VersionNumber\",\"\",\"\",\"v{[VersionNumber]}\",\"V{[VersionNumber]}\",\"v{[VersionNumber]}\",\"v{[VersionNumber]}\",\"v{[VersionNumber]}\",\"v{[VersionNumber]}\",\"v{[VersionNumber]}\",\"v{[VersionNumber]}\",\"v{[VersionNumber]}\",\"v{[VersionNumber]}\",\"v{[VersionNumber]}\",\"v{[VersionNumber]}\"\r\n\"Enums/FullScreenMode/ExclusiveFullScreen\",\"\",\"\",\"Fullscreen\",\"Fullscreen\",\"Fullscreen\",\"Fullscreen\",\"Fullscreen\",\"Fullscreen\",\"Fullscreen\",\"Fullscreen\",\"Fullscreen\",\"Fullscreen\",\"Fullscreen\",\"Fullscreen\"\r\n\"Enums/FullScreenMode/FullScreenWindow\",\"\",\"\",\"Borderless Window\",\"Borderless Window\",\"Borderless Window\",\"Borderless Window\",\"Borderless Window\",\"Borderless Window\",\"Borderless Window\",\"Borderless Window\",\"Borderless Window\",\"Borderless Window\",\"Borderless Window\",\"Borderless Window\"\r\n\"Enums/FullscreenMode/Windowed\",\"\",\"\",\"Windowed\",\"Windowed\",\"Windowed\",\"Windowed\",\"Windowed\",\"Windowed\",\"Windowed\",\"Windowed\",\"Windowed\",\"Windowed\",\"Windowed\",\"Windowed\"\r\n"
+    referencedFontAssetGUID: 61dbb7ec17c49bb47a51944cd8637016
+    referencedTextAssetGUID: 24c99c16f8b17594a8cad9152b7bce85
+    fontStyle: 0
+    fontStyleModifier: 0
+    renderMode: 4165
+    includeFontFeatures: 0
+  m_FontWeightTable:
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  fontWeights: []
+  normalStyle: 0
+  normalSpacingOffset: 0
+  boldStyle: 0.75
+  boldSpacing: 7
+  italicStyle: 35
+  tabSize: 10
