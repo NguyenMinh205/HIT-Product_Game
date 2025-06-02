@@ -46,7 +46,7 @@ public class ClawController : MonoBehaviour
         
         CheckCurrentClaw();
 
-
+        SetTurnPlayer();
     }
     public void ChangeClaw()
     {
@@ -66,7 +66,8 @@ public class ClawController : MonoBehaviour
     {
         if(currentClaw.Mode == ModeClaw.End)
         {
-            currentClaw.EndClaw(posEndClaw.position);
+            if(currentClaw.Move == 4)
+                currentClaw.EndClaw(posEndClaw.position);
             if(currentClaw.Move == 5)
             {
                 ChangeClaw();
