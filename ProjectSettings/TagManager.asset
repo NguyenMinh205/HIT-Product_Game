@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - MapFloor
+  - MapWall
   layers:
   - Default
   - TransparentFX
@@ -40,4 +42,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGround
+    uniqueID: 324638365
+    locked: 0
+  - name: Map
+    uniqueID: 3225313393
+    locked: 0
+  - name: IconTile
+    uniqueID: 2052983253
+    locked: 0
+  - name: Player
+    uniqueID: 2921366081
+    locked: 0
+  - name: Claw
+    uniqueID: 3693211049
     locked: 0
