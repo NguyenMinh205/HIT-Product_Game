@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -106,9 +106,287 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: anh (88)_2
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 1292
+        width: 438
+        height: 424
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf3f6f4f43966e048806e4cf7887dcdb
+      internalID: -792005545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (88)_10
+      rect:
+        serializedVersion: 2
+        x: 1127
+        y: 1287
+        width: 387
+        height: 401
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4fbf430a17036d4297f86613153556a
+      internalID: -900610683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (88)_15
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 1294
+        width: 346
+        height: 379
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 810197743fd59b442b14fba52672ff64
+      internalID: 963039163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (88)_41
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 873
+        width: 377
+        height: 411
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9757ba24c6b2324d9a44c255ca5e6b2
+      internalID: 681909617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (88)_44
+      rect:
+        serializedVersion: 2
+        x: 1113
+        y: 863
+        width: 417
+        height: 416
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ff3e7e499583c94f9e6560d43d943f7
+      internalID: 85176630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (88)_48
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 870
+        width: 356
+        height: 385
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd3a39ea247a4404cb34f9d77bff6bbd
+      internalID: -2099389291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (88)_76
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 438
+        width: 329
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0180e97a71cf4e34886dfa00d3195322
+      internalID: 1390471754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (88)_79
+      rect:
+        serializedVersion: 2
+        x: 1103
+        y: 429
+        width: 395
+        height: 423
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bb53d3039513954287026a988867af4
+      internalID: -1825437677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (88)_82
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 429
+        width: 410
+        height: 406
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3d5b50d0a1442b46808199907215a26
+      internalID: 1997575117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (88)_103
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 5
+        width: 382
+        height: 388
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8c1075fad16de843a29c5a707044e00
+      internalID: -1347162860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (88)_108
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 6
+        width: 360
+        height: 423
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1970040e04cf5348badabff8b2063cf
+      internalID: 1994413359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (88)_111
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 0
+        width: 267
+        height: 378
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6d202c7315f979488411cf26f5c248f
+      internalID: 1748362114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +397,136 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      anh (88)_0: 110550984
+      anh (88)_1: -377873091
+      anh (88)_10: -900610683
+      anh (88)_100: -1972342015
+      anh (88)_101: -285571954
+      anh (88)_102: 2087774511
+      anh (88)_103: -1347162860
+      anh (88)_104: -1233166879
+      anh (88)_105: 733052992
+      anh (88)_106: -1898116835
+      anh (88)_107: 1355337508
+      anh (88)_108: 1994413359
+      anh (88)_109: -1676964639
+      anh (88)_11: 1512625468
+      anh (88)_110: -1848550907
+      anh (88)_111: 1748362114
+      anh (88)_112: -1367863837
+      anh (88)_113: -1111578908
+      anh (88)_114: -1698501418
+      anh (88)_115: 706789744
+      anh (88)_116: -422399755
+      anh (88)_117: 238311015
+      anh (88)_118: 1949129114
+      anh (88)_119: -705046329
+      anh (88)_12: 917816804
+      anh (88)_120: -1842939145
+      anh (88)_121: -2075951637
+      anh (88)_122: 2012703222
+      anh (88)_123: -1166532301
+      anh (88)_124: 749521232
+      anh (88)_125: 1028853046
+      anh (88)_126: 1459661070
+      anh (88)_127: 2030600805
+      anh (88)_128: 1906840818
+      anh (88)_13: -1353545718
+      anh (88)_14: 1223382075
+      anh (88)_15: 963039163
+      anh (88)_16: 1936285453
+      anh (88)_17: -2131298693
+      anh (88)_18: -735933140
+      anh (88)_19: -738702955
+      anh (88)_2: -792005545
+      anh (88)_20: 1690229580
+      anh (88)_21: -180714455
+      anh (88)_22: -1799030198
+      anh (88)_23: 1354501209
+      anh (88)_24: 1832107363
+      anh (88)_25: 2100755547
+      anh (88)_26: 24171716
+      anh (88)_27: 877578618
+      anh (88)_28: -1234506591
+      anh (88)_29: 245933768
+      anh (88)_3: 979302674
+      anh (88)_30: -398577702
+      anh (88)_31: 1784901865
+      anh (88)_32: -1690387383
+      anh (88)_33: 1385218687
+      anh (88)_34: -1132404170
+      anh (88)_35: -332028191
+      anh (88)_36: 556290354
+      anh (88)_37: 1742910714
+      anh (88)_38: 1658098618
+      anh (88)_39: 127424921
+      anh (88)_4: 1700484619
+      anh (88)_40: -413449900
+      anh (88)_41: 681909617
+      anh (88)_42: 1927771341
+      anh (88)_43: 974636998
+      anh (88)_44: 85176630
+      anh (88)_45: 1132944264
+      anh (88)_46: -1078816730
+      anh (88)_47: -83958365
+      anh (88)_48: -2099389291
+      anh (88)_49: -839053248
+      anh (88)_5: 1930077218
+      anh (88)_50: 1367031319
+      anh (88)_51: 1241424282
+      anh (88)_52: -2115647350
+      anh (88)_53: -1302459204
+      anh (88)_54: 1798932717
+      anh (88)_55: -1166376410
+      anh (88)_56: 1804564166
+      anh (88)_57: -1085043236
+      anh (88)_58: 1914297540
+      anh (88)_59: 616965080
+      anh (88)_6: 1197233553
+      anh (88)_60: -1773631617
+      anh (88)_61: 442484479
+      anh (88)_62: 1640474396
+      anh (88)_63: 1131966624
+      anh (88)_64: -1525151846
+      anh (88)_65: 39133187
+      anh (88)_66: 1373677298
+      anh (88)_67: -1011313835
+      anh (88)_68: -34637820
+      anh (88)_69: -476227
+      anh (88)_7: 876444007
+      anh (88)_70: -178554662
+      anh (88)_71: 292668636
+      anh (88)_72: 336249287
+      anh (88)_73: 1877137326
+      anh (88)_74: 64071076
+      anh (88)_75: 387982538
+      anh (88)_76: 1390471754
+      anh (88)_77: 1535725926
+      anh (88)_78: -1755646184
+      anh (88)_79: -1825437677
+      anh (88)_8: -1363962529
+      anh (88)_80: -378339853
+      anh (88)_81: 879257166
+      anh (88)_82: 1997575117
+      anh (88)_83: 669963784
+      anh (88)_84: -2107452924
+      anh (88)_85: 1582607537
+      anh (88)_86: 550812787
+      anh (88)_87: 1696322838
+      anh (88)_88: 1824543082
+      anh (88)_89: 2030214419
+      anh (88)_9: -1813027933
+      anh (88)_90: 852942954
+      anh (88)_91: -806833905
+      anh (88)_92: 2034825115
+      anh (88)_93: 1717391449
+      anh (88)_94: -2039343823
+      anh (88)_95: 1047162877
+      anh (88)_96: 1064932774
+      anh (88)_97: 928295431
+      anh (88)_98: -1620259590
+      anh (88)_99: -245031773
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

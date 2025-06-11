@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -106,9 +106,476 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: anh (62)_7
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 2934
+        width: 1047
+        height: 870
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e9d82cebfe72d54aa49a1da44236c78
+      internalID: 1801013173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_34
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 1962
+        width: 798
+        height: 864
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32cca534f79d1624bbbbf54cb9c95e6c
+      internalID: 1039303452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_55
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 998
+        width: 930
+        height: 822
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ffe91fb1a53c6544939c4024283446a
+      internalID: 201689371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_59
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 1656
+        width: 4
+        height: 162
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e604a70fef6a0e444b62c5a46c253a4e
+      internalID: 1177483018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_62
+      rect:
+        serializedVersion: 2
+        x: 1271
+        y: 957
+        width: 416
+        height: 423
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fe21298c5ac46240b64be9055ad972d
+      internalID: 112459204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_66
+      rect:
+        serializedVersion: 2
+        x: 2520
+        y: 786
+        width: 372
+        height: 404
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60b0e78730db9f44a8cf8b151d6092f6
+      internalID: 1696379606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_73
+      rect:
+        serializedVersion: 2
+        x: 1726
+        y: 558
+        width: 334
+        height: 456
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67860bc6741ba924eb6a1c5f48dc3578
+      internalID: -435575397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_91
+      rect:
+        serializedVersion: 2
+        x: 2108
+        y: 528
+        width: 402
+        height: 454
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0061c593081d0d4e933335877514d64
+      internalID: 1583650398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_104
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 472
+        width: 344
+        height: 454
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02ead038310457a4c8d9382fd59a78cf
+      internalID: -313926782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_119
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 26
+        width: 812
+        height: 874
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 120d5c03db1232a4f9e3b866529eb90d
+      internalID: 2078217510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_141
+      rect:
+        serializedVersion: 2
+        x: 2645
+        y: 411
+        width: 455
+        height: 330
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36f1ee73c43a59946bc29b8c1b7c3128
+      internalID: 804232980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_149
+      rect:
+        serializedVersion: 2
+        x: 1742
+        y: 6
+        width: 318
+        height: 510
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 357fe0c5baf6be04caf562b77c80a37d
+      internalID: -548175609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_167
+      rect:
+        serializedVersion: 2
+        x: 1175
+        y: 2
+        width: 439
+        height: 446
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e64053acfef5884294b84088bfae414
+      internalID: -2104450025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_169
+      rect:
+        serializedVersion: 2
+        x: 2204
+        y: 30
+        width: 296
+        height: 420
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2239cd89b2edca142a9e9b6526352cb1
+      internalID: -485044335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_180
+      rect:
+        serializedVersion: 2
+        x: 2760
+        y: 15
+        width: 270
+        height: 303
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f93c4b840ca2a44688e6cf5e268e053
+      internalID: 1666292812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_202
+      rect:
+        serializedVersion: 2
+        x: 1896
+        y: 0
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad386676b57e0014f996d68f89427a23
+      internalID: -1613321926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_0
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 3430
+        width: 373
+        height: 428
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e07eff3245274f468e4a0fdd571d214
+      internalID: 1186936297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_1
+      rect:
+        serializedVersion: 2
+        x: 1273
+        y: 2916
+        width: 265
+        height: 433
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc78570446faf694ca3bb6204e1441ce
+      internalID: 544449871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_2
+      rect:
+        serializedVersion: 2
+        x: 1192
+        y: 2386
+        width: 419
+        height: 458
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 735bfd9630420a44ebf6544df9c3d563
+      internalID: -907178879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_3
+      rect:
+        serializedVersion: 2
+        x: 1252
+        y: 1889
+        width: 282
+        height: 437
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cca2eab73c7430b41a2c9b5c4dec1d04
+      internalID: -2126562210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (62)_4
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 1423
+        width: 377
+        height: 385
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60538dc7f849f9849aa2e497a304fad7
+      internalID: -80392018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +586,211 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      anh (62)_0: 1186936297
+      anh (62)_1: 544449871
+      anh (62)_10: 1226606070
+      anh (62)_100: 1305588090
+      anh (62)_101: 785346839
+      anh (62)_102: -595687152
+      anh (62)_103: 1640385484
+      anh (62)_104: -313926782
+      anh (62)_105: -108077959
+      anh (62)_106: -1442781150
+      anh (62)_107: -1699557716
+      anh (62)_108: 1892240844
+      anh (62)_109: -279610641
+      anh (62)_11: 1315392695
+      anh (62)_110: -1920011085
+      anh (62)_111: 1901909924
+      anh (62)_112: 266887573
+      anh (62)_113: -1165530366
+      anh (62)_114: 1927531244
+      anh (62)_115: -1259632535
+      anh (62)_116: 2071755315
+      anh (62)_117: -589842685
+      anh (62)_118: 1543614853
+      anh (62)_119: 2078217510
+      anh (62)_12: -1843707469
+      anh (62)_120: -202370408
+      anh (62)_121: 1156070217
+      anh (62)_122: 490892290
+      anh (62)_123: -1335850668
+      anh (62)_124: 830653123
+      anh (62)_125: 541324630
+      anh (62)_126: -1835367585
+      anh (62)_127: 382843778
+      anh (62)_128: 2068244436
+      anh (62)_129: 743467694
+      anh (62)_13: -55651885
+      anh (62)_130: 1754271531
+      anh (62)_131: -1034463020
+      anh (62)_132: -1238026586
+      anh (62)_133: 2070232899
+      anh (62)_134: 1850264687
+      anh (62)_135: -1315416153
+      anh (62)_136: 2065870378
+      anh (62)_137: -1122260554
+      anh (62)_138: 1393330312
+      anh (62)_139: -1381427142
+      anh (62)_14: -1524694133
+      anh (62)_140: -873971575
+      anh (62)_141: 804232980
+      anh (62)_142: -1028254623
+      anh (62)_143: 1207774903
+      anh (62)_144: 1428395890
+      anh (62)_145: 1716953441
+      anh (62)_146: 743545399
+      anh (62)_147: 840472979
+      anh (62)_148: -795945744
+      anh (62)_149: -548175609
+      anh (62)_15: 1036301904
+      anh (62)_150: 354437661
+      anh (62)_151: -1507958122
+      anh (62)_152: 1447294275
+      anh (62)_153: 1731044602
+      anh (62)_154: 694558631
+      anh (62)_155: -1032090263
+      anh (62)_156: -953358881
+      anh (62)_157: 329622007
+      anh (62)_158: 754044
+      anh (62)_159: 1496485393
+      anh (62)_16: -1567908647
+      anh (62)_160: 1031240506
+      anh (62)_161: 1054752841
+      anh (62)_162: -79508704
+      anh (62)_163: -1800773537
+      anh (62)_164: 1539205392
+      anh (62)_165: 1871822900
+      anh (62)_166: 6147171
+      anh (62)_167: -2104450025
+      anh (62)_168: -197895067
+      anh (62)_169: -485044335
+      anh (62)_17: 925841333
+      anh (62)_170: -342340778
+      anh (62)_171: 1050859498
+      anh (62)_172: -534768062
+      anh (62)_173: -859328709
+      anh (62)_174: 1321795577
+      anh (62)_175: 1630893311
+      anh (62)_176: -507227420
+      anh (62)_177: 738806054
+      anh (62)_178: -1778369645
+      anh (62)_179: -342264480
+      anh (62)_18: 1925406736
+      anh (62)_180: 1666292812
+      anh (62)_181: -452813400
+      anh (62)_182: -1880222859
+      anh (62)_183: 1983946714
+      anh (62)_184: -1681258625
+      anh (62)_185: -1205789529
+      anh (62)_186: 2067297864
+      anh (62)_187: 1148510504
+      anh (62)_188: 91192134
+      anh (62)_189: -513588038
+      anh (62)_19: -1871357779
+      anh (62)_190: 1300939367
+      anh (62)_191: 425035285
+      anh (62)_192: 270279120
+      anh (62)_193: 1811346124
+      anh (62)_194: 142564170
+      anh (62)_195: -439388994
+      anh (62)_196: 1232017724
+      anh (62)_197: 885195791
+      anh (62)_198: 1831973286
+      anh (62)_199: 311915153
+      anh (62)_2: -907178879
+      anh (62)_20: 602494627
+      anh (62)_200: -1333553699
+      anh (62)_201: -1179977912
+      anh (62)_202: -1613321926
+      anh (62)_203: 993378781
+      anh (62)_21: 1100554912
+      anh (62)_22: 1543888565
+      anh (62)_23: 1481113872
+      anh (62)_24: -588223502
+      anh (62)_25: 356763152
+      anh (62)_26: -1611255778
+      anh (62)_27: -1056989636
+      anh (62)_28: -1039386771
+      anh (62)_29: -222892666
+      anh (62)_3: -2126562210
+      anh (62)_30: 928396359
+      anh (62)_31: 1126400480
+      anh (62)_32: 1647314566
+      anh (62)_33: 2047291798
+      anh (62)_34: 1039303452
+      anh (62)_35: 834755826
+      anh (62)_36: -863245440
+      anh (62)_37: 202126500
+      anh (62)_38: 1254273372
+      anh (62)_39: 710954194
+      anh (62)_4: -80392018
+      anh (62)_40: -634033226
+      anh (62)_41: -1642574129
+      anh (62)_42: -1854800630
+      anh (62)_43: -1755464795
+      anh (62)_44: 1750916640
+      anh (62)_45: -694244959
+      anh (62)_46: -376561247
+      anh (62)_47: 1236728239
+      anh (62)_48: 196831038
+      anh (62)_49: -1018944211
+      anh (62)_5: -1017563319
+      anh (62)_50: -1294398288
+      anh (62)_51: 475880695
+      anh (62)_52: 1131026990
+      anh (62)_53: 626000838
+      anh (62)_54: 1017466829
+      anh (62)_55: 201689371
+      anh (62)_56: -946742748
+      anh (62)_57: 1748001140
+      anh (62)_58: -110539063
+      anh (62)_59: 1177483018
+      anh (62)_6: -1614084933
+      anh (62)_60: 1994985500
+      anh (62)_61: 1166585643
+      anh (62)_62: 112459204
+      anh (62)_63: 1470425007
+      anh (62)_64: 242790388
+      anh (62)_65: -1391550701
+      anh (62)_66: 1696379606
+      anh (62)_67: -661647694
+      anh (62)_68: -1959550508
+      anh (62)_69: 1019007251
+      anh (62)_7: 1801013173
+      anh (62)_70: 1191313647
+      anh (62)_71: 38112803
+      anh (62)_72: 1274393358
+      anh (62)_73: -435575397
+      anh (62)_74: 573088784
+      anh (62)_75: -535732965
+      anh (62)_76: 1778886571
+      anh (62)_77: 1757474245
+      anh (62)_78: 1018768319
+      anh (62)_79: -847783138
+      anh (62)_8: -326773167
+      anh (62)_80: -1346431790
+      anh (62)_81: -1291648516
+      anh (62)_82: -723394209
+      anh (62)_83: -1996725524
+      anh (62)_84: 1957054489
+      anh (62)_85: 1144676925
+      anh (62)_86: 1678001271
+      anh (62)_87: -1828306610
+      anh (62)_88: -1819390007
+      anh (62)_89: -1017206
+      anh (62)_9: -1992911129
+      anh (62)_90: -1798860022
+      anh (62)_91: 1583650398
+      anh (62)_92: -440119429
+      anh (62)_93: 914963763
+      anh (62)_94: 1140324588
+      anh (62)_95: -905980112
+      anh (62)_96: -342059587
+      anh (62)_97: 1029256922
+      anh (62)_98: 1103532342
+      anh (62)_99: 1832544320
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
