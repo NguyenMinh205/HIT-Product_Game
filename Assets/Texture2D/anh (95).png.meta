@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -134,7 +134,175 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: anh (95)_0
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 1760
+        width: 186
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e8bdbd448a8dee4fa28078e7eb50bc2
+      internalID: -1573051179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (95)_1
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1454
+        width: 249
+        height: 391
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c759f1d1f3051da4a87415e3447eee63
+      internalID: -1769928195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (95)_2
+      rect:
+        serializedVersion: 2
+        x: 833
+        y: 1463
+        width: 199
+        height: 273
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d7e6625d6ce674449ccc74db0e57425
+      internalID: -1415394235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (95)_3
+      rect:
+        serializedVersion: 2
+        x: 1813
+        y: 1221
+        width: 206
+        height: 287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe00e949103aefd418b8764965dc029d
+      internalID: 1966003625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (95)_4
+      rect:
+        serializedVersion: 2
+        x: 1741
+        y: 1522
+        width: 256
+        height: 366
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca81fffff2ac1834c8908ae4f2b2854e
+      internalID: -559107184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (95)_5
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 1164
+        width: 249
+        height: 758
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b14ee93a434902489e6914eafbff07c
+      internalID: -1874864149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (95)_6
+      rect:
+        serializedVersion: 2
+        x: 1487
+        y: 1160
+        width: 248
+        height: 761
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acd406743be14b24bbc7cc8a4b824d87
+      internalID: -1247884550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (95)_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1164
+        width: 1222
+        height: 287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c53b2b14791fdf4e9539fa944cde833
+      internalID: 1001173777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +313,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      anh (95)_0: -1573051179
+      anh (95)_1: -1769928195
+      anh (95)_2: -1415394235
+      anh (95)_3: 1966003625
+      anh (95)_4: -559107184
+      anh (95)_5: -1874864149
+      anh (95)_6: -1247884550
+      anh (95)_7: 1001173777
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

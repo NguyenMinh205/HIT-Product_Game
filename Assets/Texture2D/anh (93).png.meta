@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -134,7 +134,154 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: anh (93)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1467
+        width: 201
+        height: 261
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e08034855ad8e614abb7f5be4ded0267
+      internalID: 125707581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (93)_1
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 1169
+        width: 260
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 164fc1c869566ab4fb12b042e8067e71
+      internalID: 630672142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (93)_2
+      rect:
+        serializedVersion: 2
+        x: 1156
+        y: 1156
+        width: 186
+        height: 231
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acc43fe40ac995f46ba7da714bd1e167
+      internalID: 198069480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (93)_3
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 1160
+        width: 319
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58eace756ecf64c48bfaacdf3f0ea1eb
+      internalID: 1538742292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (93)_4
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 1355
+        width: 320
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2a5d9905c37ec34eb2b30ff2523e90a
+      internalID: 1052196883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (93)_5
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 1442
+        width: 240
+        height: 217
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 970863eb995f6e241a83dda9d557184d
+      internalID: -1479733740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (93)_6
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 1168
+        width: 238
+        height: 238
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 641f4466e7700284d80450459895ecc1
+      internalID: 1263828624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +292,14 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      anh (93)_0: 125707581
+      anh (93)_1: 630672142
+      anh (93)_2: 198069480
+      anh (93)_3: 1538742292
+      anh (93)_4: 1052196883
+      anh (93)_5: -1479733740
+      anh (93)_6: 1263828624
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
