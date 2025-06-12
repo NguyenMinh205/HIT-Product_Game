@@ -2,169 +2,209 @@
 using System.Linq;
 using UnityEngine;
 
-public class MapManager : MonoBehaviour
+public class MapManager : Singleton<MapManager>
 {
     [SerializeField] private List<MapData> fightMaps;
     [SerializeField] private List<MapData> bossMaps;
     [SerializeField] private List<MapData> restMaps;
     [SerializeField] private int numFloor;
-    private List<MapData> dungeonSequence = new List<MapData>();
+    private MapData curMap;
     private int currentMapIndex = 0;
-
-    public static MapManager Instance { get; private set; }
 
     private void Awake()
     {
-        Instance = this;
         fightMaps = Resources.LoadAll<MapData>("SO/Fight").ToList();
         bossMaps = Resources.LoadAll<MapData>("SO/Boss").ToList();
         restMaps = Resources.LoadAll<MapData>("SO/Rest").ToList();
-        GenerateDungeonSequence();
         LoadInitialMap();
-    }
-
-    private void GenerateDungeonSequence()
-    {
-        dungeonSequence.Clear();
-
-        // Floor 1: fightMaps[0]
-        if (fightMaps.Count > 0)
-        {
-            dungeonSequence.Add(fightMaps[0]);
-        }
-
-        // Floor 2: bossMaps[0]
-        if (bossMaps.Count > 0)
-        {
-            dungeonSequence.Add(bossMaps[0]);
-        }
-
-        int currentFloor = 3;
-        while (dungeonSequence.Count < numFloor)
-        {
-            MapData previousMap = dungeonSequence.Count > 1 ? dungeonSequence[dungeonSequence.Count - 1] : null;
-
-            if (previousMap != null && previousMap.MapType == EMapType.Bossfight)
-            {
-                // Sau tầng boss, chọn map từ restMaps hoặc fightMaps, không trùng với map trước đó
-                MapData nextMap = GetNextMapExcludingType(previousMap, new[] { EMapType.Bossfight });
-                if (nextMap != null)
-                {
-                    dungeonSequence.Add(nextMap);
-                }
-            }
-            else if (dungeonSequence.Count % 3 == 2 && currentFloor <= numFloor)
-            {
-                // Tầng boss (mỗi 3 tầng)
-                MapData bossMap = null;
-                int bossIndex = currentFloor == numFloor ? 1 : 0;
-                if (bossMaps.Count > bossIndex && bossMaps[bossIndex] != dungeonSequence.LastOrDefault())
-                {
-                    bossMap = bossMaps[bossIndex];
-                }
-                else
-                {
-                    bossMap = GetNextMapExcludingType(previousMap, new[] { EMapType.Bossfight });
-                }
-                if (bossMap != null)
-                {
-                    dungeonSequence.Add(bossMap);
-                }
-                currentFloor += 3; 
-            }
-            else
-            {
-                EMapType nextType = previousMap != null ? previousMap.MapType : EMapType.Fight;
-                MapData nextMap = GetNextMapExcludingType(previousMap, new[] { nextType });
-                if (nextMap != null)
-                {
-                    dungeonSequence.Add(nextMap);
-                }
-            }
-        }
-
-        if (numFloor > 2 && bossMaps.Count > 1 && bossMaps[1] != dungeonSequence.LastOrDefault())
-        {
-            dungeonSequence[numFloor - 1] = bossMaps[bossMaps.Count - 1];
-        }
-
-        Debug.Log("Dungeon Sequence:");
-        foreach (var map in dungeonSequence)
-        {
-            Debug.Log($"Map: {map.MapType}, Name: {map.name}");
-        }
-    }
-
-    private MapData GetNextMapExcludingType(MapData previousMap, EMapType[] excludedTypes)
-    {
-        List<MapData> availableMaps = new List<MapData>();
-        EMapType preferredType = previousMap != null ? (previousMap.MapType == EMapType.Bossfight ? EMapType.Rest : EMapType.Fight) : EMapType.Fight;
-
-        if (!excludedTypes.Contains(preferredType))
-        {
-            switch (preferredType)
-            {
-                case EMapType.Fight:
-                    availableMaps = fightMaps.Where(m => m != previousMap).ToList();
-                    break;
-                case EMapType.Rest:
-                    availableMaps = restMaps.Where(m => m != previousMap).ToList();
-                    break;
-            }
-        }
-
-        // Nếu không có map phù hợp với preferredType, thử các loại khác
-        if (availableMaps.Count == 0)
-        {
-            foreach (EMapType type in new[] { EMapType.Fight, EMapType.Rest })
-            {
-                if (!excludedTypes.Contains(type))
-                {
-                    switch (type)
-                    {
-                        case EMapType.Fight:
-                            availableMaps = fightMaps.Where(m => m != previousMap).ToList();
-                            break;
-                        case EMapType.Rest:
-                            availableMaps = restMaps.Where(m => m != previousMap).ToList();
-                            break;
-                    }
-                    if (availableMaps.Count > 0) break;
-                }
-            }
-        }
-
-        if (availableMaps.Count == 0)
-        {
-            return null; // Hoặc thêm logic fallback nếu cần
-        }
-
-        return availableMaps[Random.Range(0, availableMaps.Count)];
-    }
-
-    public List<MapData> GetDungeonSequence()
-    {
-        return dungeonSequence;
     }
 
     private void LoadInitialMap()
     {
-        dungeonSequence[currentMapIndex].UpdateMapLayout();
-        MapController.Instance.LoadMap(dungeonSequence[currentMapIndex]);
+        if (fightMaps.Count == 0)
+        {
+            Debug.LogError("No fight maps available!");
+            return;
+        }
+        currentMapIndex++;
+        curMap = fightMaps[0];
+        curMap.UpdateMapLayout(); // Xóa danh sách ExitDoors cũ và cập nhật layout
+        MapController.Instance.LoadMap(curMap); // Spawn các đối tượng và thêm ExitTrigger vào curMap.ExitDoors
+        GenerateSequenceMap(); // Bây giờ, curMap.ExitDoors sẽ chứa các ExitTrigger đã spawn và sẵn sàng để gán SubsequentMap
+        Debug.Log($"Initial map loaded: {curMap.MapType} at index {currentMapIndex}");
     }
 
-    public void ProceedToNextMap(int exitIndex = -1)
+    private void GenerateSequenceMap()
+    {
+        if (curMap == null || curMap.ExitDoors == null || curMap.ExitDoors.Count == 0)
+        {
+            Debug.LogError("Map hiện tại hoặc cửa thoát chưa được thiết lập đúng! Không thể tạo chuỗi map.");
+            // Đây có thể là trường hợp bình thường nếu một map không có cửa thoát, tùy thuộc vào thiết kế game
+            return;
+        }
+
+        Debug.Log($"Đang tạo chuỗi map cho tầng {currentMapIndex}, loại: {curMap.MapType}, số cửa thoát: {curMap.NumOfExitDoor}");
+
+        if (currentMapIndex == numFloor - 1)
+        {
+            // Tầng áp chót, dẫn đến Boss cuối
+            if (bossMaps.Count > 0)
+            {
+                MapData finalBossMap = bossMaps[bossMaps.Count - 1];
+                foreach (var exit in curMap.ExitDoors)
+                {
+                    if (exit != null)
+                    {
+                        exit.SubsequentMap = finalBossMap;
+                        Debug.Log($"Tầng {currentMapIndex}: Cửa thoát dẫn đến map Boss cuối: {finalBossMap.MapType}");
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("Không có map Boss cuối nào!");
+            }
+            return;
+        }
+
+        int nextMapIndex = currentMapIndex + 1;
+        bool isBossFloor = (nextMapIndex % 3 == 2); // Ví dụ: tầng 2, 5, 8... là tầng boss
+
+        if (isBossFloor)
+        {
+            // Chọn map Boss cho tầng tiếp theo
+            if (bossMaps.Count > 1) // Cần ít nhất 2 map boss nếu boss cuối là riêng biệt
+            {
+                // Tránh chọn boss cuối nếu đây không phải tầng cuối cùng
+                MapData nextBossMap = bossMaps[Random.Range(0, bossMaps.Count - 1)];
+                foreach (var exit in curMap.ExitDoors)
+                {
+                    if (exit != null)
+                    {
+                        exit.SubsequentMap = nextBossMap;
+                        Debug.Log($"Tầng {currentMapIndex}: Cửa thoát dẫn đến map Boss: {nextBossMap.MapType} cho tầng {nextMapIndex}");
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("Không đủ map Boss để chọn cho tầng Boss!");
+            }
+        }
+        else if (curMap.MapType == EMapType.Bossfight && curMap != bossMaps[bossMaps.Count - 1])
+        {
+            // Nếu map hiện tại là map Boss (nhưng không phải boss cuối) và có nhiều cửa thoát
+            if (curMap.NumOfExitDoor > 1)
+            {
+                if (restMaps.Count > 0 && fightMaps.Count > 0)
+                {
+                    MapData restMap = restMaps[Random.Range(0, restMaps.Count)];
+                    MapData fightMap = fightMaps[Random.Range(0, fightMaps.Count)];
+
+                    // Gán ngẫu nhiên cửa thoát dẫn đến Rest hoặc Fight
+                    int restExitIndex = Random.Range(0, curMap.ExitDoors.Count);
+                    curMap.ExitDoors[restExitIndex].SubsequentMap = restMap;
+
+                    // Gán cửa thoát còn lại (nếu có)
+                    if (curMap.ExitDoors.Count > 1)
+                    {
+                        int fightExitIndex = (restExitIndex + 1) % curMap.ExitDoors.Count; // Đảm bảo chọn cửa khác
+                        curMap.ExitDoors[fightExitIndex].SubsequentMap = fightMap;
+                        Debug.Log($"Tầng {currentMapIndex} (Boss): Cửa {restExitIndex} -> {restMap.MapType}, Cửa {fightExitIndex} -> {fightMap.MapType} cho tầng {nextMapIndex}");
+                    }
+                    else
+                    {
+                        Debug.Log($"Tầng {currentMapIndex} (Boss): Chỉ có 1 cửa thoát -> {restMap.MapType} cho tầng {nextMapIndex}");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Không đủ map Rest hoặc Fight để tạo nhánh cho map Boss!");
+                }
+            }
+            else // Chỉ có một cửa thoát từ map Boss
+            {
+                if (fightMaps.Count > 0)
+                {
+                    MapData nextFightMap = fightMaps[Random.Range(0, fightMaps.Count)];
+                    foreach (var exit in curMap.ExitDoors)
+                    {
+                        if (exit != null)
+                        {
+                            exit.SubsequentMap = nextFightMap;
+                            Debug.Log($"Tầng {currentMapIndex} (Boss): Cửa thoát dẫn đến map Fight: {nextFightMap.MapType} cho tầng {nextMapIndex}");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Không có map Fight nào để nối từ map Boss!");
+                }
+            }
+        }
+        else // Các tầng Fight hoặc Rest thông thường
+        {
+            if (curMap.NumOfExitDoor > 1)
+            {
+                List<MapData> availableFightMaps = new List<MapData>(fightMaps);
+                // Gán ngẫu nhiên các map Fight cho từng cửa thoát
+                for (int i = 0; i < curMap.ExitDoors.Count; i++)
+                {
+                    if (availableFightMaps.Count > 0)
+                    {
+                        int randomIndex = Random.Range(0, availableFightMaps.Count);
+                        MapData nextFightMap = availableFightMaps[randomIndex];
+                        if (curMap.ExitDoors[i] != null)
+                        {
+                            curMap.ExitDoors[i].SubsequentMap = nextFightMap;
+                            Debug.Log($"Tầng {currentMapIndex}: Cửa thoát {i} dẫn đến map Fight: {nextFightMap.MapType} cho tầng {nextMapIndex}");
+                        }
+                        availableFightMaps.RemoveAt(randomIndex);
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Không đủ map Fight để gán cho tất cả các cửa thoát từ tầng {currentMapIndex}. Một số cửa có thể không được gán.");
+                        break;
+                    }
+                }
+            }
+            else // Chỉ có một cửa thoát
+            {
+                if (fightMaps.Count > 0)
+                {
+                    MapData nextFightMap = fightMaps[Random.Range(0, fightMaps.Count)];
+                    foreach (var exit in curMap.ExitDoors)
+                    {
+                        if (exit != null)
+                        {
+                            exit.SubsequentMap = nextFightMap;
+                            Debug.Log($"Tầng {currentMapIndex}: Cửa thoát dẫn đến map Fight: {nextFightMap.MapType} cho tầng {nextMapIndex}");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Không có map Fight nào!");
+                }
+            }
+        }
+    }
+
+    public void ProceedToNextMap(MapData subsequentMap)
     {
         currentMapIndex++;
-        if (currentMapIndex < dungeonSequence.Count)
+        if (currentMapIndex < numFloor)
         {
-            dungeonSequence[currentMapIndex].UpdateMapLayout();
-            MapController.Instance.LoadMap(dungeonSequence[currentMapIndex]);
-            Debug.Log($"Loaded Map: {dungeonSequence[currentMapIndex].MapType} at index {currentMapIndex}");
+            curMap = subsequentMap;
+            curMap.UpdateMapLayout();
+            MapController.Instance.LoadMap(curMap); 
+            GenerateSequenceMap(); 
+            Debug.Log($"Loaded Map: {curMap.MapType} at index {currentMapIndex}");
         }
         else
         {
             Debug.Log("Dungeon completed!");
+            // Thêm logic xử lý khi hoàn thành dungeon ở đây
         }
     }
 }

@@ -10,15 +10,16 @@ public class MapData : ScriptableObject
     [SerializeField] private GameObject mapPrefab;
     [SerializeField] private List<List<EMapTileType>> mapLayout = new List<List<EMapTileType>>();
     [SerializeField] private List<TileData> moveTiles;
-    [SerializeField] private int numOfExitDoor;
-    private HashSet<TileData> specialIconTiles; //Lưu các ô đặc biệt để làm phần hiển thị xem cửa sau (tầng sau) sẽ có những ô nào
+    private int numOfExitDoor = 0;
+    private List<ExitTrigger> exitDoors = new List<ExitTrigger>();
 
     public EMapType MapType => mapType;
     public GameObject MapPrefab => mapPrefab;
     public List<List<EMapTileType>> MapLayout => mapLayout;
-    public List<TileData> MoveTiles => moveTiles; // Getter cho moveTiles
+    public List<TileData> MoveTiles => moveTiles;
     public BoundsInt TilemapBounds { get; private set; }
     public int NumOfExitDoor => numOfExitDoor;
+    public List<ExitTrigger> ExitDoors => exitDoors;
 
     public void UpdateMapLayout()
     {
@@ -48,6 +49,7 @@ public class MapData : ScriptableObject
         TilemapBounds = bounds;
         Debug.Log($"Tilemap bounds: {bounds}");
         mapLayout.Clear();
+        ClearExitDoors(); // Xóa danh sách cửa thoát cũ và reset số lượng
 
         for (int x = bounds.xMin; x < bounds.xMax; x++)
         {
@@ -87,23 +89,7 @@ public class MapData : ScriptableObject
     {
         if (moveTiles == null || moveTiles.Count == 0)
         {
-            Debug.LogError("There are no special tiles in moveTiles");
-            return;
-        }
-
-        Tilemap tilemap = null;
-        foreach (var t in mapPrefab.GetComponentsInChildren<Tilemap>())
-        {
-            if (t.CompareTag("MapFloor"))
-            {
-                tilemap = t;
-                break;
-            }
-        }
-
-        if (tilemap == null)
-        {
-            Debug.LogError("No Tilemap found in map prefab for spawning objects!");
+            Debug.LogError("Không có tile đặc biệt nào trong moveTiles");
             return;
         }
 
@@ -111,14 +97,14 @@ public class MapData : ScriptableObject
         {
             if (tile == null)
             {
-                Debug.LogWarning("TileData is null in moveTiles entry!");
+                Debug.LogWarning("TileData là null trong moveTiles entry!");
                 continue;
             }
 
             int layoutX = tile.position.x - bounds.xMin;
             int layoutY = tile.position.y - bounds.yMin;
 
-            Debug.Log($"Tilemap Pos ({tile.position.x}, {tile.position.y}) -> MapLayout Index ({layoutX}, {layoutY})");
+            Debug.Log($"Vị trí Tilemap ({tile.position.x}, {tile.position.y}) -> Chỉ số MapLayout ({layoutX}, {layoutY})");
 
             if (layoutX >= 0 && layoutX < mapLayout.Count &&
                 layoutY >= 0 && layoutY < mapLayout[layoutX].Count)
@@ -126,28 +112,43 @@ public class MapData : ScriptableObject
                 if (mapLayout[layoutX][layoutY] == EMapTileType.Empty)
                 {
                     mapLayout[layoutX][layoutY] = tile.tileType;
-                    Debug.Log($"Special Tile set at Tilemap Pos ({tile.position.x}, {tile.position.y}) -> MapLayout Index ({layoutX}, {layoutY}) to {tile.tileType}");
+                    Debug.Log($"Đặt tile đặc biệt tại Vị trí Tilemap ({tile.position.x}, {tile.position.y}) -> Chỉ số MapLayout ({layoutX}, {layoutY}) thành {tile.tileType}");
                 }
                 else
                 {
-                    Debug.LogWarning($"Cannot set Special Tile at Tilemap Pos ({tile.position.x}, {tile.position.y}) -> MapLayout Index ({layoutX}, {layoutY}) because it is {mapLayout[layoutX][layoutY]} (not Empty)");
+                    Debug.LogWarning($"Không thể đặt tile đặc biệt tại Vị trí Tilemap ({tile.position.x}, {tile.position.y}) -> Chỉ số MapLayout ({layoutX}, {layoutY}) vì nó là {mapLayout[layoutX][layoutY]} (không phải Empty)");
                 }
             }
             else
             {
-                Debug.LogWarning($"Tilemap Position ({tile.position.x}, {tile.position.y}) -> MapLayout Index ({layoutX}, {layoutY}) is out of map bounds!");
+                Debug.LogWarning($"Vị trí Tilemap ({tile.position.x}, {tile.position.y}) -> Chỉ số MapLayout ({layoutX}, {layoutY}) vượt ra ngoài giới hạn map!");
             }
         }
 
-        Debug.Log("Map Layout after setting special tiles:");
+        Debug.Log("Map Layout sau khi đặt tile đặc biệt:");
         for (int x = 0; x < mapLayout.Count; x++)
         {
-            string row = $"Row {x}: ";
+            string row = $"Hàng {x}: ";
             for (int y = 0; y < mapLayout[x].Count; y++)
             {
                 row += mapLayout[x][y].ToString() + " ";
             }
             Debug.Log(row);
         }
+    }
+
+    public void AddSpawnedExitTrigger(ExitTrigger exitTrigger)
+    {
+        if (exitTrigger != null && !exitDoors.Contains(exitTrigger))
+        {
+            exitDoors.Add(exitTrigger);
+            numOfExitDoor++; 
+        }
+    }
+
+    public void ClearExitDoors()
+    {
+        exitDoors.Clear();
+        numOfExitDoor = 0;
     }
 }

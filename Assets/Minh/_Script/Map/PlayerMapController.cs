@@ -2,7 +2,7 @@
 using UnityEngine.Tilemaps;
 using System.Collections;
 
-public class PlayerController : Singleton<PlayerController>
+public class PlayerMapController : Singleton<PlayerMapController>
 {
     [SerializeField] private Vector2Int posInGrid;
     [SerializeField] private float moveDelay = 0.2f;
@@ -37,22 +37,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Update()
     {
-        if (isMoving || tilemap == null || currentMapData == null)
-        {
-            if (isMoving)
-            {
-                Debug.Log("Bug1");
-            }
-            else if (currentMapData == null)
-            {
-                Debug.Log("Bug2");
-            }
-            else if (tilemap == null)
-            {
-                Debug.Log("Bug3");
-            }
-            return;
-        }
+        if (isMoving || tilemap == null || currentMapData == null) return;
         if (Input.GetKeyDown(KeyCode.W))
         {
             TryMove(new Vector2Int(0, 1));

@@ -33,4 +33,3 @@ MonoBehaviour:
   - position: {x: 3, y: 2}
     tileType: 3
     tileIcon: {fileID: 1211223219111615406, guid: 39b66db3832de8141ba7c3620fc867f2, type: 3}
-  numOfExitDoor: 2
