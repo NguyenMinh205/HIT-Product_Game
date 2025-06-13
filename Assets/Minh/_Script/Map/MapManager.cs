@@ -193,7 +193,7 @@ public class MapManager : Singleton<MapManager>
     public void ProceedToNextMap(MapData subsequentMap)
     {
         currentMapIndex++;
-        if (currentMapIndex < numFloor)
+        if (currentMapIndex <= numFloor)
         {
             curMap = subsequentMap;
             curMap.UpdateMapLayout();
