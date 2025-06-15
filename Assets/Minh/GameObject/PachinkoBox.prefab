@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4722253106174184908}
   m_Layer: 0
-  m_Name: BucketLeftLimit
+  m_Name: BasketLeftLimit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -511,7 +511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1881424274548561610}
   m_Layer: 0
-  m_Name: BucketRightLimit
+  m_Name: BasketRightLimit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
