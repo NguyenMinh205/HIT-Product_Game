@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -106,9 +106,1064 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: anh (72)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1822
+        width: 130
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ad22c139b3afcf4b9f36e549a483b4f
+      internalID: 437986115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_1
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 1685
+        width: 98
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 493740842f08f194a8ab866295528fec
+      internalID: -759337283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_2
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 1687
+        width: 100
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e090ea18d84265742b844f843a3eeb90
+      internalID: -874872502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_3
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 1561
+        width: 129
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01ccea09d224c0f46946a8e10bbdb671
+      internalID: -893837133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1431
+        width: 256
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b9547fe5ff3c3949a19a1cec2e1455a
+      internalID: -264000031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_5
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 1433
+        width: 116
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15cbdb82bcd395d408cdaa5f042a1c65
+      internalID: -79566074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_6
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 1549
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50409215c69f303418236a887add89ef
+      internalID: -1968691313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_7
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 1440
+        width: 89
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75dd16e444cd76f419f55b748287733a
+      internalID: 635229282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_8
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 1415
+        width: 113
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ca568ec639cf894e8004d176b5ae55a
+      internalID: 967749342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_9
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 1411
+        width: 129
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9eb43aefce7ebe4d8151c05a27515a2
+      internalID: 719081934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1169
+        width: 255
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9933e8f81eda2da41a92c6bb43048609
+      internalID: -809620027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_11
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 1169
+        width: 257
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a317691c1bb53464898fe0b9fc94db2b
+      internalID: 252314940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_12
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 1172
+        width: 253
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c933921ef7af04c4c8428e1c983791c2
+      internalID: -1634549706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_13
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 1168
+        width: 261
+        height: 238
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cab6fafdcdd941d409d24a0a215a70e5
+      internalID: 1278823330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_14
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 1296
+        width: 101
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 094c1c9c004240742be13de3c58a413c
+      internalID: -739383194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_15
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 1174
+        width: 114
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43483fdf9b1cb2d458f8e713f60ba2d9
+      internalID: -1960981981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_16
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 1049
+        width: 116
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff52ffd98ed5ccc448cf5a787a4cfb72
+      internalID: -1241713608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_17
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 1046
+        width: 75
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 997f8e71950996a4b88b24505b336d99
+      internalID: 406521486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_18
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 1037
+        width: 101
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dad38b44382e6b045aef9eb08d4adbc1
+      internalID: -1373131549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_19
+      rect:
+        serializedVersion: 2
+        x: 1461
+        y: 914
+        width: 79
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f135dfe315356084db19a2e97b379009
+      internalID: 1474442892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_20
+      rect:
+        serializedVersion: 2
+        x: 1567
+        y: 910
+        width: 127
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecb69c45f0851f24a958b90a6fd3132a
+      internalID: 1166889029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_21
+      rect:
+        serializedVersion: 2
+        x: 1319
+        y: 919
+        width: 95
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36dc00ee2c14e53428431c84ac2d26e4
+      internalID: -502617107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_22
+      rect:
+        serializedVersion: 2
+        x: 1185
+        y: 917
+        width: 101
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c20e4d7651953a49ad2735df977661b
+      internalID: -1235907617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_23
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 917
+        width: 128
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84b3454424eeeb343b40e601fc7cbd18
+      internalID: 1177605202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_24
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 915
+        width: 257
+        height: 249
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acd09d3d64400cf4a8b95579428552a2
+      internalID: -829107838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_25
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 909
+        width: 260
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b32911e5f58d70e448fdfaba7e943039
+      internalID: -182623949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_26
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 932
+        width: 257
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6dafa29bfd47e246962fb6d65c610f5
+      internalID: 944295484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_27
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 928
+        width: 241
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9701a812a88efd340b41822002e8d051
+      internalID: -566718057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_28
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 613
+        width: 278
+        height: 287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48564372bb0751841a3ca600544f68eb
+      internalID: 1470193983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_29
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 611
+        width: 277
+        height: 290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e4b77b8c463cf646a65001c8eba8ad9
+      internalID: -2053801414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_30
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 611
+        width: 276
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60a3a9bdfbbbeaa4689cee36114625ab
+      internalID: -1738685586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_31
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 612
+        width: 281
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a14f49e41212d294db999a5d213e152d
+      internalID: 1428850672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_32
+      rect:
+        serializedVersion: 2
+        x: 1181
+        y: 611
+        width: 279
+        height: 293
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0ed31c7c3a348847a7677fdde387e0a
+      internalID: 138033577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_33
+      rect:
+        serializedVersion: 2
+        x: 1490
+        y: 610
+        width: 259
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 150c9124d85b2d140820e789ccf65d50
+      internalID: 1933113820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_34
+      rect:
+        serializedVersion: 2
+        x: 1762
+        y: 531
+        width: 256
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faf91705f03a3d342a9497d4a9f3221c
+      internalID: -350941476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_35
+      rect:
+        serializedVersion: 2
+        x: 1765
+        y: 261
+        width: 257
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c41131229c877594398fc24fa1bf2b60
+      internalID: -938734080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_36
+      rect:
+        serializedVersion: 2
+        x: 1763
+        y: 0
+        width: 259
+        height: 261
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc2d34ca4ca3fa74c9c58c1e44484c08
+      internalID: 948437648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_37
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 307
+        width: 278
+        height: 291
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e1811f3189144544b49092b52c4ba48
+      internalID: -273809632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_38
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 306
+        width: 287
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca8fffbb86bf3b14d83ca6fbff71693a
+      internalID: 598651082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_39
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 314
+        width: 261
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd5f2ae11303979479a0a8db6150aab9
+      internalID: -1743804709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_40
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 308
+        width: 282
+        height: 285
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86b19592bdca91f4b8b54077a87eeb2e
+      internalID: 1627116486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_41
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 311
+        width: 282
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 729f2dbcb11cc634fa0e7c68a05a41b2
+      internalID: 165747593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_42
+      rect:
+        serializedVersion: 2
+        x: 1477
+        y: 305
+        width: 278
+        height: 293
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1db8239abf598234080d5be4dff84bd5
+      internalID: 1974701739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_43
+      rect:
+        serializedVersion: 2
+        x: 1475
+        y: 0
+        width: 283
+        height: 297
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 338d72e46e19e07418997c054832db46
+      internalID: -1229276024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_44
+      rect:
+        serializedVersion: 2
+        x: 1171
+        y: 3
+        width: 294
+        height: 299
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93391cbee7c06c048afba10864ec8ffd
+      internalID: 1981666765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_45
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 0
+        width: 291
+        height: 297
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1435908ada3f182408740375439b76f6
+      internalID: -1334392108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_46
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 0
+        width: 290
+        height: 297
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 321bd0d1acccbeb40b029808c6ad305f
+      internalID: -1080527447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_47
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 0
+        width: 282
+        height: 291
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 001ae7e7cf8dfaa47b2a55772d085ff1
+      internalID: 1122897773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (72)_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 291
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2126c641903b4043918ba0388cffda6
+      internalID: -2060755399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +1174,56 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      anh (72)_0: 437986115
+      anh (72)_1: -759337283
+      anh (72)_10: -809620027
+      anh (72)_11: 252314940
+      anh (72)_12: -1634549706
+      anh (72)_13: 1278823330
+      anh (72)_14: -739383194
+      anh (72)_15: -1960981981
+      anh (72)_16: -1241713608
+      anh (72)_17: 406521486
+      anh (72)_18: -1373131549
+      anh (72)_19: 1474442892
+      anh (72)_2: -874872502
+      anh (72)_20: 1166889029
+      anh (72)_21: -502617107
+      anh (72)_22: -1235907617
+      anh (72)_23: 1177605202
+      anh (72)_24: -829107838
+      anh (72)_25: -182623949
+      anh (72)_26: 944295484
+      anh (72)_27: -566718057
+      anh (72)_28: 1470193983
+      anh (72)_29: -2053801414
+      anh (72)_3: -893837133
+      anh (72)_30: -1738685586
+      anh (72)_31: 1428850672
+      anh (72)_32: 138033577
+      anh (72)_33: 1933113820
+      anh (72)_34: -350941476
+      anh (72)_35: -938734080
+      anh (72)_36: 948437648
+      anh (72)_37: -273809632
+      anh (72)_38: 598651082
+      anh (72)_39: -1743804709
+      anh (72)_4: -264000031
+      anh (72)_40: 1627116486
+      anh (72)_41: 165747593
+      anh (72)_42: 1974701739
+      anh (72)_43: -1229276024
+      anh (72)_44: 1981666765
+      anh (72)_45: -1334392108
+      anh (72)_46: -1080527447
+      anh (72)_47: 1122897773
+      anh (72)_48: -2060755399
+      anh (72)_5: -79566074
+      anh (72)_6: -1968691313
+      anh (72)_7: 635229282
+      anh (72)_8: 967749342
+      anh (72)_9: 719081934
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
