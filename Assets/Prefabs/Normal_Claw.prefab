@@ -81,11 +81,11 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.203125, y: 0.390625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!50 &6533845370915453982
 Rigidbody2D:
@@ -255,11 +255,11 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.42578125, y: 0.51171875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!50 &1638626005407481361
 Rigidbody2D:
@@ -358,7 +358,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3625953562923524764}
   - component: {fileID: 5647395534873177348}
-  - component: {fileID: 2486241722865497531}
+  - component: {fileID: 2421454289696701213}
   m_Layer: 0
   m_Name: Normal_Claw
   m_TagString: Untagged
@@ -409,7 +409,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f41f30e63c1a31248a9b76a0d66753e0, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -429,10 +429,10 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 49
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 3, z: 0}
+  - {x: 0, y: 6, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -453,8 +453,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -492,7 +492,7 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &2486241722865497531
+--- !u!114 &2421454289696701213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -501,7 +501,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1841333122336908448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5154383274c087c45a1149991649c02f, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cca4e773f1a3af4d9f4bf0e865db676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   line: {fileID: 5647395534873177348}
@@ -509,7 +509,12 @@ MonoBehaviour:
   leftClaw: {fileID: 3083241599730975898}
   rightClaw: {fileID: 6198034291828331679}
   chain: {fileID: 3416199474586163638}
-  isOpen: 0
+  lowLimit: {fileID: 0}
+  leftLimit: {fileID: 0}
+  rightLimit: {fileID: 0}
+  posStartClaw: {fileID: 0}
+  posStopClaw: {fileID: 0}
+  posMove: {x: 0, y: 0, z: 0}
   closeAngle: 45
   clawStrength: 25
 --- !u!1 &2501649019306243746
@@ -593,11 +598,11 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5859375, y: 0.75}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!50 &6133165890277049621
 Rigidbody2D:
@@ -688,7 +693,7 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.5859375, y: 0.75}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 0.5859375, y: 0.75}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -803,11 +808,11 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.35546875, y: 0.37109375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!50 &590516413203668722
 Rigidbody2D:
@@ -952,11 +957,11 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.203125, y: 0.390625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!50 &4327808980365642425
 Rigidbody2D:
@@ -1126,11 +1131,11 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.35546875, y: 0.37109375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!50 &1001881223527669010
 Rigidbody2D:
@@ -1300,11 +1305,11 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5703125, y: 0.7578125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!50 &5682600278566003732
 Rigidbody2D:
@@ -1395,7 +1400,7 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.5703125, y: 0.7578125}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 0.5703125, y: 0.7578125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

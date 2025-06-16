@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -9,9 +10,11 @@ public enum ModeClaw
 {
     Wait,
     Start,
+    AutoMove,
     Use,
     PickUp,
-    End
+    End,
+    DeSpawn
 }
 public class ClawMachine : MonoBehaviour
 {
@@ -21,14 +24,22 @@ public class ClawMachine : MonoBehaviour
     [SerializeField] private HingeJoint2D rightClaw;
     [SerializeField] private GameObject chain;
 
+    [Space]
+    [Header("ClawLimits")]
+    //[SerializeField] private Transform topLimit;
+    public GameObject lowLimit;
+    public GameObject leftLimit;
+    public GameObject rightLimit;
+
+    [Space]
+    [Header("Position")]
+    public Transform posStartClaw;
+    public Transform posStopClaw;
+    public Vector3 posMove;
+
     private ModeClaw mode;
     private float moveForce = 5f;
-    private bool isMove;
-    public bool isOpen;
-    private bool isUp;
-    private bool isDown;
-    private int moves;
-    private List<Vector3> movePos;
+
     [SerializeField] private float closeAngle = 45f;
     [SerializeField] private float clawStrength = 25f;
 
@@ -37,120 +48,156 @@ public class ClawMachine : MonoBehaviour
         get => mode;
         set => mode = value;
     }
-    public int Move
-    {
-        get => moves;
-    }
+
     private void Awake()
     {
-        movePos = new List<Vector3>();
-        mode = ModeClaw.Wait;
-        isDown = false;
-        isUp = true;
+
     }
 
     private void Update()
     {
-        MoveLime();
-        
-        AutoMove();
+        MoveLine();
 
-        MoveClaw();
+        Claw();
+    }
 
-        PickUp();
+    public void Claw()
+    {
+        switch(mode)
+        {
+            case ModeClaw.Wait:
+                break;
 
-        CheckDeSpawn();
+            case ModeClaw.Start:
+                StartClaw();
+                break;
+
+            case ModeClaw.AutoMove:
+                AutoMove();
+                break;
+
+            case ModeClaw.Use:
+                MoveClaw();
+                CheckPickUp();
+                break;
+
+            case ModeClaw.PickUp:
+                PickUp();
+                break;
+
+            case ModeClaw.End:
+                EndClaw();
+                break;
+
+            case ModeClaw.DeSpawn:
+                DeSpawn();
+                break;
+
+        }
     }
 
     public void MoveClaw()
     {
-        if (mode != ModeClaw.Use) return;
-
         float pessHorizotal = Input.GetAxis("Horizontal");
-        
-        if(pessHorizotal != 0 )
+
+        if (pessHorizotal != 0)
         {
-            rb.velocity = new Vector2 (pessHorizotal * moveForce , rb.velocity.y);
+            CheckPosLimit(pessHorizotal);
         }
         else
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
-    public void MoveLime()
+    public void CheckPosLimit(float pressHorizontal)
+    {
+        if(pressHorizontal > 0)
+        {
+            if(chain.transform.position.x <= rightLimit.transform.position.x)
+                rb.velocity = new Vector2(pressHorizontal * moveForce, rb.velocity.y);
+            else
+                rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+        if(pressHorizontal < 0)
+        {
+            if (chain.transform.position.x >= leftLimit.transform.position.x)
+                rb.velocity = new Vector2(pressHorizontal * moveForce, rb.velocity.y);
+            else
+                rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+    }
+    public void MoveLine()
     {
         Vector3 currentPos = line.GetPosition(0);
 
-        Transform chain = rb.GetComponent<Transform>();
+        line.SetPosition(0, new Vector3(chain.transform.position.x, chain.transform.position.y, currentPos.z));
+        line.SetPosition(1, new Vector3(chain.transform.position.x, chain.transform.position.y + 6, currentPos.z));
+    }
 
-        line.SetPosition(0, new Vector3(chain.position.x, chain.position.y, currentPos.z));
-        line.SetPosition(1, new Vector3(chain.position.x, chain.position.y + 3, currentPos.z));
-    }
-    public void SetMovePos(Vector3 pos)
-    {
-        movePos.Add(pos);
-    }
     public void AutoMove()
     {
-        if (movePos.Count == 0)
+        if(chain.transform.position.x < posMove.x)
         {
-            isMove = false;
-            return;
-        }
-        else
-            isMove = true;
-
-        Vector3 pos1 = chain.transform.position;
-        Vector3 pos2 = movePos[0];
-        pos1.z = 0;
-        pos2.z = 0;
-        if (Vector3.Distance(pos1, pos2) > 0.1f)
-        {
-            rb.velocity = (movePos[0] - chain.transform.position).normalized * moveForce;
+            rb.velocity = Vector2.right * moveForce;
         }
         else
         {
-            movePos.RemoveAt(0);
-            moves++;
-            rb.velocity = Vector3.zero;
-            CheckMoves();
+            rb.velocity = Vector2.zero;
+            mode = ModeClaw.Wait;
         }
     }
-    public void StartClaw(Vector3 posStart)
+    public void StartClaw()
     {
-        moves = 0;
-        mode = ModeClaw.Start;
-        SetMovePos(posStart);
-        Vector3 pos = posStart;
-        pos.y -= 1f;
-        SetMovePos(pos);
-    }
-    public void EndClaw(Vector3 posEnd)
-    {
-        SetMovePos(posEnd);
-        Vector3 pos = posEnd;
-        pos.y += 5f;
-        StartCoroutine(DelaOpen(1.25f));
-        StartCoroutine(DelayDeSpawn(3f, pos));
-    }
-    public void CheckMoves()
-    {
-        if (moves == 2 && mode == ModeClaw.Start)
+        if (chain.transform.position.x <= posStartClaw.position.x)
+            rb.velocity = Vector2.right * moveForce;
+        else if (chain.transform.position.y > posStartClaw.position.y)
         {
+            rb.velocity = Vector2.down * moveForce;
+        }
+        else if (chain.transform.position.y <= posStartClaw.position.y)
+        {
+            OpenClaw();
+            rb.velocity = new Vector2(0, 0);
             mode = ModeClaw.Use;
-            SetClaw(true);
+        }
+    }
+    public void EndClaw()
+    {
+        if (chain.transform.position.x <= posStopClaw.position.x)
+            rb.velocity = Vector2.right * moveForce;
+        else if (chain.transform.position.y < posStopClaw.position.y)
+        {
+            rb.velocity = Vector2.zero * moveForce;
+            StartCoroutine(DelaOpen(1.2f));
+        }
+    }
+    public void DeSpawn()
+    {
+        if (chain.transform.position.y < posStopClaw.position.y)
+        {
+            rb.velocity = Vector2.up * moveForce;
+        }
+        else
+            DeSpawnClaw();
+    }
+    public void CheckPickUp()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            mode = ModeClaw.PickUp;
         }
     }
     public void PickUp()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && mode == ModeClaw.Use && !isDown && isUp)
+        Debug.Log("Pick Up");
+        if(chain.transform.position.y > lowLimit.transform.position.y)
         {
-            Vector3 pos = new Vector3(chain.transform.position.x, chain.transform.position.y - 2.2f, 0f);
-            SetMovePos(pos);
-            mode = ModeClaw.PickUp;
-            isDown = true;
-            isUp = false;
-            StartCoroutine(DelayPickUp(2f));
+            rb.velocity = Vector2.down * moveForce;
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+            StartCoroutine(DelayPickUp(1.5f));
         }
     }
 
@@ -158,42 +205,34 @@ public class ClawMachine : MonoBehaviour
     {
         leftClaw.useMotor = isClaw;
         rightClaw.useMotor = isClaw;
-        isOpen = true;
     }
-    public void CheckDeSpawn()
+    public void DeSpawnClaw()
     {
-        if (chain.transform.position.y > 5f)
-            PoolingManager.Despawn(gameObject);
+        Debug.Log("DeSpawn");
+        PoolingManager.Despawn(gameObject);
     }
 
     IEnumerator DelayPickUp(float time)
     {
+        CloseClaw();
         yield return new WaitForSeconds(time);
 
-        CloseClaw();
-        //SetClawStrength(0f);
-        if(isDown && !isUp)
+        if(chain.transform.position.y < posStartClaw.position.y)
         {
-            SetMovePos(new Vector3(chain.transform.position.x, chain.transform.position.y + 2.5f, 0f));
-            isDown = false;
-            isUp = true;
+            rb.velocity = Vector2.up * moveForce;
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+            mode = ModeClaw.End;
         }
 
-        mode = ModeClaw.End;
-    }
-    IEnumerator DelayDeSpawn(float time, Vector3 pos)
-    {
-        yield return new WaitForSeconds(time);
-        SetMovePos(pos);
     }
     IEnumerator DelaOpen(float time)
     {
+        OpenClaw();
         yield return new WaitForSeconds(time);
-        if (!isOpen)
-        {
-            //SetClawStrength(clawStrength);
-            OpenClaw();
-        }
+        mode = ModeClaw.DeSpawn;
     }
 
     public void OpenClaw()
@@ -208,7 +247,7 @@ public class ClawMachine : MonoBehaviour
         motor.motorSpeed = -50f;
         motor.maxMotorTorque = 50f;
         rightClaw.motor = motor;
-        isOpen = true;
+
     }
     public void CloseClaw()
     {
@@ -222,29 +261,6 @@ public class ClawMachine : MonoBehaviour
         motor.motorSpeed = 50f;
         motor.maxMotorTorque = 10000f;
         rightClaw.motor = motor;
-        isOpen = false;
-    }
 
-    private void SetClawStrength(float strength)
-    {
-        if (leftClaw == null || rightClaw == null) return;
-
-        var leftMotor = leftClaw.motor;
-        var rightMotor = rightClaw.motor;
-        if (strength > 0)
-        {
-            leftMotor.motorSpeed = strength * closeAngle;
-            rightMotor.motorSpeed = -strength * closeAngle;
-        }
-        else
-        {
-            leftMotor.motorSpeed = -closeAngle * 2;
-            rightMotor.motorSpeed = closeAngle * 2;
-        }
-        leftMotor.maxMotorTorque = clawStrength;
-        rightMotor.maxMotorTorque = clawStrength;
-        leftClaw.motor = leftMotor;
-        rightClaw.motor = rightMotor;
-        leftClaw.useMotor = true;
     }
 }

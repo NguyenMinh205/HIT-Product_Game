@@ -8,6 +8,7 @@ public class ClawController : MonoBehaviour
     [Header("Claw")]
     [SerializeField] private List<ClawMachine> claws;
     [SerializeField] private ClawMachine clawPrefabs;
+    [SerializeField] private int quantityClaws;
 
     [Space]
     [Header("Position")]
@@ -16,14 +17,25 @@ public class ClawController : MonoBehaviour
     [SerializeField] private List<Transform> posSpawnClaws;
     [SerializeField] private Transform ClawParent;
 
+    [Space]
+    [Header("Limits")]
+    [SerializeField] private GameObject leftClawLimit;
+    [SerializeField] private GameObject rightClawLimit;
+    [SerializeField] private GameObject lowClawLimit;
+
 
     private ClawMachine currentClaw;
     private ClawMachine endClaw;
     private bool isCurrent;
+    private bool isStart;
 
-    private void Start()
+    public bool IsStart
     {
-        ResetMachineClaw();
+        set => this.isStart = value;
+    }
+    private void Awake()
+    {
+        this.isStart = false;
     }
     private void Update()
     {
@@ -31,6 +43,8 @@ public class ClawController : MonoBehaviour
     }
     public void Execute()
     {
+        if (!isStart) return;
+        
         if (GameController.Instance.Turn == TurnPlay.Enemy)  return;
 
         if(GameController.Instance.IsChange01)
@@ -43,14 +57,21 @@ public class ClawController : MonoBehaviour
         {
             ChangeClaw();
         }
+        else if(currentClaw.Mode == ModeClaw.DeSpawn)
+        {
+            ChangeClaw();
+        }
         
-        CheckCurrentClaw();
+        //CheckCurrentClaw();
 
-        SetTurnPlayer();
     }
     public void ChangeClaw()
     {
-        if (claws.Count == 0) return;
+        if (claws.Count == 0)
+        {
+            checkNextTurn();
+            return;
+        }
 
         currentClaw = claws[0];
         StartClaw();
@@ -60,49 +81,46 @@ public class ClawController : MonoBehaviour
     }
     public void StartClaw()
     {
-        currentClaw.StartClaw(posStartClaw.position);
+        currentClaw.Mode = ModeClaw.Start;
     }
     public void CheckCurrentClaw()
     {
-        if(currentClaw.Mode == ModeClaw.End)
-        {
-            if(currentClaw.Move == 4)
-                currentClaw.EndClaw(posEndClaw.position);
-            if(currentClaw.Move == 5)
-            {
-                ChangeClaw();
-            }
-        }
+        
     }
     public void SetPosClaw()
     {
         for(int i = 0; i < claws.Count; i++)
         {
-            claws[i].SetMovePos(posSpawnClaws[i].position);
+            claws[i].posMove = posSpawnClaws[i].position;
+            claws[i].Mode = ModeClaw.AutoMove;
         }
     }
     public void ResetMachineClaw()
     {
+        Debug.Log("Reset Claw Machine");
         claws.Clear();
         Spawn();
     }
-    public void SetTurnPlayer()
-    {
-        if(claws.Count == 0)
-        {
-            GameController.Instance.Turn = TurnPlay.Enemy;
-        }
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            GameController.Instance.Turn = TurnPlay.Player;
-        }
-    }
     public void Spawn()
     {
-        for (int i = 0; i < posSpawnClaws.Count; i++)
+        for (int i = 0; i < quantityClaws ; i++)
         {
             ClawMachine newClaw = PoolingManager.Spawn(clawPrefabs, posSpawnClaws[i].position, Quaternion.identity, ClawParent);
+            newClaw.leftLimit = leftClawLimit;
+            newClaw.rightLimit = rightClawLimit;
+            newClaw.posStartClaw = posStartClaw;
+            newClaw.lowLimit = lowClawLimit;
+            newClaw.posStopClaw = posEndClaw;
             claws.Add(newClaw);
         }
     }
+
+    public void checkNextTurn()
+    {
+        if (claws.Count == 0 && currentClaw == null)
+        {
+            GameController.Instance.Turn = TurnPlay.Enemy;
+        }
+    }
+
 }
