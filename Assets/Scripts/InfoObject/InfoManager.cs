@@ -12,6 +12,7 @@ public class InfoManager : MonoBehaviour
 
     [Space]
     [Header("Hp")]
+    [SerializeField] private GameObject image;
     [SerializeField] private Image imageHp;
     [SerializeField] private TextMeshProUGUI textHp;
 

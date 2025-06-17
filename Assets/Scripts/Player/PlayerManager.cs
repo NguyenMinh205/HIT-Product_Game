@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour
     public void SpawnPlayer()
     {
         currentPlayer = PoolingManager.Spawn(playerPrefabs, posSpawnPlayer.position, Quaternion.identity);
+        ObserverManager<IDInfoObject>.PostEven(IDInfoObject.ShowInfo, posSpawnPlayer.position);
     }
 
 }

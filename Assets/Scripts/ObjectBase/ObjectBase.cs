@@ -46,6 +46,9 @@ public class ObjectBase : MonoBehaviour
 
         hp -= finalDamage;
 
+        ObserverManager<IDInfoObject>.PostEven(IDInfoObject.UpdateHp, null);
+        ObserverManager<IDInfoObject>.PostEven(IDInfoObject.UpdateArmor, null);
+
         if (hp <= 0)
         {
             Die();

@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
         for(int i=0;i<enemys;i++)
         {
             Enemy newEnemy = PoolingManager.Spawn(enemyPrefab, listPosSpawnEnemy[i].position, Quaternion.identity, enemyParent);
+            ObserverManager<IDInfoObject>.PostEven(IDInfoObject.ShowInfo, listPosSpawnEnemy[i].position);
             listenemy.Add(newEnemy);
         }
     }

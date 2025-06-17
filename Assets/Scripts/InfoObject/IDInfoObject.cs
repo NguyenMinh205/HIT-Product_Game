@@ -6,4 +6,5 @@ public enum IDInfoObject
 {
     UpdateHp,
     UpdateArmor,
+    ShowInfo
 }
