@@ -11,7 +11,9 @@ public class PachinkoClaw : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float closeAngle = 45f;
     [SerializeField] private float clawStrength = 100f;
+    private float offsetItem;
     private bool isOpen;
+    private bool isMoving;
     private PachinkoMachine machine;
 
     public Transform ItemPosition => itemPosition;
@@ -20,22 +22,39 @@ public class PachinkoClaw : MonoBehaviour
     {
         machine = pachinkoMachine;
         transform.position = spawnPos;
+        offsetItem = slider.transform.position.y - itemPosition.transform.position.y;
         SetClawStrength(0);
         isOpen = false;
+        isMoving = false;
+        if (slider != null)
+            slider.freezeRotation = true;
     }
 
     public void Update()
     {
-        if (isOpen || machine.State != GameState.Movingclaw) return;
+        if (isOpen || machine.State != PachinkoState.Movingclaw) return;
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && machine.LeftClawLimit.position.x < slider.transform.position.x)
+        {
             MoveLeft();
-        else if (Input.GetKey(KeyCode.D))
+            isMoving = true;
+        }
+        else if (Input.GetKey(KeyCode.D) && machine.RightClawLimit.position.x > slider.transform.position.x)
+        {
             MoveRight();
-        else if (slider != null)
-            slider.velocity = new Vector2(0f, slider.velocity.y);
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+            if (slider != null)
+            {
+                slider.velocity = new Vector2(0f, slider.velocity.y); 
+                slider.angularVelocity = 0f; 
+            }
+        }
 
-        if (Input.GetKeyDown(KeyCode.Space) && machine.State == GameState.Movingclaw)
+        if (Input.GetKeyDown(KeyCode.Space) && machine.State == PachinkoState.Movingclaw && !isMoving)
         {
             StartCoroutine(OpenClaw());
             machine.DropItem();
@@ -57,6 +76,8 @@ public class PachinkoClaw : MonoBehaviour
     private IEnumerator OpenClaw()
     {
         isOpen = true;
+        if (itemPosition != null)
+            itemPosition.position = new Vector3(slider.transform.position.x, slider.transform.position.y - offsetItem, 0);
         SetClawStrength(clawStrength);
         yield return new WaitForSeconds(1f);
         SetClawStrength(0);
@@ -73,16 +94,19 @@ public class PachinkoClaw : MonoBehaviour
         {
             leftMotor.motorSpeed = strength * closeAngle;
             rightMotor.motorSpeed = -strength * closeAngle;
+            leftClaw.useMotor = true;
+            rightClaw.useMotor = true;
         }
         else
         {
             leftMotor.motorSpeed = -closeAngle * 2;
             rightMotor.motorSpeed = closeAngle * 2;
+            leftClaw.useMotor = false;
+            rightClaw.useMotor = false;
         }
         leftMotor.maxMotorTorque = clawStrength;
         rightMotor.maxMotorTorque = clawStrength;
         leftClaw.motor = leftMotor;
         rightClaw.motor = rightMotor;
-        leftClaw.useMotor = strength > 0;
     }
 }
