@@ -11,6 +11,11 @@ public class PlayerManager : MonoBehaviour
 
     private Player currentPlayer;
 
+    public Player CurrentPlayer
+    {
+        get => currentPlayer;
+    }
+
     public Vector3 PosPlayer
     {
         get => currentPlayer.transform.position;
@@ -18,7 +23,7 @@ public class PlayerManager : MonoBehaviour
     public void SpawnPlayer()
     {
         currentPlayer = PoolingManager.Spawn(playerPrefabs, posSpawnPlayer.position, Quaternion.identity);
-        ObserverManager<IDInfoObject>.PostEven(IDInfoObject.ShowInfo, posSpawnPlayer.position);
+        ObserverManager<IDInfoObject>.PostEven(IDInfoObject.ShowInfo, currentPlayer);
     }
 
 }

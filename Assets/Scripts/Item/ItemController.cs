@@ -2,40 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemController : MonoBehaviour
+public class ItemController : Singleton<ItemController>
 {
     [SerializeField] private List<GameObject> listPosSpawnItem;
-    [SerializeField] private GameObject currentObjectPrefab;
+    [SerializeField] private ItemPrefabs currentObjectPrefab;
     [SerializeField] private Transform itemParent;
 
     [Space]
     [Header("Item")]
-    [SerializeField] private List<GameObject> listItemInBox;
-    [SerializeField] private List<GameObject> listItemInBasket; 
+    [SerializeField] private List<ItemPrefabs> listItemInBox;
+    [SerializeField] private List<ItemPrefabs> listItemInBasket;
 
-    private void Update()
+    [Space]
+    [Header("Data")]
+    [SerializeField] private ItemData data;
+
+    public void Init(ItemPrefabs item)
     {
-        CheckSpawn();
+        int randomNumber = Random.Range(0, data.listDataItem.Count);  //random du lieu
+
+        //Init
+        DataItem dataItem = data.listDataItem[randomNumber];
+        item.Init(dataItem.id, dataItem.name, dataItem.icon);
     }
-    public void CheckSpawn()
-    {
-        if (GameController.Instance.Turn == TurnPlay.Player && GameController.Instance.IsChange02)
-        {
-            Spawn();
-            GameController.Instance.IsChange02 = false;
-        }
-    }
+
     public void Spawn()
     {
+        Debug.Log("Spawn Iten");
         for (int i = 0; i < listPosSpawnItem.Count; i++)
         {
-            GameObject item = PoolingManager.Spawn(currentObjectPrefab, listPosSpawnItem[i].transform.position, Quaternion.identity, itemParent);
+            ItemPrefabs item = PoolingManager.Spawn(currentObjectPrefab, listPosSpawnItem[i].transform.position, Quaternion.identity, itemParent);
+            Init(item);
             listItemInBox.Add(item);
-            item.SetActive(true);
+            item.gameObject.SetActive(true);
         }
     }
-    public void CheckItem()
-    {
 
+    public void ChangeBoxToBasket(ItemPrefabs item)
+    {
+        if(listItemInBox.Contains(item))
+            listItemInBox.Remove(item);
+
+        if(!listItemInBasket.Contains(item))
+            listItemInBasket.Add(item);
+    }
+    public void DeleteItemOutBasket(ItemPrefabs item)
+    {
+        listItemInBasket.Remove(item);
+    }
+    public bool CheckNextTurn()
+    {
+        if (listItemInBasket.Count == 0)
+            return true;
+        return false;
     }
 }

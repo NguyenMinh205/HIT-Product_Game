@@ -122,6 +122,41 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1041857
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1041858}
+  m_Layer: 0
+  m_Name: ActionEnemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1041858
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041857}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2020846321}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2803343
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,8 +1023,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dbd814b3a4f0334683ec6af5e2998b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiShow: {fileID: 21681388493270039, guid: a11d8f21ee149b04d8f9fcd8a8bcb924, type: 3}
+  uiShow: {fileID: 4227166825358540822, guid: a11d8f21ee149b04d8f9fcd8a8bcb924, type: 3}
   uiParent: {fileID: 1210971513}
+  actionEnemyPrefabs: {fileID: 5594641283351776450, guid: 14f9718a664c4454781243bbeded2fb7, type: 3}
+  actionParent: {fileID: 1041858}
 --- !u!1 &200964327
 GameObject:
   m_ObjectHideFlags: 0
@@ -4705,7 +4742,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1210971513
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7798,6 +7835,7 @@ RectTransform:
   m_Children:
   - {fileID: 1931428144}
   - {fileID: 1210971513}
+  - {fileID: 1041858}
   m_Father: {fileID: 955675199}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12169,7 +12207,7 @@ GameObject:
   - component: {fileID: 8374148810299350543}
   m_Layer: 12
   m_Name: Basket
-  m_TagString: Untagged
+  m_TagString: Basket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12810,34 +12848,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6853970916790659825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8519386515752515137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d8e1cb7c4f2a1a48ab44951959e46b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listPosSpawnItem:
-  - {fileID: 705966612594060056}
-  - {fileID: 3915557014394053681}
-  - {fileID: 2008866841917590969}
-  - {fileID: 6327985968690470564}
-  - {fileID: 3444208363551947370}
-  - {fileID: 6091014965699731762}
-  - {fileID: 4842132198375912331}
-  - {fileID: 6686242718658498408}
-  - {fileID: 8150120727534757626}
-  - {fileID: 5125440720824051091}
-  - {fileID: 6655670357943999451}
-  currentObjectPrefab: {fileID: 8388720295640628949, guid: d490d2240242d8d42aa443f5203747d6, type: 3}
-  itemParent: {fileID: 1637352171963398133}
-  listItemInBox: []
-  listItemInBasket: []
 --- !u!4 &6885776915261312886
 Transform:
   m_ObjectHideFlags: 0
@@ -13742,7 +13752,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2683804607832793013}
-  - component: {fileID: 6853970916790659825}
+  - component: {fileID: 8519386515752515138}
   m_Layer: 0
   m_Name: ItemController
   m_TagString: Untagged
@@ -13750,6 +13760,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8519386515752515138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519386515752515137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8e1cb7c4f2a1a48ab44951959e46b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listPosSpawnItem:
+  - {fileID: 705966612594060056}
+  - {fileID: 3915557014394053681}
+  - {fileID: 2008866841917590969}
+  - {fileID: 6327985968690470564}
+  - {fileID: 3444208363551947370}
+  - {fileID: 6091014965699731762}
+  - {fileID: 4842132198375912331}
+  - {fileID: 6686242718658498408}
+  - {fileID: 8150120727534757626}
+  - {fileID: 5125440720824051091}
+  - {fileID: 6655670357943999451}
+  currentObjectPrefab: {fileID: -54595170146916652, guid: d490d2240242d8d42aa443f5203747d6, type: 3}
+  itemParent: {fileID: 1637352171963398133}
+  listItemInBox: []
+  listItemInBasket: []
+  data: {fileID: 11400000, guid: 529111408c61b6c489a43cf565236d01, type: 2}
 --- !u!212 &8538546546051631380
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13896,7 +13935,6 @@ MonoBehaviour:
   enemyController: {fileID: 4169898598481376583}
   playerController: {fileID: 4272868680762588386}
   clawController: {fileID: 4162979965464107511}
-  itemController: {fileID: 6853970916790659825}
   DefaultRoom: {fileID: 222338516849099582}
   DefaultClawMachineBox: {fileID: 1086646433842259311}
   uiTurnChange: {fileID: 1931428143}

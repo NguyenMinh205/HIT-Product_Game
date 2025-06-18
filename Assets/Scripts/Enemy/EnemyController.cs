@@ -13,22 +13,36 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private List<Transform> listPosSpawnEnemy;
 
+    public List<Enemy> ListEnemy
+    {
+        get => listenemy;
+    }
     public void SpawnEnemy()
     {
+        Debug.Log("Spawn ENemy");
         for(int i=0;i<enemys;i++)
         {
             Enemy newEnemy = PoolingManager.Spawn(enemyPrefab, listPosSpawnEnemy[i].position, Quaternion.identity, enemyParent);
-            ObserverManager<IDInfoObject>.PostEven(IDInfoObject.ShowInfo, listPosSpawnEnemy[i].position);
+            newEnemy.HP = newEnemy.CurrentHp;
             listenemy.Add(newEnemy);
+            ObserverManager<IDInfoObject>.PostEven(IDInfoObject.ShowInfo, listenemy[i]);
+            newEnemy.InitActionManager();
         }
     }
-
+    public void InitActionListEnemy()
+    {
+        for (int i = 0; i < listenemy.Count; i++)
+        {
+            listenemy[i].InitActionManager();
+        }
+    }
     public void CheckEnemyToNextTurn()
     {
         for (int i= 0; i < listenemy.Count ;i++)
         {
-            listenemy[i].Attack(GameController.Instance.Player.gameObject);
+            listenemy[i].ExecuteAction();
         }
+        GameController.Instance.Turn = TurnPlay.Player;
     }
 
     public void DieEnemy()

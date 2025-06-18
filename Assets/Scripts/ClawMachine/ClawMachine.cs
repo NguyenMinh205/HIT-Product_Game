@@ -48,19 +48,11 @@ public class ClawMachine : MonoBehaviour
         get => mode;
         set => mode = value;
     }
-
-    private void Awake()
-    {
-
-    }
-
     private void Update()
     {
         MoveLine();
-
         Claw();
     }
-
     public void Claw()
     {
         switch(mode)

@@ -19,10 +19,9 @@ public class GameController : Singleton<GameController>
 
     [Space]
     [Header("Controller")]
-    [SerializeField] private EnemyController enemyController;
+    [SerializeField] public EnemyController enemyController;
     [SerializeField] public PlayerManager playerController;
     [SerializeField] private ClawController clawController;
-    [SerializeField] private ItemController itemController;
 
     [Space]
     [Header("Object")]
@@ -32,7 +31,6 @@ public class GameController : Singleton<GameController>
     [Space]
     [Header("IsChange")]
     private bool isChange01;
-    private bool isChange02;
 
     [Space]
     [Header("TurnDisplay")]
@@ -44,7 +42,6 @@ public class GameController : Singleton<GameController>
     {
         turnGame = TurnPlay.Player;
         isChange01 = false;
-        isChange02 = false;
     }
     public TurnPlay Turn
     {
@@ -55,13 +52,19 @@ public class GameController : Singleton<GameController>
             {
                 this.turnGame = value;
                 this.isChange01 = true;
-                this.isChange02 = true;
                 ShowChangeTurn();
             }
             else
             {
                 this.isChange01 = false;
-                this.isChange02 = false;
+            }
+            if(value == TurnPlay.Enemy)
+            {
+                TurnEnemy();
+            }
+            if(value == TurnPlay.Player)
+            {
+                ItemController.Instance.Spawn();
             }
         }
     }
@@ -70,11 +73,7 @@ public class GameController : Singleton<GameController>
         get => this.isChange01;
         set => this.isChange01 = value;
     }
-    public bool IsChange02
-    {
-        get => this.isChange02;
-        set => this.isChange02 = value;
-    }
+
     public EnemyController Enemy
     {
         get => this.enemyController;
@@ -83,9 +82,13 @@ public class GameController : Singleton<GameController>
     {
         get => this.playerController;
     }
-    private void Start()
-    {
 
+    private void Update()
+    {
+        if(turnGame == TurnPlay.Player)
+        {
+            TurnPlayer();
+        }
     }
 
     public void ShowChangeTurn()
@@ -112,11 +115,22 @@ public class GameController : Singleton<GameController>
         enemyController.SpawnEnemy();
         playerController.SpawnPlayer();
         clawController.Spawn();
-        itemController.Spawn();
+        ItemController.Instance.Spawn();
 
         clawController.IsStart = true;
     }
-
+    public void TurnPlayer()
+    {
+        Debug.Log(ItemController.Instance.CheckNextTurn() && clawController.checkNextTurn() && clawController.IsStart == true);
+        if(ItemController.Instance.CheckNextTurn() && clawController.checkNextTurn() && clawController.IsStart == true)
+        {
+            Turn = TurnPlay.Enemy;
+        }
+    }
+    public void TurnEnemy()
+    {
+        enemyController.CheckEnemyToNextTurn();
+    }
     public void OutRoom()
     {
         DefaultRoom.SetActive(false);

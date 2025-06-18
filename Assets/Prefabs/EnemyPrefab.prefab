@@ -121,5 +121,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 8086658410631364270}
   curent_Hp: 50
-  damage: 15
-  armor: 5
+  armor: 0
+  info: {fileID: 0}

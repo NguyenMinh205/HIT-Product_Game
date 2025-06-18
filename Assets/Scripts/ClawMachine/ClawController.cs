@@ -31,6 +31,7 @@ public class ClawController : MonoBehaviour
 
     public bool IsStart
     {
+        get => this.isStart;
         set => this.isStart = value;
     }
     private void Awake()
@@ -61,9 +62,6 @@ public class ClawController : MonoBehaviour
         {
             ChangeClaw();
         }
-        
-        //CheckCurrentClaw();
-
     }
     public void ChangeClaw()
     {
@@ -82,10 +80,6 @@ public class ClawController : MonoBehaviour
     public void StartClaw()
     {
         currentClaw.Mode = ModeClaw.Start;
-    }
-    public void CheckCurrentClaw()
-    {
-        
     }
     public void SetPosClaw()
     {
@@ -115,12 +109,15 @@ public class ClawController : MonoBehaviour
         }
     }
 
-    public void checkNextTurn()
+    public bool checkNextTurn()
     {
-        if (claws.Count == 0 && currentClaw == null)
+        if (!isStart) return false;
+
+        if (claws.Count == 0 && currentClaw.gameObject.activeSelf)
         {
-            GameController.Instance.Turn = TurnPlay.Enemy;
+            return true;
         }
+        return false;
     }
 
 }

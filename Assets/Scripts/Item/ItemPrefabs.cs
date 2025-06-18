@@ -8,18 +8,29 @@ public class ItemPrefabs : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameObject balloon;
     [SerializeField] private float moveForce;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
-    private string idItem;
+    [SerializeField] private string idItem;
     private string nameItem;
 
     private bool isPickUp;
     private bool isMove;
+
+    public string ID
+    {
+        get => idItem;
+    }
     public bool IsPickUp
     {
         get => this.isPickUp;
         set => this.isPickUp = value;
     }
-
+    public void Init(string id, string name, Sprite icon)
+    {
+        idItem = id;
+        nameItem = name;
+        spriteRenderer.sprite = icon;
+    }
     private void Update()
     {
         if(isPickUp)
@@ -35,15 +46,11 @@ public class ItemPrefabs : MonoBehaviour
             Debug.Log("Item in Basket");
             isPickUp = true;
             balloon.SetActive(true);
+            ItemController.Instance.ChangeBoxToBasket(gameObject.GetComponent<ItemPrefabs>());
         }
         else if(collision.CompareTag("Check"))
         {
             isMove = true;
-        }
-        else if(collision.CompareTag("Player"))
-        {
-            Debug.Log("De Spawn");
-            PoolingManager.Despawn(gameObject);
         }
     }
 
