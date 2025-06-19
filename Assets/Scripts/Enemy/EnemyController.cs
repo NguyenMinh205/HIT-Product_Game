@@ -36,17 +36,18 @@ public class EnemyController : MonoBehaviour
             listenemy[i].InitActionManager();
         }
     }
-    public void CheckEnemyToNextTurn()
+    public IEnumerator CheckEnemyToNextTurn()
     {
         for (int i= 0; i < listenemy.Count ;i++)
         {
+            yield return new WaitForSeconds(2f);
             listenemy[i].ExecuteAction();
         }
         GameController.Instance.Turn = TurnPlay.Player;
     }
-
     public void DieEnemy()
     {
         listenemy.RemoveAt(0);
     }
+
 }

@@ -43,10 +43,16 @@ public class ClawMachine : MonoBehaviour
     [SerializeField] private float closeAngle = 45f;
     [SerializeField] private float clawStrength = 25f;
 
+    private ClawController clawController;
+
     public ModeClaw Mode
     {
         get => mode;
         set => mode = value;
+    }
+    public ClawController ClawController
+    {
+        set => this.clawController = value;
     }
     private void Update()
     {
@@ -201,7 +207,8 @@ public class ClawMachine : MonoBehaviour
     public void DeSpawnClaw()
     {
         Debug.Log("DeSpawn");
-        PoolingManager.Despawn(gameObject);
+        //PoolingManager.Despawn(gameObject);
+        Destroy(gameObject);
     }
 
     IEnumerator DelayPickUp(float time)
@@ -224,7 +231,11 @@ public class ClawMachine : MonoBehaviour
     {
         OpenClaw();
         yield return new WaitForSeconds(time);
-        mode = ModeClaw.DeSpawn;
+        if(mode != ModeClaw.DeSpawn)
+        {
+            mode = ModeClaw.DeSpawn;
+            clawController.ChangeClaw();
+        }
     }
 
     public void OpenClaw()

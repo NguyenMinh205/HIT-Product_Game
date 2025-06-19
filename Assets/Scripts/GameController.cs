@@ -29,19 +29,20 @@ public class GameController : Singleton<GameController>
     [SerializeField] private GameObject DefaultClawMachineBox;
 
     [Space]
-    [Header("IsChange")]
-    private bool isChange01;
-
-    [Space]
     [Header("TurnDisplay")]
     [SerializeField] private GameObject uiTurnChange;
     [SerializeField] private TextMeshProUGUI textTurn;
 
+    [Space]
+    [Header("CheckTurn")]
+    public bool isCheckTurnByClaw;
+    public bool isCheckTurnByItem;
 
     private void Awake()
     {
         turnGame = TurnPlay.Player;
-        isChange01 = false;
+        isCheckTurnByClaw = false;
+        isCheckTurnByItem = false;
     }
     public TurnPlay Turn
     {
@@ -51,29 +52,22 @@ public class GameController : Singleton<GameController>
             if (this.turnGame != value)
             {
                 this.turnGame = value;
-                this.isChange01 = true;
                 ShowChangeTurn();
-            }
-            else
-            {
-                this.isChange01 = false;
             }
             if(value == TurnPlay.Enemy)
             {
+                isCheckTurnByClaw = false;
+                isCheckTurnByItem = false;
                 TurnEnemy();
             }
             if(value == TurnPlay.Player)
             {
                 ItemController.Instance.Spawn();
+                enemyController.InitActionListEnemy();
+                clawController.ResetMachineClaw();
             }
         }
     }
-    public bool IsChange01
-    {
-        get => this.isChange01;
-        set => this.isChange01 = value;
-    }
-
     public EnemyController Enemy
     {
         get => this.enemyController;
@@ -85,10 +79,7 @@ public class GameController : Singleton<GameController>
 
     private void Update()
     {
-        if(turnGame == TurnPlay.Player)
-        {
-            TurnPlayer();
-        }
+        TurnPlayer();
     }
 
     public void ShowChangeTurn()
@@ -118,18 +109,20 @@ public class GameController : Singleton<GameController>
         ItemController.Instance.Spawn();
 
         clawController.IsStart = true;
+        clawController.StartClaw();
     }
     public void TurnPlayer()
     {
-        Debug.Log(ItemController.Instance.CheckNextTurn() && clawController.checkNextTurn() && clawController.IsStart == true);
-        if(ItemController.Instance.CheckNextTurn() && clawController.checkNextTurn() && clawController.IsStart == true)
+        if (turnGame != TurnPlay.Player) return;
+
+        if(isCheckTurnByClaw && isCheckTurnByItem)
         {
             Turn = TurnPlay.Enemy;
         }
     }
     public void TurnEnemy()
     {
-        enemyController.CheckEnemyToNextTurn();
+        StartCoroutine(enemyController.CheckEnemyToNextTurn());
     }
     public void OutRoom()
     {

@@ -50,10 +50,11 @@ public class ItemController : Singleton<ItemController>
     {
         listItemInBasket.Remove(item);
     }
-    public bool CheckNextTurn()
+    public void CheckNextTurn()
     {
         if (listItemInBasket.Count == 0)
-            return true;
-        return false;
+            GameController.Instance.isCheckTurnByItem = true;
+        else if (listItemInBasket.Count > 0)
+            GameController.Instance.isCheckTurnByItem = false;
     }
 }

@@ -18,6 +18,7 @@ public class TriggerPlayer : MonoBehaviour
             CheckID(id);
             ItemController.Instance.DeleteItemOutBasket(collision.GetComponent<ItemPrefabs>());
             PoolingManager.Despawn(collision.gameObject);
+            ItemController.Instance.CheckNextTurn();
         }
     }
     public void CheckID(string id)

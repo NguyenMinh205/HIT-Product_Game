@@ -25,6 +25,12 @@ public class ItemPrefabs : MonoBehaviour
         get => this.isPickUp;
         set => this.isPickUp = value;
     }
+    private void OnEnable()
+    {
+        isPickUp = false;
+        isMove = false;
+        balloon.SetActive(false);
+    }
     public void Init(string id, string name, Sprite icon)
     {
         idItem = id;

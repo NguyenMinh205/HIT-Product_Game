@@ -38,47 +38,31 @@ public class ClawController : MonoBehaviour
     {
         this.isStart = false;
     }
-    private void Update()
-    {
-        Execute();
-    }
-    public void Execute()
-    {
-        if (!isStart) return;
-        
-        if (GameController.Instance.Turn == TurnPlay.Enemy)  return;
-
-        if(GameController.Instance.IsChange01)
-        {
-            ResetMachineClaw();
-            GameController.Instance.IsChange01 = false;
-        }
-
-        if (currentClaw == null)
-        {
-            ChangeClaw();
-        }
-        else if(currentClaw.Mode == ModeClaw.DeSpawn)
-        {
-            ChangeClaw();
-        }
-    }
     public void ChangeClaw()
     {
         if (claws.Count == 0)
         {
-            checkNextTurn();
-            return;
+            Debug.Log("Claws have 0 claw -> next turn ");
+            Debug.Log("Next Turn By Claw");
+            GameController.Instance.isCheckTurnByClaw = true;
         }
-
-        currentClaw = claws[0];
-        StartClaw();
-
-        claws.Remove(currentClaw);
-        SetPosClaw();
+        else
+        {
+            currentClaw = claws[0];
+            StartClaw();
+            claws.Remove(currentClaw);
+            SetPosClaw();
+        }
     }
     public void StartClaw()
     {
+        if (currentClaw == null) 
+        {
+            Debug.Log("Current Claw is null");
+            currentClaw = claws[0];
+            claws.Remove(currentClaw);
+            SetPosClaw();
+        }
         currentClaw.Mode = ModeClaw.Start;
     }
     public void SetPosClaw()
@@ -93,13 +77,19 @@ public class ClawController : MonoBehaviour
     {
         Debug.Log("Reset Claw Machine");
         claws.Clear();
+        Debug.Log("Reset -> Spawn");
         Spawn();
+        ChangeClaw();
+        StartClaw();
     }
     public void Spawn()
     {
         for (int i = 0; i < quantityClaws ; i++)
         {
-            ClawMachine newClaw = PoolingManager.Spawn(clawPrefabs, posSpawnClaws[i].position, Quaternion.identity, ClawParent);
+            Debug.Log("Spawn Claw" + i.ToString());
+            //ClawMachine newClaw = PoolingManager.Spawn(clawPrefabs, posSpawnClaws[i].position, Quaternion.identity, ClawParent);
+            ClawMachine newClaw = Instantiate(clawPrefabs, posSpawnClaws[i].position, Quaternion.identity, ClawParent);
+            newClaw.ClawController = this;
             newClaw.leftLimit = leftClawLimit;
             newClaw.rightLimit = rightClawLimit;
             newClaw.posStartClaw = posStartClaw;
@@ -107,17 +97,6 @@ public class ClawController : MonoBehaviour
             newClaw.posStopClaw = posEndClaw;
             claws.Add(newClaw);
         }
-    }
-
-    public bool checkNextTurn()
-    {
-        if (!isStart) return false;
-
-        if (claws.Count == 0 && currentClaw.gameObject.activeSelf)
-        {
-            return true;
-        }
-        return false;
     }
 
 }
