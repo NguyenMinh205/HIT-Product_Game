@@ -19,10 +19,9 @@ public class GameController : Singleton<GameController>
 
     [Space]
     [Header("Controller")]
-    [SerializeField] private EnemyController enemyController;
+    [SerializeField] public EnemyController enemyController;
     [SerializeField] public PlayerManager playerController;
     [SerializeField] private ClawController clawController;
-    [SerializeField] private ItemController itemController;
 
     [Space]
     [Header("Object")]
@@ -30,21 +29,32 @@ public class GameController : Singleton<GameController>
     [SerializeField] private GameObject DefaultClawMachineBox;
 
     [Space]
-    [Header("IsChange")]
-    private bool isChange01;
-    private bool isChange02;
-
-    [Space]
     [Header("TurnDisplay")]
     [SerializeField] private GameObject uiTurnChange;
     [SerializeField] private TextMeshProUGUI textTurn;
 
+    [Space]
+    [Header("CheckTurn")]
+    public bool isCheckTurnByClaw;
+    public bool isCheckTurnByItem;
+
+    [Space]
+    [Header("Button")]
+    [SerializeField] private Button btnNextRoom;
 
     private void Awake()
     {
         turnGame = TurnPlay.Player;
-        isChange01 = false;
-        isChange02 = false;
+        isCheckTurnByClaw = false;
+        isCheckTurnByItem = false;
+    }
+
+    private void Start()
+    {
+        btnNextRoom.onClick.AddListener(delegate
+        {
+            OutRoom();
+        });
     }
     public TurnPlay Turn
     {
@@ -54,26 +64,21 @@ public class GameController : Singleton<GameController>
             if (this.turnGame != value)
             {
                 this.turnGame = value;
-                this.isChange01 = true;
-                this.isChange02 = true;
                 ShowChangeTurn();
             }
-            else
+            if(value == TurnPlay.Enemy)
             {
-                this.isChange01 = false;
-                this.isChange02 = false;
+                isCheckTurnByClaw = false;
+                isCheckTurnByItem = false;
+                TurnEnemy();
+            }
+            if(value == TurnPlay.Player)
+            {
+                ItemController.Instance.Spawn();
+                enemyController.InitActionListEnemy();
+                clawController.ResetMachineClaw();
             }
         }
-    }
-    public bool IsChange01
-    {
-        get => this.isChange01;
-        set => this.isChange01 = value;
-    }
-    public bool IsChange02
-    {
-        get => this.isChange02;
-        set => this.isChange02 = value;
     }
     public EnemyController Enemy
     {
@@ -83,9 +88,10 @@ public class GameController : Singleton<GameController>
     {
         get => this.playerController;
     }
-    private void Start()
-    {
 
+    private void Update()
+    {
+        TurnPlayer();
     }
 
     public void ShowChangeTurn()
@@ -112,15 +118,42 @@ public class GameController : Singleton<GameController>
         enemyController.SpawnEnemy();
         playerController.SpawnPlayer();
         clawController.Spawn();
-        itemController.Spawn();
+        ItemController.Instance.Spawn();
 
         clawController.IsStart = true;
+        clawController.StartClaw();
+        btnNextRoom.gameObject.SetActive(true);
     }
+    public void TurnPlayer()
+    {
+        if (turnGame != TurnPlay.Player) return;
 
+        if(isCheckTurnByClaw && isCheckTurnByItem)
+        {
+            Turn = TurnPlay.Enemy;
+        }
+    }
+    public void TurnEnemy()
+    {
+        StartCoroutine(enemyController.CheckEnemyToNextTurn());
+    }
     public void OutRoom()
     {
         DefaultRoom.SetActive(false);
         DefaultClawMachineBox.SetActive(false);
+        btnNextRoom.gameObject.SetActive(false);
+
+        clawController.EndGame();
+        clawController.IsStart = false;
+        ItemController.Instance.EndGame();
+        enemyController.EndGame();
+        playerController.EndGame();
+
+        MapController.Instance.SetActiveMapStore(true);
+        MapManager.Instance.SetActiveRoomVisual(true);
+
+        PlayerMapController.Instance.IsIntoRoom = false;
+        PlayerMapController.Instance.IsMoving = false;
     }
 }
 

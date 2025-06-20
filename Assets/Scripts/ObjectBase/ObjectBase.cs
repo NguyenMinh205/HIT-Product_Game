@@ -7,20 +7,19 @@ public class ObjectBase : MonoBehaviour
 {
     [SerializeField] private Animator anim;
     [SerializeField] protected int curent_Hp;
-    [SerializeField] protected int damage;
     [SerializeField] protected int armor;
+
+    [SerializeField] private InfoManager info;
 
     private int hp;
 
-    private void Start()
+    private void Awake()
     {
         hp = curent_Hp;
     }
-
-    public int Damage
+    private void OnEnable()
     {
-        get => this.damage;
-        set => this.damage = value;
+        hp = curent_Hp;
     }
     public int Armor
     {
@@ -30,13 +29,27 @@ public class ObjectBase : MonoBehaviour
     public int HP
     {
         get => this.hp;
+        set => hp = value;
     }
     public int CurrentHp
     {
         get => curent_Hp;
     }
-    public virtual void Attack(GameObject obj)
+    public InfoManager Info
     {
+        get => this.info;
+        set => this.info = value;
+    }
+    public virtual void Attack(GameObject obj, int damage)
+    {
+    }
+    public virtual void AttackAnimation()
+    {
+
+    }
+    public virtual void ReceiverDamageAnimation()
+    {
+
     }
 
     public virtual bool ReceiverDamage(int damage)
@@ -46,19 +59,19 @@ public class ObjectBase : MonoBehaviour
 
         hp -= finalDamage;
 
-        ObserverManager<IDInfoObject>.PostEven(IDInfoObject.UpdateHp, null);
-        ObserverManager<IDInfoObject>.PostEven(IDInfoObject.UpdateArmor, null);
+        info.UpdateArmor();
+        info.UpdateHp();
 
         if (hp <= 0)
         {
-            Die();
+            EndGame();
             return true;
         }
         return false;
     }
-    public void Die()
+    public void EndGame()
     {
         PoolingManager.Despawn(gameObject);
+        info.gameObject.SetActive(false);
     }
-
 }

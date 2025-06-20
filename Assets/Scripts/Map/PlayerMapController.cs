@@ -27,6 +27,11 @@ public class PlayerMapController : Singleton<PlayerMapController>
     private MapData currentMapData;
     private bool isMoving = false;
 
+    public bool IsMoving
+    {
+        set => isMoving = value;
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -45,10 +50,11 @@ public class PlayerMapController : Singleton<PlayerMapController>
 
     private void Update()
     {
+        Debug.Log("Check Player Map Controller");
         if (isMoving || tilemap == null || currentMapData == null) return;
 
         if (isIntoRoom) return;
-
+        Debug.Log("Check Player in Room");
         if (Input.GetKeyDown(KeyCode.W))
         {
             TryMove(new Vector2Int(0, 1));

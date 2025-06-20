@@ -21,14 +21,15 @@ public class InfoManager : MonoBehaviour
     [SerializeField] private GameObject armor;
     [SerializeField] private TextMeshProUGUI textArmor;
 
-    private void Awake()
+    public ObjectBase Obj
     {
-        ObserverManager<IDInfoObject>.AddDesgisterEvent(IDInfoObject.UpdateHp, UpdateHp);
-        ObserverManager<IDInfoObject>.AddDesgisterEvent(IDInfoObject.UpdateArmor, UpdateArmor);
+        get => this.obj;
+        set => this.obj = value;
     }
 
-    public void UpdateArmor(object _)
+    public void UpdateArmor()
     {
+        Debug.Log("Up Armor");
         if (obj == null) return;
 
         if (obj.Armor > 0)
@@ -42,8 +43,9 @@ public class InfoManager : MonoBehaviour
         }
     }
 
-    public void UpdateHp(object _)
+    public void UpdateHp()
     {
+        Debug.Log("Up Hp");
         if (obj == null) return;
 
         textHp.text = obj.HP + " / " + obj.CurrentHp;

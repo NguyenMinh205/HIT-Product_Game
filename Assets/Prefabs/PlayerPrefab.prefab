@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4278605123151132739}
   - component: {fileID: 6262871788618826098}
   - component: {fileID: 7929153184085620473}
+  - component: {fileID: 9112401239775922810}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -124,6 +125,7 @@ MonoBehaviour:
   curent_Hp: 110
   damage: 20
   armor: 5
+  info: {fileID: 0}
 --- !u!60 &7929153184085620473
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -292,3 +294,15 @@ PolygonCollider2D:
       - {x: -0.21499999, y: -0.85799986}
       - {x: -0.16499999, y: -0.80299985}
   m_UseDelaunayMesh: 0
+--- !u!114 &9112401239775922810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884660179733124090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ea603d1fb522343a5b35292f9e7e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
