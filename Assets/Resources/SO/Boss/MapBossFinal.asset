@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c0883a2a3c17ca4b9723a05cd48dc09, type: 3}
   m_Name: MapBossFinal
   m_EditorClassIdentifier: 
-  mapType: 0
+  mapType: 3
   mapPrefab: {fileID: 4358470361098545004, guid: 0309144da41fcd941a1b3af2ef75ad8c, type: 3}
   moveTiles:
   - position: {x: 0, y: -3}

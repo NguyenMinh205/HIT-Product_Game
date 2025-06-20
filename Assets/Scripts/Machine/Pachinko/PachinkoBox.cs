@@ -18,7 +18,7 @@ namespace Gameplay
 
         private void FixedUpdate()
         {
-            if (basket == null || PachinkoMachine.Instance.State == GameState.Waiting || PachinkoMachine.Instance.State == GameState.Ended) return;
+            if (basket == null || PachinkoMachine.Instance.State == PachinkoState.Waiting || PachinkoMachine.Instance.State == PachinkoState.Ended) return;
 
             Vector2 target = _moveRight ? rightLimit.position : leftLimit.position;
             basket.MovePosition(Vector2.MoveTowards(basket.position, target, basketSpeed * Time.fixedDeltaTime));

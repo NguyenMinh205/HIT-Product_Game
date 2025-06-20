@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public enum TumblerState
 {
+    Spawning,
     Waiting,
     Tumblering,
     Selecting,
@@ -25,7 +26,7 @@ public class TumblerMachine : Singleton<TumblerMachine>
     [SerializeField] private float accelerationTime = 2f;
     [SerializeField] private float decelerationTime = 1f;
 
-    private TumblerState _state = TumblerState.Waiting;
+    private TumblerState _state = TumblerState.Spawning;
     private bool _finished;
     private float _currentRotation;
     private float _currentRotationSpeed;
@@ -59,10 +60,11 @@ public class TumblerMachine : Singleton<TumblerMachine>
             TumblerItem item = Instantiate(availableItems[randomIndex], tumblerBox.SpawnPoint.position, Quaternion.identity);
             _spawnedItems.Add(item);
             availableItems.RemoveAt(randomIndex);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
         }
         yield return new WaitForEndOfFrame();
         tumblerBox.Collider.enabled = true;
+        _state = TumblerState.Waiting;
     }
 
     private void StartTumbler()
@@ -71,7 +73,7 @@ public class TumblerMachine : Singleton<TumblerMachine>
         _state = TumblerState.Tumblering;
         _currentRotation = 0f;
         _currentRotationSpeed = 0f;
-        _droppedItems.Clear(); // Xóa danh sách droppedItems khi bắt đầu
+        _droppedItems.Clear();
         StartCoroutine(TumblerLoop());
     }
 

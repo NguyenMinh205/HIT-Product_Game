@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0883a2a3c17ca4b9723a05cd48dc09, type: 3}
+  m_Name: MapBoss3
+  m_EditorClassIdentifier: 
+  mapType: 3
+  mapPrefab: {fileID: 6719320052185973372, guid: fa45f3745f631044b9ca2408fea9964a, type: 3}
+  moveTiles:
+  - position: {x: 0, y: -3}
+    tileType: 2
+    tileIcon: {fileID: 2396522597000271342, guid: cee718bd7c5fc26469a25becab3ddc9a, type: 3}
+  - position: {x: -2, y: -1}
+    tileType: 7
+    tileIcon: {fileID: 4780075200033134402, guid: d37189b61f4f4b746ad3c6c3c9200929, type: 3}
+  - position: {x: 2, y: -1}
+    tileType: 11
+    tileIcon: {fileID: 6139386118721457873, guid: 0c31f5e7df66e9d4494bf52758d6f21c, type: 3}
+  - position: {x: 0, y: 1}
+    tileType: 6
+    tileIcon: {fileID: 3993421305505522250, guid: bade7514dffdaa84d91c3cc4aad62ffd, type: 3}
+  - position: {x: -1, y: 3}
+    tileType: 3
+    tileIcon: {fileID: 1211223219111615406, guid: 39b66db3832de8141ba7c3620fc867f2, type: 3}
+  - position: {x: 1, y: 3}
+    tileType: 3
+    tileIcon: {fileID: 1211223219111615406, guid: 39b66db3832de8141ba7c3620fc867f2, type: 3}

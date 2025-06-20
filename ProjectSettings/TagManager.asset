@@ -6,6 +6,9 @@ TagManager:
   tags:
   - MapFloor
   - MapWall
+  - Check
+  - Basket
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -43,7 +46,7 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: BackGround
+  - name: Background
     uniqueID: 324638365
     locked: 0
   - name: Map
@@ -58,6 +61,12 @@ TagManager:
   - name: Claw
     uniqueID: 3693211049
     locked: 0
+  - name: Machine
+    uniqueID: 726081065
+    locked: 0
   - name: UI
     uniqueID: 688729343
+    locked: 0
+  - name: Border
+    uniqueID: 1891540133
     locked: 0
