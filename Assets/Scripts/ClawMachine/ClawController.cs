@@ -99,4 +99,15 @@ public class ClawController : MonoBehaviour
         }
     }
 
+    public void EndGame()
+    {
+        for(int i=0; i < claws.Count; i++)
+        {
+            Destroy(claws[i].gameObject);
+        }
+        claws.Clear();
+        Destroy(currentClaw.gameObject);
+        currentClaw = null;
+    }
+
 }

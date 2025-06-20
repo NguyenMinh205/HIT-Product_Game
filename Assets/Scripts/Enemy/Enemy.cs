@@ -9,6 +9,11 @@ public class Enemy : ObjectBase
     [SerializeField] private List<Action> actions;
     private UIActionEnemy uiActionEnemy;
 
+    private EnemyController enemyController;
+    public EnemyController Controller
+    {
+        set => this.enemyController = value;
+    }
     public UIActionEnemy UI
     {
         get => uiActionEnemy;
@@ -24,6 +29,28 @@ public class Enemy : ObjectBase
         {
             player.ReceiverDamage(damage);
         }
+    }
+    public override bool ReceiverDamage(int damage)
+    {
+        int finalDamage = Mathf.Max(damage - armor, 0);
+        armor = Mathf.Max(0, armor - damage);
+
+        base.HP -= finalDamage;
+
+        base.Info.UpdateArmor();
+        base.Info.UpdateHp();
+
+        if (base.HP <= 0)
+        {
+            EndGame();
+            enemyController.DieEnemy();
+            if (enemyController.ListEnemy.Count <= 0)
+            {
+                GameController.Instance.OutRoom();
+            }
+            return true;
+        }
+        return false;
     }
     public void Shield()
     {
@@ -65,5 +92,14 @@ public class Enemy : ObjectBase
             uiActionEnemy.Execute(i);
         }
         actions.Clear();
+    }
+
+    public void EndGame()
+    {
+        base.EndGame();
+        for(int i=0; i<3; i++)
+        {
+            uiActionEnemy.Execute(i);
+        }
     }
 }

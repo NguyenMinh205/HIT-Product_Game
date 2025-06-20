@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class IntoRoomTrigger : MonoBehaviour
 {
+    [SerializeField] private Collider2D collider2D;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -14,6 +15,8 @@ public class IntoRoomTrigger : MonoBehaviour
             MapManager.Instance.SetActiveRoomVisual(false);
 
             GameController.Instance.StartRoom();
+
+            collider2D.gameObject.SetActive(false);
         }
     }
 }

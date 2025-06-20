@@ -11,4 +11,13 @@ public class Player : ObjectBase
             enemy.ReceiverDamage(damage);
         }
     }
+    public override bool ReceiverDamage(int damage)
+    {
+        return base.ReceiverDamage(damage);
+        Debug.Log("Player Receiver Damage");
+        if(base.HP <= 0)
+        {
+            GameController.Instance.OutRoom();
+        }
+    }
 }

@@ -24,6 +24,7 @@ public class EnemyController : MonoBehaviour
         {
             Enemy newEnemy = PoolingManager.Spawn(enemyPrefab, listPosSpawnEnemy[i].position, Quaternion.identity, enemyParent);
             newEnemy.HP = newEnemy.CurrentHp;
+            newEnemy.Controller = this;
             listenemy.Add(newEnemy);
             ObserverManager<IDInfoObject>.PostEven(IDInfoObject.ShowInfo, listenemy[i]);
             newEnemy.InitActionManager();
@@ -48,6 +49,17 @@ public class EnemyController : MonoBehaviour
     public void DieEnemy()
     {
         listenemy.RemoveAt(0);
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("Enemy Count : " + listenemy.Count);
+        for(int i=0; i < listenemy.Count; i++)
+        {
+            Debug.Log("DesTroy Enemy" + i);
+            listenemy[i].EndGame();
+        }
+        listenemy.Clear();
     }
 
 }

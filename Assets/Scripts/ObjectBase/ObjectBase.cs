@@ -17,6 +17,10 @@ public class ObjectBase : MonoBehaviour
     {
         hp = curent_Hp;
     }
+    private void OnEnable()
+    {
+        hp = curent_Hp;
+    }
     public int Armor
     {
         get => this.armor;
@@ -60,14 +64,14 @@ public class ObjectBase : MonoBehaviour
 
         if (hp <= 0)
         {
-            Die();
+            EndGame();
             return true;
         }
         return false;
     }
-    public void Die()
+    public void EndGame()
     {
         PoolingManager.Despawn(gameObject);
+        info.gameObject.SetActive(false);
     }
-
 }

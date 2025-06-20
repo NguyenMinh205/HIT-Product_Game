@@ -38,11 +38,23 @@ public class GameController : Singleton<GameController>
     public bool isCheckTurnByClaw;
     public bool isCheckTurnByItem;
 
+    [Space]
+    [Header("Button")]
+    [SerializeField] private Button btnNextRoom;
+
     private void Awake()
     {
         turnGame = TurnPlay.Player;
         isCheckTurnByClaw = false;
         isCheckTurnByItem = false;
+    }
+
+    private void Start()
+    {
+        btnNextRoom.onClick.AddListener(delegate
+        {
+            OutRoom();
+        });
     }
     public TurnPlay Turn
     {
@@ -110,6 +122,7 @@ public class GameController : Singleton<GameController>
 
         clawController.IsStart = true;
         clawController.StartClaw();
+        btnNextRoom.gameObject.SetActive(true);
     }
     public void TurnPlayer()
     {
@@ -128,6 +141,19 @@ public class GameController : Singleton<GameController>
     {
         DefaultRoom.SetActive(false);
         DefaultClawMachineBox.SetActive(false);
+        btnNextRoom.gameObject.SetActive(false);
+
+        clawController.EndGame();
+        clawController.IsStart = false;
+        ItemController.Instance.EndGame();
+        enemyController.EndGame();
+        playerController.EndGame();
+
+        MapController.Instance.SetActiveMapStore(true);
+        MapManager.Instance.SetActiveRoomVisual(true);
+
+        PlayerMapController.Instance.IsIntoRoom = false;
+        PlayerMapController.Instance.IsMoving = false;
     }
 }
 

@@ -57,4 +57,13 @@ public class ItemController : Singleton<ItemController>
         else if (listItemInBasket.Count > 0)
             GameController.Instance.isCheckTurnByItem = false;
     }
+
+    public void EndGame()
+    {
+        for(int i=0; i < listItemInBox.Count; i++)
+        {
+            PoolingManager.Despawn(listItemInBox[i].gameObject);
+        }
+        listItemInBox.Clear();
+    }
 }
