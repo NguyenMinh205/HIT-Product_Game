@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0883a2a3c17ca4b9723a05cd48dc09, type: 3}
+  m_Name: MapRest3
+  m_EditorClassIdentifier: 
+  mapType: 2
+  mapPrefab: {fileID: 0}
+  moveTiles:
+  - position: {x: 0, y: -2}
+    tileType: 2
+    tileIcon: {fileID: 2396522597000271342, guid: cee718bd7c5fc26469a25becab3ddc9a, type: 3}
+  - position: {x: -2, y: 0}
+    tileType: 3
+    tileIcon: {fileID: 1211223219111615406, guid: 39b66db3832de8141ba7c3620fc867f2, type: 3}
+  - position: {x: 2, y: 0}
+    tileType: 3
+    tileIcon: {fileID: 1211223219111615406, guid: 39b66db3832de8141ba7c3620fc867f2, type: 3}
+  - position: {x: -1, y: 1}
+    tileType: 9
+    tileIcon: {fileID: 2873928960969087092, guid: bf8850222254cfe45bc1ec574af8d83c, type: 3}
+  - position: {x: 1, y: 1}
+    tileType: 8
+    tileIcon: {fileID: 4184605912199007003, guid: eb29edc4418e35542b6b136324409cce, type: 3}
