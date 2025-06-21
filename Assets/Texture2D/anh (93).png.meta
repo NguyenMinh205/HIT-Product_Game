@@ -282,6 +282,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: anh (93)_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 2048
+        height: 1158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b20054310914c94297a054ffde235e7
+      internalID: -1443106062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -300,6 +321,7 @@ TextureImporter:
       anh (93)_4: 1052196883
       anh (93)_5: -1479733740
       anh (93)_6: 1263828624
+      anh (93)_7: -1443106062
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -261,6 +261,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: anh (128)_6
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 174
+        width: 98
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b097eb5180a9f3c48b08e18a7806cbeb
+      internalID: 1485555456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (128)_7
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 2
+        width: 98
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b2b10740dc3f244c855530e9113ea26
+      internalID: 2106620722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -278,6 +320,8 @@ TextureImporter:
       anh (128)_3: -1003260927
       anh (128)_4: 917345431
       anh (128)_5: 1568208005
+      anh (128)_6: 1485555456
+      anh (128)_7: 2106620722
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
