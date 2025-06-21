@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 726081065
+  m_SortingLayer: 6
   m_SortingOrder: 50
   m_Sprite: {fileID: -1932964030, guid: 569b9c83443ea324aa75c10bff5f0b43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -123,7 +123,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 4278605123151132739}
   curent_Hp: 110
-  damage: 20
   armor: 5
   info: {fileID: 0}
 --- !u!60 &7929153184085620473
@@ -306,3 +305,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ea603d1fb522343a5b35292f9e7e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}

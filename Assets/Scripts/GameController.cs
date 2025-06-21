@@ -9,8 +9,8 @@ using UnityEngine.UI;
 
 public enum TurnPlay
 {
-       Player,
-       Enemy
+    Player,
+    Enemy
 }
 
 public class GameController : Singleton<GameController>
@@ -24,9 +24,22 @@ public class GameController : Singleton<GameController>
     [SerializeField] private ClawController clawController;
 
     [Space]
-    [Header("Object")]
+    [Header("Room")]
+    [SerializeField] private GameObject HealingRoom;
+    [SerializeField] private GameObject MysteryRoom;
+    [SerializeField] private GameObject PachinkoRoom;
+    [SerializeField] private GameObject SmithRoom;
+    [SerializeField] private GameObject ShredderRoom;
+    [SerializeField] private GameObject BossRoom;
     [SerializeField] private GameObject DefaultRoom;
+    private IntoRoomTrigger intoRoomTrigger;
+
+    [Space]
+    [Header("Machine")]
     [SerializeField] private GameObject DefaultClawMachineBox;
+    [SerializeField] private GameObject GachaMachineBox;
+    [SerializeField] private GameObject PachinkoMachineBox;
+    [SerializeField] private GameObject TumblerMachineBox;
 
     [Space]
     [Header("TurnDisplay")]
@@ -40,7 +53,23 @@ public class GameController : Singleton<GameController>
 
     [Space]
     [Header("Button")]
-    [SerializeField] private Button btnNextRoom;
+    [SerializeField] private Button btnWinGame;
+    [SerializeField] private Button btnLoseGame;
+
+    private Vector2Int directionPlayer;
+
+    [Header("Test Out Room")]
+    [SerializeField] private Button btnOutRoom;
+    private GameObject room;
+    public Vector2Int Dir
+    {
+        set => directionPlayer = value;
+    }
+
+    public IntoRoomTrigger IntoRoom
+    {
+        set => intoRoomTrigger = value;
+    }
 
     private void Awake()
     {
@@ -51,7 +80,17 @@ public class GameController : Singleton<GameController>
 
     private void Start()
     {
-        btnNextRoom.onClick.AddListener(delegate
+        btnWinGame.onClick.AddListener(delegate
+        {
+            WInGame();
+        });
+        btnLoseGame.onClick.AddListener(delegate
+        {
+            LoseGame();
+        });
+
+        //test out room
+        btnOutRoom.onClick.AddListener(delegate
         {
             OutRoom();
         });
@@ -122,7 +161,10 @@ public class GameController : Singleton<GameController>
 
         clawController.IsStart = true;
         clawController.StartClaw();
-        btnNextRoom.gameObject.SetActive(true);
+
+        //Button test
+        btnWinGame.gameObject.SetActive(true);
+        btnLoseGame.gameObject.SetActive(true);
     }
     public void TurnPlayer()
     {
@@ -137,11 +179,46 @@ public class GameController : Singleton<GameController>
     {
         StartCoroutine(enemyController.CheckEnemyToNextTurn());
     }
-    public void OutRoom()
+    public void LoseGame()
     {
         DefaultRoom.SetActive(false);
         DefaultClawMachineBox.SetActive(false);
-        btnNextRoom.gameObject.SetActive(false);
+
+        //Button test
+        btnWinGame.gameObject.SetActive(false);
+        btnLoseGame.gameObject.SetActive(false);
+
+        clawController.EndGame();
+        clawController.IsStart = false;
+        ItemController.Instance.EndGame();
+        enemyController.EndGame();
+        playerController.EndGame();
+
+        MapController.Instance.SetActiveMapStore(true);
+        StartCoroutine(DelayOutTrigger(0.2f));
+        MapManager.Instance.SetActiveRoomVisual(true);
+
+        PlayerMapController.Instance.IsIntoRoom = false;
+
+        PlayerMapController.Instance.IsMoving = false;
+
+        StartCoroutine(PlayerMapController.Instance.MoveToPosition(-1*directionPlayer));
+
+    }
+    IEnumerator DelayOutTrigger(float time)
+    {
+        intoRoomTrigger.SetActive(false);
+        yield return new WaitForSeconds(time);
+        intoRoomTrigger.SetActive(true);
+    }
+    public void WInGame()
+    {
+        DefaultRoom.SetActive(false);
+        DefaultClawMachineBox.SetActive(false);
+
+        //Button test
+        btnWinGame.gameObject.SetActive(false);
+        btnLoseGame.gameObject.SetActive(false);
 
         clawController.EndGame();
         clawController.IsStart = false;
@@ -154,6 +231,90 @@ public class GameController : Singleton<GameController>
 
         PlayerMapController.Instance.IsIntoRoom = false;
         PlayerMapController.Instance.IsMoving = false;
+
+        intoRoomTrigger.SetActive(false);
+    }
+
+    //Quan ly open room
+    public void OpenRoom()
+    {
+        PlayerMapController.Instance.IsIntoRoom = true;
+
+        StartCoroutine(DelayPlayerMoveInMap(0.5f));
+        MapManager.Instance.SetActiveRoomVisual(false);
+    }
+    public void OpenRoomFight()
+    {
+        OpenRoom();
+        GameController.Instance.StartRoom();
+    }
+    public void OpenRoomBossFight()
+    {
+        OpenRoom();
+        BossRoom.SetActive(true);
+
+        room = BossRoom;
+        btnOutRoom.gameObject.SetActive(true);
+    }
+    public void OpenRoomHealing()
+    {
+        OpenRoom();
+        HealingRoom.SetActive(true);
+
+        room = HealingRoom;
+        btnOutRoom.gameObject.SetActive(true);
+    }
+    public void OpenRoomMystery()
+    {
+        OpenRoom();
+        MysteryRoom.SetActive(true);
+
+        room = MysteryRoom;
+        btnOutRoom.gameObject.SetActive(true);
+    }
+    public void OpenRoomPachinko()
+    {
+        OpenRoom();
+        PachinkoRoom.SetActive(true);
+        UIController.Instance.OpenPachinkoUI(true);
+
+        room = PachinkoRoom;
+        btnOutRoom.gameObject.SetActive(true);
+    }
+    public void OpenRoomSmith()
+    {
+        OpenRoom();
+        SmithRoom.SetActive(true);
+
+        room = SmithRoom;
+        btnOutRoom.gameObject.SetActive(true);
+    }
+    public void OpenRoomShredder()
+    {
+        OpenRoom();
+        ShredderRoom.SetActive(true);
+
+        room = ShredderRoom;
+        btnOutRoom.gameObject.SetActive(true);
+    }
+
+    IEnumerator DelayPlayerMoveInMap(float time)
+    {
+        yield return new WaitForSeconds(time);
+        MapController.Instance.SetActiveMapStore(false);
+    }
+    public void OutRoom()
+    {
+        btnOutRoom.gameObject.SetActive(false);
+        room.SetActive(false);
+
+        MapController.Instance.SetActiveMapStore(true);
+        MapManager.Instance.SetActiveRoomVisual(true);
+
+        PlayerMapController.Instance.IsIntoRoom = false;
+        PlayerMapController.Instance.IsMoving = false;
+
+        intoRoomTrigger.SetActive(false);
     }
 }
 

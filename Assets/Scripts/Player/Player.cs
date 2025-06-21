@@ -17,7 +17,7 @@ public class Player : ObjectBase
         Debug.Log("Player Receiver Damage");
         if(base.HP <= 0)
         {
-            GameController.Instance.OutRoom();
+            GameController.Instance.LoseGame();
         }
     }
 }

@@ -79,6 +79,7 @@ public class PlayerMapController : Singleton<PlayerMapController>
         if (IsValidMove(newPos))
         {
             Debug.Log(" Check Function Try Move");
+            GameController.Instance.Dir = direction;
             StartCoroutine(MoveToPosition(direction));
         }
     }
@@ -103,7 +104,7 @@ public class PlayerMapController : Singleton<PlayerMapController>
         return true;
     }
 
-    private IEnumerator MoveToPosition(Vector2Int direction)
+    public IEnumerator MoveToPosition(Vector2Int direction)
     {
         isMoving = true;
         float elapsedTime = 0f;
