@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIController : MonoBehaviour
+public class UIController : Singleton<UIController>
 {
     [SerializeField] private InfoManager uiShow;
     [SerializeField] private Transform uiParent;
 
     [SerializeField] private UIActionEnemy actionEnemyPrefabs;
     [SerializeField] private Transform actionParent;
+
+    [Space]
+    [Header("UI Machine")]
+    [SerializeField] private GameObject PachinkoUI;
+    [SerializeField] private GameObject TumblerUI;
+    [SerializeField] private GameObject GachaUI;
+    [SerializeField] private GameObject MapUI;
+
     private void Awake()
     {
         ObserverManager<IDInfoObject>.AddDesgisterEvent(IDInfoObject.ShowInfo, ShowInfo);
@@ -45,5 +53,21 @@ public class UIController : MonoBehaviour
             ui.Enemy.UI = ui;
         }
     }
+    public void SetActiveMapUI(bool value)
+    {
+        MapUI.SetActive(value);
+    }
+    public void OpenPachinkoUI(bool var)
+    {
+        PachinkoUI.SetActive(var);
+    }
+    public void OpenTumblerUI(bool var)
+    {
+        TumblerUI.SetActive(var);
+    }
+    public void OpenGaChaUI(bool var)
+    {
+        GachaUI.SetActive(var);
+    }    
 }
 

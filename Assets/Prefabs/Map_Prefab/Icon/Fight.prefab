@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5731192095120097221}
   - component: {fileID: 3224420952829202270}
-  - component: {fileID: 315900566908684287}
-  - component: {fileID: 3876938360220442325}
+  - component: {fileID: 541593409145557793}
+  - component: {fileID: 5386220050261100103}
   m_Layer: 0
   m_Name: Fight
   m_TagString: Untagged
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &315900566908684287
+--- !u!61 &541593409145557793
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
---- !u!114 &3876938360220442325
+--- !u!114 &5386220050261100103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,4 +143,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f9692cd641a384da2e6ab0ddb423a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider2D: {fileID: 315900566908684287}
+  idNameRoom: fight

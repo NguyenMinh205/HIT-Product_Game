@@ -46,7 +46,7 @@ public class Enemy : ObjectBase
             enemyController.DieEnemy();
             if (enemyController.ListEnemy.Count <= 0)
             {
-                GameController.Instance.OutRoom();
+                GameController.Instance.LoseGame();
             }
             return true;
         }
