@@ -8817,6 +8817,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GachaUI
       objectReference: {fileID: 0}
+    - target: {fileID: 2675325902901732209, guid: b05210c80331aff4a9d218a884c72219, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6263288285484518238, guid: b05210c80331aff4a9d218a884c72219, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -10816,7 +10820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 636160746180421078, guid: 3effd2538b23f914fb418ef4e2688e33, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1016553907720002442, guid: 3effd2538b23f914fb418ef4e2688e33, type: 3}
       propertyPath: m_LocalPosition.x
