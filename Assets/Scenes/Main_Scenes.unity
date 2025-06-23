@@ -3338,6 +3338,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIGame
       objectReference: {fileID: 0}
+    - target: {fileID: 8185444329713421382, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185444329713421382, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185444329713421382, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 8453557130643342013, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
       propertyPath: m_Camera
       value: 
@@ -3345,6 +3357,10 @@ PrefabInstance:
     - target: {fileID: 8453557130643342013, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
       propertyPath: m_SortingLayerID
       value: 726081065
+      objectReference: {fileID: 0}
+    - target: {fileID: 8690039725145573442, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7048,6 +7064,17 @@ Transform:
   - {fileID: 922280109}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1846323322 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5437473285586780743, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+  m_PrefabInstance: {fileID: 812571689}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1879217309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14171,6 +14198,7 @@ MonoBehaviour:
   isCheckTurnByItem: 0
   btnWinGame: {fileID: 1463034807}
   btnLoseGame: {fileID: 216196794}
+  btnOutRoom: {fileID: 1846323322}
 --- !u!212 &8694967709300717494
 SpriteRenderer:
   m_ObjectHideFlags: 0
