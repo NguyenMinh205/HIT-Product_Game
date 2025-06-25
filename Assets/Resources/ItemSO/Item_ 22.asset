@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Atk22
   itemName: Heat gun
-  icon: {fileID: -1900658039, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
+  icon: {fileID: 676297572, guid: 3d69594dab9cb7d4781e38e63be8c6a4, type: 3}
   itemRarity: 0
   description: Attacks the lastest enemy for 3 damage and shrinks 3 items
   isStackable: 0

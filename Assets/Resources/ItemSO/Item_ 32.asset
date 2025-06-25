@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Def10
   itemName: Toxic Bulwark
-  icon: {fileID: -896480900, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
+  icon: {fileID: -896628270, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
   itemRarity: 2
   description: Increases Block by 15. Permanently increases amount by 3 if an enemy
     dies from Poison while the item is inside the machine

@@ -20,8 +20,4 @@ public class ItemBase : ScriptableObject
     public string description;
     public bool isStackable;
     public int maxStackSize = 1;
-
-    public float damage;
-    public float defense;
-    public float healing;
 }

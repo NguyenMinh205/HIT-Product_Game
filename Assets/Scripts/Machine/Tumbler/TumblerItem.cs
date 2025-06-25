@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class TumblerItem : MonoBehaviour
 {
+    private PerkBase perkBase;
+    [SerializeField] private Image icon;
     private Rigidbody2D _rb;
 
-    private void Awake()
+    public void Init(PerkBase perk)
     {
+        perkBase = perk;
+        icon.sprite = perk.icon;
         _rb = GetComponent<Rigidbody2D>();
     }
 
@@ -16,4 +21,9 @@ public class TumblerItem : MonoBehaviour
             TumblerMachine.Instance.OnItemCollected(this);
         }
     }
+
+    public virtual void AddPerkToPlayer()
+    {
+
+    }    
 }

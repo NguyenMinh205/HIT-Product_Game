@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using static UnityEditor.Progress;
 using TMPro;
+using System.Linq;
 
 public enum CompendiumType
 {
@@ -14,7 +15,7 @@ public enum CompendiumType
 public class CompendiumManager : Singleton<CompendiumManager>
 {
     [Header("Prefab Setting")]
-    [SerializeField] private GameObject compendiumPrefab;
+    [SerializeField] private CompendiumItemUI compendiumPrefab;
     [SerializeField] private Transform contentParent;
 
     [Space]
@@ -32,12 +33,16 @@ public class CompendiumManager : Singleton<CompendiumManager>
     [SerializeField] private Button rightButton;
     [SerializeField] private TextMeshProUGUI currentTypeTxt;
 
+    [SerializeField] private List<ItemBase> items;
+    [SerializeField] private List<PerkBase> perks;
     private List<CompendiumType> compendiumTypes;
     private int currentIndex = 0;
 
     void Start()
     {
         compendiumTypes = new List<CompendiumType>((CompendiumType[])System.Enum.GetValues(typeof(CompendiumType)));
+        items = Resources.LoadAll<ItemBase>("ItemSO").ToList();
+        perks = Resources.LoadAll<PerkBase>("PerkSO").ToList();
 
         leftButton.onClick.AddListener(PreviousType);
         rightButton.onClick.AddListener(NextType);
@@ -59,25 +64,23 @@ public class CompendiumManager : Singleton<CompendiumManager>
         if (currentType == CompendiumType.Item)
         {
             detailBG.sprite = itemBG;
-            ItemBase[] items = Resources.LoadAll<ItemBase>("ItemSO");
+            detailIcon.gameObject.SetActive(false);
 
             foreach (ItemBase item in items)
             {
-                GameObject itemGO = PoolingManager.Spawn(compendiumPrefab, this.transform.position, Quaternion.identity, contentParent);
-                CompendiumItemUI itemUI = itemGO.GetComponent<CompendiumItemUI>();
-                itemUI.Setup(item);
+                CompendiumItemUI newItem = PoolingManager.Spawn(compendiumPrefab, this.transform.position, Quaternion.identity, contentParent);
+                newItem.Setup(item);
             }
         }
         else if (currentType == CompendiumType.Perk)
         {
             detailBG.sprite = perkBG;
-            PerkBase[] perks = Resources.LoadAll<PerkBase>("PerkSO");
+            detailIcon.gameObject.SetActive(false);
 
             foreach (PerkBase perk in perks)
             {
-                GameObject perkGO = PoolingManager.Spawn(compendiumPrefab, this.transform.position, Quaternion.identity, contentParent);
-                CompendiumItemUI perkUI = perkGO.GetComponent<CompendiumItemUI>();
-                perkUI.Setup(perk);
+                CompendiumItemUI newPerk = PoolingManager.Spawn(compendiumPrefab, this.transform.position, Quaternion.identity, contentParent);
+                newPerk.Setup(perk);
             }
         }
     }

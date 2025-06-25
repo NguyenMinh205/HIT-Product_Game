@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976573761be2dd34bb1377563e75d7c4, type: 3}
+  m_Name: Perk_ 24
+  m_EditorClassIdentifier: 
+  id: Per24
+  perkName: RerollCoupon
+  icon: {fileID: 432357857, guid: 3d69594dab9cb7d4781e38e63be8c6a4, type: 3}
+  description: Get one free reroll when selecting a reward

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Atk15
   itemName: Poison Dagger
-  icon: {fileID: 529659937, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
+  icon: {fileID: -747379518, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
   itemRarity: 0
   description: Attacks the nearest enemy for 5 damage and applies 3 Poison
   isStackable: 0
