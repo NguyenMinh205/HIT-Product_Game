@@ -1800,7 +1800,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &316391907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3318,17 +3318,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2179311611671375607, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
-      propertyPath: m_text
-      value: Win
-      objectReference: {fileID: 0}
     - target: {fileID: 3485470225602358492, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5265888142237496264, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
-      propertyPath: m_Name
-      value: btnWinGame
       objectReference: {fileID: 0}
     - target: {fileID: 5265888142237496264, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
       propertyPath: m_IsActive
@@ -3338,13 +3330,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIGame
       objectReference: {fileID: 0}
+    - target: {fileID: 6386920211132381476, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 94.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386920211132381476, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 790
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386920211132381476, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 408
+      objectReference: {fileID: 0}
     - target: {fileID: 8453557130643342013, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2050565247}
-    - target: {fileID: 8453557130643342013, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 726081065
+    - target: {fileID: 8690039725145573442, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125743659064429172, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+      propertyPath: m_text
+      value: Out Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125743659064429172, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125743659064429172, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7030,7 +7046,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1820655456
 Transform:
   m_ObjectHideFlags: 0
@@ -7414,6 +7430,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2055929036 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5437473285586780743, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+  m_PrefabInstance: {fileID: 812571689}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2074002651
 GameObject:
   m_ObjectHideFlags: 0
@@ -10383,7 +10410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3837894935588449778, guid: c33442aeba8666f4aa5f77c49ef182de, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3928164610517489567, guid: c33442aeba8666f4aa5f77c49ef182de, type: 3}
       propertyPath: m_Pivot.x
@@ -14171,6 +14198,7 @@ MonoBehaviour:
   isCheckTurnByItem: 0
   btnWinGame: {fileID: 1463034807}
   btnLoseGame: {fileID: 216196794}
+  btnOutRoom: {fileID: 2055929036}
 --- !u!212 &8694967709300717494
 SpriteRenderer:
   m_ObjectHideFlags: 0
