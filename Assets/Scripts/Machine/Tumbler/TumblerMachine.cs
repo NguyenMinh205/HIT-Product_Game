@@ -1,8 +1,10 @@
 ﻿using Gameplay;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public enum TumblerState
 {
@@ -15,7 +17,9 @@ public enum TumblerState
 
 public class TumblerMachine : Singleton<TumblerMachine>
 {
-    [SerializeField] private List<TumblerItem> itemPrefabs;
+    [SerializeField] private TumblerItem itemPrefabs;
+    [SerializeField] private Transform perkStore;
+    [SerializeField] private List<PerkBase> perkList;
     [SerializeField] private TumblerBox tumblerBox;
     [SerializeField] private Transform perkMachineTumbler;
     [SerializeField] private Button startButton;
@@ -41,6 +45,7 @@ public class TumblerMachine : Singleton<TumblerMachine>
     {
         startButton?.onClick.AddListener(StartTumbler);
         leaveButton?.onClick.AddListener(LeaveGame);
+        perkList = Resources.LoadAll<PerkBase>("PerkSO").ToList();
         _spawnedItems = new List<TumblerItem>();
         _droppedItems = new List<TumblerItem>();
         if (tumblerBox == null || perkMachineTumbler == null)
@@ -52,15 +57,16 @@ public class TumblerMachine : Singleton<TumblerMachine>
 
     private IEnumerator SpawnInitialItems()
     {
-        if (itemPrefabs == null || itemPrefabs.Count == 0) yield return null;
-        List<TumblerItem> availableItems = new List<TumblerItem>(itemPrefabs);
+        if (itemPrefabs == null || perkList.Count == 0) yield return null;
+        List<PerkBase> availableItems = new List<PerkBase>(perkList);
         for (int i = 0; i < numItemsInTumbler && availableItems.Count > 0; i++)
         {
             int randomIndex = Random.Range(0, availableItems.Count);
-            TumblerItem item = Instantiate(availableItems[randomIndex], tumblerBox.SpawnPoint.position, Quaternion.identity);
+            TumblerItem item = PoolingManager.Spawn(itemPrefabs, tumblerBox.SpawnPoint.position, Quaternion.identity, perkStore);
+            item.Init(availableItems[randomIndex]);
             _spawnedItems.Add(item);
             availableItems.RemoveAt(randomIndex);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.5f);
         }
         yield return new WaitForEndOfFrame();
         tumblerBox.Collider.enabled = true;

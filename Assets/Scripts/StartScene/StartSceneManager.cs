@@ -25,38 +25,30 @@ public class StartSceneManager : Singleton<StartSceneManager>
     [SerializeField] private GameObject gachaScreen;
     [SerializeField] private GameObject gachaMachine;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnStartButton()
     {
+        AudioManager.Instance.PlaySoundClickButton();
         characterSelectionScreen.SetActive(true);
         this.gameObject.SetActive(false);
     }
 
     public void OnCompendiumButton()
     {
+        AudioManager.Instance.PlaySoundClickButton();
         compendiumScreen.SetActive(true);
         this.gameObject.SetActive(false);
     }
 
     public void OnOptionButton()
     {
+        AudioManager.Instance.PlaySoundClickButton();
         optionScreen.SetActive(true);
         this.gameObject.SetActive(false);
     }
 
     public void OnGachaButton()
     {
+        AudioManager.Instance.PlaySoundClickButton();
         gachaScreen.SetActive(true);
         gachaMachine.SetActive(true);
         this.gameObject.SetActive(false);
@@ -64,23 +56,27 @@ public class StartSceneManager : Singleton<StartSceneManager>
     
     public void OnDifficultyButton()
     {
+        AudioManager.Instance.PlaySoundClickButton();
         characterSelectionScreen.SetActive(false);
         difficultySelectionScreen.SetActive(true);
     }
 
     public void BackScreen(GameObject screen)
     {
+        AudioManager.Instance.PlaySoundClickButton();
         screen.SetActive(false);
         this.gameObject.SetActive(true);
     }
     public void BackScreenFromGacha()
     {
+        AudioManager.Instance.PlaySoundClickButton();
         gachaScreen.SetActive(false);
         gachaMachine.SetActive(false);
         this.gameObject.SetActive(true);
     }
     public void BackScreenFromDifficulty()
     {
+        AudioManager.Instance.PlaySoundClickButton();
         characterSelectionScreen.SetActive(true);
         difficultySelectionScreen.SetActive(false);
     }
