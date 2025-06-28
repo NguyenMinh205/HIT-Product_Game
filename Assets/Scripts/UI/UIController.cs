@@ -47,7 +47,7 @@ public class UIController : Singleton<UIController>
     {
         if (obj is Enemy enemy)
         {
-            pos.y = pos.y + 0.8f + 1f;
+            pos.y = pos.y + 0.8f + 0.5f;
             UIActionEnemy ui = PoolingManager.Spawn(actionEnemyPrefabs, pos, Quaternion.identity, actionParent);
             ui.Enemy = enemy;
             ui.Enemy.UI = ui;
