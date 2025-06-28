@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using static UnityEditor.Progress;
 using TMPro;
 using System.Linq;
+using Unity.VisualScripting;
 
 public enum CompendiumType
 {
@@ -15,8 +16,9 @@ public enum CompendiumType
 public class CompendiumManager : Singleton<CompendiumManager>
 {
     [Header("Prefab Setting")]
-    [SerializeField] private CompendiumItemUI compendiumPrefab;
-    [SerializeField] private Transform contentParent;
+    [SerializeField] private Transform itemList;
+    [SerializeField] private Transform perkList;
+    [SerializeField] private ScrollRect scroll;
 
     [Space]
     [Header("Show Detail Setting")]
@@ -52,36 +54,25 @@ public class CompendiumManager : Singleton<CompendiumManager>
 
     void LoadCompendium()
     {
-        foreach (Transform child in contentParent)
-        {
-            PoolingManager.Despawn(child.gameObject);
-        }
-
         CompendiumType currentType = compendiumTypes[currentIndex];
         currentTypeTxt.text = currentType.ToString();
-
+        detailIcon.gameObject.SetActive(false);
+        detailDescription.SetText("");
+        detailName.SetText("");
 
         if (currentType == CompendiumType.Item)
         {
             detailBG.sprite = itemBG;
-            detailIcon.gameObject.SetActive(false);
-
-            foreach (ItemBase item in items)
-            {
-                CompendiumItemUI newItem = PoolingManager.Spawn(compendiumPrefab, this.transform.position, Quaternion.identity, contentParent);
-                newItem.Setup(item);
-            }
+            scroll.content = itemList.GetComponent<RectTransform>();
+            itemList.gameObject.SetActive(true);
+            perkList.gameObject.SetActive(false);  
         }
         else if (currentType == CompendiumType.Perk)
         {
             detailBG.sprite = perkBG;
-            detailIcon.gameObject.SetActive(false);
-
-            foreach (PerkBase perk in perks)
-            {
-                CompendiumItemUI newPerk = PoolingManager.Spawn(compendiumPrefab, this.transform.position, Quaternion.identity, contentParent);
-                newPerk.Setup(perk);
-            }
+            scroll.content = perkList.GetComponent<RectTransform>();
+            itemList.gameObject.SetActive(false);
+            perkList.gameObject.SetActive(true);
         }
     }
 

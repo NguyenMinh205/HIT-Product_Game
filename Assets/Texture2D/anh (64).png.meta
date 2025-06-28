@@ -309,8 +309,8 @@ TextureImporter:
         serializedVersion: 2
         x: 136
         y: 1692
-        width: 50
-        height: 78
+        width: 45
+        height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -916,10 +916,10 @@ TextureImporter:
       name: anh (64)_87
       rect:
         serializedVersion: 2
-        x: 660
+        x: 666
         y: 1490
-        width: 57
-        height: 52
+        width: 50
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1294,9 +1294,9 @@ TextureImporter:
       name: anh (64)_119
       rect:
         serializedVersion: 2
-        x: 852
+        x: 854
         y: 1337
-        width: 64
+        width: 50
         height: 51
       alignment: 1
       pivot: {x: 0, y: 1}
@@ -1357,9 +1357,9 @@ TextureImporter:
       name: anh (64)_126
       rect:
         serializedVersion: 2
-        x: 648
+        x: 652
         y: 1315
-        width: 81
+        width: 76
         height: 55
       alignment: 1
       pivot: {x: 0, y: 1}
@@ -1378,9 +1378,9 @@ TextureImporter:
       name: anh (64)_128
       rect:
         serializedVersion: 2
-        x: 168
+        x: 180
         y: 1256
-        width: 84
+        width: 61
         height: 88
       alignment: 1
       pivot: {x: 0, y: 1}
@@ -1462,10 +1462,10 @@ TextureImporter:
       name: anh (64)_139
       rect:
         serializedVersion: 2
-        x: 846
-        y: 1266
-        width: 57
-        height: 59
+        x: 854
+        y: 1273
+        width: 49
+        height: 52
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1485,7 +1485,7 @@ TextureImporter:
         serializedVersion: 2
         x: 582
         y: 1239
-        width: 66
+        width: 57
         height: 77
       alignment: 1
       pivot: {x: 0, y: 1}
@@ -1758,7 +1758,7 @@ TextureImporter:
         serializedVersion: 2
         x: 5
         y: 1102
-        width: 73
+        width: 67
         height: 86
       alignment: 1
       pivot: {x: 0, y: 1}
@@ -2008,10 +2008,10 @@ TextureImporter:
       name: anh (64)_190
       rect:
         serializedVersion: 2
-        x: 612
-        y: 1056
-        width: 78
-        height: 80
+        x: 614
+        y: 1062
+        width: 69
+        height: 74
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2031,7 +2031,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 982
-        width: 72
+        width: 68
         height: 116
       alignment: 1
       pivot: {x: 0, y: 1}
@@ -2094,7 +2094,7 @@ TextureImporter:
         serializedVersion: 2
         x: 532
         y: 1002
-        width: 80
+        width: 68
         height: 83
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -2179,7 +2179,7 @@ TextureImporter:
         x: 310
         y: 983
         width: 114
-        height: 73
+        height: 60
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2388,7 +2388,7 @@ TextureImporter:
         serializedVersion: 2
         x: 413
         y: 889
-        width: 91
+        width: 90
         height: 67
       alignment: 1
       pivot: {x: 0, y: 1}
@@ -2409,7 +2409,7 @@ TextureImporter:
         serializedVersion: 2
         x: 792
         y: 781
-        width: 72
+        width: 65
         height: 108
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -2554,10 +2554,10 @@ TextureImporter:
       name: anh (64)_252
       rect:
         serializedVersion: 2
-        x: 861
-        y: 774
-        width: 99
-        height: 96
+        x: 867
+        y: 779
+        width: 85
+        height: 91
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2701,10 +2701,10 @@ TextureImporter:
       name: anh (64)_272
       rect:
         serializedVersion: 2
-        x: 780
+        x: 788
         y: 681
-        width: 93
-        height: 93
+        width: 85
+        height: 88
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2724,7 +2724,7 @@ TextureImporter:
         serializedVersion: 2
         x: 890
         y: 680
-        width: 94
+        width: 82
         height: 83
       alignment: 1
       pivot: {x: 0, y: 1}
@@ -2934,7 +2934,7 @@ TextureImporter:
         serializedVersion: 2
         x: 399
         y: 591
-        width: 87
+        width: 77
         height: 62
       alignment: 1
       pivot: {x: 0, y: 1}
@@ -3856,10 +3856,10 @@ TextureImporter:
       name: anh (64)_1
       rect:
         serializedVersion: 2
-        x: 267
-        y: 1159
-        width: 69
-        height: 99
+        x: 273
+        y: 1161
+        width: 55
+        height: 94
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4176,7 +4176,7 @@ TextureImporter:
         width: 38
         height: 80
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
