@@ -4,13 +4,16 @@ using static UnityEditor.Progress;
 
 public class CompendiumItemUI : MonoBehaviour
 {
-    public Image iconImage;
-    private ScriptableObject data;
+    [SerializeField] private Image iconImage;
+    [SerializeField] private ScriptableObject data;
 
-    public void Setup(ScriptableObject data)
+    private void Start()
     {
-        this.data = data;
+        Setup();
+    }
 
+    public void Setup()
+    {
         if (data is ItemBase item)
         {
             iconImage.sprite = item.icon;
@@ -26,5 +29,10 @@ public class CompendiumItemUI : MonoBehaviour
     private void OnItemClick()
     {
         CompendiumManager.Instance.ShowDetail(data);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Setup();
     }
 }
