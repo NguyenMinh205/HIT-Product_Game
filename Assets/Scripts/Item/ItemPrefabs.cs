@@ -36,6 +36,7 @@ public class ItemPrefabs : MonoBehaviour
         idItem = id;
         nameItem = name;
         spriteRenderer.sprite = icon;
+        ResetCollider2D();
     }
     private void Update()
     {
@@ -69,5 +70,25 @@ public class ItemPrefabs : MonoBehaviour
         }
         else
             rb.velocity = Vector2.down * moveForce;
+    }
+
+    private void ResetCollider2D()
+    {
+        PolygonCollider2D poly = GetComponent<PolygonCollider2D>();
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+
+        if (poly == null || sr.sprite == null) return;
+
+        poly.pathCount = 0;
+
+        int shapeCount = sr.sprite.GetPhysicsShapeCount();
+        poly.pathCount = shapeCount;
+
+        for (int i = 0; i < shapeCount; i++)
+        {
+            var shape = new List<Vector2>();
+            sr.sprite.GetPhysicsShape(i, shape);
+            poly.SetPath(i, shape);
+        }
     }
 }
