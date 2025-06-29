@@ -75,7 +75,7 @@ public class GameController : Singleton<GameController>
     {
         turnGame = TurnPlay.Player;
         isCheckTurnByClaw = false;
-        isCheckTurnByItem = false;
+        isCheckTurnByItem = true;
     }
 
     private void Start()

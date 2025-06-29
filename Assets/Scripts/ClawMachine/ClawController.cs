@@ -22,6 +22,7 @@ public class ClawController : MonoBehaviour
     [SerializeField] private GameObject leftClawLimit;
     [SerializeField] private GameObject rightClawLimit;
     [SerializeField] private GameObject lowClawLimit;
+    [SerializeField] private GameObject lowClawMagnetLimit;
 
 
     private ClawMachine currentClaw;
@@ -61,6 +62,7 @@ public class ClawController : MonoBehaviour
             Debug.Log("Current Claw is null");
             currentClaw = claws[0];
             claws.Remove(currentClaw);
+            Debug.Log("Curren Claw is not null");
             SetPosClaw();
         }
         currentClaw.Mode = ModeClaw.Start;
@@ -93,7 +95,13 @@ public class ClawController : MonoBehaviour
             newClaw.leftLimit = leftClawLimit;
             newClaw.rightLimit = rightClawLimit;
             newClaw.posStartClaw = posStartClaw;
-            newClaw.lowLimit = lowClawLimit;
+
+            if(newClaw is Magnet_Claw magnetClaw)
+            {
+                magnetClaw.lowLimit = lowClawMagnetLimit;
+            }
+            else newClaw.lowLimit = lowClawLimit;
+
             newClaw.posStopClaw = posEndClaw;
             claws.Add(newClaw);
         }

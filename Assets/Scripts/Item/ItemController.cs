@@ -28,7 +28,7 @@ public class ItemController : Singleton<ItemController>
 
     public void Spawn()
     {
-        Debug.Log("Spawn Iten");
+        Debug.Log("Spawn Item");
         for (int i = 0; i < listPosSpawnItem.Count; i++)
         {
             ItemPrefabs item = PoolingManager.Spawn(currentObjectPrefab, listPosSpawnItem[i].transform.position, Quaternion.identity, itemParent);

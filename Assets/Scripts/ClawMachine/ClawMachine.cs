@@ -36,7 +36,7 @@ public class ClawMachine : MonoBehaviour
     public Vector3 posMove;
 
     protected ModeClaw mode;
-    protected float moveForce = 5f;
+    protected float moveForce = 3f;
 
     protected ClawController clawController;
 
@@ -56,6 +56,7 @@ public class ClawMachine : MonoBehaviour
     }
     public void Claw()
     {
+        Debug.Log("Execute Claw");
         switch(mode)
         {
             case ModeClaw.Wait:
@@ -141,6 +142,7 @@ public class ClawMachine : MonoBehaviour
     }
     public virtual void StartClaw()
     {
+        Debug.Log("Start Claw ");
         if (chain.transform.position.x <= posStartClaw.position.x)
             rb.velocity = Vector2.right * moveForce;
         else if (chain.transform.position.y > posStartClaw.position.y)
@@ -199,7 +201,7 @@ public class ClawMachine : MonoBehaviour
         Destroy(gameObject);
     }
 
-    IEnumerator DelayPickUp(float time)
+    protected virtual IEnumerator DelayPickUp(float time)
     {
         yield return new WaitForSeconds(time);
 
@@ -214,7 +216,7 @@ public class ClawMachine : MonoBehaviour
         }
 
     }
-    IEnumerator DelaOpen(float time)
+    protected virtual IEnumerator DelaOpen(float time)
     {
         //OpenClaw();
         yield return new WaitForSeconds(time);

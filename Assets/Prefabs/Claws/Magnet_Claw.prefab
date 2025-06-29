@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 726081065
   m_SortingLayer: 6
-  m_SortingOrder: 3
+  m_SortingOrder: 53
   m_Sprite: {fileID: -1096878143, guid: bb8f5b34cd0a94c4c846a891bd093713, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -252,7 +252,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 726081065
   m_SortingLayer: 6
-  m_SortingOrder: 1
+  m_SortingOrder: 51
   m_Sprite: {fileID: -1997991578, guid: 79aaad8f757a24641b39ee9e9953f05d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -327,8 +327,8 @@ PointEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 256
-  m_ForceMagnitude: -10
+    m_Bits: 264
+  m_ForceMagnitude: -20
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
@@ -515,7 +515,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 726081065
   m_SortingLayer: 6
-  m_SortingOrder: 1
+  m_SortingOrder: 51
   m_Sprite: {fileID: 1929629666, guid: bb8f5b34cd0a94c4c846a891bd093713, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -691,9 +691,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1505080515
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 726081065
+  m_SortingLayer: 6
+  m_SortingOrder: 49
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 3, z: 1}
@@ -768,19 +768,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98557f9c42b26bf4db78e943075a1f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  line: {fileID: 0}
-  rb: {fileID: 0}
-  leftClaw: {fileID: 0}
-  rightClaw: {fileID: 0}
-  chain: {fileID: 0}
+  line: {fileID: 1801917275293968559}
+  rb: {fileID: 5781108867511189594}
+  chain: {fileID: 5459018007411855656}
   lowLimit: {fileID: 0}
   leftLimit: {fileID: 0}
   rightLimit: {fileID: 0}
   posStartClaw: {fileID: 0}
   posStopClaw: {fileID: 0}
   posMove: {x: 0, y: 0, z: 0}
-  closeAngle: 45
-  clawStrength: 25
+  magnetClaw: {fileID: 4537148473587513515}
+  spriteMagnetOn: {fileID: -1999671530, guid: 79aaad8f757a24641b39ee9e9953f05d, type: 3}
+  spriteMagnetOff: {fileID: -1997991578, guid: 79aaad8f757a24641b39ee9e9953f05d, type: 3}
 --- !u!1 &5459018007411855656
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,7 +854,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 726081065
   m_SortingLayer: 6
-  m_SortingOrder: 1
+  m_SortingOrder: 51
   m_Sprite: {fileID: 1929629666, guid: bb8f5b34cd0a94c4c846a891bd093713, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1004,7 +1003,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 726081065
   m_SortingLayer: 6
-  m_SortingOrder: 3
+  m_SortingOrder: 53
   m_Sprite: {fileID: -1096878143, guid: bb8f5b34cd0a94c4c846a891bd093713, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1119,7 +1118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6911136468588789834
 Transform:
   m_ObjectHideFlags: 0

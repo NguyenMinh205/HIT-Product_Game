@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2688443546229368612}
   - component: {fileID: 1237445441407493707}
   - component: {fileID: 4880880478966815227}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Balloon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: -54595170146916652}
   - component: {fileID: 8422109728651766705}
   - component: {fileID: 109725524589577221}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ItemBase
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 726081065
   m_SortingLayer: 6
-  m_SortingOrder: 30
+  m_SortingOrder: 51
   m_Sprite: {fileID: -1786454754, guid: 622c19d79a0b621458b3e53d3df2a482, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

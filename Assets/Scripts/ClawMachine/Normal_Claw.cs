@@ -26,8 +26,9 @@ public class Normal_Claw : ClawMachine
             mode = ModeClaw.Use;
         }
     }
-    public new IEnumerator DelayPickUp(float time)
+    protected override IEnumerator DelayPickUp(float time)
     {
+        CloseClaw();
         yield return new WaitForSeconds(time);
 
         if (chain.transform.position.y < posStartClaw.position.y)
@@ -36,13 +37,12 @@ public class Normal_Claw : ClawMachine
         }
         else
         {
-            CloseClaw();
             rb.velocity = Vector2.zero;
             mode = ModeClaw.End;
         }
 
     }
-    public new IEnumerator DelaOpen(float time)
+    protected override IEnumerator DelaOpen(float time)
     {
         OpenClaw(); // Gọi OpenClaw của Normal_Claw
         yield return new WaitForSeconds(time);

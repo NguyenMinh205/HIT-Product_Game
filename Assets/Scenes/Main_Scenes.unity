@@ -3346,6 +3346,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5265888142237496264, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5295479624792301490, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
       propertyPath: m_Name
       value: UIGame
@@ -9721,7 +9725,7 @@ Transform:
   m_GameObject: {fileID: 1348378130328881740}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.11, y: -0, z: 0}
+  m_LocalPosition: {x: -4.11, y: 0.41, z: 0}
   m_LocalScale: {x: 5.8, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11128,7 +11132,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 688729343
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 50
   m_Sprite: {fileID: 1075128218, guid: ff5b8543d7ebab9499ed1fd51d023313, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -11223,7 +11227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   claws: []
-  clawPrefabs: {fileID: 2180888326410476655, guid: 621d06f6427e9114eaf97631b3ea2eff, type: 3}
+  clawPrefabs: {fileID: 6411548938731082254, guid: 304c760c59b55804cb3818610bea3c67, type: 3}
   quantityClaws: 2
   posStartClaw: {fileID: 804478062983610858}
   posEndClaw: {fileID: 7405027551294874154}
@@ -11235,6 +11239,7 @@ MonoBehaviour:
   leftClawLimit: {fileID: 7298400232306525104}
   rightClawLimit: {fileID: 8399217798399503495}
   lowClawLimit: {fileID: 2060415968202194873}
+  lowClawMagnetLimit: {fileID: 1348378130328881740}
 --- !u!114 &4169898598481376583
 MonoBehaviour:
   m_ObjectHideFlags: 0
