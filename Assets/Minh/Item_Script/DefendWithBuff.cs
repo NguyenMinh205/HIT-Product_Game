@@ -7,4 +7,5 @@ public abstract class DefendWithBuff : IItemAction
     public abstract void Defend(Player player, float shield = 0);
     public abstract void Buff(Player player, float value = 0);
     public abstract void Execute(GameObject player, GameObject target, float value = 0);
+    public abstract void Execute(GameObject player, GameObject target, float defendValue = 0, float buffValue = 0);
 }

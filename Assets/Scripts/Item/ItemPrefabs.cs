@@ -66,7 +66,7 @@ public class ItemPrefabs : MonoBehaviour
         Debug.Log("Move Item");
         if (isMove)
         {
-            rb.velocity = (GameController.Instance.playerController.PosPlayer - transform.position) * moveForce;
+            //rb.velocity = (GameController.Instance.playerController.PosPlayer - transform.position) * moveForce;
         }
         else
             rb.velocity = Vector2.down * moveForce;

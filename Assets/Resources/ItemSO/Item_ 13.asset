@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: Item_ 13
   m_EditorClassIdentifier: 
   id: Atk13
-  itemName: Knife
+  itemName: Plastic Knife
   icon: {fileID: 453555545, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
   itemRarity: 0
   description: Attacks the nearest enemy for 15 damage. Decreases its damage by 5
     each time it's used. Resets after each fight.
   isStackable: 0
   maxStackSize: 1
-  damage: 15
-  defense: 0
-  healing: 0

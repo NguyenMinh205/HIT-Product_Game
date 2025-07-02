@@ -27,7 +27,7 @@ public class Enemy : ObjectBase
     {
         if (obj.TryGetComponent(out Player player))
         {
-            player.ReceiverDamage(damage);
+            player.ReceiveDamage(damage);
         }
     }
     public override bool ReceiverDamage(int damage)
@@ -71,7 +71,7 @@ public class Enemy : ObjectBase
             switch(IsCheck)
             {
                 case 1:
-                    actions.Add(() => Attack(GameController.Instance.playerController.CurrentPlayer.gameObject, 12));
+                    //actions.Add(() => Attack(GameController.Instance.playerController.CurrentPlayer.gameObject, 12));
                     uiActionEnemy.OnShowAttack(i, 12);
                     break;
                 case 2:

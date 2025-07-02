@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 7480594454539457562}
   - component: {fileID: 4278605123151132739}
   - component: {fileID: 6262871788618826098}
+  - component: {fileID: -5563196789657130844}
   - component: {fileID: 7929153184085620473}
+  - component: {fileID: 4930247587765300604}
   - component: {fileID: 9112401239775922810}
   m_Layer: 0
   m_Name: PlayerPrefab
@@ -96,7 +98,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 884660179733124090}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 36fefe7c1a5a33f4f97e57b62de944d8, type: 2}
   m_CullingMode: 0
@@ -121,10 +123,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0905a08d957bf40bf731e668e41b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 4278605123151132739}
-  curent_Hp: 110
-  armor: 5
-  info: {fileID: 0}
+  playerSprite: {fileID: 7480594454539457562}
+  characterStatModifier: {fileID: -5563196789657130844}
+  inventory: {fileID: 4930247587765300604}
+--- !u!114 &-5563196789657130844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884660179733124090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85f7b34a114790d4a97dade493991be5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!60 &7929153184085620473
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -161,7 +174,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.048}
+    oldSize: {x: 3.859375, y: 3.203125}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -293,6 +306,18 @@ PolygonCollider2D:
       - {x: -0.21499999, y: -0.85799986}
       - {x: -0.16499999, y: -0.80299985}
   m_UseDelaunayMesh: 0
+--- !u!114 &4930247587765300604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884660179733124090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e17dc6daed903e14da55412aae4ed8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &9112401239775922810
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,11 +43,11 @@ public class TriggerPlayer : MonoBehaviour
 
     public void Sword()
     {
-        player.Attack(GameController.Instance.enemyController.ListEnemy[0].gameObject, 10);
+        //player.Attack(GameController.Instance.enemyController.ListEnemy[0].gameObject, 10);
     }
     public void Shield()
     {
-        player.Armor += 5;
-        player.Info.UpdateArmor();
+        //player.Armor += 5;
+        //player.Info.UpdateArmor();
     }
 }

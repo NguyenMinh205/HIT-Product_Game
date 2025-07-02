@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 public class MapController : Singleton<MapController>
 {
     [SerializeField] private PlayerMapController playerPrefab;
+    [SerializeField] private CharacterDatabaseSO characterDatabase;
     [SerializeField] private Transform mapStore;
     [SerializeField] private float offsetX;
     [SerializeField] private float offsetY;
@@ -74,7 +75,7 @@ public class MapController : Singleton<MapController>
                             }
                         }
                         PlayerMapController newPlayer = PoolingManager.Spawn<PlayerMapController>(playerPrefab, adjustedPos, Quaternion.identity, mapStore);
-                        newPlayer.Initialize(tilemap, currentMapData, new Vector2Int(x, y));
+                        newPlayer.Initialize(tilemap, currentMapData, new Vector2Int(x, y), characterDatabase.GetCharacterById(PlayerPrefs.GetString("SelectedCharacterId", "")).skins[PlayerPrefs.GetInt("SelectedSkinIndex", 0)]);
                         Debug.Log($"Player spawned at Entrance: {adjustedPos} (Grid: {x}, {y})");
                         break;
                     case EMapTileType.Exit:

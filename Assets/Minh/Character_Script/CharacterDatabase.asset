@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8813e715bf295847b6e385c7a8e5458, type: 3}
+  m_Name: CharacterDatabase
+  m_EditorClassIdentifier: 
+  characters:
+  - id: Cha01
+    name: Alex
+    description: Alex used to be a knight, because of his greed he was trapped in
+      a dungeon. Now he is on a journey to find a way out and conquer the dungeon.
+    abilityDescription: Your Health is increased by 10 when start game. Start each
+      turn with 5 Block
+    startingItems:
+    - 
+    - 
+    - 
+    - 
+    skins:
+    - {fileID: 483049730, guid: e9c8ca7b6b77765408762083420f81f7, type: 3}
+    - {fileID: 1941008337, guid: e9c8ca7b6b77765408762083420f81f7, type: 3}
+    - {fileID: 2060198056, guid: 7c42b33d3ccda2b47b432ab366abd2fc, type: 3}
+    initialItems:
+    - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
+      quantity: 10
+    - itemBase: {fileID: 11400000, guid: eded065d072225e4695dd282993cf557, type: 2}
+      quantity: 10
+    - itemBase: {fileID: 11400000, guid: 21ac2415a21e2a44ba8c0dadeac1c878, type: 2}
+      quantity: 1
+    - itemBase: {fileID: 11400000, guid: a9f5fa0994ed89c4591f9b70a7217f84, type: 2}
+      quantity: 1
+  - id: Cha02
+    name: Liam
+    description: Liam is Alex's strange brother who's obsessed with metal. Probably
+      because he grew up on the scrapyard. He is currently searching for his long-lost
+      sibling.
+    abilityDescription: The second claw is always a big magnet. Get 1 Strength if
+      you collect at least 5 items at once
+    startingItems:
+    - 
+    - 
+    - 
+    - 
+    skins:
+    - {fileID: -900610683, guid: da7e84710f54d9f499b6602b559b9b26, type: 3}
+    - {fileID: 2035261530, guid: 8cf66e4b4dab7ea42962134c5c019368, type: 3}
+    - {fileID: 576857798, guid: 8cf66e4b4dab7ea42962134c5c019368, type: 3}
+    initialItems:
+    - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
+      quantity: 5
+    - itemBase: {fileID: 11400000, guid: eded065d072225e4695dd282993cf557, type: 2}
+      quantity: 10
+    - itemBase: {fileID: 11400000, guid: a9f5fa0994ed89c4591f9b70a7217f84, type: 2}
+      quantity: 1
+    - itemBase: {fileID: 11400000, guid: 21ac2415a21e2a44ba8c0dadeac1c878, type: 2}
+      quantity: 1
+  - id: Cha03
+    name: Damian
+    description: Damian was too poor to build his own castle, so he skipped, hopped,
+      and boogied his way into the dungeon, hoping to find a treasure chest bursting
+      with gold to finally get his dream fortress!
+    abilityDescription: Cannot block damage, heals itself for 10% of all damage dealt
+      to enemies
+    startingItems:
+    - 
+    - 
+    skins:
+    - {fileID: 1219110070, guid: 7c42b33d3ccda2b47b432ab366abd2fc, type: 3}
+    initialItems:
+    - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
+      quantity: 10
+    - itemBase: {fileID: 11400000, guid: 21ac2415a21e2a44ba8c0dadeac1c878, type: 2}
+      quantity: 3
+  - id: Cha04
+    name: Coby
+    description: Coby is a hard Laborer. He's the Dungeon's janitor and makes sure
+      that the arcades stay neat and clean
+    abilityDescription: 50% of all items get removed after your turn. Your damage
+      is increased by 2% for every item in your deck
+    startingItems:
+    - 
+    - 
+    - 
+    - 
+    skins:
+    - {fileID: 927518111, guid: 7c6bbaed8fec3ca49838c55e04681231, type: 3}
+    - {fileID: -207943102, guid: 7c6bbaed8fec3ca49838c55e04681231, type: 3}
+    - {fileID: -1802970662, guid: 7c6bbaed8fec3ca49838c55e04681231, type: 3}
+    initialItems:
+    - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
+      quantity: 7
+    - itemBase: {fileID: 11400000, guid: eded065d072225e4695dd282993cf557, type: 2}
+      quantity: 7
+    - itemBase: {fileID: 11400000, guid: 950ce586231c48943824e75d761c49ed, type: 2}
+      quantity: 3
+    - itemBase: {fileID: 11400000, guid: c6a20e3ecb102a4439ab894430a9606f, type: 2}
+      quantity: 3
+  - id: Cha05
+    name: Violet
+    description: Violet, once an alchemy student of Great Mage Augmentus, accidentally
+      whiffed some super-strong toxins! In a poison-fueled frenzy, she shredded her
+      teacher's books, leading to her banishment. Now, Violet skips through the dungeon,
+      always ready with her poison flask!
+    abilityDescription: Each time you apply Poison to an enemy, you apply 1 more
+      poison. Each attack applies 1 Poison
+    startingItems:
+    - 
+    - 
+    - 
+    - 
+    skins:
+    - {fileID: -2099389291, guid: da7e84710f54d9f499b6602b559b9b26, type: 3}
+    initialItems:
+    - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
+      quantity: 5
+    - itemBase: {fileID: 11400000, guid: eded065d072225e4695dd282993cf557, type: 2}
+      quantity: 5
+    - itemBase: {fileID: 11400000, guid: 99cea43d4e771c745a420beefd33422c, type: 2}
+      quantity: 5
+    - itemBase: {fileID: 11400000, guid: 37e8ed00fbf8cb54ba7e086fb40f0c78, type: 2}
+      quantity: 2

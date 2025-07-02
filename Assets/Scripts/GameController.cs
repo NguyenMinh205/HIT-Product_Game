@@ -192,7 +192,7 @@ public class GameController : Singleton<GameController>
         clawController.IsStart = false;
         ItemController.Instance.EndGame();
         enemyController.EndGame();
-        playerController.EndGame();
+        //playerController.EndGame();
 
         MapController.Instance.SetActiveMapStore(true);
         StartCoroutine(DelayOutTrigger(0.2f));
@@ -224,7 +224,7 @@ public class GameController : Singleton<GameController>
         clawController.IsStart = false;
         ItemController.Instance.EndGame();
         enemyController.EndGame();
-        playerController.EndGame();
+        //playerController.EndGame();
 
         MapController.Instance.SetActiveMapStore(true);
         MapManager.Instance.SetActiveRoomVisual(true);
