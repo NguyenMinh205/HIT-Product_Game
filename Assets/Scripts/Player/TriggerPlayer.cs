@@ -48,6 +48,6 @@ public class TriggerPlayer : MonoBehaviour
     public void Shield()
     {
         player.Armor += 5;
-        player.Info.UpdateArmor();
+        player.Health.UpdateArmor(player);
     }
 }
