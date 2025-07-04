@@ -82,12 +82,16 @@ public class CompendiumManager : Singleton<CompendiumManager>
         if (data is ItemBase item)
         {
             detailIcon.sprite = item.icon;
+            detailIcon.SetNativeSize();
+            detailIcon.rectTransform.sizeDelta *= 0.5f;
             detailName.text = item.itemName;
             detailDescription.text = item.description;
         }
         else if (data is PerkBase perk)
         {
             detailIcon.sprite = perk.icon;
+            detailIcon.SetNativeSize();
+            detailIcon.rectTransform.sizeDelta *= 0.5f;
             detailName.text = perk.perkName;
             detailDescription.text = perk.description;
         }

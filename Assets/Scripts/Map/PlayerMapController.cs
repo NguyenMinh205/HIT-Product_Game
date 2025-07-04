@@ -4,6 +4,7 @@ using System.Collections;
 
 public class PlayerMapController : Singleton<PlayerMapController>
 {
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Vector2Int posInGrid;
     [SerializeField] private float moveDelay = 0.2f;
 
@@ -36,10 +37,12 @@ public class PlayerMapController : Singleton<PlayerMapController>
     {
         rb = GetComponent<Rigidbody2D>();
         isIntoRoom = false;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Initialize(Tilemap mapTilemap, MapData mapData, Vector2Int spawnPos)
+    public void Initialize(Tilemap mapTilemap, MapData mapData, Vector2Int spawnPos, Sprite sprite)
     {
+        spriteRenderer.sprite = sprite;
         tilemap = mapTilemap;
         currentMapData = mapData;
         PosInGrid = spawnPos;
@@ -109,6 +112,7 @@ public class PlayerMapController : Singleton<PlayerMapController>
         isMoving = true;
         float elapsedTime = 0f;
         Vector3 startPosition = transform.position;
+        AudioManager.Instance.PlayMoveSound();
 
         Vector3 targetPosition = startPosition + new Vector3(direction.x, direction.y, 0) * tilemap.cellSize.x;
 

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,9 +19,8 @@ public class ItemController : Singleton<ItemController>
 
     public void Init(ItemPrefabs item)
     {
-        int randomNumber = Random.Range(0, data.listDataItem.Count);  //random du lieu
+        int randomNumber = Random.Range(0, data.listDataItem.Count);
 
-        //Init
         DataItem dataItem = data.listDataItem[randomNumber];
         item.Init(dataItem.id, dataItem.name, dataItem.icon);
     }

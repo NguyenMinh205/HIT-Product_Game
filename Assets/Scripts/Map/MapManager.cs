@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapManager : Singleton<MapManager>
 {
     [SerializeField] private List<MapData> fightMaps;
     [SerializeField] private List<MapData> bossMaps;
     [SerializeField] private List<MapData> restMaps;
+    [SerializeField] private TextMeshProUGUI FloorTxt;
     [SerializeField] private int numFloor;
     private MapData curMap;
     private int currentMapIndex = 0;
@@ -19,6 +22,11 @@ public class MapManager : Singleton<MapManager>
         bossMaps = Resources.LoadAll<MapData>("SO/Boss").ToList();
         restMaps = Resources.LoadAll<MapData>("SO/Rest").ToList();
         LoadInitialMap();
+    }
+
+    private void UpdateFloorText()
+    {
+        FloorTxt.SetText("Floor " + currentMapIndex + "/" + numFloor);
     }
     public void SetActiveRoomVisual(bool val)
     {
@@ -36,6 +44,7 @@ public class MapManager : Singleton<MapManager>
         curMap.UpdateMapLayout(); // Xóa danh sách ExitDoors cũ và cập nhật layout
         MapController.Instance.LoadMap(curMap); // Spawn các đối tượng và thêm ExitTrigger vào curMap.ExitDoors
         GenerateSequenceMap(); // Bây giờ, curMap.ExitDoors sẽ chứa các ExitTrigger đã spawn và sẵn sàng để gán SubsequentMap
+        UpdateFloorText();
         Debug.Log($"Initial map loaded: {curMap.MapType} at index {currentMapIndex}");
     }
 
@@ -203,7 +212,8 @@ public class MapManager : Singleton<MapManager>
             curMap = subsequentMap;
             curMap.UpdateMapLayout();
             MapController.Instance.LoadMap(curMap); 
-            GenerateSequenceMap(); 
+            GenerateSequenceMap();
+            UpdateFloorText();
             Debug.Log($"Loaded Map: {curMap.MapType} at index {currentMapIndex}");
         }
         else

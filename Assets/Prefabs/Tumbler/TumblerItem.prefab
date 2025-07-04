@@ -63,8 +63,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 688729343
-  m_SortingOrder: 0
+  m_SortingLayerID: 726081065
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &2192493465611306133
 MonoBehaviour:
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &4815706385924779373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,7 +122,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 2fc0bd78b0a1a8e4e864a24d9f4b4595, type: 2}
+  m_Material: {fileID: 6200000, guid: 93071e6b3f105b44c933c60ec6d7450a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
