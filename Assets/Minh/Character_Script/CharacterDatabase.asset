@@ -15,6 +15,7 @@ MonoBehaviour:
   characters:
   - id: Cha01
     name: Alex
+    isUnlocked: 1
     description: Alex used to be a knight, because of his greed he was trapped in
       a dungeon. Now he is on a journey to find a way out and conquer the dungeon.
     abilityDescription: Your Health is increased by 10 when start game. Start each
@@ -25,9 +26,12 @@ MonoBehaviour:
     - 
     - 
     skins:
-    - {fileID: 483049730, guid: e9c8ca7b6b77765408762083420f81f7, type: 3}
-    - {fileID: 1941008337, guid: e9c8ca7b6b77765408762083420f81f7, type: 3}
-    - {fileID: 2060198056, guid: 7c42b33d3ccda2b47b432ab366abd2fc, type: 3}
+    - skin: {fileID: 483049730, guid: e9c8ca7b6b77765408762083420f81f7, type: 3}
+      isUnlocked: 1
+    - skin: {fileID: 1941008337, guid: e9c8ca7b6b77765408762083420f81f7, type: 3}
+      isUnlocked: 0
+    - skin: {fileID: 2060198056, guid: 7c42b33d3ccda2b47b432ab366abd2fc, type: 3}
+      isUnlocked: 0
     initialItems:
     - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
       quantity: 10
@@ -39,6 +43,7 @@ MonoBehaviour:
       quantity: 1
   - id: Cha02
     name: Liam
+    isUnlocked: 0
     description: Liam is Alex's strange brother who's obsessed with metal. Probably
       because he grew up on the scrapyard. He is currently searching for his long-lost
       sibling.
@@ -50,9 +55,12 @@ MonoBehaviour:
     - 
     - 
     skins:
-    - {fileID: -900610683, guid: da7e84710f54d9f499b6602b559b9b26, type: 3}
-    - {fileID: 2035261530, guid: 8cf66e4b4dab7ea42962134c5c019368, type: 3}
-    - {fileID: 576857798, guid: 8cf66e4b4dab7ea42962134c5c019368, type: 3}
+    - skin: {fileID: -900610683, guid: da7e84710f54d9f499b6602b559b9b26, type: 3}
+      isUnlocked: 1
+    - skin: {fileID: 576857798, guid: 8cf66e4b4dab7ea42962134c5c019368, type: 3}
+      isUnlocked: 0
+    - skin: {fileID: 2035261530, guid: 8cf66e4b4dab7ea42962134c5c019368, type: 3}
+      isUnlocked: 0
     initialItems:
     - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
       quantity: 5
@@ -64,6 +72,7 @@ MonoBehaviour:
       quantity: 1
   - id: Cha03
     name: Damian
+    isUnlocked: 0
     description: Damian was too poor to build his own castle, so he skipped, hopped,
       and boogied his way into the dungeon, hoping to find a treasure chest bursting
       with gold to finally get his dream fortress!
@@ -73,7 +82,8 @@ MonoBehaviour:
     - 
     - 
     skins:
-    - {fileID: 1219110070, guid: 7c42b33d3ccda2b47b432ab366abd2fc, type: 3}
+    - skin: {fileID: 1219110070, guid: 7c42b33d3ccda2b47b432ab366abd2fc, type: 3}
+      isUnlocked: 1
     initialItems:
     - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
       quantity: 10
@@ -81,6 +91,7 @@ MonoBehaviour:
       quantity: 3
   - id: Cha04
     name: Coby
+    isUnlocked: 0
     description: Coby is a hard Laborer. He's the Dungeon's janitor and makes sure
       that the arcades stay neat and clean
     abilityDescription: 50% of all items get removed after your turn. Your damage
@@ -91,9 +102,12 @@ MonoBehaviour:
     - 
     - 
     skins:
-    - {fileID: 927518111, guid: 7c6bbaed8fec3ca49838c55e04681231, type: 3}
-    - {fileID: -207943102, guid: 7c6bbaed8fec3ca49838c55e04681231, type: 3}
-    - {fileID: -1802970662, guid: 7c6bbaed8fec3ca49838c55e04681231, type: 3}
+    - skin: {fileID: 927518111, guid: 7c6bbaed8fec3ca49838c55e04681231, type: 3}
+      isUnlocked: 1
+    - skin: {fileID: -207943102, guid: 7c6bbaed8fec3ca49838c55e04681231, type: 3}
+      isUnlocked: 0
+    - skin: {fileID: -1802970662, guid: 7c6bbaed8fec3ca49838c55e04681231, type: 3}
+      isUnlocked: 0
     initialItems:
     - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
       quantity: 7
@@ -105,10 +119,10 @@ MonoBehaviour:
       quantity: 3
   - id: Cha05
     name: Violet
-    description: Violet, once an alchemy student of Great Mage Augmentus, accidentally
-      whiffed some super-strong toxins! In a poison-fueled frenzy, she shredded her
-      teacher's books, leading to her banishment. Now, Violet skips through the dungeon,
-      always ready with her poison flask!
+    isUnlocked: 0
+    description: Violet, Great Mage Augmentus's alchemy student, inhaled super toxins!
+      In a poison rage, she shredded his books, earning her banishment. Now, she
+      bounces through dungeons, poison flask in hand!
     abilityDescription: Each time you apply Poison to an enemy, you apply 1 more
       poison. Each attack applies 1 Poison
     startingItems:
@@ -117,7 +131,8 @@ MonoBehaviour:
     - 
     - 
     skins:
-    - {fileID: -2099389291, guid: da7e84710f54d9f499b6602b559b9b26, type: 3}
+    - skin: {fileID: -2099389291, guid: da7e84710f54d9f499b6602b559b9b26, type: 3}
+      isUnlocked: 1
     initialItems:
     - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
       quantity: 5

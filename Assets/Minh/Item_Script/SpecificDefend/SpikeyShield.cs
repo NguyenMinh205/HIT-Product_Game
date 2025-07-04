@@ -4,27 +4,24 @@ using UnityEngine;
 
 public class SpikeyShield : DefendWithBuff
 {
-    public override void Buff(Player player, float value = 0)
+    private int shield = 10;
+    public int Shield { get { return shield; } set { shield = value; } }
+    public override void Buff(Player player)
     {
         player.AddBuffEffect("thorns_damage", 5, -1);
     }
 
-    public override void Defend(Player player, float shield = 0)
+    public override void Defend(Player player)
     {
         player._CharacterStatModifier.ChangeShield(shield);
     }
 
-    public override void Execute(GameObject player, GameObject target, float value = 0)
+    public override void Execute(GameObject player, GameObject target)
     {
         if (player != null && player.TryGetComponent<Player>(out var playerComponent))
         {
-            Defend(playerComponent, value);
-            Buff(playerComponent, value);
+            Defend(playerComponent);
+            Buff(playerComponent);
         }
-    }
-
-    public override void Execute(GameObject player, GameObject target, float defendValue = 0, float buffValue = 0)
-    {
-        throw new System.NotImplementedException();
     }
 }

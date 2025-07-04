@@ -4299,7 +4299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 246.31578
+      value: 246.3158
       objectReference: {fileID: 0}
     - target: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5684,6 +5684,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 525874166}
+  - component: {fileID: 525874167}
   m_Layer: 5
   m_Name: GachaScreen
   m_TagString: Untagged
@@ -5715,6 +5716,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &525874167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525874165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f9fcabaa5d10e4a8a82efa3253c67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numOfCoinTxt: {fileID: 1605414080}
+  coinPerSpinTxt: {fileID: 1613463882}
+  numCoinPerSpin: 25
 --- !u!224 &534504484 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
@@ -6069,7 +6085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 20
+    m_Left: 32
     m_Right: 20
     m_Top: 12
     m_Bottom: 12
@@ -6580,6 +6596,82 @@ MonoBehaviour:
   abilityDescriptionTxt: {fileID: 138344676}
   listStartItem: {fileID: 1268614516}
   itemInventoryPrefab: {fileID: 2918143830931337751, guid: 7150860bcd405924495a7f35d7e90872, type: 3}
+  lockIcon: {fileID: 647863061}
+--- !u!1 &647863060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 647863063}
+  - component: {fileID: 647863062}
+  - component: {fileID: 647863061}
+  m_Layer: 5
+  m_Name: LockIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &647863061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647863060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6862745}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 9a93507654039ce458c495f6adae8784, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &647863062
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647863060}
+  m_CullTransparentMesh: 1
+--- !u!224 &647863063
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647863060}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1814214435}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -210, y: -210}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &650281753 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
@@ -7882,7 +7974,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 47.33333, y: -50}
+  m_AnchoredPosition: {x: 47.333313, y: -50}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &734045836
@@ -8688,6 +8780,8 @@ MonoBehaviour:
   difficultySelectionScreen: {fileID: 225577522}
   gachaScreen: {fileID: 525874165}
   gachaMachine: {fileID: 636160747146606559}
+  uiChoicePlayer: {fileID: 0}
+  characterDatabaseSO: {fileID: 11400000, guid: 84e61f188e25ed14ba33f8bf64dd67c5, type: 2}
 --- !u!4 &795054344
 Transform:
   m_ObjectHideFlags: 0
@@ -10476,6 +10570,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GachaMachine
       objectReference: {fileID: 0}
+    - target: {fileID: 870643278835826226, guid: 3effd2538b23f914fb418ef4e2688e33, type: 3}
+      propertyPath: characterDatabaseSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 84e61f188e25ed14ba33f8bf64dd67c5, type: 2}
     - target: {fileID: 1016553907720002442, guid: 3effd2538b23f914fb418ef4e2688e33, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.70000005
@@ -11502,8 +11600,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 345, y: -128.5}
-  m_SizeDelta: {x: 650, y: 100}
+  m_AnchoredPosition: {x: 347.5, y: -128.5}
+  m_SizeDelta: {x: 655, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1031340209
 MonoBehaviour:
@@ -12472,10 +12570,11 @@ MonoBehaviour:
   coin: {fileID: 8300000, guid: b961ed2bbeb4d5646848cf8b60d4923a, type: 3}
   clawDrop: {fileID: 8300000, guid: 6bd2f2b1ac51737498e90ac945b37323, type: 3}
   clawMagnetDrop: {fileID: 8300000, guid: c9cb836fa5b57d343bad8864164be225, type: 3}
-  moveInMap: {fileID: 0}
+  moveInMap: {fileID: 8300000, guid: 1555876e3f14aba44b6f80007a29bb01, type: 3}
   enterRoom: {fileID: 8300000, guid: 2771bd505f5c6da42b26eec5f0c1e7c9, type: 3}
   defeat: {fileID: 8300000, guid: f30b7f73a29e9744e982ee893d281924, type: 3}
   victory: {fileID: 8300000, guid: 1f2dcc2390e70834782a560ef352a42e, type: 3}
+  reward: {fileID: 8300000, guid: 33d7fc88cf086b54fbe5b005136cf659, type: 3}
   playerAttack: {fileID: 8300000, guid: 042e15b8a0ef27c4d8a6d234b8da7d37, type: 3}
   playerHit: {fileID: 8300000, guid: 69205d663a3ec9c468d1b2a397b21b6a, type: 3}
   playerBuff: {fileID: 8300000, guid: 30a24652288f36e42922877b861bfb9d, type: 3}
@@ -13745,7 +13844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 320, y: -128.5}
+  m_AnchoredPosition: {x: 332, y: -128.5}
   m_SizeDelta: {x: 600, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1268614517
@@ -14923,7 +15022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 45.263157
+      value: 45.263184
       objectReference: {fileID: 0}
     - target: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -15061,18 +15160,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 795054343}
-        m_TargetAssemblyTypeName: StartSceneManager, Assembly-CSharp
-        m_MethodName: OnDifficultyButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 645711652}
         m_TargetAssemblyTypeName: UIChoicePlayer, Assembly-CSharp
         m_MethodName: ConfirmSelection
@@ -16872,7 +16959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 145.78947
+      value: 145.78949
       objectReference: {fileID: 0}
     - target: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -17778,7 +17865,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 25
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -19457,7 +19544,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 120, y: -46.5}
+  m_AnchoredPosition: {x: 132, y: -46.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1732452459
@@ -20888,7 +20975,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 647863063}
   m_Father: {fileID: 497023608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -22246,6 +22334,18 @@ MonoBehaviour:
       - m_Target: {fileID: 795054343}
         m_TargetAssemblyTypeName: StartSceneManager, Assembly-CSharp
         m_MethodName: BackScreenFromGacha
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 525874167}
+        m_TargetAssemblyTypeName: GachaManager, Assembly-CSharp
+        m_MethodName: SaveCoin
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

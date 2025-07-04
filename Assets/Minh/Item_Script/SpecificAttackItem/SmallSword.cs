@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class SmallSword: AttackItem
 {
-    public override void AttackEnemy(Enemy enemy, float damage = 0)
+    private int damage = 10;
+    public int Damage { get { return damage; } set { damage = value; } }
+    public override void AttackEnemy(Enemy enemy)
     {
-        if (enemy == null) return;
-        //Thêm logic nếu chỉ có mình đồ này được gắp lên thì x2 damage
-        enemy.ReceiverDamage((int)damage);
+        int index = Random.Range(0, 3);
+        if (index == 0)
+            enemy.ReceiverDamage((int)damage);
+        else
+            enemy.ReceiverDamage((int)damage * 2);
     }
 
-    public override void Execute(GameObject player, GameObject target, float value = 0)
+    public override void Execute(GameObject player, GameObject target)
     {
         Enemy enemy = target?.GetComponent<Enemy>();
         if (enemy == null) return;
-        AttackEnemy(enemy, value);
+        AttackEnemy(enemy);
     }
 }

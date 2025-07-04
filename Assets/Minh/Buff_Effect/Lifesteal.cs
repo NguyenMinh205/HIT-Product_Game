@@ -15,6 +15,9 @@ public class Lifesteal : IBuffEffect //Hiệu ứng hút máu
         Duration = duration;
     }
 
-    public void Apply(Player player) { }
+    public void Apply(Player player) 
+    {
+        player._CharacterStatModifier.ChangeBloodsuckingRate(Value);
+    }
     public void Remove(Player player) { }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public enum Rarity
 {
@@ -21,16 +22,25 @@ public class ItemBase : ScriptableObject
 
     [SerializeField] private IItemAction action;
 
-    public void ExecuteAction(GameObject player = null, GameObject target = null, float value = 0)
+    public void ExecuteAction(GameObject player = null, GameObject target = null, List<GameObject> targets = null)
     {
         if (action == null)
         {
             action = ItemDatabase.Instance.CreateItemAction(id);
         }
 
-        if (action != null)
+
+        if (action != null && action is GreatSword greatSword)
         {
-            action.Execute(player, target, value);
+            greatSword.Execute(player, targets);
+        }
+        else if (action != null && action is PoisonGrenade poisonGrenade)
+        {
+            poisonGrenade.Execute(player, targets);
+        }
+        else if (action != null)
+        {
+            action.Execute(player, target);
         }
         else
         {

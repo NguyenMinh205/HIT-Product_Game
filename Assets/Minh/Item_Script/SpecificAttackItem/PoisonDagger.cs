@@ -4,34 +4,28 @@ using UnityEngine;
 
 public class PoisonDagger : AttackWithEffect
 {
-    public override void AttackEnemy(Enemy enemy, float damage = 0)
+    private int damage = 5;
+    public int Damage { get { return damage; } set { damage = value; } }
+    private int effectVal = 2;
+    public int EffectVal => effectVal;
+    public override void AttackEnemy(Enemy enemy)
     {
         if (enemy == null) return;
         enemy.ReceiverDamage((int)damage);
     }
 
-    public override void Effect(Enemy enemy, float effectVal = 0)
+    public override void Effect(Enemy enemy)
     {
         //Gây effectVal stack độc lên kẻ địch nhân đòn đánh
     }
 
-    public override void Execute(GameObject player = null, GameObject target = null, float value = 0)
+    public override void Execute(GameObject player = null, GameObject target = null)
     {
         Enemy enemy = target?.GetComponent<Enemy>();
         if (enemy != null)
         {
-            AttackEnemy(enemy, value);
+            AttackEnemy(enemy);
             Effect(enemy);
-        }
-    }
-
-    public void Execute(GameObject player = null, GameObject target = null, float attackVal = 0, float effectVal = 0)
-    {
-        Enemy enemy = target?.GetComponent<Enemy>();
-        if (enemy != null)
-        {
-            AttackEnemy(enemy, attackVal);
-            Effect(enemy, effectVal);
         }
     }
 }

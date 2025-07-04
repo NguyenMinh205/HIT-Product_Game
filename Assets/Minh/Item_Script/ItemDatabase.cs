@@ -2,27 +2,13 @@
 using System.Linq;
 using UnityEngine;
 
-public class ItemDatabase : MonoBehaviour
+public class ItemDatabase : Singleton<ItemDatabase>
 {
-    private static ItemDatabase instance;
-    public static ItemDatabase Instance => instance;
-
     [SerializeField] private List<ItemBase> items;
     [SerializeField] private List<PerkBase> perks;
 
-    private void Awake()
+    private void Start()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         items = Resources.LoadAll<ItemBase>("ItemSO").ToList();
         perks = Resources.LoadAll<PerkBase>("PerkSO").ToList();
     }

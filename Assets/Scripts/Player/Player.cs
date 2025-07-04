@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer playerSprite;
     private Character character;
     private CharacterStatSO stats;
+    public CharacterStatSO Stats => stats;
     private ICharacterAbility ability;
     [SerializeField] private CharacterStatModifier characterStatModifier;
     public CharacterStatModifier _CharacterStatModifier => characterStatModifier;
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
         character = selectedCharacter;
         if (character.skins.Count > index)
         {
-            playerSprite.sprite = character.skins[index];
+            playerSprite.sprite = character.skins[index].skin;
         }
         else
         {
@@ -102,6 +103,7 @@ public class Player : MonoBehaviour
     {
         foreach (ItemInventory item in PlayerManager.Instance.TotalInventory.Items)
         {
+            //Check xem đã có đủ item chưa, item ấy có đủ rồi thì next
             inventory.AddItem(item.itemBase, (int)Math.Ceiling((item.quantity) / 2.0));
         }
     }

@@ -5,5 +5,5 @@ using UnityEngine;
 
 public interface IItemAction
 {
-    void Execute(GameObject player, GameObject target, float value = 0);
+    void Execute(GameObject player, GameObject target);
 }

@@ -112,6 +112,7 @@ public class PlayerMapController : Singleton<PlayerMapController>
         isMoving = true;
         float elapsedTime = 0f;
         Vector3 startPosition = transform.position;
+        AudioManager.Instance.PlayMoveSound();
 
         Vector3 targetPosition = startPosition + new Vector3(direction.x, direction.y, 0) * tilemap.cellSize.x;
 

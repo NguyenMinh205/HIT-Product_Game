@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RetainBlock : IBuffEffect //Hiệu ứng giữ lại khiên sau mỗi turn
+public class RetainBlock : IBuffEffect //Hiệu ứng giữ lại khiên sau mỗi turn (Boss)
 {
     public string Name { get; set; }
     public BuffEffectType Type { get; set; }

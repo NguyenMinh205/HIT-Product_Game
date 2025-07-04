@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class BodyArmor : BuffItem
 {
-    public override void Buff(Player player, float value = 0)
+    private int buffVal = 5;
+    public int BuffVal { get { return buffVal; } set { buffVal = value; } }
+
+    public override void Buff(Player player)
     {
-        player.AddBuffEffect("double_shield", 5, -1);
+        player.AddBuffEffect("double_shield", buffVal, -1);
     }
 
-    public override void Execute(GameObject player, GameObject target, float value = 0)
+    public override void Execute(GameObject player, GameObject target)
     {
         if (player != null && player.TryGetComponent<Player>(out var playerComponent))
         {
-            Buff(playerComponent, value);
+            Buff(playerComponent);
         }
     }
 }

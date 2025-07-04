@@ -15,6 +15,17 @@ public class EnragedEffect : IBuffEffect //Hiệu ứng tăng 100% tỉ lệ ch�
         Duration = duration;
     }
 
-    public void Apply(Player player) { }
-    public void Remove(Player player) { }
+    public void Apply(Player player) 
+    {
+        if (player.Stats.currentHP <= player.Stats.maxHP * 0.3)
+        {
+            player.Stats.criticalChance = 1;
+            return;
+        } 
+        Remove(player);  
+    }
+    public void Remove(Player player) 
+    {
+        player.Stats.criticalChance = 0;
+    }
 }

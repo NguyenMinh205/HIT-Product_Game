@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Vanish : IBuffEffect //Hiệu ứng bỏ chạy
+public class Vanish : IBuffEffect //Hiệu ứng bỏ chạy (Quái trộm)
 {
     public string Name { get; set; }
     public BuffEffectType Type { get; set; }

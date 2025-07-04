@@ -2,32 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicWand : AttackWithBuffItem
+public class MagicWand : AttackWithBuff
 {
-    public override void AttackEnemy(Enemy enemy, float damage = 0)
+    private int damage = 5;
+    public int Damage { get { return damage; } set { damage = value; } }
+    private int minBuffVal = 2;
+    public int MinBuffVal => minBuffVal;
+    private int maxBuffVal = 5;
+    public int MaxBuffVal => minBuffVal;
+
+    public override void AttackEnemy(Enemy enemy)
     {
         if (enemy == null) return;
         enemy.ReceiverDamage((int)damage);
     }
 
-    public override void Buff(Player player, float val = 0)
+    public override void Buff(Player player)
     {
-        //Random giá trị hồi máu cho player trong khoảng từ 2 - 5 giá trị
+        player._CharacterStatModifier.ChangeCurHP(Random.Range(minBuffVal, maxBuffVal));
     }
 
-    public override void Execute(GameObject player = null, GameObject target = null, float value = 0)
+    public override void Execute(GameObject player = null, GameObject target = null)
     {
         Enemy enemy = target?.GetComponent<Enemy>();
         Player curPlayer = player?.GetComponent<Player>();
-        if (enemy != null) AttackEnemy(enemy, value);
+        if (enemy != null) AttackEnemy(enemy);
         if (curPlayer != null) Buff(curPlayer);
-    }
-
-    public void Execute(GameObject player = null, GameObject target = null, float attackVal = 0, float buffVal = 0)
-    {
-        Enemy enemy = target?.GetComponent<Enemy>();
-        Player curPlayer = player?.GetComponent<Player>();
-        if (enemy != null) AttackEnemy(enemy, attackVal);
-        if (curPlayer != null) Buff(curPlayer, buffVal);
     }
 }

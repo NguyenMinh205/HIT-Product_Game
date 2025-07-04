@@ -13,13 +13,14 @@ public class HandleController : MonoBehaviour
     }
     public void Spin()
     {
-        if (GachaMachine.Instance.State != GachaState.Start) return;
+        if (GachaMachine.Instance.State != GachaState.Start && !GachaManager.Instance.CanSpin()) return;
         StartCoroutine(SpinHandle());
     }
 
     private IEnumerator SpinHandle()
     {
         animator.SetBool("Spinning", true);
+        GachaManager.Instance.CoinAfterSpin();
         yield return new WaitForSeconds(0.15f);
         GachaMachine.Instance.PullGacha();
         animator.SetBool("Spinning", false);

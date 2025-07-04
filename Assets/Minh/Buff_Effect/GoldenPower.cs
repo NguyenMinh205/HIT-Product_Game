@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GoldenPower : IBuffEffect //Hiêu ứng gia tăng dame khi người chơi tăng vàng
+public class GoldenPower : IBuffEffect //Hiêu ứng gia tăng dame khi người chơi tăng vàng (Boss cuối)
 {
     public string Name { get; set; }
     public BuffEffectType Type { get; set; }

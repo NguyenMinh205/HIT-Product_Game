@@ -27,6 +27,7 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private AudioClip enterRoom;
     [SerializeField] private AudioClip defeat;
     [SerializeField] private AudioClip victory;
+    [SerializeField] private AudioClip reward;
 
     [Header("Player Audio Clips")]
     [SerializeField] private AudioClip playerAttack;
@@ -162,9 +163,16 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlaySoundClickButton() { PlaySFX(buttonClick); }
     public void PlaySelectCharacter() { PlaySFX(selectCharacter); }
+    public void PlayMoveSound() { PlaySFX(moveInMap); }
+    public void PlayCoin() { PlaySFX(coin); }
+    public void PlayRewardSound() { PlaySFX(reward); }
+    public void PlayClawDropSound() { PlaySFX(clawDrop); }
+    public void PlayClawMagnetDropSound() { PlaySFX(clawMagnetDrop); }
+    public void PlayEnterRoomSound() { PlaySFX(enterRoom); }
+    public void PlayVictorySound() { PlaySFX(victory); }
+    public void PlayDefeatSound() { PlaySFX(defeat); }
     public void PlayPlayerTurn() { PlaySFX(playerTurn); }
     public void PlayEnemyTurn() { PlaySFX(enemyTurn); }
-    public void PlayCoin() { PlaySFX(coin); }
     public void PlayPlayerAttack() { PlaySFX(playerAttack); }
     public void PlayPlayerHit() { PlaySFX(playerHit); }
     public void PlayPlayerBuff() { PlaySFX(playerBuff); }

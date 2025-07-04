@@ -16,6 +16,7 @@ public class GachaMachine : Singleton<GachaMachine>
     public GameObject slot1, slot2, slot3;
     public float spinDuration = 2f;
     public float spinSpeed = 0.1f;
+    [SerializeField] private CharacterDatabaseSO characterDatabaseSO;
 
     private GachaState state;
     private Image sr1, sr2, sr3;
@@ -31,11 +32,19 @@ public class GachaMachine : Singleton<GachaMachine>
         sr3 = slot3.GetComponent<Image>();
         Debug.Log("GachaMachine State: " + state);
         if (sr1 == null || sr2 == null || sr3 == null) Debug.LogError("One or more slots not assigned with Image component!");
+        if (characterDatabaseSO == null) Debug.LogError("CharacterDatabaseSO not assigned!");
+        else characterDatabaseSO.LoadUnlockedStates(); // Tải trạng thái mở khóa từ PlayerPrefs
     }
 
     public void PullGacha()
     {
         if (state != GachaState.Start) return;
+        if (!GachaManager.Instance.CanSpin())
+        {
+            Debug.LogWarning("Not enough coins to spin!");
+            return;
+        }
+        GachaManager.Instance.CoinAfterSpin(); // Trừ coin trước khi quay
         StartCoroutine(SpinSlots());
     }
 
@@ -51,6 +60,7 @@ public class GachaMachine : Singleton<GachaMachine>
         yield return new WaitForSeconds(0.5f);
 
         ApplyReward();
+        GachaManager.Instance.SaveCoin(); // Lưu coin sau khi quay
         Restart();
     }
 
@@ -180,21 +190,91 @@ public class GachaMachine : Singleton<GachaMachine>
 
     private void RewardCharacter()
     {
-        Debug.Log("Phần thưởng nhân vật đang được triển khai...");
+        AudioManager.Instance.PlayRewardSound();
+        if (characterDatabaseSO == null || characterDatabaseSO.characters.Count == 0)
+        {
+            Debug.LogWarning("CharacterDatabaseSO is null or empty! Cannot reward character.");
+            return;
+        }
+
+        // Tìm danh sách nhân vật chưa mở khóa
+        List<Character> lockedCharacters = characterDatabaseSO.characters.FindAll(c => !c.isUnlocked);
+        if (lockedCharacters.Count == 0)
+        {
+            Debug.LogWarning("No locked characters available to unlock!");
+            return;
+        }
+
+        // Chọn ngẫu nhiên một nhân vật chưa mở khóa
+        Character characterToUnlock = lockedCharacters[Random.Range(0, lockedCharacters.Count)];
+        characterDatabaseSO.UnlockCharacter(characterToUnlock.id);
     }
 
     private void RewardSkin()
     {
-        Debug.Log("Phần thưởng skin đang được triển khai...");
+        AudioManager.Instance.PlayRewardSound();
+        if (characterDatabaseSO == null || characterDatabaseSO.characters.Count == 0)
+        {
+            Debug.LogWarning("CharacterDatabaseSO is null or empty! Cannot reward skin.");
+            return;
+        }
+
+        // Chọn ngẫu nhiên một nhân vật
+        Character randomCharacter = characterDatabaseSO.characters[Random.Range(0, characterDatabaseSO.characters.Count)];
+        if (randomCharacter.skins == null || randomCharacter.skins.Count == 0)
+        {
+            Debug.LogWarning($"Character {randomCharacter.name} has no skins!");
+            return;
+        }
+
+        // Tìm danh sách skin chưa mở khóa của nhân vật
+        List<int> lockedSkinIndices = new List<int>();
+        for (int i = 0; i < randomCharacter.skins.Count; i++)
+        {
+            if (!randomCharacter.skins[i].isUnlocked)
+            {
+                lockedSkinIndices.Add(i);
+            }
+        }
+
+        if (lockedSkinIndices.Count == 0)
+        {
+            Debug.LogWarning($"No locked skins available for character {randomCharacter.name}!");
+            return;
+        }
+
+        // Chọn ngẫu nhiên một skin chưa mở khóa
+        int skinIndexToUnlock = lockedSkinIndices[Random.Range(0, lockedSkinIndices.Count)];
+        characterDatabaseSO.UnlockSkin(randomCharacter.id, skinIndexToUnlock);
     }
 
     private void RewardCoins(int count)
     {
-        Debug.Log($"Phần thưởng {count} Coin đang được triển khai...");
+        AudioManager.Instance.PlayCoin();
+        float multiplier;
+        switch (count)
+        {
+            case 3:
+                multiplier = Random.Range(2f, 3f); // x2 đến x3
+                break;
+            case 2:
+                multiplier = Random.Range(1f, 2f); // x1 đến x2
+                break;
+            case 1:
+                multiplier = Random.Range(0.25f, 0.75f); // x0.25 đến x0.75
+                break;
+            default:
+                multiplier = 0f;
+                break;
+        }
+
+        int rewardCoins = Mathf.CeilToInt(multiplier * GachaManager.Instance.NumCoinPerSpin);
+        GachaManager.Instance.IncreaseCoin(rewardCoins);
+        Debug.Log($"Rewarded {rewardCoins} coins (multiplier: {multiplier}x)");
     }
 
     private void RewardNothing()
     {
-        Debug.Log("Không có phần thưởng đặc biệt...");
+        Debug.Log("No special reward given.");
     }
 }

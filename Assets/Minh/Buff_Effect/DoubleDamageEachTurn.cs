@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class DoubleDamageEachTurn : IBuffEffect //Hiệu ứng x2 damage sau mỗi turn
+public class DoubleDamageEachTurn : IBuffEffect //Hiệu ứng x2 damage sau mỗi turn (Boss)
 {
     public string Name { get; set; }
     public BuffEffectType Type { get; set; }

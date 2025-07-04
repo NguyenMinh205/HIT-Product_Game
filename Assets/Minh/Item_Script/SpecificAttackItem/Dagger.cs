@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Dagger : AttackItem
 {
-    public override void AttackEnemy(Enemy enemy, float damage = 0)
+    private int damage = 5;
+    public int Damage { get { return damage; } set { damage = value; } }
+    public override void AttackEnemy(Enemy enemy)
     {
         if (enemy == null) return;
         enemy.ReceiverDamage((int)damage);
     }
 
-    public override void Execute(GameObject player, GameObject target, float value = 0)
+    public override void Execute(GameObject player, GameObject target)
     {
         Enemy enemy = target?.GetComponent<Enemy>();
         if (enemy == null) return;
-        AttackEnemy(enemy, value);
+        AttackEnemy(enemy);
     }
 }

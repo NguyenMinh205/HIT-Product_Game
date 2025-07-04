@@ -25,6 +25,16 @@ public class StartSceneManager : Singleton<StartSceneManager>
     [SerializeField] private GameObject gachaScreen;
     [SerializeField] private GameObject gachaMachine;
 
+    [Space]
+    [Header("UI Choice Character")]
+    [SerializeField] private UIChoicePlayer uiChoicePlayer;
+    [SerializeField] private CharacterDatabaseSO characterDatabaseSO;
+    public UIChoicePlayer _UIChoicePlayer => uiChoicePlayer;
+
+    private void Awake()
+    {
+        characterDatabaseSO.SetupStartData();
+    }
     public void OnStartButton()
     {
         AudioManager.Instance.PlaySoundClickButton();

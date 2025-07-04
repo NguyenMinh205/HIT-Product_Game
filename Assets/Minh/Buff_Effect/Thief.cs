@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Thief : IBuffEffect //Hiệu ứng ăn trộm
+public class Thief : IBuffEffect //Hiệu ứng ăn trộm (Quái trộm)
 {
     public string Name { get; set; }
     public BuffEffectType Type { get; set; }

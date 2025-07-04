@@ -15,6 +15,9 @@ public class PoisonGas : IBuffEffect //Hiệu ứng khí gas
         Duration = duration;
     }
 
-    public void Apply(Player player) { }
+    public void Apply(Player player) 
+    {
+        player.AddBuffEffect("poison_effect", Value, Duration);
+    }
     public void Remove(Player player) { }
 }
