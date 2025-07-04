@@ -85,6 +85,14 @@ public class CharacterDatabaseSO : ScriptableObject
         }
         character.isUnlocked = true;
         PlayerPrefs.SetInt($"CharacterUnlocked_{id}", 1);
+
+        if (character.skins != null && character.skins.Count > 0)
+        {
+            character.skins[0].isUnlocked = true;
+            PlayerPrefs.SetInt($"SkinUnlocked_{id}_0", 1);
+            Debug.Log($"Unlocked default skin (index 0) for character: {character.name}");
+        }
+
         PlayerPrefs.Save();
         Debug.Log($"Unlocked character: {character.name}");
     }

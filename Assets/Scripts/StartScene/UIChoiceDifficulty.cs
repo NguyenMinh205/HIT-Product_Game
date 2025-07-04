@@ -23,6 +23,7 @@ public class UIChoiceDifficulty : MonoBehaviour
 
     public void NextOption()
     {
+        AudioManager.Instance.PlaySoundClickButton();
         selectIndex++;
         if (selectIndex >= difficultyList.Count)
         {
@@ -33,6 +34,7 @@ public class UIChoiceDifficulty : MonoBehaviour
 
     public void PrevOption()
     {
+        AudioManager.Instance.PlaySoundClickButton();
         selectIndex--;
         if (selectIndex < 0)
         {

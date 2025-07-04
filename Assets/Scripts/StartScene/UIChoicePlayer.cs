@@ -127,6 +127,7 @@ public class UIChoicePlayer : MonoBehaviour
         if (curCharacter.isUnlocked && curCharacter.skins[skinSelectOption].isUnlocked)
         {
             SaveSelection(curCharacter, skinSelectOption);
+            StartSceneManager.Instance.OnDifficultyButton();
         }
         else
         {

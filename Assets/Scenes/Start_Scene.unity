@@ -8774,13 +8774,14 @@ MonoBehaviour:
   optionBtn: {fileID: 1367311709}
   gachaBtn: {fileID: 350849209}
   quitBtn: {fileID: 997568748}
+  startScreen: {fileID: 305726781}
   compendiumScreen: {fileID: 1538322083}
   optionScreen: {fileID: 282964871}
   characterSelectionScreen: {fileID: 645711650}
   difficultySelectionScreen: {fileID: 225577522}
   gachaScreen: {fileID: 525874165}
   gachaMachine: {fileID: 636160747146606559}
-  uiChoicePlayer: {fileID: 0}
+  uiChoicePlayer: {fileID: 645711652}
   characterDatabaseSO: {fileID: 11400000, guid: 84e61f188e25ed14ba33f8bf64dd67c5, type: 2}
 --- !u!4 &795054344
 Transform:

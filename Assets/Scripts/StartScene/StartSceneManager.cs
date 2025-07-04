@@ -15,6 +15,7 @@ public class StartSceneManager : Singleton<StartSceneManager>
 
     [Space]
     [Header("Screen")]
+    [SerializeField] private GameObject startScreen;
     [SerializeField] private GameObject compendiumScreen;
     [SerializeField] private GameObject optionScreen;
     [SerializeField] private GameObject characterSelectionScreen;
@@ -39,21 +40,21 @@ public class StartSceneManager : Singleton<StartSceneManager>
     {
         AudioManager.Instance.PlaySoundClickButton();
         characterSelectionScreen.SetActive(true);
-        this.gameObject.SetActive(false);
+        startScreen.gameObject.SetActive(false);
     }
 
     public void OnCompendiumButton()
     {
         AudioManager.Instance.PlaySoundClickButton();
         compendiumScreen.SetActive(true);
-        this.gameObject.SetActive(false);
+        startScreen.gameObject.SetActive(false);
     }
 
     public void OnOptionButton()
     {
         AudioManager.Instance.PlaySoundClickButton();
         optionScreen.SetActive(true);
-        this.gameObject.SetActive(false);
+        startScreen.gameObject.SetActive(false);
     }
 
     public void OnGachaButton()
@@ -61,7 +62,7 @@ public class StartSceneManager : Singleton<StartSceneManager>
         AudioManager.Instance.PlaySoundClickButton();
         gachaScreen.SetActive(true);
         gachaMachine.SetActive(true);
-        this.gameObject.SetActive(false);
+        startScreen.gameObject.SetActive(false);
     }
     
     public void OnDifficultyButton()
@@ -75,14 +76,14 @@ public class StartSceneManager : Singleton<StartSceneManager>
     {
         AudioManager.Instance.PlaySoundClickButton();
         screen.SetActive(false);
-        this.gameObject.SetActive(true);
+        startScreen.gameObject.SetActive(true);
     }
     public void BackScreenFromGacha()
     {
         AudioManager.Instance.PlaySoundClickButton();
         gachaScreen.SetActive(false);
         gachaMachine.SetActive(false);
-        this.gameObject.SetActive(true);
+        startScreen.gameObject.SetActive(true);
     }
     public void BackScreenFromDifficulty()
     {

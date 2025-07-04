@@ -11,7 +11,6 @@ public class Character
     public string description;
     [TextArea(1, 5)]
     public string abilityDescription;
-    public List<string> startingItems;
     public List<Skin> skins;
     public List<ItemInventory> initialItems;
 }
