@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class ItemPrefabs : MonoBehaviour
+public class Item : MonoBehaviour
 {
+    [Header("Data")]
+    [SerializeField] private string idItem;
+    [SerializeField] private string nameItem;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] public Rarity itemRarity;
+    [SerializeField] public string description;
+    [SerializeField] public bool isStackable;
+    [SerializeField] public int maxStackSize = 1;
+
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameObject balloon;
     [SerializeField] private float moveForce;
-    [SerializeField] private SpriteRenderer spriteRenderer;
 
-    [SerializeField] private string idItem;
-    private string nameItem;
 
     private bool isPickUp;
     private bool isMove;
@@ -31,12 +37,16 @@ public class ItemPrefabs : MonoBehaviour
         isMove = false;
         balloon.SetActive(false);
     }
-    public void Init(string id, string name, Sprite icon)
+    public void Init(ItemBase itemBase)
     {
-        idItem = id;
-        nameItem = name;
-        spriteRenderer.sprite = icon;
+        idItem = itemBase.id;
+        nameItem = itemBase.itemName;
+        spriteRenderer.sprite = itemBase.icon;
         ResetCollider2D();
+        itemRarity = itemBase.itemRarity;
+        description = itemBase.description;
+        isStackable = itemBase.isStackable;
+        maxStackSize = itemBase.maxStackSize;
     }
     private void Update()
     {
@@ -53,7 +63,7 @@ public class ItemPrefabs : MonoBehaviour
             Debug.Log("Item in Basket");
             isPickUp = true;
             balloon.SetActive(true);
-            ItemController.Instance.ChangeBoxToBasket(gameObject.GetComponent<ItemPrefabs>());
+            ItemController.Instance.ChangeBoxToBasket(gameObject.GetComponent<Item>());
         }
         else if(collision.CompareTag("Check"))
         {

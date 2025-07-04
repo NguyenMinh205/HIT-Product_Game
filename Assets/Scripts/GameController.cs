@@ -113,7 +113,7 @@ public class GameController : Singleton<GameController>
             }
             if(value == TurnPlay.Player)
             {
-                ItemController.Instance.Spawn();
+                //ItemController.Instance.Spawn();
                 clawController.ResetMachineClaw();
                 playerController.CurrentPlayer.CheckIsPoison();
             }
@@ -159,7 +159,7 @@ public class GameController : Singleton<GameController>
         enemyController.SpawnEnemy(listenemy);
         playerController.SpawnPlayer();
         clawController.Spawn();
-        ItemController.Instance.Spawn();
+        //ItemController.Instance.Spawn(playerController.CurrentPlayer.iven);
 
         clawController.IsStart = true;
         clawController.StartClaw();

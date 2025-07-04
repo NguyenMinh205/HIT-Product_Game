@@ -14,9 +14,9 @@ public class TriggerPlayer : MonoBehaviour
         if(collision.CompareTag("Item"))
         {
             Debug.Log("Item trigger with player");
-            string id = collision.GetComponent<ItemPrefabs>().ID;
+            string id = collision.GetComponent<Item>().ID;
             CheckID(id);
-            ItemController.Instance.DeleteItemOutBasket(collision.GetComponent<ItemPrefabs>());
+            ItemController.Instance.DeleteItemOutBasket(collision.GetComponent<Item>());
             PoolingManager.Despawn(collision.gameObject);
             ItemController.Instance.CheckNextTurn();
         }

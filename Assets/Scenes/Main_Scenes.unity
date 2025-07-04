@@ -6246,6 +6246,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1632522192 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7492630191454822215, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+  m_PrefabInstance: {fileID: 812571689}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563aa158980cde46bfb66acb0013d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1636598046
 GameObject:
   m_ObjectHideFlags: 0
@@ -6498,6 +6509,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1721696897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3510581531112892018, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+  m_PrefabInstance: {fileID: 812571689}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563aa158980cde46bfb66acb0013d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1724692246
 GameObject:
   m_ObjectHideFlags: 0
@@ -7202,6 +7224,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959623054}
   m_CullTransparentMesh: 1
+--- !u!114 &1986445449 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3157536139537156719, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+  m_PrefabInstance: {fileID: 812571689}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563aa158980cde46bfb66acb0013d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2000837834 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3283182611741466809, guid: b473c375da5b77b4d80396c15bacce28, type: 3}
+  m_PrefabInstance: {fileID: 812571689}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563aa158980cde46bfb66acb0013d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2019475097
 GameObject:
   m_ObjectHideFlags: 0
@@ -11195,7 +11239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   claws: []
-  clawPrefabs: {fileID: 2421454289696701213, guid: 621d06f6427e9114eaf97631b3ea2eff, type: 3}
+  clawPrefabs: {fileID: 2180888326410476655, guid: 621d06f6427e9114eaf97631b3ea2eff, type: 3}
   quantityClaws: 2
   posStartClaw: {fileID: 804478062983610858}
   posEndClaw: {fileID: 7405027551294874154}
@@ -11256,11 +11300,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51bc3ec356ce3ca44a574c7d660bf2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 0}
+  playerPrefab: {fileID: 6262871788618826098, guid: 2a702c109e5df8544b3c316b1c7a76f4, type: 3}
   playerParent: {fileID: 3018240763211833560}
   posSpawnPlayer: {fileID: 4302003799093845622}
-  characterDatabase: {fileID: 0}
-  playerStat: {fileID: 0}
+  characterDatabase: {fileID: 11400000, guid: 84e61f188e25ed14ba33f8bf64dd67c5, type: 2}
+  playerStat: {fileID: 11400000, guid: 52eaa40084e6c894283f7ae7678a16f1, type: 2}
   totalInventory: {fileID: 0}
 --- !u!4 &4298847447090230631
 Transform:
@@ -12126,6 +12170,10 @@ PrefabInstance:
     - target: {fileID: 4607871709840558631, guid: f8392b06259323d4f92d3c2ed0a5dae7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7977385890197544787, guid: f8392b06259323d4f92d3c2ed0a5dae7, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13160,7 +13208,6 @@ MonoBehaviour:
   itemParent: {fileID: 1637352171963398133}
   listItemInBox: []
   listItemInBasket: []
-  data: {fileID: 11400000, guid: 529111408c61b6c489a43cf565236d01, type: 2}
 --- !u!4 &6885776915261312886
 Transform:
   m_ObjectHideFlags: 0
@@ -13822,10 +13869,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiHealthBarEnemy:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _healthBarPlayer: {fileID: 0}
+  - {fileID: 2000837834}
+  - {fileID: 1986445449}
+  - {fileID: 1721696897}
+  _healthBarPlayer: {fileID: 1632522192}
 --- !u!4 &8081243875900152571
 Transform:
   m_ObjectHideFlags: 0

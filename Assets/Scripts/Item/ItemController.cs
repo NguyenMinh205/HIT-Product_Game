@@ -4,40 +4,46 @@ using UnityEngine;
 
 public class ItemController : Singleton<ItemController>
 {
+
     [SerializeField] private List<GameObject> listPosSpawnItem;
-    [SerializeField] private ItemPrefabs currentObjectPrefab;
+    [SerializeField] private Item currentObjectPrefab;
     [SerializeField] private Transform itemParent;
 
     [Space]
     [Header("Item")]
-    [SerializeField] private List<ItemPrefabs> listItemInBox;
-    [SerializeField] private List<ItemPrefabs> listItemInBasket;
+    [SerializeField] private List<Item> listItemInBox;
+    [SerializeField] private List<Item> listItemInBasket;
 
-    [Space]
-    [Header("Data")]
-    [SerializeField] private ItemData data;
-
-    public void Init(ItemPrefabs item)
+    private void Awake()
     {
-        int randomNumber = Random.Range(0, data.listDataItem.Count);
-
-        DataItem dataItem = data.listDataItem[randomNumber];
-        item.Init(dataItem.id, dataItem.name, dataItem.icon);
+        
     }
-
-    public void Spawn()
+    public void Spawn(List<ItemInventory> items)
     {
         Debug.Log("Spawn Item");
-        for (int i = 0; i < listPosSpawnItem.Count; i++)
+
+        foreach(ItemInventory item in items) 
         {
-            ItemPrefabs item = PoolingManager.Spawn(currentObjectPrefab, listPosSpawnItem[i].transform.position, Quaternion.identity, itemParent);
-            Init(item);
-            listItemInBox.Add(item);
-            item.gameObject.SetActive(true);
+            int qualityItem = item.quantity; // so luong item
+            //Tinh toan so luong Item can Spawm
+
+
+            //---------
+            int coutItem = qualityItem;
+
+            for(int i=0;i<coutItem;i++)
+            {
+                Item newItem = PoolingManager.Spawn(currentObjectPrefab, listPosSpawnItem[0].transform.position, Quaternion.identity, itemParent);
+
+                newItem.Init(item.itemBase);
+                listItemInBox.Add(newItem);
+                newItem.gameObject.SetActive(true);
+            }
+            
         }
     }
 
-    public void ChangeBoxToBasket(ItemPrefabs item)
+    public void ChangeBoxToBasket(Item item)
     {
         if(listItemInBox.Contains(item))
             listItemInBox.Remove(item);
@@ -45,7 +51,7 @@ public class ItemController : Singleton<ItemController>
         if(!listItemInBasket.Contains(item))
             listItemInBasket.Add(item);
     }
-    public void DeleteItemOutBasket(ItemPrefabs item)
+    public void DeleteItemOutBasket(Item item)
     {
         listItemInBasket.Remove(item);
     }

@@ -17,8 +17,8 @@ public class ItemBase : ScriptableObject
     public Rarity itemRarity;
     [TextArea(1, 10)]
     public string description;
-    public bool isStackable;
-    public int maxStackSize = 1;
+    public bool isStackable = true;
+    public int maxStackSize = 99;
 
     [SerializeField] private IItemAction action;
 
