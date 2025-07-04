@@ -18,11 +18,9 @@ public enum ModeClaw
 }
 public class ClawMachine : MonoBehaviour
 {
-    [SerializeField] private LineRenderer line;
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private HingeJoint2D leftClaw;
-    [SerializeField] private HingeJoint2D rightClaw;
-    [SerializeField] private GameObject chain;
+    [SerializeField] protected LineRenderer line;
+    [SerializeField] protected Rigidbody2D rb;
+    [SerializeField] protected GameObject chain;
 
     [Space]
     [Header("ClawLimits")]
@@ -37,13 +35,10 @@ public class ClawMachine : MonoBehaviour
     public Transform posStopClaw;
     public Vector3 posMove;
 
-    private ModeClaw mode;
-    private float moveForce = 5f;
+    protected ModeClaw mode;
+    protected float moveForce = 3f;
 
-    [SerializeField] private float closeAngle = 45f;
-    [SerializeField] private float clawStrength = 25f;
-
-    private ClawController clawController;
+    protected ClawController clawController;
 
     public ModeClaw Mode
     {
@@ -61,6 +56,7 @@ public class ClawMachine : MonoBehaviour
     }
     public void Claw()
     {
+        Debug.Log("Execute Claw");
         switch(mode)
         {
             case ModeClaw.Wait:
@@ -144,8 +140,9 @@ public class ClawMachine : MonoBehaviour
             mode = ModeClaw.Wait;
         }
     }
-    public void StartClaw()
+    public virtual void StartClaw()
     {
+        Debug.Log("Start Claw ");
         if (chain.transform.position.x <= posStartClaw.position.x)
             rb.velocity = Vector2.right * moveForce;
         else if (chain.transform.position.y > posStartClaw.position.y)
@@ -154,7 +151,6 @@ public class ClawMachine : MonoBehaviour
         }
         else if (chain.transform.position.y <= posStartClaw.position.y)
         {
-            OpenClaw();
             rb.velocity = new Vector2(0, 0);
             mode = ModeClaw.Use;
         }
@@ -198,12 +194,6 @@ public class ClawMachine : MonoBehaviour
             StartCoroutine(DelayPickUp(1.5f));
         }
     }
-
-    public void SetClaw(bool isClaw)
-    {
-        leftClaw.useMotor = isClaw;
-        rightClaw.useMotor = isClaw;
-    }
     public void DeSpawnClaw()
     {
         Debug.Log("DeSpawn");
@@ -211,9 +201,8 @@ public class ClawMachine : MonoBehaviour
         Destroy(gameObject);
     }
 
-    IEnumerator DelayPickUp(float time)
+    protected virtual IEnumerator DelayPickUp(float time)
     {
-        CloseClaw();
         yield return new WaitForSeconds(time);
 
         if(chain.transform.position.y < posStartClaw.position.y)
@@ -227,43 +216,14 @@ public class ClawMachine : MonoBehaviour
         }
 
     }
-    IEnumerator DelaOpen(float time)
+    protected virtual IEnumerator DelaOpen(float time)
     {
-        OpenClaw();
+        //OpenClaw();
         yield return new WaitForSeconds(time);
         if(mode != ModeClaw.DeSpawn)
         {
             mode = ModeClaw.DeSpawn;
             clawController.ChangeClaw();
         }
-    }
-
-    public void OpenClaw()
-    {
-        Debug.Log("Open");
-        JointMotor2D motor = leftClaw.motor;
-        motor.motorSpeed = 50f;
-        motor.maxMotorTorque = 50f;
-        leftClaw.motor = motor;
-
-        motor = rightClaw.motor;
-        motor.motorSpeed = -50f;
-        motor.maxMotorTorque = 50f;
-        rightClaw.motor = motor;
-
-    }
-    public void CloseClaw()
-    {
-        Debug.Log("Close");
-        JointMotor2D motor = leftClaw.motor;
-        motor.motorSpeed = -50f;
-        motor.maxMotorTorque = 10000f;
-        leftClaw.motor = motor;
-
-        motor = rightClaw.motor;
-        motor.motorSpeed = 50f;
-        motor.maxMotorTorque = 10000f;
-        rightClaw.motor = motor;
-
     }
 }

@@ -71,11 +71,11 @@ public class GameController : Singleton<GameController>
         set => intoRoomTrigger = value;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
         turnGame = TurnPlay.Player;
         isCheckTurnByClaw = false;
-        isCheckTurnByItem = false;
+        isCheckTurnByItem = true;
     }
 
     private void Start()
@@ -113,9 +113,9 @@ public class GameController : Singleton<GameController>
             }
             if(value == TurnPlay.Player)
             {
-                ItemController.Instance.Spawn();
-                enemyController.InitActionListEnemy();
+                //ItemController.Instance.Spawn();
                 clawController.ResetMachineClaw();
+                playerController.CurrentPlayer.CheckIsPoison();
             }
         }
     }
@@ -154,10 +154,12 @@ public class GameController : Singleton<GameController>
         DefaultRoom.SetActive(true);
         DefaultClawMachineBox.SetActive(true);
 
-        enemyController.SpawnEnemy();
+        //enemyController.SpawnEnemy();
+        List<string> listenemy = new List<string> { "enemy01", "enemy07","enemy09"};
+        enemyController.SpawnEnemy(listenemy);
         playerController.SpawnPlayer();
         clawController.Spawn();
-        ItemController.Instance.Spawn();
+        //ItemController.Instance.Spawn(playerController.CurrentPlayer.iven);
 
         clawController.IsStart = true;
         clawController.StartClaw();

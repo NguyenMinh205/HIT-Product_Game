@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class ObjectBase : MonoBehaviour
 {
-    [SerializeField] private Animator anim;
+    [SerializeField] protected Animator animator;
+    [SerializeField] protected Sprite spriteIDle;
+
     [SerializeField] protected int curent_Hp;
-    [SerializeField] protected int armor;
-
-    [SerializeField] private InfoManager info;
-
     private int hp;
 
+    [SerializeField] protected int armor;
+    [SerializeField] protected int armorIncreased;
+
+    [SerializeField] private HealthBar health;
+
+    private bool isPoison;
+    private int poisonDamage;
     private void Awake()
     {
         hp = curent_Hp;
@@ -21,10 +26,24 @@ public class ObjectBase : MonoBehaviour
     {
         hp = curent_Hp;
     }
+    public bool IsPosion
+    {
+        get => isPoison;
+        set => isPoison = value;
+    }
+    public int PoisonDamage
+    {
+        get => poisonDamage;
+        set => poisonDamage = value;
+    }
     public int Armor
     {
         get => this.armor;
         set => this.armor = value;
+    }
+    public int ArmorIncreased
+    {
+        get => this.armorIncreased;
     }
     public int HP
     {
@@ -35,10 +54,14 @@ public class ObjectBase : MonoBehaviour
     {
         get => curent_Hp;
     }
-    public InfoManager Info
+    public HealthBar Health
     {
-        get => this.info;
-        set => this.info = value;
+        get => this.health;
+        set => this.health = value;
+    }
+    public Sprite SpriteIdle
+    {
+        get => spriteIDle;
     }
     public virtual void Attack(GameObject obj, int damage)
     {
@@ -46,6 +69,15 @@ public class ObjectBase : MonoBehaviour
     public virtual void AttackAnimation()
     {
 
+    }
+    public virtual void CheckIsPoison()
+    {
+        if(isPoison)
+        {
+            ReceiverDamage(poisonDamage);
+            poisonDamage = 0;
+            isPoison = false;
+        }
     }
     public virtual void ReceiverDamageAnimation()
     {
@@ -59,8 +91,8 @@ public class ObjectBase : MonoBehaviour
 
         hp -= finalDamage;
 
-        info.UpdateArmor();
-        info.UpdateHp();
+        health.UpdateArmor(this);
+        health.UpdateHp(this);
 
         if (hp <= 0)
         {
@@ -72,6 +104,6 @@ public class ObjectBase : MonoBehaviour
     public void EndGame()
     {
         PoolingManager.Despawn(gameObject);
-        info.gameObject.SetActive(false);
+        health.gameObject.SetActive(false);
     }
 }
