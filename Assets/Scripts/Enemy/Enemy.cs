@@ -6,30 +6,79 @@ using UnityEngine;
 
 public class Enemy : ObjectBase
 {
-    [SerializeField] private List<Action> actions;
-    private UIActionEnemy uiActionEnemy;
+    private string idEnemy;
+    private string nameEnemy;
+    private int damage;
 
-    private EnemyController enemyController;
-    public EnemyController Controller
-    {
-        set => this.enemyController = value;
-    }
-    public UIActionEnemy UI
+    [SerializeField] private float distanceEnemyAndHealthBar;
+    [SerializeField] private UIActionEnemy uiActionEnemy;
+
+    public List<ProcedureActionEnemy> actions;
+    private int indexAction;
+
+
+    public UIActionEnemy UIAction
     {
         get => uiActionEnemy;
         set => uiActionEnemy = value;
     }
+
+    public int Damage
+    {
+        get => this.damage;
+        set => this.damage = value;
+    }
+    public string ID
+    {
+        get => this.idEnemy;
+    }
+
     private void Awake()
     {
-        actions = new List<Action>();
+        actions = new List<ProcedureActionEnemy>();
     }
-    public override void Attack(GameObject obj, int damage)
+    public void Init(EnemyData data, string id)
     {
-        if (obj.TryGetComponent(out Player player))
+        Debug.Log("Init Enemy");
+        foreach (DataEnemy enemy in data.dataEnemy)
         {
-            player.ReceiveDamage(damage);
+            if (enemy.idEnemy == id)
+            {
+                InitEnemyDetail(enemy);
+                return;
+            }
         }
     }
+    public void InitEnemyDetail(DataEnemy data)
+    {
+        idEnemy = data.idEnemy;
+        nameEnemy = data.nameEnemy;
+
+        damage = data.damageEnemy;
+        base.curent_Hp = data.hpEnemy;
+        base.HP = data.hpEnemy;
+        base.armorIncreased = data.armorIncreased;
+
+        base.animator.runtimeAnimatorController = data.controller;
+        base.spriteIDle = data.spriteEnemyIdle;
+
+        actions = data.actions;
+        indexAction = 0;
+
+        //Set ActionUI Enemy
+        UIActionEnemyController.Instance.InitActionToEnemy(this);
+        UIActionEnemyController.Instance.InitUIAction(this, indexAction);
+
+        UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
+    }
+    public void CalulationPositionEnemy(Vector3 posSpawnEnemy)
+    {
+        float height = base.SpriteIdle.bounds.extents.y;
+        Vector3 newPos = posSpawnEnemy + Vector3.up * height + Vector3.up * distanceEnemyAndHealthBar;
+
+        transform.position = newPos;
+    }
+
     public override bool ReceiverDamage(int damage)
     {
         int finalDamage = Mathf.Max(damage - armor, 0);
@@ -37,69 +86,38 @@ public class Enemy : ObjectBase
 
         base.HP -= finalDamage;
 
-        base.Info.UpdateArmor();
-        base.Info.UpdateHp();
+        base.Health.UpdateArmor(this);
+        base.Health.UpdateHp(this);
 
         if (base.HP <= 0)
         {
-            EndGame();
-            enemyController.DieEnemy();
-            if (enemyController.ListEnemy.Count <= 0)
-            {
-                GameController.Instance.LoseGame();
-            }
+            //Goi khi enemy died
+            uiActionEnemy.UnShowActionEnemy();
+            ObserverManager<IDEnemyState>.PostEven(IDEnemyState.EnemyDied, this);
             return true;
         }
         return false;
     }
-    public void Shield()
-    {
-        base.Armor += 8;
-        base.Info.UpdateArmor();
-    }
-
-    public void InitActionManager()
-    {
-
-        int actionQuantity = UnityEngine.Random.Range(1, 4);
-        actions.Clear();
-
-        for (int i=0; i < actionQuantity; i++)
-        {
-            int IsCheck = UnityEngine.Random.Range(1, 3);
-
-            switch(IsCheck)
-            {
-                case 1:
-                    //actions.Add(() => Attack(GameController.Instance.playerController.CurrentPlayer.gameObject, 12));
-                    uiActionEnemy.OnShowAttack(i, 12);
-                    break;
-                case 2:
-                    actions.Add(() => Shield());
-                    uiActionEnemy.OnShowShield(i);
-                    break;
-            }
-        }
-        for (int j = 2; j >= actionQuantity ; j--)
-            uiActionEnemy.Execute(j);
-    }
 
     public void ExecuteAction()
     {
-        for(int i=0;i<actions.Count;i++)
+        for (int i = 0; i < actions[indexAction].actionEnemy.Count; i++)
         {
-            actions[i].Invoke();
-            uiActionEnemy.Execute(i);
+            EnemyActionFactory.GetActionEnemy(actions[indexAction].actionEnemy[i], this);
+            uiActionEnemy.UnActionIndexEnemy(i);
         }
-        actions.Clear();
+
+        indexAction++;
+        if (indexAction >= actions.Count)
+        {
+            indexAction = 0;
+        }
+        //UIActionEnemyController.Instance.InitUIAction(this, indexAction);
     }
 
-    public void EndGame()
+    public void NextAction()
     {
-        base.EndGame();
-        for(int i=0; i<3; i++)
-        {
-            uiActionEnemy.Execute(i);
-        }
+        UIActionEnemyController.Instance.InitUIAction(this, indexAction);
     }
+
 }
