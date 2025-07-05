@@ -92,7 +92,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2998969794922113574}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -195,11 +195,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d3d45b73e59ea0439f10454ea6eca88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idItem: shield
+  nameItem: 
+  spriteRenderer: {fileID: 8422109728651766705}
+  itemRarity: 0
+  description: 
+  isStackable: 0
+  maxStackSize: 99
   rb: {fileID: 1265572493536559128}
   balloon: {fileID: 2998969794922113574}
   moveForce: 3
-  spriteRenderer: {fileID: 8422109728651766705}
-  idItem: shield
 --- !u!212 &8422109728651766705
 SpriteRenderer:
   m_ObjectHideFlags: 0
