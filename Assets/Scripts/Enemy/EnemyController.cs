@@ -20,6 +20,10 @@ public class EnemyController : MonoBehaviour
     [Header("List Position Spawn Enemy")]
     [SerializeField] private List<Transform> listPosSpawnEnemy;
 
+    [Space]
+    [Header("List Spawn Controller")]
+    [SerializeField] private EnemySpawController enemySpawController;
+
     public List<Enemy> ListEnemy
     {
         get => listenemy;
@@ -27,6 +31,10 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         ObserverManager<IDEnemyState>.AddDesgisterEvent(IDEnemyState.EnemyDied, DieEnemy);
+    }
+    public void Spawn()
+    {
+        SpawnEnemy(enemySpawController.GetListEnemyToSpawn(MapManager.Instance.MapIndex));
     }
     public void SpawnEnemy(List<string> dataEnemySetUp)
     {
@@ -51,7 +59,7 @@ public class EnemyController : MonoBehaviour
             yield return new WaitForSeconds(2f);
             listenemy[i].ExecuteAction();
         }
-        GameController.Instance.Turn = TurnPlay.Player;
+        GamePlayController.Instance.Turn = TurnPlay.Player;
         for (int i = 0; i < listenemy.Count; i++)
         {
             listenemy[i].NextAction();

@@ -63,7 +63,7 @@ public class Item : MonoBehaviour
             Debug.Log("Item in Basket");
             isPickUp = true;
             balloon.SetActive(true);
-            ItemController.Instance.ChangeBoxToBasket(gameObject.GetComponent<Item>());
+            //ItemController.Instance.ChangeBoxToBasket(gameObject.GetComponent<Item>());
         }
         else if(collision.CompareTag("Check"))
         {

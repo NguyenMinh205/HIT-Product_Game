@@ -12,7 +12,7 @@ public class IntoRoomTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             CheckIDRoom(idNameRoom);
-            GameController.Instance.IntoRoom = this;
+            GamePlayController.Instance.IntoRoom = this;
         }
     }
 
@@ -62,30 +62,31 @@ public class IntoRoomTrigger : MonoBehaviour
 
     public void OpenBossFightRoom()
     {
-        GameController.Instance.OpenRoomBossFight();
+        //GamePlayController.Instance.StartRoom();
     }
     public void OpenFightRoom()
     {
-        GameController.Instance.OpenRoomFight();
+        Debug.Log("Open Fight Room ");
+        GamePlayController.Instance.StartRoom();
     }
     public void OpenRoomHealing()
     {
-        GameController.Instance.OpenRoomHealing();
+      // GamePLayController.Instance.OpenRoomHealing();
     }
     public void OpenRoomMystery()
     {
-        GameController.Instance.OpenRoomMystery();
+       // GameController.Instance.OpenRoomMystery();
     }
     public void OpenRoomPachinko()
     {
-        GameController.Instance.OpenRoomPachinko();
+        //GameController.Instance.OpenRoomPachinko();
     }
     public void OpenRoomSmith()
     {
-        GameController.Instance.OpenRoomSmith();
+        //GameController.Instance.OpenRoomSmith();
     }
     public void OpenRoomShredder()
     {
-        GameController.Instance.OpenRoomShredder();
+       // GameController.Instance.OpenRoomShredder();
     }
 }

@@ -15,6 +15,8 @@ public class Player : ObjectBase
     private List<IBuffEffect> reactiveEffects = new List<IBuffEffect>();
     [SerializeField] private Inventory inventory;
 
+    public Inventory Inventory => inventory;
+
     public void Initialize(Character selectedCharacter, CharacterStatSO characterStatSO, int index)
     {
         character = selectedCharacter;

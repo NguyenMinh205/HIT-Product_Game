@@ -45,7 +45,7 @@ public class ClawController : MonoBehaviour
         {
             Debug.Log("Claws have 0 claw -> next turn ");
             Debug.Log("Next Turn By Claw");
-            GameController.Instance.isCheckTurnByClaw = true;
+            //GameController.Instance.isCheckTurnByClaw = true;
         }
         else
         {

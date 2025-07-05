@@ -6,6 +6,6 @@ public class EnemyActionAttack : MonoBehaviour
 {
     public static void Execute(Enemy enemy)
     {
-        GameController.Instance.playerController.CurrentPlayer.ReceiverDamage(enemy.Damage);
+        GamePlayController.Instance.playerController.CurrentPlayer.ReceiverDamage(enemy.Damage);
     }
 }

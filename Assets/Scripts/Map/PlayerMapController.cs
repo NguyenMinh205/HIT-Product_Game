@@ -82,7 +82,7 @@ public class PlayerMapController : Singleton<PlayerMapController>
         if (IsValidMove(newPos))
         {
             Debug.Log(" Check Function Try Move");
-            GameController.Instance.Dir = direction;
+            GamePlayController.Instance.Dir = direction;
             StartCoroutine(MoveToPosition(direction));
         }
     }

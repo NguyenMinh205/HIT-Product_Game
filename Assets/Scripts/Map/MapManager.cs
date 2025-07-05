@@ -14,6 +14,11 @@ public class MapManager : Singleton<MapManager>
     private MapData curMap;
     private int currentMapIndex = 0;
 
+    public int MapIndex
+    {
+        get => this.currentMapIndex;   // lay ra index map de set spawn enemy
+    }
+
     [SerializeField] private GameObject RoomVisual;
 
     private void Awake()

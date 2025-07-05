@@ -13,7 +13,7 @@ public class EnemyActionHead : MonoBehaviour
         }
         else
         {
-            foreach (Enemy var in GameController.Instance.enemyController.ListEnemy)
+            foreach (Enemy var in GamePlayController.Instance.enemyController.ListEnemy)
             {
                 if (CheckEnemy(var))
                     return;

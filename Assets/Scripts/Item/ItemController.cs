@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemController : Singleton<ItemController>
+public class ItemController : MonoBehaviour
 {
 
     [SerializeField] private List<GameObject> listPosSpawnItem;
@@ -14,15 +14,25 @@ public class ItemController : Singleton<ItemController>
     [SerializeField] private List<Item> listItemInBox;
     [SerializeField] private List<Item> listItemInBasket;
 
+    [Space]
+    [Header("Inventory")]
+    [SerializeField] private Inventory inventory;
+
     private void Awake()
     {
         
     }
-    public void Spawn(List<ItemInventory> items)
+
+
+    public void Spawn(Inventory inven)
+    {
+        SpawnItem(inven.Items);
+    }
+    public void SpawnItem(List<ItemInventory> items)
     {
         Debug.Log("Spawn Item");
 
-        foreach(ItemInventory item in items) 
+        foreach(ItemInventory item in items)  
         {
             int qualityItem = item.quantity; // so luong item
             //Tinh toan so luong Item can Spawm
@@ -57,10 +67,10 @@ public class ItemController : Singleton<ItemController>
     }
     public void CheckNextTurn()
     {
-        if (listItemInBasket.Count == 0)
-            GameController.Instance.isCheckTurnByItem = true;
+        /*if (listItemInBasket.Count == 0)
+            //GameController.Instance.isCheckTurnByItem = true;
         else if (listItemInBasket.Count > 0)
-            GameController.Instance.isCheckTurnByItem = false;
+            //GameController.Instance.isCheckTurnByItem = false;*/
     }
 
     public void EndGame()
