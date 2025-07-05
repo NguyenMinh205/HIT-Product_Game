@@ -26,6 +26,6 @@ public class UIBtnOutRoom : MonoBehaviour
         PlayerMapController.Instance.IsIntoRoom = false;
         PlayerMapController.Instance.IsMoving = false;
 
-        intoRoomTrigger.SetActive(false);
+        intoRoomTrigger.gameObject.SetActive(false);
     }
 }
