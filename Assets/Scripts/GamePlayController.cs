@@ -87,7 +87,7 @@ public class GamePlayController : Singleton<GamePlayController>
 
             case TurnPlay.Player:
                 clawController.ResetMachineClaw();
-                playerController.CurrentPlayer.CheckIsPoison();
+                //playerController.CurrentPlayer.CheckIsPoison();
                 break;
         }
     }

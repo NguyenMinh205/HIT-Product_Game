@@ -12,7 +12,7 @@ public class Item : MonoBehaviour
     [SerializeField] public Rarity itemRarity;
     [SerializeField] public string description;
     [SerializeField] public bool isStackable;
-    [SerializeField] public int maxStackSize = 1;
+    [SerializeField] public int maxStackSize = 99;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameObject balloon;
@@ -62,7 +62,13 @@ public class Item : MonoBehaviour
         {
             Debug.Log("Item in Basket");
             isPickUp = true;
+
+            ItemMoveController.Instance.EnqueueItem(this);
+            PolygonCollider2D poly = GetComponent<PolygonCollider2D>();
+            poly.enabled = false;
+
             balloon.SetActive(true);
+
             //ItemController.Instance.ChangeBoxToBasket(gameObject.GetComponent<Item>());
         }
         else if(collision.CompareTag("Check"))

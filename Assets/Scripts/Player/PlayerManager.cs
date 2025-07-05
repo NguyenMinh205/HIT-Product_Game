@@ -39,6 +39,7 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         currentPlayer = PoolingManager.Spawn(playerPrefab, posSpawnPlayer.position, Quaternion.identity, playerParent);
         currentPlayer.Initialize(curCharacter, playerStat.Clone(), PlayerPrefs.GetInt("SelectedSkinIndex", 0));
+        currentPlayer.CalulationPositionPlayer(posSpawnPlayer.position);
     }
 
     public void EndGame()

@@ -35,8 +35,8 @@ public class GetPoison : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        GamePlayController.Instance.playerController.CurrentPlayer.IsPosion = true;
-        GamePlayController.Instance.playerController.CurrentPlayer.PoisonDamage += 10;
+        //GamePlayController.Instance.playerController.CurrentPlayer.IsPosion = true;
+       // GamePlayController.Instance.playerController.CurrentPlayer.PoisonDamage += 10;
     }
 }
 public class GetGasPoison : IEnemyAction

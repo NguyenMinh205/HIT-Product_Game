@@ -1,21 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using TMPro.Examples;
 using UnityEngine;
 
-public class Player : ObjectBase
+public class Player : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private float distancePlayerAndHealthBar;
     private Character character;
+
     private CharacterStatSO stats;
     public CharacterStatSO Stats => stats;
     private ICharacterAbility ability;
     [SerializeField] private CharacterStatModifier characterStatModifier;
     public CharacterStatModifier _CharacterStatModifier => characterStatModifier;
+
+
     private List<IBuffEffect> turnBasedEffects = new List<IBuffEffect>();
     private List<IBuffEffect> reactiveEffects = new List<IBuffEffect>();
+
     [SerializeField] private Inventory inventory;
 
     public Inventory Inventory => inventory;
+
+    //Add
+    [SerializeField] private HealthBar health;
+    public HealthBar Health
+    {
+        set => health = value;
+    }
 
     public void Initialize(Character selectedCharacter, CharacterStatSO characterStatSO, int index)
     {
@@ -59,8 +72,15 @@ public class Player : ObjectBase
                 inventory.AddItem(item.itemBase, (int)Math.Ceiling(item.quantity / 2.0));
             }
         }
-
+        UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
         ApplyInitialTurnBasedEffects();
+    }
+    public void CalulationPositionPlayer(Vector3 posPlayer)
+    {
+        float height = playerSprite.bounds.extents.y;
+        Vector3 newPos = posPlayer + Vector3.up * height + Vector3.up * distancePlayerAndHealthBar;
+
+        transform.position = newPos;
     }
 
     public void AddBuffEffect(string effectName, float value, float duration)

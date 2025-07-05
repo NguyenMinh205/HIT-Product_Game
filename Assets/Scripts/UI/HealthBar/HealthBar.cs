@@ -26,7 +26,7 @@ public class HealthBar : MonoBehaviour
         get => this.obj;
         set => this.obj = value;
     }*/
-    public void InitHealthBar(ObjectBase obj)
+    public void InitHealthBar(Object obj)
     {
         gameObject.SetActive(true);
 
@@ -39,28 +39,47 @@ public class HealthBar : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void UpdateArmor(ObjectBase obj)
+    public void UpdateArmor(Object obj)
     {
-        Debug.Log("Up Armor");
-        if (obj == null) return;
+        if (obj is Enemy enemy)
+        {
+            Debug.Log("Up Armor");
+            if (enemy == null) return;
 
-        if (obj.Armor > 0)
-        {
-            armor.SetActive(true);
-            textArmor.text = obj.Armor.ToString();
+            if (enemy.Armor > 0)
+            {
+                armor.SetActive(true);
+                textArmor.text = enemy.Armor.ToString();
+            }
+            else
+            {
+                armor.SetActive(false);
+            }
         }
-        else
+        else if(obj is Player player)
         {
-            armor.SetActive(false);
+            if(player.Stats.shield > 0)
+            {
+                armor.SetActive(true);
+                textArmor.text = player.Stats.shield.ToString();
+            }
         }
     }
 
-    public void UpdateHp(ObjectBase obj)
+    public void UpdateHp(Object obj)
     {
-        Debug.Log("Up Hp");
-        if (obj == null) return;
+        if (obj is Enemy enemy)
+        {
+            Debug.Log("Up Hp");
+            if (enemy == null) return;
 
-        textHp.text = obj.HP + " / " + obj.CurrentHp;
-        imageHp.fillAmount = (float)obj.HP / obj.CurrentHp;
+            textHp.text = enemy.HP + " / " + enemy.CurrentHp;
+            imageHp.fillAmount = (float)enemy.HP / enemy.CurrentHp;
+        }
+        else if (obj is Player player)
+        {
+            textHp.text = player.Stats.currentHP + "/" + player.Stats.maxHP;
+            imageHp.fillAmount = (float)player.Stats.currentHP / player.Stats.maxHP;
+        }
     }
 }

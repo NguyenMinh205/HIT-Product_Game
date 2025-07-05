@@ -124,8 +124,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSprite: {fileID: 7480594454539457562}
+  distancePlayerAndHealthBar: 0.3
   characterStatModifier: {fileID: -5563196789657130844}
   inventory: {fileID: 4930247587765300604}
+  health: {fileID: 0}
 --- !u!114 &-5563196789657130844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +176,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.859375, y: 3.203125}
+    oldSize: {x: 2.47, y: 2.05}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
