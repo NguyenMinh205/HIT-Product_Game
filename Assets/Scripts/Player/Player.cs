@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : ObjectBase
 {
-    [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private RuntimeAnimatorController playerAnim;
     private Character character;
     private CharacterStatSO stats;
     public CharacterStatSO Stats => stats;
@@ -20,7 +20,7 @@ public class Player : ObjectBase
         character = selectedCharacter;
         if (character.skins.Count > index)
         {
-            playerSprite.sprite = character.skins[index].skin;
+            playerAnim = character.skins[index].anim;
         }
         else
         {

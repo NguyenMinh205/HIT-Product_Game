@@ -6,5 +6,6 @@ using UnityEngine;
 public class Skin
 {
     public Sprite skin;
+    public RuntimeAnimatorController anim;
     public bool isUnlocked;
 }

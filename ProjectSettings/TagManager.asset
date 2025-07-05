@@ -55,9 +55,6 @@ TagManager:
   - name: IconTile
     uniqueID: 2052983253
     locked: 0
-  - name: Player
-    uniqueID: 2921366081
-    locked: 0
   - name: Claw
     uniqueID: 3693211049
     locked: 0
@@ -66,6 +63,9 @@ TagManager:
     locked: 0
   - name: Item
     uniqueID: 3082289705
+    locked: 0
+  - name: Player
+    uniqueID: 2921366081
     locked: 0
   - name: UI
     uniqueID: 688729343
