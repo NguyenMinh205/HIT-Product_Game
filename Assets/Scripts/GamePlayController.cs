@@ -161,9 +161,9 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     IEnumerator DelayOutTrigger(float time)
     {
-        intoRoomTrigger.SetActive(false);
+        //intoRoomTrigger.SetActive(false);
         yield return new WaitForSeconds(time);
-        intoRoomTrigger.SetActive(true);
+        //intoRoomTrigger.SetActive(true);
     }
     public void WInGame()
     {
@@ -179,7 +179,7 @@ public class GamePlayController : Singleton<GamePlayController>
         PlayerMapController.Instance.IsIntoRoom = false;
         PlayerMapController.Instance.IsMoving = false;
 
-        intoRoomTrigger.SetActive(false);
+        //intoRoomTrigger.SetActive(false);
 
         SetActiveRoom(false);
     }

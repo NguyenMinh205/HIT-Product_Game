@@ -68,7 +68,7 @@ public class GameManager : Singleton<GameManager>
         OpenRoom();
         DefaultRoom.SetActive(true);
         currentRoom = DefaultRoom;
-        GameController.Instance.StartRoom();
+        GamePlayController.Instance.StartRoom();
     }
 
     public void OpenRoomBossFight()

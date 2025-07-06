@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Player : ObjectBase
 {
+    [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private float distancePlayerAndHealthBar;
     [SerializeField] private RuntimeAnimatorController playerAnim;
+
     private Character character;
     private CharacterStatSO stats;
     public CharacterStatSO Stats => stats;
@@ -15,12 +18,19 @@ public class Player : ObjectBase
     private List<IBuffEffect> reactiveEffects = new List<IBuffEffect>();
     [SerializeField] private Inventory inventory;
 
+
+    public Inventory Inventory
+    {
+        get => inventory;
+    }
+
     public void Initialize(Character selectedCharacter, CharacterStatSO characterStatSO, int index)
     {
         character = selectedCharacter;
         if (character.skins.Count > index)
         {
             playerAnim = character.skins[index].anim;
+            playerSprite.sprite = character.skins[index].skin;
         }
         else
         {
@@ -59,6 +69,13 @@ public class Player : ObjectBase
         }
 
         ApplyInitialTurnBasedEffects();
+    }
+    public void CalulationPositionPlayer(Vector3 posPlayer)
+    {
+        float height = playerSprite.bounds.extents.y;
+        Vector3 newPos = posPlayer + Vector3.up * height + Vector3.up * distancePlayerAndHealthBar;
+
+        transform.position = newPos;
     }
 
     public void AddBuffEffect(string effectName, float value, float duration)
