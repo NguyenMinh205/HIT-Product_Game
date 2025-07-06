@@ -30,7 +30,6 @@ public class Player : ObjectBase
         if (character.skins.Count > index)
         {
             playerAnim = character.skins[index].anim;
-            playerSprite.sprite = character.skins[index].skin;
         }
         else
         {
@@ -67,11 +66,12 @@ public class Player : ObjectBase
                 inventory.AddItem(item.itemBase, (int)Math.Ceiling(item.quantity / 2.0));
             }
         }
-
+        UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
         ApplyInitialTurnBasedEffects();
     }
     public void CalulationPositionPlayer(Vector3 posPlayer)
     {
+        playerSprite = GetComponent<SpriteRenderer>();
         float height = playerSprite.bounds.extents.y;
         Vector3 newPos = posPlayer + Vector3.up * height + Vector3.up * distancePlayerAndHealthBar;
 

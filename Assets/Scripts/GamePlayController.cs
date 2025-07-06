@@ -24,14 +24,8 @@ public class GamePlayController : Singleton<GamePlayController>
     [SerializeField] private ClawController clawController;
     [SerializeField] private ItemController itemController;
 
-    [Space]
-    [Header("Room")]
-    [SerializeField] private GameObject DefaultRoom;
     private IntoRoomTrigger intoRoomTrigger;
 
-    [Space]
-    [Header("Machine")]
-    [SerializeField] private GameObject DefaultClawMachineBox;
 
     [Space]
     [Header("TurnDisplay")]
@@ -124,8 +118,6 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         Debug.Log("Open Room");
         ShowChangeTurn();
-        SetActiveRoom(true);  // bat room
-        PlayerMapController.Instance.IsIntoRoom = true;
 
         // spawn enemy and player
         enemyController.Spawn();
@@ -138,8 +130,6 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     public void LoseGame()
     {
-        DefaultRoom.SetActive(false);
-        DefaultClawMachineBox.SetActive(false);
 
         clawController.EndGame();
         clawController.IsStart = false;
@@ -156,8 +146,6 @@ public class GamePlayController : Singleton<GamePlayController>
         PlayerMapController.Instance.IsMoving = false;
 
         StartCoroutine(PlayerMapController.Instance.MoveToPosition(-1 * directionPlayer));
-
-        SetActiveRoom(false);
     }
     IEnumerator DelayOutTrigger(float time)
     {
@@ -180,19 +168,6 @@ public class GamePlayController : Singleton<GamePlayController>
         PlayerMapController.Instance.IsMoving = false;
 
         //intoRoomTrigger.SetActive(false);
-
-        SetActiveRoom(false);
-    }
-    IEnumerator DelayPlayerMoveInMap(float time)
-    {
-        yield return new WaitForSeconds(time);
-        MapController.Instance.SetActiveMapStore(false);
-    }
-
-    public void SetActiveRoom(bool val)
-    {
-        DefaultRoom.SetActive(val);
-        DefaultClawMachineBox.SetActive(val);
     }
 }
 

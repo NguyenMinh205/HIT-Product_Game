@@ -56,10 +56,14 @@ public class GameManager : Singleton<GameManager>
     {
         CloseAllRoomsAndUIs();
         PlayerMapController.Instance.IsIntoRoom = true;
+
         StartCoroutine(DelayPlayerMoveInMap(0.5f));
+
         MapManager.Instance.SetActiveRoomVisual(false);
+
         uiInRoom.SetActive(true);
         uiMap.SetActive(false);
+
         btnOutRoom.gameObject.SetActive(true);
     }
 
@@ -67,6 +71,7 @@ public class GameManager : Singleton<GameManager>
     {
         OpenRoom();
         DefaultRoom.SetActive(true);
+        DefaultClawMachineBox.SetActive(true);
         currentRoom = DefaultRoom;
         GamePlayController.Instance.StartRoom();
     }
