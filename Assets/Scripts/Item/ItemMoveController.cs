@@ -64,7 +64,8 @@ public class ItemMoveController : MonoBehaviour
 
     private void MoveItem(Item item)
     {
-        item.GetComponent<Collider2D>().enabled = false;
+        //item.GetComponent<Collider2D>().enabled = false;
+        item.GetComponent<PolygonCollider2D>().isTrigger = true;
 
         Vector3 start = posStart.position;
         item.transform.position = start;
@@ -91,7 +92,8 @@ public class ItemMoveController : MonoBehaviour
 
         seq.OnComplete(() =>
         {
-            if (!isTemporarilyPaused) StartCoroutine(PauseAllTweensTemporarily());
+            Debug.Log("Item Complete Player");  /// Item Cham vao Player
+            //if (!isTemporarilyPaused) StartCoroutine(PauseAllTweensTemporarily());
         });
 
         if (isPaused)
@@ -109,7 +111,10 @@ public class ItemMoveController : MonoBehaviour
         foreach (var tween in activeTweens)
         {
             if (tween.IsActive() && tween.IsPlaying())
+            {
+                Debug.Log("Pause Tween");
                 tween.Pause();
+            }
         }
 
         yield return new WaitForSeconds(pauseAfterAnyFinish);
@@ -123,7 +128,7 @@ public class ItemMoveController : MonoBehaviour
         isTemporarilyPaused = false;
     }
 
-    public void PauseMovement()
+/*    public void PauseMovement()
     {
         isPaused = true;
 
@@ -146,5 +151,5 @@ public class ItemMoveController : MonoBehaviour
         {
             StartCoroutine(StartMovingItems());
         }
-    }
+    }*/
 }

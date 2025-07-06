@@ -48,14 +48,6 @@ public class Item : MonoBehaviour
         isStackable = itemBase.isStackable;
         maxStackSize = itemBase.maxStackSize;
     }
-    private void Update()
-    {
-        if(isPickUp)
-        {
-            MoveItem();
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Basket"))
@@ -65,28 +57,10 @@ public class Item : MonoBehaviour
 
             ObserverManager<ItemMove>.PostEven(ItemMove.AddItemToMove, this);
 
-            PolygonCollider2D poly = GetComponent<PolygonCollider2D>();
-            poly.enabled = false;
-
             balloon.SetActive(true);
 
-            //ItemController.Instance.ChangeBoxToBasket(gameObject.GetComponent<Item>());
+            ObserverManager<IDItem>.PostEven(IDItem.ItemChange, this);
         }
-        else if(collision.CompareTag("Check"))
-        {
-            isMove = true;
-        }
-    }
-
-    public void MoveItem()
-    {
-        Debug.Log("Move Item");
-        if (isMove)
-        {
-            //rb.velocity = (GameController.Instance.playerController.PosPlayer - transform.position) * moveForce;
-        }
-        else
-            rb.velocity = Vector2.down * moveForce;
     }
 
     private void ResetCollider2D()

@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     [SerializeField] private HealthBar health;
     public HealthBar Health
     {
+        get => health;
         set => health = value;
     }
 

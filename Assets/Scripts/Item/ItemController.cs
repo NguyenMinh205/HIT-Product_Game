@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum IDItem
+{
+    ItemChange,
+    ItemPlayer,
+}
 public class ItemController : MonoBehaviour
 {
 
@@ -20,9 +25,13 @@ public class ItemController : MonoBehaviour
 
     private void Awake()
     {
-        
+        ObserverManager<IDItem>.AddDesgisterEvent(IDItem.ItemChange, ChangeBoxToBasket);
+        ObserverManager<IDItem>.AddDesgisterEvent(IDItem.ItemPlayer, DeleteItemOutBasket);
     }
-
+    private void Update()
+    {
+        CheckNextTurn();
+    }
 
     public void Spawn(Inventory inven)
     {
@@ -53,24 +62,32 @@ public class ItemController : MonoBehaviour
         }
     }
 
-    public void ChangeBoxToBasket(Item item)
+    public void ChangeBoxToBasket(object obj)
     {
-        if(listItemInBox.Contains(item))
-            listItemInBox.Remove(item);
+        if(obj is Item item)
+        {
+            if (listItemInBox.Contains(item))
+                listItemInBox.Remove(item);
 
-        if(!listItemInBasket.Contains(item))
-            listItemInBasket.Add(item);
+            if (!listItemInBasket.Contains(item))
+                listItemInBasket.Add(item);
+        }
     }
-    public void DeleteItemOutBasket(Item item)
+   
+    public void DeleteItemOutBasket(object obj)
     {
-        listItemInBasket.Remove(item);
+        if(obj is Item item)
+        {
+            Debug.Log("Delete Item Out Basket");
+            listItemInBasket.Remove(item);
+        }
     }
     public void CheckNextTurn()
     {
-        /*if (listItemInBasket.Count == 0)
-            //GameController.Instance.isCheckTurnByItem = true;
+        if (listItemInBasket.Count == 0)
+            GamePlayController.Instance.isCheckTurnByItem = true;
         else if (listItemInBasket.Count > 0)
-            //GameController.Instance.isCheckTurnByItem = false;*/
+            GamePlayController.Instance.isCheckTurnByItem = false;
     }
 
     public void EndGame()

@@ -14,28 +14,12 @@ public class TriggerPlayer : MonoBehaviour
         if(collision.CompareTag("Item"))
         {
             Debug.Log("Item trigger with player");
-            string id = collision.GetComponent<Item>().ID;
-            CheckID(id);
+
+            ObserverManager<IDItem>.PostEven(IDItem.ItemPlayer, collision.GetComponent<Item>());
             //ItemController.Instance.DeleteItemOutBasket(collision.GetComponent<Item>());
             PoolingManager.Despawn(collision.gameObject);
             //ItemController.Instance.CheckNextTurn();
-        }
-    }
-    public void CheckID(string id)
-    {
-        switch(id)
-        {
-            case "1":
-                break;
 
-            case "3":
-                break;
-
-            case "0":
-                break;
-
-            default:
-                break;
         }
     }
 

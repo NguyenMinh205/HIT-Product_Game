@@ -11,7 +11,7 @@ public class DropThreeFruitPoison : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        
     }
 }
 
@@ -19,7 +19,7 @@ public class DropThreeHoney : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        
     }
 }
 
@@ -27,7 +27,7 @@ public class CreateWaterInBox : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        
     }
 }
 
