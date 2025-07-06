@@ -9,7 +9,8 @@ public class MapManager : Singleton<MapManager>
     [SerializeField] private List<MapData> fightMaps;
     [SerializeField] private List<MapData> bossMaps;
     [SerializeField] private List<MapData> restMaps;
-    [SerializeField] private TextMeshProUGUI FloorTxt;
+    [SerializeField] private TextMeshProUGUI floorTxt;
+    [SerializeField] private TextMeshProUGUI floorInRoomTxt;
     [SerializeField] private int numFloor;
     private MapData curMap;
     private int currentMapIndex = 0;
@@ -21,7 +22,7 @@ public class MapManager : Singleton<MapManager>
 
     [SerializeField] private GameObject RoomVisual;
 
-    private void Awake()
+    private void Start()
     {
         fightMaps = Resources.LoadAll<MapData>("SO/Fight").ToList();
         bossMaps = Resources.LoadAll<MapData>("SO/Boss").ToList();
@@ -31,7 +32,8 @@ public class MapManager : Singleton<MapManager>
 
     private void UpdateFloorText()
     {
-        FloorTxt.SetText("Floor " + currentMapIndex + "/" + numFloor);
+        floorTxt.SetText("Floor " + currentMapIndex + "/" + numFloor);
+        floorInRoomTxt.SetText("Floor " + currentMapIndex + "/" + numFloor);
     }
     public void SetActiveRoomVisual(bool val)
     {

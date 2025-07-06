@@ -12,7 +12,7 @@ public class IntoRoomTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             CheckIDRoom(idNameRoom);
-            GamePlayController.Instance.IntoRoom = this;
+            GameController.Instance.IntoRoom = this;
         }
     }
 
@@ -22,71 +22,40 @@ public class IntoRoomTrigger : MonoBehaviour
         {
             case "boss_fight":
                 Debug.Log("Boss FIght");
+                GameManager.Instance.OpenRoomBossFight();
                 break;
             case "fight":
-                OpenFightRoom();
-                Debug.Log("FIght");
+                Debug.Log("Fight");
+                GameManager.Instance.OpenRoomFight();
                 break;
             case "gambling":
                 Debug.Log("Gambling");
+                GameManager.Instance.OpenRoomPachinko();
                 break;
             case "hard_fight":
                 Debug.Log("Hard FIght");
-                OpenBossFightRoom();
+                GameManager.Instance.OpenRoomFight();
                 break;
             case "healing":
                 Debug.Log("Healing");
-                OpenRoomHealing();
+                GameManager.Instance.OpenRoomHealing();
                 break;
             case "mystery_machine":
                 Debug.Log("Mystery Claw Machine");
-                OpenRoomMystery();
+                GameManager.Instance.OpenRoomMystery();
                 break;
             case "perk":
                 Debug.Log("Perk Reward");
+                GameManager.Instance.OpenRoomPerkReward();
                 break;
             case "shredder":
                 Debug.Log("Shredder");
-                OpenRoomShredder();
+                GameManager.Instance.OpenRoomSmith();
                 break;
             case "upgrade":
                 Debug.Log("Upgrade Smith");
-                OpenRoomSmith();
+                GameManager.Instance.OpenRoomShredder();
                 break;
         }
-    }
-    public void SetActive(bool var)
-    {
-        gameObject.SetActive(var);
-    }
-
-    public void OpenBossFightRoom()
-    {
-        //GamePlayController.Instance.StartRoom();
-    }
-    public void OpenFightRoom()
-    {
-        Debug.Log("Open Fight Room ");
-        GamePlayController.Instance.StartRoom();
-    }
-    public void OpenRoomHealing()
-    {
-      // GamePLayController.Instance.OpenRoomHealing();
-    }
-    public void OpenRoomMystery()
-    {
-       // GameController.Instance.OpenRoomMystery();
-    }
-    public void OpenRoomPachinko()
-    {
-        //GameController.Instance.OpenRoomPachinko();
-    }
-    public void OpenRoomSmith()
-    {
-        //GameController.Instance.OpenRoomSmith();
-    }
-    public void OpenRoomShredder()
-    {
-       // GameController.Instance.OpenRoomShredder();
     }
 }

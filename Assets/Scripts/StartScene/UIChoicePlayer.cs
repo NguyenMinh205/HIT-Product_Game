@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class UIChoicePlayer : MonoBehaviour
 {
     [SerializeField] private CharacterDatabaseSO _characterDatabaseSO;
-    [SerializeField] private Image characterSprite;
+    [SerializeField] private GameObject characterDisplayObject;
     [SerializeField] private TextMeshProUGUI nameTxt;
     [SerializeField] private TextMeshProUGUI characterDescriptionTxt;
     [SerializeField] private TextMeshProUGUI abilityDescriptionTxt;
     [SerializeField] private Transform listStartItem;
     [SerializeField] private GameObject itemInventoryPrefab;
-    [SerializeField] private Image lockIcon;
+    [SerializeField] private GameObject lockIcon;
+    [SerializeField] private CanvasGroup characterCanvasGroup;
     private readonly float lockedSpriteAlpha = 120f / 255f;
     private readonly float unlockedSpriteAlpha = 1.0f;
 
@@ -22,10 +22,14 @@ public class UIChoicePlayer : MonoBehaviour
     private int selectedOption = 0;
     private int skinSelectOption = 0;
 
+    private SpriteRenderer characterSpriteRenderer;
+    private Animator characterAnimator;
+
     private void OnEnable()
     {
         if (_characterDatabaseSO != null)
         {
+            _characterDatabaseSO.SetupStartData();
             _characterDatabaseSO.LoadUnlockedStates();
         }
 
@@ -44,7 +48,29 @@ public class UIChoicePlayer : MonoBehaviour
                 }
             }
         }
+        InitializeCharacterDisplay();
         UpdateCharacter();
+    }
+
+    private void InitializeCharacterDisplay()
+    {
+        if (characterDisplayObject != null)
+        {
+            characterSpriteRenderer = characterDisplayObject.GetComponent<SpriteRenderer>();
+            characterAnimator = characterDisplayObject.GetComponent<Animator>();
+            if (characterSpriteRenderer == null)
+            {
+                Debug.LogError("SpriteRenderer not found on CharacterDisplayObject!");
+            }
+            if (characterAnimator == null)
+            {
+                Debug.LogError("Animator not found on CharacterDisplayObject!");
+            }
+        }
+        else
+        {
+            Debug.LogError("characterDisplayObject is not assigned!");
+        }
     }
 
     public void NextOption()
@@ -71,23 +97,49 @@ public class UIChoicePlayer : MonoBehaviour
 
     public void ChangeSkin()
     {
-        AudioManager.Instance.PlaySoundClickButton();
+        AudioManager.Instance.PlaySelectCharacter();
         skinSelectOption++;
         if (skinSelectOption >= curCharacter.skins.Count)
         {
             skinSelectOption = 0;
         }
-        UpdateCharacterSprite();
+        UpdateCharacterAnimator();
     }
 
-    private void UpdateCharacterSprite()
+    private void UpdateCharacterAnimator()
     {
-        characterSprite.sprite = curCharacter.skins[skinSelectOption].skin;
+        if (characterSpriteRenderer != null && characterAnimator != null)
+        {
+            if (curCharacter.skins[skinSelectOption].skin != null)
+            {
+                characterSpriteRenderer.sprite = curCharacter.skins[skinSelectOption].skin;
+                Color color = characterSpriteRenderer.color;
+                color.a = curCharacter.skins[skinSelectOption].isUnlocked && curCharacter.isUnlocked ? unlockedSpriteAlpha : lockedSpriteAlpha;
+                characterSpriteRenderer.color = color;
+            }
+            else
+            {
+                Debug.LogWarning($"Skin sprite is null for skin {skinSelectOption} of character {curCharacter.name}");
+            }
+            if (curCharacter.skins[skinSelectOption].anim != null)
+            {
+                characterAnimator.runtimeAnimatorController = curCharacter.skins[skinSelectOption].anim;
+                Debug.Log($"Playing 'Idle' animation for skin {skinSelectOption} of character {curCharacter.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"No animator controller assigned for skin {skinSelectOption} of character {curCharacter.name}");
+            }
+        }
+
         bool isSkinUnlocked = curCharacter.skins[skinSelectOption].isUnlocked;
         bool isCharacterUnlocked = curCharacter.isUnlocked;
         float alpha = isSkinUnlocked ? unlockedSpriteAlpha : lockedSpriteAlpha;
-        characterSprite.color = new Color(1, 1, 1, alpha);
-        lockIcon.gameObject.SetActive(!isSkinUnlocked || !isCharacterUnlocked);
+        if (characterCanvasGroup != null)
+        {
+            characterCanvasGroup.alpha = alpha;
+        }
+        lockIcon.SetActive(!isSkinUnlocked || !isCharacterUnlocked);
     }
 
     public void UpdateCharacter()
@@ -100,7 +152,7 @@ public class UIChoicePlayer : MonoBehaviour
 
         curCharacter = _characterDatabaseSO.GetCharacter(selectedOption);
         skinSelectOption = 0;
-        UpdateCharacterSprite();
+        UpdateCharacterAnimator();
 
         nameTxt.text = curCharacter.name;
         characterDescriptionTxt.text = curCharacter.description;

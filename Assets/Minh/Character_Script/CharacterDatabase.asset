@@ -22,10 +22,13 @@ MonoBehaviour:
       turn with 5 Block
     skins:
     - skin: {fileID: 483049730, guid: e9c8ca7b6b77765408762083420f81f7, type: 3}
+      anim: {fileID: 9100000, guid: c8c48bf937a429749a85e1c2ce293fb4, type: 2}
       isUnlocked: 1
     - skin: {fileID: 1941008337, guid: e9c8ca7b6b77765408762083420f81f7, type: 3}
+      anim: {fileID: 0}
       isUnlocked: 0
     - skin: {fileID: 2060198056, guid: 7c42b33d3ccda2b47b432ab366abd2fc, type: 3}
+      anim: {fileID: 0}
       isUnlocked: 0
     initialItems:
     - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
@@ -46,10 +49,13 @@ MonoBehaviour:
       you collect at least 5 items at once
     skins:
     - skin: {fileID: -900610683, guid: da7e84710f54d9f499b6602b559b9b26, type: 3}
+      anim: {fileID: 9100000, guid: 7c157425e3a4c134ba880b1868fa858e, type: 2}
       isUnlocked: 0
     - skin: {fileID: 576857798, guid: 8cf66e4b4dab7ea42962134c5c019368, type: 3}
+      anim: {fileID: 0}
       isUnlocked: 0
     - skin: {fileID: 2035261530, guid: 8cf66e4b4dab7ea42962134c5c019368, type: 3}
+      anim: {fileID: 0}
       isUnlocked: 0
     initialItems:
     - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
@@ -70,6 +76,7 @@ MonoBehaviour:
       to enemies
     skins:
     - skin: {fileID: 1219110070, guid: 7c42b33d3ccda2b47b432ab366abd2fc, type: 3}
+      anim: {fileID: 9100000, guid: 5a7711439cdf40a40afb3a3269114b2c, type: 2}
       isUnlocked: 0
     initialItems:
     - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
@@ -85,10 +92,13 @@ MonoBehaviour:
       is increased by 2% for every item in your deck
     skins:
     - skin: {fileID: 927518111, guid: 7c6bbaed8fec3ca49838c55e04681231, type: 3}
+      anim: {fileID: 9100000, guid: a0b2ac5ca8ed4c24482c8b9622d23ed7, type: 2}
       isUnlocked: 0
     - skin: {fileID: -207943102, guid: 7c6bbaed8fec3ca49838c55e04681231, type: 3}
+      anim: {fileID: 0}
       isUnlocked: 0
     - skin: {fileID: -1802970662, guid: 7c6bbaed8fec3ca49838c55e04681231, type: 3}
+      anim: {fileID: 0}
       isUnlocked: 0
     initialItems:
     - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
@@ -109,6 +119,7 @@ MonoBehaviour:
       poison. Each attack applies 1 Poison
     skins:
     - skin: {fileID: -2099389291, guid: da7e84710f54d9f499b6602b559b9b26, type: 3}
+      anim: {fileID: 9100000, guid: 86e70bad4c46ecf4c93407b637abc691, type: 2}
       isUnlocked: 0
     initialItems:
     - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}

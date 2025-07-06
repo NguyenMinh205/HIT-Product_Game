@@ -92,7 +92,7 @@ public class GameController : Singleton<GameController>
         //test out room
         btnOutRoom.onClick.AddListener(delegate
         {
-            OutRoom();
+            GameManager.Instance.OutRoom();
         });
     }
     public TurnPlay Turn
@@ -209,9 +209,9 @@ public class GameController : Singleton<GameController>
     }
     IEnumerator DelayOutTrigger(float time)
     {
-        intoRoomTrigger.SetActive(false);
+        intoRoomTrigger.gameObject.SetActive(false);
         yield return new WaitForSeconds(time);
-        intoRoomTrigger.SetActive(true);
+        intoRoomTrigger.gameObject.SetActive(true);
     }
     public void WInGame()
     {
@@ -234,89 +234,7 @@ public class GameController : Singleton<GameController>
         PlayerMapController.Instance.IsIntoRoom = false;
         PlayerMapController.Instance.IsMoving = false;
 
-        intoRoomTrigger.SetActive(false);
-    }
-
-    //Quan ly open room
-    public void OpenRoom()
-    {
-        PlayerMapController.Instance.IsIntoRoom = true;
-
-        StartCoroutine(DelayPlayerMoveInMap(0.5f));
-        MapManager.Instance.SetActiveRoomVisual(false);
-    }
-    public void OpenRoomFight()
-    {
-        OpenRoom();
-        GameController.Instance.StartRoom();
-    }
-    public void OpenRoomBossFight()
-    {
-        OpenRoom();
-        BossRoom.SetActive(true);
-
-        room = BossRoom;
-        btnOutRoom.gameObject.SetActive(true);
-    }
-    public void OpenRoomHealing()
-    {
-        OpenRoom();
-        HealingRoom.SetActive(true);
-
-        room = HealingRoom;
-        btnOutRoom.gameObject.SetActive(true);
-    }
-    public void OpenRoomMystery()
-    {
-        OpenRoom();
-        MysteryRoom.SetActive(true);
-
-        room = MysteryRoom;
-        btnOutRoom.gameObject.SetActive(true);
-    }
-    public void OpenRoomPachinko()
-    {
-        OpenRoom();
-        PachinkoRoom.SetActive(true);
-        UIController.Instance.OpenPachinkoUI(true);
-
-        room = PachinkoRoom;
-        btnOutRoom.gameObject.SetActive(true);
-    }
-    public void OpenRoomSmith()
-    {
-        OpenRoom();
-        SmithRoom.SetActive(true);
-
-        room = SmithRoom;
-        btnOutRoom.gameObject.SetActive(true);
-    }
-    public void OpenRoomShredder()
-    {
-        OpenRoom();
-        ShredderRoom.SetActive(true);
-
-        room = ShredderRoom;
-        btnOutRoom.gameObject.SetActive(true);
-    }
-
-    IEnumerator DelayPlayerMoveInMap(float time)
-    {
-        yield return new WaitForSeconds(time);
-        MapController.Instance.SetActiveMapStore(false);
-    }
-    public void OutRoom()
-    {
-        btnOutRoom.gameObject.SetActive(false);
-        room.SetActive(false);
-
-        MapController.Instance.SetActiveMapStore(true);
-        MapManager.Instance.SetActiveRoomVisual(true);
-
-        PlayerMapController.Instance.IsIntoRoom = false;
-        PlayerMapController.Instance.IsMoving = false;
-
-        intoRoomTrigger.SetActive(false);
+        intoRoomTrigger.gameObject.SetActive(false);
     }
 }
 
