@@ -3,87 +3,148 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ItemMoveController : Singleton<ItemMoveController>
+public enum ItemMove
 {
+    AddItemToMove,
+}
 
-    private Transform playerTarget; // nơi item bay đến (có thể là vùng giữ item)
+public class ItemMoveController : MonoBehaviour
+{
+    [SerializeField] private Transform posStart;
+    private Transform playerTarget;
     private Queue<Item> itemQueue = new Queue<Item>();
-    private bool isProcessing = false;
-
+    private bool isRunningCoroutine = false;
     private bool isPaused = false;
-    private Tween currentTween; //
 
-    public void EnqueueItem(Item item)
+    private List<Tween> activeTweens = new List<Tween>();
+    [SerializeField] private float delayBetweenItems = 0.2f;
+    [SerializeField] private float pauseAfterAnyFinish = 1f;
+
+    private bool isTemporarilyPaused = false;
+
+    private void Awake()
     {
-        itemQueue.Enqueue(item);
-        TryProcessNext();
+        ObserverManager<ItemMove>.AddDesgisterEvent(ItemMove.AddItemToMove, EnqueueItem);
     }
 
-    private void TryProcessNext()
+    public void EnqueueItem(object obj)
     {
-        if (isProcessing || itemQueue.Count == 0 || isPaused) return;
+        if (obj is Item item)
+        {
+            itemQueue.Enqueue(item);
+
+            if (!isRunningCoroutine && !isPaused)
+                StartCoroutine(StartMovingItems());
+        }
+    }
+
+    private IEnumerator StartMovingItems()
+    {
+        isRunningCoroutine = true;
 
         playerTarget = GamePlayController.Instance.playerController.CurrentPlayer?.transform;
-        if (playerTarget == null) return;
+        if (playerTarget == null)
+        {
+            isRunningCoroutine = false;
+            yield break;
+        }
 
-        isProcessing = true;
+        while (itemQueue.Count > 0)
+        {
+            if (isPaused) yield break;
 
-        Item nextItem = itemQueue.Dequeue();
-        nextItem.GetComponent<Collider2D>().enabled = false;
+            Item item = itemQueue.Dequeue();
+            MoveItem(item);
 
-        Vector3 start = nextItem.transform.position;
+            yield return new WaitForSeconds(delayBetweenItems);
+        }
+
+        isRunningCoroutine = false;
+    }
+
+    private void MoveItem(Item item)
+    {
+        item.GetComponent<Collider2D>().enabled = false;
+
+        Vector3 start = posStart.position;
+        item.transform.position = start;
         Vector3 end = playerTarget.position;
-        Vector3 dropPoint = start + Vector3.down * 1.7f + Vector3.left * 0.55f;
-        Vector3 midCurve = dropPoint + Vector3.left * 7.1f;
+        Vector3 dropPoint = start + Vector3.down * 1.39f + Vector3.left * 0.37f;
+        Vector3 midCurve = dropPoint + Vector3.left * 6.4f;
         Vector3[] path = new Vector3[] { start, dropPoint, midCurve, end };
 
-        float duration = Vector3.Distance(start, end) / 5f * 10f;
+        float duration = Vector3.Distance(start, end) / 5f * 2f;
 
-        nextItem.transform.rotation = Quaternion.identity;
+        item.transform.rotation = Quaternion.identity;
 
         Sequence seq = DOTween.Sequence();
-        currentTween = seq;
 
-        seq.Join(nextItem.transform.DOPath(path, duration, PathType.CatmullRom)
-            .SetEase(Ease.InOutSine));
+        Tween pathTween = item.transform.DOPath(path, duration, PathType.CatmullRom)
+            .SetEase(Ease.InOutSine);
 
-        seq.Join(nextItem.transform.DORotate(new Vector3(0, 0, 360f), duration, RotateMode.FastBeyond360)
+        Tween rotateTween = item.transform.DORotate(new Vector3(0, 0, 360f), duration, RotateMode.FastBeyond360)
             .SetEase(Ease.Linear)
-            .SetLoops(1, LoopType.Restart));
+            .SetLoops(1, LoopType.Restart);
 
-        seq.OnComplete(() => {
-            currentTween = null;
-            OnPlayerDone();
+        seq.Join(pathTween);
+        seq.Join(rotateTween);
+
+        seq.OnComplete(() =>
+        {
+            if (!isTemporarilyPaused) StartCoroutine(PauseAllTweensTemporarily());
         });
 
         if (isPaused)
         {
-            seq.Pause(); // Nếu pause khi tween vừa tạo
+            seq.Pause();
         }
+
+        activeTweens.Add(seq);
     }
 
-    // Được gọi sau khi player xử lý xong 1 item
-    private void OnPlayerDone()
+    private IEnumerator PauseAllTweensTemporarily()
     {
-        isProcessing = false;
-        TryProcessNext();
+        isTemporarilyPaused = true;
+
+        foreach (var tween in activeTweens)
+        {
+            if (tween.IsActive() && tween.IsPlaying())
+                tween.Pause();
+        }
+
+        yield return new WaitForSeconds(pauseAfterAnyFinish);
+
+        foreach (var tween in activeTweens)
+        {
+            if (tween.IsActive() && !tween.IsPlaying())
+                tween.Play();
+        }
+
+        isTemporarilyPaused = false;
     }
 
     public void PauseMovement()
     {
         isPaused = true;
-        currentTween?.Pause();
+
+        foreach (var tween in activeTweens)
+        {
+            if (tween.IsActive()) tween.Pause();
+        }
     }
 
     public void ResumeMovement()
     {
         isPaused = false;
-        currentTween?.Play();
 
-        // Nếu không có tween nào đang chạy (pause trước khi tạo tween)
-        if (!isProcessing)
+        foreach (var tween in activeTweens)
         {
-            TryProcessNext();
+            if (tween.IsActive()) tween.Play();
+        }
+
+        if (!isRunningCoroutine && itemQueue.Count > 0)
+        {
+            StartCoroutine(StartMovingItems());
         }
     }
 }

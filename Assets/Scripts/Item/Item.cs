@@ -63,7 +63,8 @@ public class Item : MonoBehaviour
             Debug.Log("Item in Basket");
             isPickUp = true;
 
-            ItemMoveController.Instance.EnqueueItem(this);
+            ObserverManager<ItemMove>.PostEven(ItemMove.AddItemToMove, this);
+
             PolygonCollider2D poly = GetComponent<PolygonCollider2D>();
             poly.enabled = false;
 
