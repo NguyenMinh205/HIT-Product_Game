@@ -105,7 +105,7 @@ public class CharacterDatabaseSO : ScriptableObject
             Debug.LogWarning($"Character with ID {characterId} not found!");
             return;
         }
-        if (skinIndex < 0 || skinIndex >= character.skins.Count)
+        if (skinIndex < 1 || skinIndex >= character.skins.Count)
         {
             Debug.LogWarning($"Invalid skin index {skinIndex} for character {character.name}!");
             return;

@@ -83,7 +83,7 @@ public class CompendiumManager : Singleton<CompendiumManager>
         {
             detailIcon.sprite = item.icon;
             detailIcon.SetNativeSize();
-            detailIcon.rectTransform.sizeDelta *= 0.5f;
+            detailIcon.rectTransform.sizeDelta *= 0.7f;
             detailName.text = item.itemName;
             detailDescription.text = item.description;
         }
@@ -91,7 +91,7 @@ public class CompendiumManager : Singleton<CompendiumManager>
         {
             detailIcon.sprite = perk.icon;
             detailIcon.SetNativeSize();
-            detailIcon.rectTransform.sizeDelta *= 0.5f;
+            detailIcon.rectTransform.sizeDelta *= 0.75f;
             detailName.text = perk.perkName;
             detailDescription.text = perk.description;
         }

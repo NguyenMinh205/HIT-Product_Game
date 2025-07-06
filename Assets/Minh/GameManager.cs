@@ -52,24 +52,23 @@ public class GameManager : Singleton<GameManager>
         uiShredderRoom.SetActive(false);
     }
 
-    private void OpenRoom()
+    private IEnumerator OpenRoom()
     {
         CloseAllRoomsAndUIs();
         PlayerMapController.Instance.IsIntoRoom = true;
 
-        StartCoroutine(DelayPlayerMoveInMap(0.5f));
-
+        yield return new WaitForSeconds(0.5f);
+        MapController.Instance.SetActiveMapStore(false);
         MapManager.Instance.SetActiveRoomVisual(false);
-
-        uiInRoom.SetActive(true);
         uiMap.SetActive(false);
+        uiInRoom.SetActive(true);
 
         btnOutRoom.gameObject.SetActive(true);
     }
 
     public void OpenRoomFight()
     {
-        OpenRoom();
+        StartCoroutine(OpenRoom());
         DefaultRoom.SetActive(true);
         DefaultClawMachineBox.SetActive(true);
         currentRoom = DefaultRoom;
@@ -78,35 +77,35 @@ public class GameManager : Singleton<GameManager>
 
     public void OpenRoomBossFight()
     {
-        OpenRoom();
+        StartCoroutine(OpenRoom());
         BossRoom.SetActive(true);
         currentRoom = BossRoom;
     }
 
     public void OpenRoomHealing()
     {
-        OpenRoom();
+        StartCoroutine(OpenRoom());
         HealingRoom.SetActive(true);
         currentRoom = HealingRoom;
     }
 
     public void OpenRoomMystery()
     {
-        OpenRoom();
+        StartCoroutine(OpenRoom());
         MysteryRoom.SetActive(true);
         currentRoom = MysteryRoom;
     }
 
     public void OpenRoomPerkReward()
     {
-        OpenRoom();
+        StartCoroutine(OpenRoom());
         DefaultRoom.SetActive(true);
         currentRoom = DefaultRoom;
     }
 
     public void OpenRoomPachinko()
     {
-        OpenRoom();
+        StartCoroutine(OpenRoom());
         PachinkoRoom.SetActive(true);
         uiPachinkoRoom.SetActive(true);
         currentRoom = PachinkoRoom;
@@ -114,7 +113,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OpenRoomSmith()
     {
-        OpenRoom();
+        StartCoroutine(OpenRoom());
         SmithRoom.SetActive(true);
         uiSmithRoom.SetActive(true);
         currentRoom = SmithRoom;
@@ -122,7 +121,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OpenRoomShredder()
     {
-        OpenRoom();
+        StartCoroutine(OpenRoom());
         ShredderRoom.SetActive(true);
         uiShredderRoom.SetActive(true);
         currentRoom = ShredderRoom;
@@ -146,11 +145,5 @@ public class GameManager : Singleton<GameManager>
             }
             currentRoom = null;
         }
-    }
-
-    IEnumerator DelayPlayerMoveInMap(float time)
-    {
-        yield return new WaitForSeconds(time);
-        MapController.Instance.SetActiveMapStore(false);
     }
 }

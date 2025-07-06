@@ -44,7 +44,6 @@ public class GachaMachine : Singleton<GachaMachine>
             Debug.LogWarning("Not enough coins to spin!");
             return;
         }
-        GachaManager.Instance.CoinAfterSpin(); // Trừ coin trước khi quay
         StartCoroutine(SpinSlots());
     }
 
@@ -244,7 +243,7 @@ public class GachaMachine : Singleton<GachaMachine>
         }
 
         // Chọn ngẫu nhiên một skin chưa mở khóa
-        int skinIndexToUnlock = lockedSkinIndices[Random.Range(0, lockedSkinIndices.Count)];
+        int skinIndexToUnlock = lockedSkinIndices[Random.Range(1, lockedSkinIndices.Count)];
         characterDatabaseSO.UnlockSkin(randomCharacter.id, skinIndexToUnlock);
     }
 

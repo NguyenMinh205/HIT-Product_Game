@@ -14,7 +14,7 @@ public class UIChoicePlayer : MonoBehaviour
     [SerializeField] private Transform listStartItem;
     [SerializeField] private GameObject itemInventoryPrefab;
     [SerializeField] private GameObject lockIcon;
-    [SerializeField] private CanvasGroup characterCanvasGroup;
+
     private readonly float lockedSpriteAlpha = 120f / 255f;
     private readonly float unlockedSpriteAlpha = 1.0f;
 
@@ -124,7 +124,8 @@ public class UIChoicePlayer : MonoBehaviour
             if (curCharacter.skins[skinSelectOption].anim != null)
             {
                 characterAnimator.runtimeAnimatorController = curCharacter.skins[skinSelectOption].anim;
-                Debug.Log($"Playing 'Idle' animation for skin {skinSelectOption} of character {curCharacter.name}");
+                characterAnimator.SetTrigger("IsBuffing");
+                Debug.Log($"Triggering 'IsBuffing' for skin {skinSelectOption} of character {curCharacter.name}");
             }
             else
             {
@@ -132,14 +133,19 @@ public class UIChoicePlayer : MonoBehaviour
             }
         }
 
-        bool isSkinUnlocked = curCharacter.skins[skinSelectOption].isUnlocked;
-        bool isCharacterUnlocked = curCharacter.isUnlocked;
-        float alpha = isSkinUnlocked ? unlockedSpriteAlpha : lockedSpriteAlpha;
-        if (characterCanvasGroup != null)
+        if (lockIcon != null)
         {
-            characterCanvasGroup.alpha = alpha;
+            bool isSkinUnlocked = curCharacter.skins[skinSelectOption].isUnlocked;
+            bool isCharacterUnlocked = curCharacter.isUnlocked;
+            lockIcon.SetActive(!isSkinUnlocked || !isCharacterUnlocked);
+            Image lockImage = lockIcon.GetComponent<Image>();
+            if (lockImage != null)
+            {
+                Color lockColor = lockImage.color;
+                lockColor.a = (!isSkinUnlocked || !isCharacterUnlocked) ? 1.0f : 0.0f;
+                lockImage.color = lockColor;
+            }
         }
-        lockIcon.SetActive(!isSkinUnlocked || !isCharacterUnlocked);
     }
 
     public void UpdateCharacter()
@@ -169,7 +175,7 @@ public class UIChoicePlayer : MonoBehaviour
             Image icon = newItemInventoryPrefab.GetComponent<Image>();
             icon.sprite = item.itemBase.icon;
             icon.SetNativeSize();
-            icon.rectTransform.sizeDelta *= 0.65f;
+            icon.rectTransform.sizeDelta *= 0.75f;
             newItemInventoryPrefab.GetComponentInChildren<TextMeshProUGUI>().SetText(item.quantity.ToString());
         }
     }
