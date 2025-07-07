@@ -42,7 +42,7 @@ public class ItemMoveController : MonoBehaviour
     {
         isRunningCoroutine = true;
 
-        playerTarget = GamePlayController.Instance.playerController.CurrentPlayer?.transform;
+        playerTarget = GamePlayController.Instance.PlayerController.CurrentPlayer?.transform;
         if (playerTarget == null)
         {
             isRunningCoroutine = false;

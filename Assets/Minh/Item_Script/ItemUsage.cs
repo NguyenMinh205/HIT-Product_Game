@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class ItemUsage : MonoBehaviour
 {
-    public void UseItem(string itemId, GameObject player, GameObject target = null)
+    public void UseItem(string itemId, Player player, Enemy target = null)
     {
         ItemBase item = ItemDatabase.Instance.GetItemById(itemId);
         if (item != null)
@@ -17,7 +17,7 @@ public class ItemUsage : MonoBehaviour
         }
     }
 
-    public void UseMultipleItems(List<string> itemIds, GameObject player, GameObject target = null)
+    public void UseMultipleItems(List<string> itemIds, Player player, Enemy target = null)
     {
         foreach (string id in itemIds)
         {

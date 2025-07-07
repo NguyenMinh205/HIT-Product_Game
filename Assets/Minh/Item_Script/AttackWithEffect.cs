@@ -8,5 +8,5 @@ public abstract class AttackWithEffect : IItemAction
 
     public abstract void Effect(Enemy enemy);
 
-    public abstract void Execute(GameObject player, GameObject target);
+    public abstract void Execute(Player player, Enemy target);
 }

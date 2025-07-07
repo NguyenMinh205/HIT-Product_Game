@@ -19,7 +19,5 @@ MonoBehaviour:
   description: Attacks the nearest enemy for 15 damage. Has a 50% chance to deal
     a Critical Hit.
   isStackable: 0
-  maxStackSize: 1
-  damage: 15
-  defense: 0
-  healing: 0
+  maxStackSize: 99
+  isMetal: 1

@@ -16,12 +16,12 @@ public class SpikeyShield : DefendWithBuff
         player._CharacterStatModifier.ChangeShield(shield);
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (player != null && player.TryGetComponent<Player>(out var playerComponent))
+        if (player != null)
         {
-            Defend(playerComponent);
-            Buff(playerComponent);
+            Defend(player);
+            Buff(player);
         }
     }
 }

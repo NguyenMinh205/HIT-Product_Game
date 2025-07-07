@@ -18,7 +18,5 @@ MonoBehaviour:
   itemRarity: 1
   description: Attacks the nearest enemy for 15 damage and remove its Block
   isStackable: 0
-  maxStackSize: 1
-  damage: 15
-  defense: 0
-  healing: 0
+  maxStackSize: 99
+  isMetal: 1

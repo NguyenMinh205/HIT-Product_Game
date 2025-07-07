@@ -24,6 +24,7 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
     [SerializeField] private Button dropButton;
     [SerializeField] private Button rollButton;
     [SerializeField] private Sprite defaultItemSprite;
+    [SerializeField] ItemDatabase itemDatabase;
 
     private PachinkoState _state = PachinkoState.Waiting;
     private PachinkoItem _item;

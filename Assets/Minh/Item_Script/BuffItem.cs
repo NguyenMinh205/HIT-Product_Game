@@ -6,5 +6,5 @@ public abstract class BuffItem : IItemAction
 {
     public abstract void Buff(Player player);
 
-    public abstract void Execute(GameObject player, GameObject target);
+    public abstract void Execute(Player player, Enemy target);
 }

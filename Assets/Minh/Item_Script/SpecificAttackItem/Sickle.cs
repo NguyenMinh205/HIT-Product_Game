@@ -16,12 +16,17 @@ public class Sickle : AttackWithBuff
     {
         //Tăng tỉ lệ chí mạng lên 50% khi tấn công bằng đồ này
     }
- 
-    public override void Execute(GameObject player = null, GameObject target = null)
+
+    public override void Execute(Player player, Enemy enemy)
     {
-        Enemy enemy = target?.GetComponent<Enemy>();
-        Player curPlayer = player?.GetComponent<Player>();
-        if (curPlayer != null) Buff(curPlayer);
-        if (enemy != null) AttackEnemy(enemy);
+        if (enemy != null)
+        {
+            AttackEnemy(enemy);
+        }
+
+        if (player != null)
+        {
+            Buff(player);
+        }
     }
 }

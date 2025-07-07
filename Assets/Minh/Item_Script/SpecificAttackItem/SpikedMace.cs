@@ -10,11 +10,11 @@ public class SpikedMace : AttackItem
         enemy.ReceiverDamage((int)damage);
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (player == null || target == null || player.TryGetComponent<Player>(out var playerComponent) || target.TryGetComponent<Enemy>(out var enemy)) return;
-        damage = (int)playerComponent.Stats.shield;
-        playerComponent._CharacterStatModifier.ChangeShield(-(damage * 0.2f));
-        AttackEnemy(enemy);
+        if (enemy != null)
+        {
+            AttackEnemy(enemy);
+        }
     }
 }

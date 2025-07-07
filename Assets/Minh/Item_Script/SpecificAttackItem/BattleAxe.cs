@@ -17,9 +17,9 @@ public class BattleAxe : AttackWithEffect
         //Xóa toàn bộ khiên của enemy
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (target.TryGetComponent<Enemy>(out var enemy))
+        if (enemy != null)
         {
             Effect(enemy);
             AttackEnemy(enemy);

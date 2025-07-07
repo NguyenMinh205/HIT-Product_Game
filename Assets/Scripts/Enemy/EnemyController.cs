@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
 
     [Space]
     [Header("List Enemy")]
-    [SerializeField] private List<Enemy> listenemy;
+    [SerializeField] private List<Enemy> listEnemy;
 
     [Space]
     [Header("List Position Spawn Enemy")]
@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour
 
     public List<Enemy> ListEnemy
     {
-        get => listenemy;
+        get => listEnemy;
     }
     private void Awake()
     {
@@ -41,28 +41,28 @@ public class EnemyController : MonoBehaviour
         Debug.Log("Spawn Enemy");
         for(int i=0; i<dataEnemySetUp.Count; i++)
         {
-            //Spawn New Nnemy Base
+            //Spawn New Enemy Base
             Enemy newEnemy = PoolingManager.Spawn(enemyPrefab, listPosSpawnEnemy[i].position, Quaternion.identity, enemyParent);
 
             newEnemy.Init(enemyData, dataEnemySetUp[i]);
             newEnemy.CalulationPositionEnemy(listPosSpawnEnemy[i].position);
 
             //Add New Enemy To List
-            listenemy.Add(newEnemy);
+            listEnemy.Add(newEnemy);
         }
     }
     public IEnumerator CheckEnemyToNextTurn()
     {
-        checkPosionEnemy();
-        for (int i= 0; i < listenemy.Count ;i++)
+        CheckPosionEnemy();
+        for (int i= 0; i < listEnemy.Count ;i++)
         {
             yield return new WaitForSeconds(2f);
-            listenemy[i].ExecuteAction();
+            listEnemy[i].ExecuteAction();
         }
         GamePlayController.Instance.Turn = TurnPlay.Player;
-        for (int i = 0; i < listenemy.Count; i++)
+        for (int i = 0; i < listEnemy.Count; i++)
         {
-            listenemy[i].NextAction();
+            listEnemy[i].NextAction();
         }
     }
     public void DieEnemy(object obj)
@@ -70,31 +70,31 @@ public class EnemyController : MonoBehaviour
         if(obj is Enemy enemy)
         {
             Debug.Log("Die Enemy");
-            if(listenemy.Contains(enemy))
+            if(listEnemy.Contains(enemy))
             {
-                listenemy.Remove(enemy);
+                listEnemy.Remove(enemy);
             }
             enemy.UIAction.UnShowActionEnemy();
             enemy.Health.UnShowHealthBarEnemy();
             PoolingManager.Despawn(enemy.gameObject);
         }
     }
-    public void checkPosionEnemy()
+    public void CheckPosionEnemy()
     {
-        for (int i = 0; i < listenemy.Count; i++)
+        for (int i = 0; i < listEnemy.Count; i++)
         {
-            listenemy[i].CheckIsPoison();
+            listEnemy[i].CheckIsPoison();
         }
     }
     public void EndGame()
     {
-        Debug.Log("Enemy Count : " + listenemy.Count);
-        for(int i=0; i < listenemy.Count; i++)
+        Debug.Log("Enemy Count : " + listEnemy.Count);
+        for(int i=0; i < listEnemy.Count; i++)
         {
             Debug.Log("DesTroy Enemy" + i);
-            listenemy[i].EndGame();
+            listEnemy[i].EndGame();
         }
-        listenemy.Clear();
+        listEnemy.Clear();
     }
 
 }

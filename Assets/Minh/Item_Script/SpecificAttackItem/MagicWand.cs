@@ -22,11 +22,16 @@ public class MagicWand : AttackWithBuff
         player._CharacterStatModifier.ChangeCurHP(Random.Range(minBuffVal, maxBuffVal));
     }
 
-    public override void Execute(GameObject player = null, GameObject target = null)
+    public override void Execute(Player player, Enemy enemy)
     {
-        Enemy enemy = target?.GetComponent<Enemy>();
-        Player curPlayer = player?.GetComponent<Player>();
-        if (enemy != null) AttackEnemy(enemy);
-        if (curPlayer != null) Buff(curPlayer);
+        if (enemy != null)
+        {
+            AttackEnemy(enemy);
+        }
+
+        if (player != null)
+        {
+            Buff(player);
+        }
     }
 }

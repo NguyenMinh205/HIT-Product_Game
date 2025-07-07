@@ -61,15 +61,15 @@ public class Player : ObjectBase
 
         if (inventory != null)
         {
-            foreach (ItemInventory item in PlayerManager.Instance.TotalInventory.Items)
+            foreach (ItemInventory item in GamePlayController.Instance.PlayerController.TotalInventory.Items)
             {
-                inventory.AddItem(item.itemBase, (int)Math.Ceiling(item.quantity / 2.0));
+                inventory.AddItem(item.itemBase, (int)Math.Ceiling(item.quantity / 2.0), item.quantity);
             }
         }
         UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
         ApplyInitialTurnBasedEffects();
     }
-    public void CalulationPositionPlayer(Vector3 posPlayer)
+    public void CalculationPositionPlayer(Vector3 posPlayer)
     {
         playerSprite = GetComponent<SpriteRenderer>();
         float height = playerSprite.bounds.extents.y;
@@ -118,10 +118,9 @@ public class Player : ObjectBase
 
     public void AddItem()
     {
-        foreach (ItemInventory item in PlayerManager.Instance.TotalInventory.Items)
+        foreach (ItemInventory item in GamePlayController.Instance.PlayerController.TotalInventory.Items)
         {
-            //Check xem đã có đủ item chưa, item ấy có đủ rồi thì next
-            inventory.AddItem(item.itemBase, (int)Math.Ceiling((item.quantity) / 2.0));
+            inventory.AddItem(item.itemBase, (int)Math.Ceiling((item.quantity) / 2.0), item.quantity);
         }
     }
 

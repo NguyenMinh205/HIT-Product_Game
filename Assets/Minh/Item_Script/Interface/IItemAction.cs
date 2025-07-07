@@ -5,5 +5,5 @@ using UnityEngine;
 
 public interface IItemAction
 {
-    void Execute(GameObject player, GameObject target);
+    void Execute(Player player, Enemy target);
 }

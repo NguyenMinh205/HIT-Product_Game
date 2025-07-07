@@ -12,9 +12,8 @@ public class Dagger : AttackItem
         enemy.ReceiverDamage((int)damage);
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        Enemy enemy = target?.GetComponent<Enemy>();
         if (enemy == null) return;
         AttackEnemy(enemy);
     }

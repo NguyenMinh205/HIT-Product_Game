@@ -6,7 +6,7 @@ public class EnemyActionAttack : MonoBehaviour
 {
     public static void Execute(Enemy enemy)
     {
-        GamePlayController.Instance.playerController.CurrentPlayer.Stats.currentHP -= enemy.Damage;
-        GamePlayController.Instance.playerController.CurrentPlayer.Health.UpdateHp(GamePlayController.Instance.playerController.CurrentPlayer);
+        GamePlayController.Instance.PlayerController.CurrentPlayer._CharacterStatModifier.ChangeCurHP(enemy.Damage);
+        GamePlayController.Instance.PlayerController.CurrentPlayer.Health.UpdateHp(GamePlayController.Instance.PlayerController.CurrentPlayer);
     }
 }

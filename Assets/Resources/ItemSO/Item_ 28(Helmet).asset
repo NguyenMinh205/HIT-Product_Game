@@ -10,16 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a20c7cd64e093c4089e0cc1bfc91c56, type: 3}
-  m_Name: Item_ 32
+  m_Name: Item_ 28(Helmet)
   m_EditorClassIdentifier: 
-  id: Def10
-  itemName: Toxic Bulwark
-  icon: {fileID: -896628270, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
+  id: Def06
+  itemName: Helmet
+  icon: {fileID: -1054180047, guid: 3d69594dab9cb7d4781e38e63be8c6a4, type: 3}
   itemRarity: 2
-  description: Increases Block by 15. Permanently increases amount by 3 if an enemy
-    dies from Poison while the item is inside the machine
+  description: Double your block
   isStackable: 0
-  maxStackSize: 1
-  damage: 0
-  defense: 15
-  healing: 0
+  maxStackSize: 99
+  isMetal: 1

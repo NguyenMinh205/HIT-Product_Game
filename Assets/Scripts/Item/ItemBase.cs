@@ -19,10 +19,11 @@ public class ItemBase : ScriptableObject
     public string description;
     public bool isStackable = true;
     public int maxStackSize = 99;
+    public bool isMetal = false;
 
     [SerializeField] private IItemAction action;
 
-    public void ExecuteAction(GameObject player = null, GameObject target = null, List<GameObject> targets = null)
+    public void ExecuteAction(Player player = null, Enemy target = null, List<Enemy> targets = null)
     {
         if (action == null)
         {

@@ -17,11 +17,11 @@ public class PlasticShield : DefendItem
         }    
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (player != null && player.TryGetComponent<Player>(out var playerComponent))
+        if (player != null)
         {
-            Defend(playerComponent);
+            Defend(player);
         }
     }
 }

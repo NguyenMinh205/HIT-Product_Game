@@ -14,14 +14,14 @@ public class Paperclips : AttackItem
         enemy.ReceiverDamage((int)damage * strength);
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (player.TryGetComponent<Player>(out var playerComponent))
+        if (player != null)
         {
-            strength = (int)playerComponent.Stats.damageIncrease;
+            strength = (int)player.Stats.damageIncrease;
         }
 
-        if (target.TryGetComponent<Enemy>(out var enemy))
+        if (enemy != null)
         {
             AttackEnemy(enemy);
         }

@@ -12,12 +12,11 @@ public class Eyepatch : BuffItem
         player._CharacterStatModifier.ChangeCriticalChance(buffVal);
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (target.TryGetComponent<Player>(out var playerComponent))
+        if (player != null)
         {
-            Buff(playerComponent);
+            Buff(player);
         }
-
     }
 }

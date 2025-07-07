@@ -12,11 +12,11 @@ public class Cactus : BuffItem
         player._CharacterStatModifier.ChangeShield(buffVal);
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (target.TryGetComponent<Player>(out var playerComponent))
+        if (player != null)
         {
-            Buff(playerComponent);
+            Buff(player);
         }
     }
 }

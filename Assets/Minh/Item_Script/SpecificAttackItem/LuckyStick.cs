@@ -14,9 +14,9 @@ public class LuckyStick : AttackItem
         enemy.ReceiverDamage(Random.Range(minDamage, maxDamage));
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (target.TryGetComponent<Enemy>(out var enemy))
+        if (enemy != null)
         {
             AttackEnemy(enemy);
         }

@@ -6,5 +6,5 @@ public abstract class AttackItem : IItemAction
 {
     public abstract void AttackEnemy(Enemy enemy);
 
-    public abstract void Execute(GameObject player, GameObject target);
+    public abstract void Execute(Player player, Enemy target);
 }

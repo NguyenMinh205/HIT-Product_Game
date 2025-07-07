@@ -19,10 +19,14 @@ public class GamePlayController : Singleton<GamePlayController>
 
     [Space]
     [Header("Controller")]
-    [SerializeField] public EnemyController enemyController;
-    [SerializeField] public PlayerManager playerController;
+    [SerializeField] private EnemyController enemyController;
+    public EnemyController EnemyController => enemyController;
+    [SerializeField] private PlayerManager playerController;
+    public PlayerManager PlayerController => playerController;
     [SerializeField] private ClawController clawController;
+    public ClawController ClawController => clawController;
     [SerializeField] private ItemController itemController;
+    public ItemController ItemController => itemController;
 
     private IntoRoomTrigger intoRoomTrigger;
 
@@ -119,7 +123,6 @@ public class GamePlayController : Singleton<GamePlayController>
         Debug.Log("Open Room");
         ShowChangeTurn();
 
-        // spawn enemy and player
         enemyController.Spawn();
         playerController.SpawnPlayer();
         clawController.Spawn();

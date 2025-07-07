@@ -13,7 +13,7 @@ public class GreatSword : AttackItem
         enemy.ReceiverDamage((int)damage);
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy target)
     {
         if (target.TryGetComponent<Enemy>(out var enemy))
         {
@@ -21,9 +21,9 @@ public class GreatSword : AttackItem
         }    
     }
     
-    public void Execute(GameObject player, List<GameObject> targets)
+    public void Execute(Player player, List<Enemy> targets)
     {
-        foreach (GameObject target in targets)
+        foreach (Enemy target in targets)
         {
             if (target != null)
             {

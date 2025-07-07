@@ -19,7 +19,5 @@ MonoBehaviour:
   description: Attacks the nearest enemy for 5 damage and removes all stacks of Spikes,
     deals 2 additional damage for each removed stack.
   isStackable: 0
-  maxStackSize: 1
-  damage: 5
-  defense: 0
-  healing: 0
+  maxStackSize: 99
+  isMetal: 1

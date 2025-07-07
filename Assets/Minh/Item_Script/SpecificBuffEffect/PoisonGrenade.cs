@@ -11,17 +11,17 @@ public class PoisonGrenade : EffectItem
         //Set hiệu ứng độc
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (target.TryGetComponent<Enemy>(out var enemy))
+        if (enemy != null)
         {
             Effect(enemy);
         }
     }
 
-    public void Execute(GameObject player, List<GameObject> targets)
+    public void Execute(Player player, List<Enemy> targets)
     {
-        foreach (GameObject target in targets)
+        foreach (Enemy target in targets)
         {
             if (target != null)
             {

@@ -5,12 +5,10 @@ using UnityEngine;
 public class ItemDatabase : Singleton<ItemDatabase>
 {
     [SerializeField] private List<ItemBase> items;
-    [SerializeField] private List<PerkBase> perks;
 
     private void Start()
     {
         items = Resources.LoadAll<ItemBase>("ItemSO").ToList();
-        perks = Resources.LoadAll<PerkBase>("PerkSO").ToList();
     }
 
     public ItemBase GetItemById(string id)
@@ -18,9 +16,9 @@ public class ItemDatabase : Singleton<ItemDatabase>
         return items.Find(item => item.id == id);
     }
 
-    public PerkBase GetPerkById(string id)
+    public ItemBase GetRandomItem()
     {
-        return perks.Find(perk => perk.id == id);
+        return items[Random.Range(0, items.Count)];
     }
 
     public IItemAction CreateItemAction(string id)

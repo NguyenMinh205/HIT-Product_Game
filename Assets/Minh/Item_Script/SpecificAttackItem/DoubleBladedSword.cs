@@ -19,16 +19,16 @@ public class DoubleBladedSword : AttackWithBuff
         player._CharacterStatModifier.ChangeCurHP(buffVal);
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (target.TryGetComponent<Enemy>(out var enemy))
+        if (enemy != null)
         {
             AttackEnemy(enemy);
         }
 
-        if (player.TryGetComponent<Player>(out var playerComponent))
+        if (player != null)
         {
-            Buff(playerComponent);
+            Buff(player);
         }
     }
 }

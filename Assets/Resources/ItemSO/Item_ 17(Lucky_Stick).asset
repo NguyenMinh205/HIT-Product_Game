@@ -18,7 +18,5 @@ MonoBehaviour:
   itemRarity: 0
   description: Attacks the nearest enemy for 1-15 damage
   isStackable: 0
-  maxStackSize: 1
-  damage: 1
-  defense: 0
-  healing: 0
+  maxStackSize: 99
+  isMetal: 0

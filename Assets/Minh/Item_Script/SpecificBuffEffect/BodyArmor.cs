@@ -12,11 +12,11 @@ public class BodyArmor : BuffItem
         player.AddBuffEffect("double_shield", buffVal, -1);
     }
 
-    public override void Execute(GameObject player, GameObject target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (player != null && player.TryGetComponent<Player>(out var playerComponent))
+        if (player != null)
         {
-            Buff(playerComponent);
+            Buff(player);
         }
     }
 }

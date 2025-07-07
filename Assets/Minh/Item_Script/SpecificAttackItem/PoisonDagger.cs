@@ -19,13 +19,12 @@ public class PoisonDagger : AttackWithEffect
         //Gây effectVal stack độc lên kẻ địch nhân đòn đánh
     }
 
-    public override void Execute(GameObject player = null, GameObject target = null)
+    public override void Execute(Player player, Enemy enemy)
     {
-        Enemy enemy = target?.GetComponent<Enemy>();
         if (enemy != null)
         {
-            AttackEnemy(enemy);
             Effect(enemy);
+            AttackEnemy(enemy);
         }
     }
 }
