@@ -32,9 +32,6 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject uiSmithRoom;
     [SerializeField] private GameObject uiShredderRoom;
 
-    [Header("Test Out Room")]
-    [SerializeField] private Button btnOutRoom;
-
     private void CloseAllRoomsAndUIs()
     {
         HealingRoom.SetActive(false);
@@ -62,8 +59,6 @@ public class GameManager : Singleton<GameManager>
         MapManager.Instance.SetActiveRoomVisual(false);
         uiMap.SetActive(false);
         uiInRoom.SetActive(true);
-
-        btnOutRoom.gameObject.SetActive(true);
     }
 
     public void OpenRoomFight()
@@ -131,14 +126,12 @@ public class GameManager : Singleton<GameManager>
     {
         if (currentRoom != null)
         {
-            btnOutRoom.gameObject.SetActive(false);
             currentRoom.SetActive(false);
             CloseAllRoomsAndUIs();
             MapController.Instance.SetActiveMapStore(true);
             MapManager.Instance.SetActiveRoomVisual(true);
             uiMap.SetActive(true);
             PlayerMapController.Instance.IsIntoRoom = false;
-            PlayerMapController.Instance.IsMoving = false;
             if (intoRoomTrigger != null)
             {
                 intoRoomTrigger.gameObject.SetActive(false);

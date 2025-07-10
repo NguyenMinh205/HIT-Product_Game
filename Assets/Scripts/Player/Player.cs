@@ -12,17 +12,14 @@ public class Player : ObjectBase
     private CharacterStatSO stats;
     public CharacterStatSO Stats => stats;
     private ICharacterAbility ability;
-    [SerializeField] private CharacterStatModifier characterStatModifier;
-    public CharacterStatModifier _CharacterStatModifier => characterStatModifier;
-    private List<IBuffEffect> turnBasedEffects = new List<IBuffEffect>();
-    private List<IBuffEffect> reactiveEffects = new List<IBuffEffect>();
+
+    private List<IBuffEffect> activeEffects = new List<IBuffEffect>();
     [SerializeField] private Inventory inventory;
 
+    public bool IsDodge { get; set; }
+    public bool IsCounterAttack { get; set; }
 
-    public Inventory Inventory
-    {
-        get => inventory;
-    }
+    public Inventory Inventory => inventory;
 
     public void Initialize(Character selectedCharacter, CharacterStatSO characterStatSO, int index)
     {
@@ -43,16 +40,6 @@ public class Player : ObjectBase
             return;
         }
 
-        if (characterStatModifier != null)
-        {
-            characterStatModifier.Stats = stats;
-            characterStatModifier.CurPlayer = this;
-        }
-        else
-        {
-            Debug.LogWarning("CharacterStatModifier không được gán trong Inspector!");
-        }
-
         ability = CharacterAbilityFactory.CreateAbility(character.id);
         if (ability != null && stats != null)
         {
@@ -67,97 +54,101 @@ public class Player : ObjectBase
             }
         }
         UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
-        ApplyInitialTurnBasedEffects();
     }
+
     public void CalculationPositionPlayer(Vector3 posPlayer)
     {
         playerSprite = GetComponent<SpriteRenderer>();
         float height = playerSprite.bounds.extents.y;
         Vector3 newPos = posPlayer + Vector3.up * height + Vector3.up * distancePlayerAndHealthBar;
-
         transform.position = newPos;
     }
 
     public void AddBuffEffect(string effectName, float value, float duration)
     {
         IBuffEffect effect = BuffEffectFactory.CreateEffect(effectName, value, duration);
-        if (effect != null)
+        if (effect == null) return;
+
+        IBuffEffect existingEffect = GetActiveEffect(effectName);
+        if (existingEffect != null)
         {
-            if (effect.Type == BuffEffectType.Turn_BasedEffects)
+            if (existingEffect.Duration != -1 && duration != -1)
             {
-                turnBasedEffects.Add(effect);
+                existingEffect.Duration += duration;
+                Debug.Log($"Effect {effectName} duration stacked. New duration: {existingEffect.Duration}");
             }
-            else if (effect.Type == BuffEffectType.ReactiveEffects)
+            else if (duration == -1)
             {
-                reactiveEffects.Add(effect);
+                existingEffect.Duration = -1;
+                Debug.Log($"Effect {effectName} set to permanent.");
             }
+            return;
         }
+
+        effect.Apply(this);
+        activeEffects.Add(effect);
+        Debug.Log($"Applied new effect {effectName} with value {value} and duration {duration}.");
     }
 
-    private void ApplyInitialTurnBasedEffects()
+    public IBuffEffect GetActiveEffect(string effectName)
     {
-        if (turnBasedEffects.Count == 0) return;
-        foreach (IBuffEffect effect in turnBasedEffects)
+        return activeEffects.Find(effect => effect.Name.ToLower() == effectName.ToLower());
+    }
+
+    public void RemoveBuffEffect(IBuffEffect effect)
+    {
+        if (activeEffects.Contains(effect))
         {
-            effect.Apply(this);
+            effect.Remove(this);
+            activeEffects.Remove(effect);
         }
     }
 
-    public void ApplyReactiveEffect(string effectName)
+    public void ClearAllEffects()
     {
-        if (reactiveEffects.Count == 0) return;
-        foreach (IBuffEffect effect in reactiveEffects)
+        foreach (IBuffEffect effect in activeEffects.ToArray())
         {
-            if (effect.Name.ToLower() == effectName.ToLower())
-            {
-                effect.Apply(this);
-                break;
-            }
+            RemoveBuffEffect(effect);
         }
     }
-
-    public void AddItem()
-    {
-        foreach (ItemInventory item in GamePlayController.Instance.PlayerController.TotalInventory.Items)
-        {
-            inventory.AddItem(item.itemBase, (int)Math.Ceiling((item.quantity) / 2.0), item.quantity);
-        }
-    }
-
-    public void RemoveItem()
-    {
-
-    }    
-
-    private void RemoveInitialTurnBasedEffects(IBuffEffect effect)
-    {
-        turnBasedEffects.Remove(effect);
-    }
-    
-    private void RemoveReactiveEffect(IBuffEffect effect)
-    {
-        reactiveEffects.Remove(effect);
-    }
-
 
     public void ReceiveDamage(int damage)
     {
-        if (characterStatModifier != null && characterStatModifier.Stats != null)
+        ObserverManager<EventID>.PostEven(EventID.OnTakeDamage, damage);
+        if (IsDodge)
         {
-            float effectiveDamage = damage - characterStatModifier.Stats.shield;
-            effectiveDamage = Mathf.Max(0, effectiveDamage);
-            characterStatModifier.Stats.currentHP -= effectiveDamage;
-
-            Debug.Log($"Player nhận {effectiveDamage} damage, HP còn lại: {characterStatModifier.Stats.currentHP}");
-            if (characterStatModifier.Stats.currentHP <= 0)
-            {
-                EndGame();
-            }
+            IsDodge = false; 
+            return;
         }
+
+        if (IsCounterAttack)
+        {
+            return;
+        }
+
+        float effectiveDamage = damage - stats.Shield;
+        effectiveDamage = Mathf.Max(0, effectiveDamage);
+        stats.ChangeCurHP(-effectiveDamage);
+
+        if (stats.CurrentHP <= 0)
+        {
+            EndGame();
+        }
+    }
+
+    public void DealDamage(int damage)
+    {
+        ObserverManager<EventID>.PostEven(EventID.OnDealDamage, damage);
+    }
+
+    public void ChangeGold(float goldAmount)
+    {
+        ObserverManager<EventID>.PostEven(EventID.OnGoldChanged, goldAmount);
     }
 
     public void EndGame()
     {
+        ClearAllEffects();
         Debug.Log("Game Over for Player");
     }
 }

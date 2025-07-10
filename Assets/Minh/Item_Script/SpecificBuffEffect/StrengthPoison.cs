@@ -6,7 +6,7 @@ public class StrengthPoison : BuffItem
 {
     public override void Buff(Player player)
     {
-        player._CharacterStatModifier.DoubleDamageExtra();
+        player.Stats.DoubleDamageExtra();
     }
 
     public override void Execute(Player player, Enemy enemy)

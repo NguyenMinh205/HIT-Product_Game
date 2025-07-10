@@ -10,22 +10,24 @@ public class MagicWand : AttackWithBuff
     public int MinBuffVal => minBuffVal;
     private int maxBuffVal = 5;
     public int MaxBuffVal => minBuffVal;
+    private int curDamage = 0;
 
     public override void AttackEnemy(Enemy enemy)
     {
         if (enemy == null) return;
-        enemy.ReceiverDamage((int)damage);
+        enemy.ReceiverDamage(curDamage);
     }
 
     public override void Buff(Player player)
     {
-        player._CharacterStatModifier.ChangeCurHP(Random.Range(minBuffVal, maxBuffVal));
+        player.Stats.ChangeCurHP(Random.Range(minBuffVal, maxBuffVal));
     }
 
     public override void Execute(Player player, Enemy enemy)
     {
         if (enemy != null)
         {
+            curDamage = CalculateDamageWithCrit(player, damage);
             AttackEnemy(enemy);
         }
 

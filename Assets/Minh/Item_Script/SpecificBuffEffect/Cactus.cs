@@ -8,8 +8,8 @@ public class Cactus : BuffItem
     public int BuffVal { get { return buffVal; } set { buffVal = value; } }
     public override void Buff(Player player)
     {
-        player._CharacterStatModifier.ChangeCurHP(-buffVal * 0.2f);
-        player._CharacterStatModifier.ChangeShield(buffVal);
+        player.Stats.ChangeCurHP(-buffVal * 0.2f);
+        player.Stats.ChangeShield(buffVal);
     }
 
     public override void Execute(Player player, Enemy enemy)

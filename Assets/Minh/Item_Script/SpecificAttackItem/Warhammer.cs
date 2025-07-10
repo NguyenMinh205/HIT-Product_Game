@@ -8,21 +8,23 @@ public class Warhammer : AttackWithBuff
     public int Damage { get { return damage; } set { damage = value; } }
     private int buffVal = 10;
     public int BuffVal { get { return buffVal; } set { buffVal = value; } }
+    private int curDamage = 0;
     public override void AttackEnemy(Enemy enemy)
     {
         if (enemy == null) return;
-        enemy.ReceiverDamage((int)damage);
+        enemy.ReceiverDamage(curDamage);
     }
 
     public override void Buff(Player player)
     {
-        player._CharacterStatModifier.ChangeShield(buffVal);
+        player.Stats.ChangeShield(buffVal);
     }
 
     public override void Execute(Player player, Enemy enemy)
     {
         if (enemy != null)
         {
+            curDamage = CalculateDamageWithCrit(player, damage);
             AttackEnemy(enemy);
         }
 

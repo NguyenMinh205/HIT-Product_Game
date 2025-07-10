@@ -134,8 +134,6 @@ MonoBehaviour:
   playerController: {fileID: 1329408037857685438}
   clawController: {fileID: 2178456472327149338}
   itemController: {fileID: 2676145791475241921}
-  DefaultRoom: {fileID: 0}
-  DefaultClawMachineBox: {fileID: 0}
   uiTurnChange: {fileID: 0}
   textTurn: {fileID: 0}
   isCheckTurnByClaw: 0
@@ -282,6 +280,7 @@ MonoBehaviour:
   characterDatabase: {fileID: 11400000, guid: 84e61f188e25ed14ba33f8bf64dd67c5, type: 2}
   playerStat: {fileID: 11400000, guid: 52eaa40084e6c894283f7ae7678a16f1, type: 2}
   totalInventory: {fileID: 22637032908440100}
+  numOfCoin: {fileID: 0}
 --- !u!114 &22637032908440100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,7 +386,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 096120597069e674aba5730fe3f3eea1, type: 2}
   enemyPrefab: {fileID: 5553438048735617525, guid: c575b4326c11da14e91eba9dba29931d, type: 3}
   enemyParent: {fileID: 2172001150598642229}
-  listenemy: []
+  listEnemy: []
   listPosSpawnEnemy:
   - {fileID: 0}
   - {fileID: 0}
@@ -434,6 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4102767459576792299}
   - component: {fileID: 2676145791475241921}
+  - component: {fileID: 5729061167104631044}
   m_Layer: 0
   m_Name: ItemController
   m_TagString: Untagged
@@ -487,6 +487,54 @@ MonoBehaviour:
   listItemInBox: []
   listItemInBasket: []
   inventory: {fileID: 0}
+--- !u!114 &5729061167104631044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931496167649069302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868369d1a643e9a4288528e749558bd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
+  - {fileID: 11400000, guid: 21ac2415a21e2a44ba8c0dadeac1c878, type: 2}
+  - {fileID: 11400000, guid: 52085e8cb4f14634ba3c64270de87ec6, type: 2}
+  - {fileID: 11400000, guid: 9bbce2461d3dc7c4b98a0617fc2a6ef2, type: 2}
+  - {fileID: 11400000, guid: 2fcaaff03b4e2d54fa2812732f252d88, type: 2}
+  - {fileID: 11400000, guid: ec1fc5dc24c58054ca1303eca426a56b, type: 2}
+  - {fileID: 11400000, guid: 2fbb27507843d7d479f08b8970ce18f9, type: 2}
+  - {fileID: 11400000, guid: 53c309f9cfe9dd044b722085a5958e3a, type: 2}
+  - {fileID: 11400000, guid: 950ce586231c48943824e75d761c49ed, type: 2}
+  - {fileID: 11400000, guid: 046bc12a4063ad041aea491b8b49619d, type: 2}
+  - {fileID: 11400000, guid: 99cea43d4e771c745a420beefd33422c, type: 2}
+  - {fileID: 11400000, guid: e416d5438c076d74dae62ffecabf3550, type: 2}
+  - {fileID: 11400000, guid: 259ad57250776e24aaa90ec72b07c182, type: 2}
+  - {fileID: 11400000, guid: 54adbef3d1c97af45a84ffcba353ce63, type: 2}
+  - {fileID: 11400000, guid: 759804af3f13c844da91eb4323c49fd2, type: 2}
+  - {fileID: 11400000, guid: 37676817b61de54489728153f8753122, type: 2}
+  - {fileID: 11400000, guid: 94ee6fb2a2f840c4c8ea2290ce6161a9, type: 2}
+  - {fileID: 11400000, guid: a9f5fa0994ed89c4591f9b70a7217f84, type: 2}
+  - {fileID: 11400000, guid: 6536d0c01ccb97646a1887aaac79f678, type: 2}
+  - {fileID: 11400000, guid: 87cc28bb9c28e0642a8eff0338b55aae, type: 2}
+  - {fileID: 11400000, guid: 264af948a934a6f4dafd23b453e410c2, type: 2}
+  - {fileID: 11400000, guid: eded065d072225e4695dd282993cf557, type: 2}
+  - {fileID: 11400000, guid: c6a20e3ecb102a4439ab894430a9606f, type: 2}
+  - {fileID: 11400000, guid: c7625ed24a960f14e9bd937a434051ef, type: 2}
+  - {fileID: 11400000, guid: b87efee38161697459d4a826b50679f2, type: 2}
+  - {fileID: 11400000, guid: 520e2d332b1f51249945037dad65d61f, type: 2}
+  - {fileID: 11400000, guid: 8de516f99f081da4cbdcbaafbb5f34ba, type: 2}
+  - {fileID: 11400000, guid: 3188d941432e03041a35bdb7a9c1e034, type: 2}
+  - {fileID: 11400000, guid: f925596f98142fe45a889e44d2bd08ef, type: 2}
+  - {fileID: 11400000, guid: fbc6487bf4c91984aaf96714057c99fd, type: 2}
+  - {fileID: 11400000, guid: 434641095df1a50459b522246a15aa10, type: 2}
+  - {fileID: 11400000, guid: 04f73a8d0ca1b034d91d9427882e8d47, type: 2}
+  - {fileID: 11400000, guid: 37e8ed00fbf8cb54ba7e086fb40f0c78, type: 2}
+  - {fileID: 11400000, guid: 908cd9f6a86e5124a8332ed1f9ce43f7, type: 2}
+  - {fileID: 11400000, guid: 3c5b21b774ac9c74ba7fefc1e4a65158, type: 2}
 --- !u!1 &7068529253157731464
 GameObject:
   m_ObjectHideFlags: 0

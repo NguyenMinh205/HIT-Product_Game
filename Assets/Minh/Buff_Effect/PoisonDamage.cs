@@ -1,20 +1,68 @@
 ﻿using UnityEngine;
 
-public class PoisonDamage : IBuffEffect //Hiệu ứng đánh gây hiệu ứng dame độc
+public class PoisonDamage : IBuffEffect
 {
     public string Name { get; set; }
-    public BuffEffectType Type { get; set; }
     public float Value { get; set; }
     public float Duration { get; set; }
+    private Player player;
 
     public PoisonDamage(float value, float duration)
     {
         Name = "poison_damage";
-        Type = BuffEffectType.ReactiveEffects;
         Value = value;
         Duration = duration;
     }
 
-    public void Apply(Player player) { }
-    public void Remove(Player player) { }
-} 
+    public void Apply(Player player)
+    {
+        this.player = player;
+        RegisterEvents();
+    }
+
+    public void Remove(Player player)
+    {
+        UnregisterEvents();
+    }
+
+    public void RegisterEvents()
+    {
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnDealDamage, OnDealDamage);
+    }
+
+    public void UnregisterEvents()
+    {
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnDealDamage, OnDealDamage);
+    }
+
+    private void OnDealDamage(object param)
+    {
+        if (Duration <= 0)
+        {
+            Remove(player);
+            return;
+        }
+
+        // Giả sử có cách lấy đối tượng Enemy hiện tại từ GamePlayController
+        //Enemy enemy = GamePlayController.Instance.EnemyController.CurrentEnemy;
+        //if (enemy != null)
+        //{
+        //    // Kiểm tra xem enemy đã có PoisonEffect chưa
+        //    IBuffEffect existingPoison = enemy.GetActiveEffect("poison_effect");
+        //    if (existingPoison != null)
+        //    {
+        //        // Cộng dồn duration
+        //        existingPoison.Duration += Duration;
+        //        Debug.Log($"Poison duration stacked. New duration: {existingPoison.Duration}");
+        //    }
+        //    else
+        //    {
+        //        // Áp dụng PoisonEffect mới lên enemy
+        //        enemy.AddBuffEffect("poison_effect", Value, Duration);
+        //        Debug.Log($"Applied PoisonEffect to enemy with {Value} damage for {Duration} turns.");
+        //    }
+        //}
+
+        Duration--;
+    }
+}

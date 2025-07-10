@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a20c7cd64e093c4089e0cc1bfc91c56, type: 3}
-  m_Name: Item_ 6
+  m_Name: Item_ 19(Syringe)
   m_EditorClassIdentifier: 
-  id: Atk06
-  itemName: Sickle
-  icon: {fileID: -418704751, guid: 3d69594dab9cb7d4781e38e63be8c6a4, type: 3}
+  id: Atk19
+  itemName: Syringe
+  icon: {fileID: -1345815587, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
   itemRarity: 0
-  description: Attacks the nearest enemy for 15 damage. Has a 50% chance to deal
-    a Critical Hit.
+  description: Attacks the nearest enemy for 5 damage. Its damage increases by 3
+    each time it's used, up to a maximum of 20 damage. Resets after each fight.
   isStackable: 0
   maxStackSize: 99
-  isMetal: 1
+  isMetal: 0

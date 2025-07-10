@@ -6,10 +6,12 @@ public class BattleAxe : AttackWithEffect
 {
     private int damage = 15;
     public int Damage { get { return damage; } set { damage = value; } }
+    private int curDamage = 0;
+
     public override void AttackEnemy(Enemy enemy)
     {
         if (enemy == null) return;
-        enemy.ReceiverDamage((int)damage);
+        enemy.ReceiverDamage(curDamage);
     }
 
     public override void Effect(Enemy enemy)
@@ -21,6 +23,7 @@ public class BattleAxe : AttackWithEffect
     {
         if (enemy != null)
         {
+            curDamage = CalculateDamageWithCrit(player, damage);
             Effect(enemy);
             AttackEnemy(enemy);
         }

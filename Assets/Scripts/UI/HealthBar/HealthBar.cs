@@ -58,10 +58,10 @@ public class HealthBar : MonoBehaviour
         }
         else if(obj is Player player)
         {
-            if(player.Stats.shield > 0)
+            if(player.Stats.Shield > 0)
             {
                 armor.SetActive(true);
-                textArmor.text = player.Stats.shield.ToString();
+                textArmor.text = player.Stats.Shield.ToString();
             }
         }
     }
@@ -78,8 +78,8 @@ public class HealthBar : MonoBehaviour
         }
         else if (obj is Player player)
         {
-            textHp.text = player.Stats.currentHP + "/" + player.Stats.maxHP;
-            imageHp.fillAmount = (float)player.Stats.currentHP / player.Stats.maxHP;
+            textHp.text = player.Stats.CurrentHP + "/" + player.Stats.MaxHP;
+            imageHp.fillAmount = (float)player.Stats.CurrentHP / player.Stats.MaxHP;
         }
     }
 }

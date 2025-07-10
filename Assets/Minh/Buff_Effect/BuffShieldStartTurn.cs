@@ -1,26 +1,42 @@
 ﻿using UnityEngine;
 
-public class BuffShieldStartTurn : IBuffEffect //Hiệu ứng tăng shield đầu turn
+public class BuffShieldStartTurn : IBuffEffect
 {
     public string Name { get; set; }
-    public BuffEffectType Type { get; set; }
     public float Value { get; set; }
     public float Duration { get; set; }
+    private Player player;
 
     public BuffShieldStartTurn(float value, float duration)
     {
         Name = "buff_shield_start_turn";
-        Type = BuffEffectType.Turn_BasedEffects;
         Value = value;
         Duration = duration;
     }
 
-    public void Apply(Player player) 
+    public void Apply(Player player)
     {
-        player._CharacterStatModifier.ChangeShield(Value);
+        this.player = player;
+        RegisterEvents();
     }
-    public void Remove(Player player) 
-    {
 
+    public void Remove(Player player)
+    {
+        UnregisterEvents();
+    }
+
+    public void RegisterEvents()
+    {
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartPlayerTurn, OnStartPlayerTurn);
+    }
+
+    public void UnregisterEvents()
+    {
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartPlayerTurn, OnStartPlayerTurn);
+    }
+
+    private void OnStartPlayerTurn(object param)
+    {
+        player.Stats.ChangeShield(Value);
     }
 }

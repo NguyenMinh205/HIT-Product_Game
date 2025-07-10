@@ -8,7 +8,7 @@ public class ItemDatabase : Singleton<ItemDatabase>
 
     private void Start()
     {
-        items = Resources.LoadAll<ItemBase>("ItemSO").ToList();
+        //items = Resources.LoadAll<ItemBase>("ItemSO").ToList();
     }
 
     public ItemBase GetItemById(string id)
@@ -19,6 +19,11 @@ public class ItemDatabase : Singleton<ItemDatabase>
     public ItemBase GetRandomItem()
     {
         return items[Random.Range(0, items.Count)];
+    }
+
+    public List<ItemBase> GetItems()
+    {
+        return items;
     }
 
     public IItemAction CreateItemAction(string id)

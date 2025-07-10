@@ -1,20 +1,51 @@
 ﻿using UnityEngine;
 
-public class ThornsDamage : IBuffEffect //Hiệu ứng gai phản dame
+public class ThornsDamage : IBuffEffect
 {
     public string Name { get; set; }
-    public BuffEffectType Type { get; set; }
     public float Value { get; set; }
     public float Duration { get; set; }
+    private Player player;
 
     public ThornsDamage(float value, float duration)
     {
         Name = "thorns_damage";
-        Type = BuffEffectType.ReactiveEffects;
         Value = value;
         Duration = duration;
     }
 
-    public void Apply(Player player) { }
-    public void Remove(Player player) { }
+    public void Apply(Player player)
+    {
+        this.player = player;
+        RegisterEvents();
+    }
+
+    public void Remove(Player player)
+    {
+        UnregisterEvents();
+    }
+
+    public void RegisterEvents()
+    {
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnTakeDamage, OnTakeDamage);
+    }
+
+    public void UnregisterEvents()
+    {
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnTakeDamage, OnTakeDamage);
+    }
+
+    private void OnTakeDamage(object param)
+    {
+        if (Duration <= 0)
+        {
+            Remove(player);
+            return;
+        }
+
+        int damageTaken = (int)param;
+        int reflectDamage = (int)(damageTaken * Value);
+        // Giả sử có cách phản sát thương lại kẻ địch
+        Debug.Log($"Thorns reflect {reflectDamage} damage. Turns remaining: {Duration}");
+    }
 }

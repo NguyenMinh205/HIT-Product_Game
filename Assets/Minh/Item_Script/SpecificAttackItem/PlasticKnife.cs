@@ -6,13 +6,14 @@ public class PlasticKnife : AttackItem
 {
     private int damage = 15;
     public int Damage { get { return damage; } set { damage = value; } }
-    private int minDamage = 15;
+    private int minDamage = 3;
     public int MinDamage { get { return minDamage; } set { minDamage = value; } }
+    private int curDamage = 0;
     public override void AttackEnemy(Enemy enemy)
     {
         if (enemy == null) return;
-        enemy.ReceiverDamage((int)damage);
-        if (damage != minDamage)
+        enemy.ReceiverDamage(curDamage);
+        if (damage > minDamage)
         {
             damage -= minDamage;
         }    
@@ -22,6 +23,7 @@ public class PlasticKnife : AttackItem
     {
         if (enemy != null)
         {
+            curDamage = CalculateDamageWithCrit(player, damage);
             AttackEnemy(enemy);
         }
     }
