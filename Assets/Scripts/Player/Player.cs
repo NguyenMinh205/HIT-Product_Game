@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : ObjectBase
+public class Player : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer playerSprite;
     [SerializeField] private float distancePlayerAndHealthBar;
     [SerializeField] private RuntimeAnimatorController playerAnim;
+    [SerializeField] private HealthBar health;
 
     private Character character;
     private CharacterStatSO stats;
@@ -18,7 +19,11 @@ public class Player : ObjectBase
     private List<IBuffEffect> reactiveEffects = new List<IBuffEffect>();
     [SerializeField] private Inventory inventory;
 
-
+    public HealthBar Health
+    {
+        get => health;
+        set => health = value;
+    }
     public Inventory Inventory
     {
         get => inventory;
@@ -67,7 +72,7 @@ public class Player : ObjectBase
             }
         }
         UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
-        ApplyInitialTurnBasedEffects();
+        //ApplyInitialTurnBasedEffects();
     }
     public void CalculationPositionPlayer(Vector3 posPlayer)
     {
@@ -78,7 +83,7 @@ public class Player : ObjectBase
         transform.position = newPos;
     }
 
-    public void AddBuffEffect(string effectName, float value, float duration)
+    /*public void AddBuffEffect(string effectName, float value, float duration)
     {
         IBuffEffect effect = BuffEffectFactory.CreateEffect(effectName, value, duration);
         if (effect != null)
@@ -114,7 +119,7 @@ public class Player : ObjectBase
                 break;
             }
         }
-    }
+    }*/
 
     public void AddItem()
     {
@@ -129,7 +134,7 @@ public class Player : ObjectBase
 
     }    
 
-    private void RemoveInitialTurnBasedEffects(IBuffEffect effect)
+ /*   private void RemoveInitialTurnBasedEffects(IBuffEffect effect)
     {
         turnBasedEffects.Remove(effect);
     }
@@ -137,7 +142,7 @@ public class Player : ObjectBase
     private void RemoveReactiveEffect(IBuffEffect effect)
     {
         reactiveEffects.Remove(effect);
-    }
+    }*/
 
 
     public void ReceiveDamage(int damage)

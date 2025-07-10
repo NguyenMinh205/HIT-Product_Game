@@ -9,9 +9,10 @@ public class Inventory : MonoBehaviour
     public void AddItem(ItemBase itemBase, int quantity, int maxQuantity = int.MaxValue)
     {
         ItemInventory existingItem = items.Find(item => item.ItemId == itemBase.id);
-        if (existingItem.quantity == maxQuantity) return;
+
         if (existingItem != null)
         {
+            if (existingItem.quantity == maxQuantity) return;
             existingItem.quantity += quantity;
             if (existingItem.quantity > maxQuantity) existingItem.quantity = maxQuantity;
         }

@@ -8,6 +8,6 @@ public class Damian : ICharacterAbility
     {
         player._CharacterStatModifier.ChangeMaxHP(10);
         player._CharacterStatModifier.ChangeCurHP(10);
-        player.AddBuffEffect("lifesteal", 20, -1);
+        //player.AddBuffEffect("lifesteal", 20, -1);
     }
 }

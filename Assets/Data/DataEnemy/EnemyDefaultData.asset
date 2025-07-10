@@ -211,3 +211,25 @@ MonoBehaviour:
     spriteEnemyIdle: {fileID: 0}
     controller: {fileID: 0}
     actions: []
+  dataBoss:
+  - idEnemy: boss01
+    nameEnemy: 
+    hpEnemy: 0
+    damageEnemy: 0
+    armorIncreased: 0
+    spriteEnemyIdle: {fileID: 0}
+    controller: {fileID: 0}
+    actions:
+    - actionEnemy: 04000000
+    - actionEnemy: 04000000
+    - actionEnemy: 04000000
+  - idEnemy: boss02
+    nameEnemy: 
+    hpEnemy: 0
+    damageEnemy: 0
+    armorIncreased: 0
+    spriteEnemyIdle: {fileID: 0}
+    controller: {fileID: 0}
+    actions:
+    - actionEnemy: 04000000
+    - actionEnemy: 00000000

@@ -3,14 +3,13 @@
 public class Thief : IBuffEffect //Hiệu ứng ăn trộm (Quái trộm)
 {
     public string Name { get; set; }
-    public BuffEffectType Type { get; set; }
-    public float Value { get; set; }
-    public float Duration { get; set; }
+    public int Value { get; set; }
+    public int Duration { get; set; }
 
-    public Thief(float value, float duration)
+    public Thief(int value, int duration)
     {
         Name = "thief";
-        Type = BuffEffectType.ReactiveEffects;
+        //Type = BuffEffectType.ReactiveEffects;
         Value = value;
         Duration = duration;
     }

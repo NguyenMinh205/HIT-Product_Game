@@ -4,14 +4,13 @@ using UnityEngine.UIElements;
 public class CounterAttack : IBuffEffect //Hiệu ứng phản đòn
 {
     public string Name { get; set; }
-    public BuffEffectType Type { get; set; }
-    public float Value { get; set; }
-    public float Duration { get; set; }
+    public int Value { get; set; }
+    public int Duration { get; set; }
 
-    public CounterAttack(float value, float duration)
+    public CounterAttack(int value, int duration)
     {
         Name = "counter_attack";
-        Type = BuffEffectType.ReactiveEffects;
+        //Type = BuffEffectType.ReactiveEffects;
         Value = value;
         Duration = duration;
     }

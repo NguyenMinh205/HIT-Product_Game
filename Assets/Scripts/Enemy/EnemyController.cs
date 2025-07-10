@@ -53,7 +53,6 @@ public class EnemyController : MonoBehaviour
     }
     public IEnumerator CheckEnemyToNextTurn()
     {
-        CheckPosionEnemy();
         for (int i= 0; i < listEnemy.Count ;i++)
         {
             yield return new WaitForSeconds(2f);
@@ -79,20 +78,13 @@ public class EnemyController : MonoBehaviour
             PoolingManager.Despawn(enemy.gameObject);
         }
     }
-    public void CheckPosionEnemy()
-    {
-        for (int i = 0; i < listEnemy.Count; i++)
-        {
-            listEnemy[i].CheckIsPoison();
-        }
-    }
     public void EndGame()
     {
         Debug.Log("Enemy Count : " + listEnemy.Count);
         for(int i=0; i < listEnemy.Count; i++)
         {
             Debug.Log("DesTroy Enemy" + i);
-            listEnemy[i].EndGame();
+            //listEnemy[i].EndGame();
         }
         listEnemy.Clear();
     }

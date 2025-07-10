@@ -3,14 +3,13 @@
 public class BuffShieldStartTurn : IBuffEffect //Hiệu ứng tăng shield đầu turn
 {
     public string Name { get; set; }
-    public BuffEffectType Type { get; set; }
-    public float Value { get; set; }
-    public float Duration { get; set; }
+    public int Value { get; set; }
+    public int Duration { get; set; }
 
-    public BuffShieldStartTurn(float value, float duration)
+    public BuffShieldStartTurn(int value, int duration)
     {
         Name = "buff_shield_start_turn";
-        Type = BuffEffectType.Turn_BasedEffects;
+       // Type = BuffEffectType.Turn_BasedEffects;
         Value = value;
         Duration = duration;
     }

@@ -8,6 +8,6 @@ public class Alex : ICharacterAbility
     {
         player._CharacterStatModifier.ChangeMaxHP(10);
         player._CharacterStatModifier.ChangeCurHP(10);
-        player.AddBuffEffect("buff_shield_start_turn", 5, -1);
+        //player.AddBuffEffect("buff_shield_start_turn", 5, -1);
     }
 }

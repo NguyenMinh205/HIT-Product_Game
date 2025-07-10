@@ -4,39 +4,75 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Enemy : ObjectBase
+public class Enemy : MonoBehaviour
 {
     private string idEnemy;
     private string nameEnemy;
     private int damage;
 
-    [SerializeField] private float distanceEnemyAndHealthBar;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Sprite spriteIDle;
+
+    [SerializeField] private int maxHp;
+    [SerializeField] private int currentHp;
+
+    [SerializeField] private int armor;
+    [SerializeField] private int armorIncreased;
+
+    [SerializeField] private HealthBar health;
     [SerializeField] private UIActionEnemy uiActionEnemy;
+    [SerializeField] private float distanceEnemyAndHealthBar;
 
     public List<ProcedureActionEnemy> actions;
     private int indexAction;
 
-
-    public UIActionEnemy UIAction
+    public string ID
     {
-        get => uiActionEnemy;
-        set => uiActionEnemy = value;
+        get => this.idEnemy;
     }
-
     public int Damage
     {
         get => this.damage;
         set => this.damage = value;
     }
-    public string ID
+    public int Armor
     {
-        get => this.idEnemy;
+        get => this.armor;
+        set => this.armor = value;
+    }
+    public int ArmorIncreased
+    {
+        get => this.armorIncreased;
+    }
+    public int HP
+    {
+        get => this.currentHp;
+        set => currentHp = value;
+    }
+    public int CurrentHp
+    {
+        get => maxHp;
+    }
+    public HealthBar Health
+    {
+        get => this.health;
+        set => this.health = value;
+    }
+    public UIActionEnemy UIAction
+    {
+        get => uiActionEnemy;
+        set => uiActionEnemy = value;
+    }
+    public Sprite SpriteIdle
+    {
+        get => spriteIDle;
     }
 
     private void Awake()
     {
         actions = new List<ProcedureActionEnemy>();
     }
+
     public void Init(EnemyData data, string id)
     {
         Debug.Log("Init Enemy");
@@ -55,12 +91,12 @@ public class Enemy : ObjectBase
         nameEnemy = data.nameEnemy;
 
         damage = data.damageEnemy;
-        base.curent_Hp = data.hpEnemy;
-        base.HP = data.hpEnemy;
-        base.armorIncreased = data.armorIncreased;
+        maxHp = data.hpEnemy;
+        HP = data.hpEnemy;
+        armorIncreased = data.armorIncreased;
 
-        base.animator.runtimeAnimatorController = data.controller;
-        base.spriteIDle = data.spriteEnemyIdle;
+        animator.runtimeAnimatorController = data.controller;
+        spriteIDle = data.spriteEnemyIdle;
 
         actions = data.actions;
         indexAction = 0;
@@ -73,23 +109,23 @@ public class Enemy : ObjectBase
     }
     public void CalulationPositionEnemy(Vector3 posSpawnEnemy)
     {
-        float height = base.SpriteIdle.bounds.extents.y;
+        float height = SpriteIdle.bounds.extents.y;
         Vector3 newPos = posSpawnEnemy + Vector3.up * height + Vector3.up * distanceEnemyAndHealthBar;
 
         transform.position = newPos;
     }
 
-    public override bool ReceiverDamage(int damage)
+    public bool ReceiverDamage(int damage)
     {
         int finalDamage = Mathf.Max(damage - armor, 0);
         armor = Mathf.Max(0, armor - damage);
 
-        base.HP -= finalDamage;
+        HP -= finalDamage;
 
-        base.Health.UpdateArmor(this);
-        base.Health.UpdateHp(this);
+        health.UpdateArmor(this);
+        health.UpdateHp(this);
 
-        if (base.HP <= 0)
+        if (HP <= 0)
         {
             //Goi khi enemy died
             uiActionEnemy.UnShowActionEnemy();
@@ -121,3 +157,4 @@ public class Enemy : ObjectBase
     }
 
 }
+

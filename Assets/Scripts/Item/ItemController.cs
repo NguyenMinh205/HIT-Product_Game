@@ -19,9 +19,6 @@ public class ItemController : MonoBehaviour
     [SerializeField] private List<Item> listItemInBox;
     [SerializeField] private List<Item> listItemInBasket;
 
-    [Space]
-    [Header("Inventory")]
-    [SerializeField] private Inventory inventory;
 
     private void Awake()
     {

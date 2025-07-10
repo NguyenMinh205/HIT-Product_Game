@@ -3,14 +3,13 @@
 public class MagnetClawEachTurns : IBuffEffect //Hiệu ứng thay móc thứ 2 thành móc nam châm
 {
     public string Name { get; set; }
-    public BuffEffectType Type { get; set; }
-    public float Value { get; set; }
-    public float Duration { get; set; }
+    public int Value { get; set; }
+    public int Duration { get; set; }
 
-    public MagnetClawEachTurns(float value, float duration)
+    public MagnetClawEachTurns(int value, int duration)
     {
         Name = "magnet_claw_each_turns";
-        Type = BuffEffectType.Turn_BasedEffects;
+        //Type = BuffEffectType.Turn_BasedEffects;
         Value = value;
         Duration = duration;
     }

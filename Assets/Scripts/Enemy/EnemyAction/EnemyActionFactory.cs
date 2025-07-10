@@ -92,7 +92,7 @@ public static class EnemyActionFactory
                 enemyAction = new DropThreeFruitPoison();
                 break;
             case "enemy06":
-                enemyAction = new CreateWaterInBox();
+                //enemyAction = new CreateWaterInBox();
                 break;
             case "enemy07":
                 enemyAction = new GetPoison();

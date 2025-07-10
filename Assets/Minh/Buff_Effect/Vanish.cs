@@ -3,14 +3,13 @@
 public class Vanish : IBuffEffect //Hiệu ứng bỏ chạy (Quái trộm)
 {
     public string Name { get; set; }
-    public BuffEffectType Type { get; set; }
-    public float Value { get; set; }
-    public float Duration { get; set; }
+    public int Value { get; set; }
+    public int Duration { get; set; }
 
-    public Vanish(float value, float duration)
+    public Vanish(int value, int duration)
     {
         Name = "vanish";
-        Type = BuffEffectType.Turn_BasedEffects;
+        //Type = BuffEffectType.Turn_BasedEffects;
         Value = value;
         Duration = duration;
     }

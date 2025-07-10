@@ -9,7 +9,7 @@ public class BodyArmor : BuffItem
 
     public override void Buff(Player player)
     {
-        player.AddBuffEffect("double_shield", buffVal, -1);
+        //player.AddBuffEffect("double_shield", buffVal, -1);
     }
 
     public override void Execute(Player player, Enemy enemy)

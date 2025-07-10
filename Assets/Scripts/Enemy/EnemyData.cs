@@ -6,6 +6,8 @@ using UnityEngine;
 public class EnemyData : ScriptableObject
 {
     public List<DataEnemy> dataEnemy = new List<DataEnemy>();
+    public List<DataEnemy> dataBoss = new List<DataEnemy>();
+
 }
 
 [System.Serializable]

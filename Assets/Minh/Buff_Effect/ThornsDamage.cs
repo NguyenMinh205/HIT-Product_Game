@@ -3,14 +3,13 @@
 public class ThornsDamage : IBuffEffect //Hiệu ứng gai phản dame
 {
     public string Name { get; set; }
-    public BuffEffectType Type { get; set; }
-    public float Value { get; set; }
-    public float Duration { get; set; }
+    public int Value { get; set; }
+    public int Duration { get; set; }
 
-    public ThornsDamage(float value, float duration)
+    public ThornsDamage(int value, int duration)
     {
         Name = "thorns_damage";
-        Type = BuffEffectType.ReactiveEffects;
+        //Type = BuffEffectType.ReactiveEffects;
         Value = value;
         Duration = duration;
     }

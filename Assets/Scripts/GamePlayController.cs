@@ -29,6 +29,7 @@ public class GamePlayController : Singleton<GamePlayController>
     public ItemController ItemController => itemController;
 
     private IntoRoomTrigger intoRoomTrigger;
+    [SerializeField] private CreateWaterInBox create; //test
 
 
     [Space]
@@ -85,6 +86,7 @@ public class GamePlayController : Singleton<GamePlayController>
 
             case TurnPlay.Player:
                 clawController.ResetMachineClaw();
+                create.ExecuteEffect();
                 //playerController.CurrentPlayer.CheckIsPoison();
                 break;
         }
@@ -106,7 +108,7 @@ public class GamePlayController : Singleton<GamePlayController>
         uiTurnChange.SetActive(false);
     }
     public void TurnPlayer() 
-    {
+    { 
         if (turnGame != TurnPlay.Player) return;
 
         if (isCheckTurnByClaw && isCheckTurnByItem)
