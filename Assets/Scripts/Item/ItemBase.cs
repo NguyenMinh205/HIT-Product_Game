@@ -39,6 +39,10 @@ public class ItemBase : ScriptableObject
         {
             poisonGrenade.Execute(player, targets);
         }
+        else if(action != null && action is Shuriken shuriken)
+        {
+            shuriken.Execute(player, targets);
+        }
         else if (action != null)
         {
             action.Execute(player, target);

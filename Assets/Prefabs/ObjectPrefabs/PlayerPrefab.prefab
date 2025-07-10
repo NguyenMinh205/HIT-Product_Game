@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7480594454539457562}
   - component: {fileID: 4278605123151132739}
   - component: {fileID: 6262871788618826098}
-  - component: {fileID: -5563196789657130844}
   - component: {fileID: 7929153184085620473}
   - component: {fileID: 4930247587765300604}
   - component: {fileID: 9112401239775922810}
@@ -132,20 +131,8 @@ MonoBehaviour:
   playerSprite: {fileID: 0}
   distancePlayerAndHealthBar: 0
   playerAnim: {fileID: 0}
-  characterStatModifier: {fileID: -5563196789657130844}
+  characterStatModifier: {fileID: 0}
   inventory: {fileID: 4930247587765300604}
---- !u!114 &-5563196789657130844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 884660179733124090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85f7b34a114790d4a97dade493991be5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!60 &7929153184085620473
 PolygonCollider2D:
   m_ObjectHideFlags: 0

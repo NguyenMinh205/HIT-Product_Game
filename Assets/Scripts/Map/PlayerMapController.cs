@@ -54,23 +54,21 @@ public class PlayerMapController : Singleton<PlayerMapController>
     private void Update()
     {
         Debug.Log("Check Player Map Controller");
-        if (isMoving || tilemap == null || currentMapData == null) return;
-
-        if (isIntoRoom) return;
+        if (isMoving || tilemap == null || currentMapData == null || IsIntoRoom) return;
         Debug.Log("Check Player in Room");
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
             TryMove(new Vector2Int(0, 1));
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
         {
             TryMove(new Vector2Int(0, -1));
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A))
         {
             TryMove(new Vector2Int(-1, 0));
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             TryMove(new Vector2Int(1, 0));
         }

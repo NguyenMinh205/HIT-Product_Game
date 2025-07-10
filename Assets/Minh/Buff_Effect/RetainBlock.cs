@@ -1,19 +1,50 @@
 ﻿using UnityEngine;
 
-public class RetainBlock : IBuffEffect //Hiệu ứng giữ lại khiên sau mỗi turn (Boss)
+public class RetainBlock : IBuffEffect
 {
     public string Name { get; set; }
-    public int Value { get; set; }
-    public int Duration { get; set; }
+    public float Value { get; set; }
+    public float Duration { get; set; }
+    private Player player;
 
-    public RetainBlock(int value, int duration)
+    public RetainBlock(float value, float duration)
     {
         Name = "retain_block";
-        //Type = BuffEffectType.Turn_BasedEffects;
         Value = value;
         Duration = duration;
     }
 
-    public void Apply(Player player) { }
-    public void Remove(Player player) { }
+    public void Apply(Player player)
+    {
+        this.player = player;
+        RegisterEvents();
+    }
+
+    public void Remove(Player player)
+    {
+        UnregisterEvents();
+    }
+
+    public void RegisterEvents()
+    {
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartPlayerTurn, OnStartPlayerTurn);
+    }
+
+    public void UnregisterEvents()
+    {
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartPlayerTurn, OnStartPlayerTurn);
+    }
+
+    private void OnStartPlayerTurn(object param)
+    {
+        if (Duration <= 0)
+        {
+            Remove(player);
+            return;
+        }
+
+        Duration--;
+        player.Stats.ChangeShield(Value);
+        Debug.Log($"Shield retained: {Value}. Turns remaining: {Duration}");
+    }
 }

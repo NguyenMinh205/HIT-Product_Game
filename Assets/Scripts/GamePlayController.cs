@@ -2,10 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.UI;
+using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.UI;
 
+public enum EventID
+{
+    OnStartPlayerTurn,
+    OnTakeDamage,
+    OnDealDamage,
+    OnGoldChanged,
+    OnHealthChanged,
+    OnStartEnemyTurn,
+}
 
 public enum TurnPlay
 {
@@ -29,8 +37,6 @@ public class GamePlayController : Singleton<GamePlayController>
     public ItemController ItemController => itemController;
 
     private IntoRoomTrigger intoRoomTrigger;
-    [SerializeField] private CreateWaterInBox create; //test
-
 
     [Space]
     [Header("TurnDisplay")]
@@ -86,11 +92,11 @@ public class GamePlayController : Singleton<GamePlayController>
 
             case TurnPlay.Player:
                 clawController.ResetMachineClaw();
-                create.ExecuteEffect();
-                //playerController.CurrentPlayer.CheckIsPoison();
+                StartPlayerTurn();
                 break;
         }
     }
+
     private void Update()
     {
         TurnPlayer();
@@ -102,13 +108,21 @@ public class GamePlayController : Singleton<GamePlayController>
         uiTurnChange.SetActive(true);
         StartCoroutine(DelayTurnDisplay(0.8f));
     }
+
     private IEnumerator DelayTurnDisplay(float time)
     {
         yield return new WaitForSeconds(time);
         uiTurnChange.SetActive(false);
     }
-    public void TurnPlayer() 
-    { 
+
+    public void StartPlayerTurn()
+    {
+        ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
+        Debug.Log("Player Turn Started");
+    }
+
+    public void TurnPlayer()
+    {
         if (turnGame != TurnPlay.Player) return;
 
         if (isCheckTurnByClaw && isCheckTurnByItem)
@@ -116,10 +130,12 @@ public class GamePlayController : Singleton<GamePlayController>
             Turn = TurnPlay.Enemy;
         }
     }
+
     public void TurnEnemy()
     {
         StartCoroutine(enemyController.CheckEnemyToNextTurn());
     }
+
     public void StartRoom()
     {
         Debug.Log("Open Room");
@@ -133,46 +149,38 @@ public class GamePlayController : Singleton<GamePlayController>
         clawController.IsStart = true;
         clawController.StartClaw();
     }
+
     public void LoseGame()
     {
-
         clawController.EndGame();
         clawController.IsStart = false;
-        //ItemController.Instance.EndGame();
         enemyController.EndGame();
-        //playerController.EndGame();
 
         MapController.Instance.SetActiveMapStore(true);
         StartCoroutine(DelayOutTrigger(0.2f));
         MapManager.Instance.SetActiveRoomVisual(true);
 
         PlayerMapController.Instance.IsIntoRoom = false;
-
         PlayerMapController.Instance.IsMoving = false;
 
         StartCoroutine(PlayerMapController.Instance.MoveToPosition(-1 * directionPlayer));
     }
+
     IEnumerator DelayOutTrigger(float time)
     {
-        //intoRoomTrigger.SetActive(false);
         yield return new WaitForSeconds(time);
-        //intoRoomTrigger.SetActive(true);
     }
+
     public void WInGame()
     {
         clawController.EndGame();
         clawController.IsStart = false;
-        //ItemController.Instance.EndGame();
         enemyController.EndGame();
-        //playerController.EndGame();
 
         MapController.Instance.SetActiveMapStore(true);
         MapManager.Instance.SetActiveRoomVisual(true);
 
         PlayerMapController.Instance.IsIntoRoom = false;
         PlayerMapController.Instance.IsMoving = false;
-
-        //intoRoomTrigger.SetActive(false);
     }
 }
-

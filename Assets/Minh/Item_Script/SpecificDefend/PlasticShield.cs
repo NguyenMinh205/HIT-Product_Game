@@ -10,8 +10,8 @@ public class PlasticShield : DefendItem
     public int MinShield { get { return minShield; } set { minShield = value; } }
     public override void Defend(Player player)
     {
-        player._CharacterStatModifier.ChangeShield(shield);
-        if (shield >= minShield)
+        player.Stats.ChangeShield(shield);
+        if (shield > minShield)
         {
             shield -= minShield;
         }    

@@ -25,14 +25,22 @@ public static class ItemActionFactory
                 return new Warhammer();
             case "Atk13":
                 return new PlasticKnife();
+            case "Atk14":
+                return new TickingBomb();
             case "Atk15":
                 return new PoisonDagger();
             case "Atk16":
                 return new Paperclips();
             case "Atk17":
                 return new LuckyStick();
+            case "Atk19":
+                return new Syringe();
+            case "Atk20":
+                return new Shuriken();
+            case "Atk21":
+                return new Thermometer();
             case "Atk23":
-                return new LuckyStick();
+                return new DoubleBladedSword();
             case "Def02":
                 return new SpikeyShield();
             case "Def03":
@@ -49,14 +57,20 @@ public static class ItemActionFactory
                 return new PlasticShield();
             case "Def11":
                 return new MetalShield();
+            case "Buf03":
+                return new Eyepatch();
             case "Buf04":
                 return new RingOfStrength();
             case "Buf08":
                 return new AmuletOfStrength();
+            case "Buf10":
+                return new Cactus();
             case "Buf11":
                 return new StrengthPoison();
             case "Buf13":
                 return new HealingFlask();
+            case "Buf16":
+                return new WoodenBracelet();
             case "Buf17":
                 return new PoisonGrenade();
             case "Buf19":

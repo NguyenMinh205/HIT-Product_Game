@@ -6,15 +6,20 @@ public class Dagger : AttackItem
 {
     private int damage = 5;
     public int Damage { get { return damage; } set { damage = value; } }
+    private int curDamage = 0;
+
     public override void AttackEnemy(Enemy enemy)
     {
         if (enemy == null) return;
-        enemy.ReceiverDamage((int)damage);
+        enemy.ReceiverDamage((int)curDamage);
     }
 
     public override void Execute(Player player, Enemy enemy)
     {
-        if (enemy == null) return;
-        AttackEnemy(enemy);
+        if (enemy != null)
+        {
+            curDamage = CalculateDamageWithCrit(player, damage);
+            AttackEnemy(enemy);
+        }
     }
 }

@@ -9,7 +9,7 @@ public class Eyepatch : BuffItem
 
     public override void Buff(Player player)
     {
-        player._CharacterStatModifier.ChangeCriticalChance(buffVal);
+        player.Stats.ChangeCriticalChance(buffVal);
     }
 
     public override void Execute(Player player, Enemy enemy)

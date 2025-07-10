@@ -6,17 +6,19 @@ public class GreatSword : AttackItem
 {
     private int damage = 10;
     public int Damage { get { return damage; } set { damage = value; } }
+    private int curDamage = 0;
 
     public override void AttackEnemy(Enemy enemy)
     {
         if (enemy == null) return;
-        enemy.ReceiverDamage((int)damage);
+        enemy.ReceiverDamage((int)curDamage);
     }
 
-    public override void Execute(Player player, Enemy target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (target.TryGetComponent<Enemy>(out var enemy))
+        if (enemy != null)
         {
+            curDamage = CalculateDamageWithCrit(player, damage);
             AttackEnemy(enemy);
         }    
     }

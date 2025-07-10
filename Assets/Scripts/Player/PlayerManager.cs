@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
@@ -8,7 +9,9 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private CharacterDatabaseSO characterDatabase;
     [SerializeField] private CharacterStatSO playerStat;
     [SerializeField] private Inventory totalInventory;
+    [SerializeField] private TextMeshProUGUI numOfCoin;
     public Inventory TotalInventory => totalInventory;
+    public CharacterStatSO PlayerStat => playerStat;
 
     private Character curCharacter;
     private Player currentPlayer;
@@ -46,4 +49,9 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         currentPlayer?.EndGame();
     }
+
+    private void UpdateCoinText()
+    {
+        numOfCoin.text = playerStat.Coin.ToString();
+    }    
 }

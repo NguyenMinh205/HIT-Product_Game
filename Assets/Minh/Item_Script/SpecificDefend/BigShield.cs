@@ -10,9 +10,9 @@ public class BigShield : DefendItem
     {
         int index = Random.Range(0, 3);
         if (index == 0)
-            player._CharacterStatModifier.ChangeShield(shield);
+            player.Stats.ChangeShield(shield);
         else
-            player._CharacterStatModifier.ChangeShield(shield * 2);
+            player.Stats.ChangeShield(shield * 2);
     }
 
     public override void Execute(Player player, Enemy enemy)

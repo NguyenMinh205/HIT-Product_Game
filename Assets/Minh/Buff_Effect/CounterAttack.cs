@@ -1,30 +1,68 @@
 ﻿using UnityEngine;
-using UnityEngine.UIElements;
 
-public class CounterAttack : IBuffEffect //Hiệu ứng phản đòn
+public class CounterAttack : IBuffEffect
 {
     public string Name { get; set; }
-    public int Value { get; set; }
-    public int Duration { get; set; }
+    public float Value { get; set; } // Không dùng, giữ để tương thích IBuffEffect
+    public float Duration { get; set; }
+    private Player player;
+    private Enemy enemy;
 
-    public CounterAttack(int value, int duration)
+    public CounterAttack(float value, float duration)
     {
         Name = "counter_attack";
-        //Type = BuffEffectType.ReactiveEffects;
-        Value = value;
+        Value = value; // Không dùng
         Duration = duration;
     }
 
     public void Apply(Player player)
     {
-        Duration--;
+        this.player = player;
+        this.enemy = null;
+        RegisterEvents();
+    }
+
+    public void Apply(Enemy enemy)
+    {
+        this.enemy = enemy;
+        this.player = null;
+        RegisterEvents();
+    }
+
+    public void Remove(Player player)
+    {
+        UnregisterEvents();
+    }
+
+    public void RegisterEvents()
+    {
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnTakeDamage, OnTakeDamage);
+    }
+
+    public void UnregisterEvents()
+    {
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnTakeDamage, OnTakeDamage);
+    }
+
+    private void OnTakeDamage(object param)
+    {
         if (Duration <= 0)
         {
             Remove(player);
+            return;
         }
-    }
-    public void Remove(Player player) 
-    {
 
+        if (player != null)
+        {
+            player.IsCounterAttack = true;
+            Debug.Log("Player CounterAttack triggered! Ready to counter damage.");
+        }
+        else if (enemy != null)
+        {
+            //enemy.IsCounterAttack = true;
+            Debug.Log($"Enemy {enemy.name} CounterAttack triggered! Ready to counter damage.");
+        }
+
+        Duration--;
     }
 }

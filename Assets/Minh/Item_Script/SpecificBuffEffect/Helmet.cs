@@ -6,7 +6,7 @@ public class Helmet : BuffItem
 {
     public override void Buff(Player player)
     {
-        player._CharacterStatModifier.DoubleShield();
+        player.Stats.DoubleShield();
     }
 
     public override void Execute(Player player, Enemy enemy)

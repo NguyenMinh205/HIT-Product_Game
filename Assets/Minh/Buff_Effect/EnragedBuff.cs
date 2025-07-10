@@ -1,30 +1,60 @@
 ﻿using UnityEngine;
 
-public class EnragedEffect : IBuffEffect //Hiệu ứng tăng 100% tỉ lệ chí mạng khi máu dưới 30%
+public class EnragedEffect : IBuffEffect
 {
     public string Name { get; set; }
-    public int Value { get; set; }
-    public int Duration { get; set; }
+    public float Value { get; set; }
+    public float Duration { get; set; }
+    private Player player;
+    private float percentIncrease = 0;
 
-    public EnragedEffect(int value, int duration)
+    public EnragedEffect(float value, float duration)
     {
         Name = "enraged_effect";
-        //Type = BuffEffectType.Turn_BasedEffects;
         Value = value;
         Duration = duration;
     }
 
-    public void Apply(Player player) 
+    public void Apply(Player player)
     {
-        if (player.Stats.currentHP <= player.Stats.maxHP * 0.3)
-        {
-            player.Stats.criticalChance = 1;
-            return;
-        } 
-        Remove(player);  
+        this.player = player;
+        RegisterEvents();
     }
-    public void Remove(Player player) 
+
+    public void Remove(Player player)
     {
-        player.Stats.criticalChance = 0;
+        UnregisterEvents();
+    }
+
+    public void RegisterEvents()
+    {
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartPlayerTurn, OnStartPlayerTurn);
+    }
+
+    public void UnregisterEvents()
+    {
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartPlayerTurn, OnStartPlayerTurn);
+    }
+
+    private void OnStartPlayerTurn(object param)
+    {
+        if (Duration <= 0)
+        {
+            Remove(player);
+            return;
+        }
+
+        Duration--;
+        if (player.Stats.CurrentHP <= player.Stats.MaxHP * 0.3f)
+        {
+            percentIncrease = 1 - player.Stats.CriticalChance;
+            player.Stats.ChangeCriticalChance(percentIncrease);
+            Debug.Log($"Critical chance set to 100%. Turns remaining: {Duration}");
+        }
+        else
+        {
+            player.Stats.ChangeCriticalChance(-percentIncrease);
+            Remove(player);
+        }
     }
 }

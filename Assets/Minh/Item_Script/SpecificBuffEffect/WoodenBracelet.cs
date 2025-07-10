@@ -9,8 +9,8 @@ public class WoodenBracelet : BuffItem
 
     public override void Buff(Player player)
     {
-        player._CharacterStatModifier.ChangeDamageExtra(buffVal * 0.1f);
-        player._CharacterStatModifier.ChangeShield(buffVal);
+        player.Stats.ChangeDamageExtra(buffVal * 0.1f);
+        player.Stats.ChangeShield(buffVal);
     }
 
     public override void Execute(Player player, Enemy enemy)

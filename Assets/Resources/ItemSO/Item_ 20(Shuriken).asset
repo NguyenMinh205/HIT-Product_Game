@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a20c7cd64e093c4089e0cc1bfc91c56, type: 3}
-  m_Name: Item_ 21
+  m_Name: Item_ 20(Shuriken)
   m_EditorClassIdentifier: 
-  id: Atk21
-  itemName: Thermometer
-  icon: {fileID: 1080073939, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
+  id: Atk20
+  itemName: Shuriken
+  icon: {fileID: 589211770, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
   itemRarity: 0
-  description: Attacks the nearest enemy, dealing 0,5 damage for each missing Health
-    you have.
+  description: Attacks by 3 damage and applies 1 Poison for all enemies
   isStackable: 0
   maxStackSize: 99
-  isMetal: 0
+  isMetal: 1

@@ -6,9 +6,9 @@ public class VitaminPill : BuffItem
 {
     public override void Buff(Player player)
     {
-        int curDamageExtra = (int)player.Stats.damageIncrease;
+        int curDamageExtra = (int)player.Stats.DamageIncrease;
         int shieldIncrease = curDamageExtra / 2;
-        player._CharacterStatModifier.ChangeDamageExtra(shieldIncrease);
+        player.Stats.ChangeDamageExtra(shieldIncrease);
     }
 
     public override void Execute(Player player, Enemy enemy)

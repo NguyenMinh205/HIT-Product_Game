@@ -13,7 +13,7 @@ public class SpikeyShield : DefendWithBuff
 
     public override void Defend(Player player)
     {
-        player._CharacterStatModifier.ChangeShield(shield);
+        player.Stats.ChangeShield(shield);
     }
 
     public override void Execute(Player player, Enemy enemy)

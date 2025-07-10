@@ -1,22 +1,54 @@
 ﻿using UnityEngine;
 
-public class PoisonGas : IBuffEffect //Hiệu ứng khí gas
+public class PoisonGas : IBuffEffect
 {
     public string Name { get; set; }
-    public int Value { get; set; }
-    public int Duration { get; set; }
+    public float Value { get; set; }
+    public float Duration { get; set; }
+    private Player player;
 
-    public PoisonGas(int value, int duration)
+    public PoisonGas(float value, float duration)
     {
         Name = "poison_gas";
-       // Type = BuffEffectType.Turn_BasedEffects;
-        Value = value;
+        Value = value; // Sát thương của PoisonEffect
         Duration = duration;
     }
 
-    public void Apply(Player player) 
+    public void Apply(Player player)
     {
-        //player.AddBuffEffect("poison_effect", Value, Duration);
+        this.player = player;
+        RegisterEvents();
     }
-    public void Remove(Player player) { }
+
+    public void Remove(Player player)
+    {
+        UnregisterEvents();
+    }
+
+    public void RegisterEvents()
+    {
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartPlayerTurn, OnStartPlayerTurn);
+    }
+
+    public void UnregisterEvents()
+    {
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartPlayerTurn, OnStartPlayerTurn);
+    }
+
+    private void OnStartPlayerTurn(object param)
+    {
+        if (Duration != -1 && Duration <= 0)
+        {
+            Remove(player);
+            return;
+        }
+
+        player.AddBuffEffect("poison_effect", Value, Value);
+        Debug.Log($"Applied PoisonEffect to player with {Value} damage for {Value} turns.");
+
+        if (Duration != -1)
+        {
+            Duration--;
+        }
+    }
 }
