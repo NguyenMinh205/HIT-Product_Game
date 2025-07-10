@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : ObjectBase
+public class Player : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer playerSprite;
     [SerializeField] private float distancePlayerAndHealthBar;
     [SerializeField] private RuntimeAnimatorController playerAnim;
+    [SerializeField] private HealthBar health;
 
     private Character character;
     private CharacterStatSO stats;
@@ -20,6 +21,12 @@ public class Player : ObjectBase
     public bool IsCounterAttack { get; set; }
 
     public Inventory Inventory => inventory;
+
+    public HealthBar Health
+    {
+        get => health;
+        set => health = value;
+    }
 
     public void Initialize(Character selectedCharacter, CharacterStatSO characterStatSO, int index)
     {

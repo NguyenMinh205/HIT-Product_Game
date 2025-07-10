@@ -2,7 +2,7 @@
 
 public static class BuffEffectFactory
 {
-    public static IBuffEffect CreateEffect(string effectName, int value, int duration)
+    public static IBuffEffect CreateEffect(string effectName, float value, float duration)
     {
         switch (effectName.ToLower())
         {

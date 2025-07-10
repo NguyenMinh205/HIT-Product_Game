@@ -72,11 +72,18 @@ public class EnemyController : MonoBehaviour
             if(listEnemy.Contains(enemy))
             {
                 listEnemy.Remove(enemy);
+                CheckEnemyCountZero();
             }
             enemy.UIAction.UnShowActionEnemy();
             enemy.Health.UnShowHealthBarEnemy();
             PoolingManager.Despawn(enemy.gameObject);
         }
+    }
+    public void CheckEnemyCountZero()
+    {
+        Debug.Log("Enemy Count is Zero");
+        if (listEnemy.Count == 0)
+            GamePlayController.Instance.WInGame();
     }
     public void EndGame()
     {

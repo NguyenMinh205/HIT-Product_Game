@@ -11,6 +11,8 @@ public enum ItemMove
 public class ItemMoveController : MonoBehaviour
 {
     [SerializeField] private Transform posStart;
+    [SerializeField] private Transform posEnd;
+    [SerializeField] private ItemUsage itemUsage;
     private Transform playerTarget;
     private Queue<Item> itemQueue = new Queue<Item>();
     private bool isRunningCoroutine = false;
@@ -92,8 +94,32 @@ public class ItemMoveController : MonoBehaviour
 
         seq.OnComplete(() =>
         {
-            Debug.Log("Item Complete Player");  /// Item Cham vao Player
-            //if (!isTemporarilyPaused) StartCoroutine(PauseAllTweensTemporarily());
+            Debug.Log("Item Complete Player");
+
+            var player = GamePlayController.Instance.PlayerController.CurrentPlayer;
+            var enemyList = GamePlayController.Instance.EnemyController.ListEnemy;
+
+            if (itemUsage == null)
+            {
+                Debug.LogWarning("itemUsage is null");
+                return;
+            }
+
+            if (player == null)
+            {
+                Debug.LogWarning("CurrentPlayer is null");
+                return;
+            }
+
+            if (enemyList == null || enemyList.Count == 0 || enemyList[0] == null)
+            {
+                Debug.LogWarning("Enemy is null");
+                return;
+            }
+
+            itemUsage.UseItem(item.ID, player, enemyList[0]);
+            ObserverManager<IDItem>.PostEven(IDItem.ItemPlayer, item);
+            PoolingManager.Despawn(item.gameObject);
         });
 
         if (isPaused)

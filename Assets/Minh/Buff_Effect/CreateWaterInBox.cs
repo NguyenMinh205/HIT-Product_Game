@@ -1,29 +1,30 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class CreateWaterInBox : MonoBehaviour
+public class CreateWaterInBox : MonoBehaviour ,IBuffEffect
 {
     [SerializeField] private GameObject water;
     [SerializeField] private float posYWaterTop;
     [SerializeField] private float distanceWater;
     [SerializeField] private float moveSpeed; // tốc độ nước di chuyển (unit/second)
 
-    public string Name { get; private set; }
-    public int Value { get; private set; }
-    public int Duration { get; private set; }
+    public string Name { get; set; }
+    public float Value { get; set; }
+    public float Duration { get; set; }
 
     private Coroutine moveCoroutine;
 
-    public void CreateWaterBox(int value, int duration)
+    public CreateWaterInBox(float value, float duration)
     {
         Name = "create_water_in_box";
         Value = value;
         Duration = duration;
+
+        CreateWater();
     }
 
     public void CreateWater()
     {
-        CreateWaterBox(3, 3);
 
         if (water != null)
         {
@@ -33,7 +34,7 @@ public class CreateWaterInBox : MonoBehaviour
         }
     }
 
-    public void ExecuteEffect()
+    public void ExecuteEffect(object obj)
     {
         if (Duration <= 0 || water == null) return;
 
@@ -73,11 +74,22 @@ public class CreateWaterInBox : MonoBehaviour
 
     public void Apply(Player player)
     {
-        CreateWater();
+        RegisterEvents();
     }
 
     public void Remove(Player player)
     {
         // Optional: làm nước biến mất nếu muốn
+        UnregisterEvents();
+    }
+
+    public void RegisterEvents()
+    {
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartPlayerTurn, ExecuteEffect);
+    }
+
+    public void UnregisterEvents()
+    {
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartPlayerTurn, ExecuteEffect);
     }
 }

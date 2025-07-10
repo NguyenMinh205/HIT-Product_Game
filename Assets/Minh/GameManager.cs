@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class GameManager : Singleton<GameManager>
 {
     [Space]
@@ -139,4 +140,5 @@ public class GameManager : Singleton<GameManager>
             currentRoom = null;
         }
     }
+
 }

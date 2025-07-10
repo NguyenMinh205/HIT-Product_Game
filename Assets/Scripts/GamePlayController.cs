@@ -44,6 +44,10 @@ public class GamePlayController : Singleton<GamePlayController>
     [SerializeField] private TextMeshProUGUI textTurn;
 
     [Space]
+    [Header("Room")]
+
+    
+    [Space]
     [Header("CheckTurn")]
     public bool isCheckTurnByClaw;
     public bool isCheckTurnByItem;
@@ -152,18 +156,21 @@ public class GamePlayController : Singleton<GamePlayController>
 
     public void LoseGame()
     {
+        Debug.Log("---------------Lose Game ---------------");
         clawController.EndGame();
         clawController.IsStart = false;
         enemyController.EndGame();
 
-        MapController.Instance.SetActiveMapStore(true);
+        //MapController.Instance.SetActiveMapStore(true);
         StartCoroutine(DelayOutTrigger(0.2f));
-        MapManager.Instance.SetActiveRoomVisual(true);
+        //MapManager.Instance.SetActiveRoomVisual(true);
 
         PlayerMapController.Instance.IsIntoRoom = false;
         PlayerMapController.Instance.IsMoving = false;
 
         StartCoroutine(PlayerMapController.Instance.MoveToPosition(-1 * directionPlayer));
+
+        GameManager.Instance.OutRoom();
     }
 
     IEnumerator DelayOutTrigger(float time)
@@ -173,14 +180,18 @@ public class GamePlayController : Singleton<GamePlayController>
 
     public void WInGame()
     {
+        Debug.Log("---------------Win Game ---------------");
         clawController.EndGame();
         clawController.IsStart = false;
         enemyController.EndGame();
 
-        MapController.Instance.SetActiveMapStore(true);
-        MapManager.Instance.SetActiveRoomVisual(true);
+        /*MapController.Instance.SetActiveMapStore(true);
+        MapManager.Instance.SetActiveRoomVisual(true);*/
 
         PlayerMapController.Instance.IsIntoRoom = false;
         PlayerMapController.Instance.IsMoving = false;
+
+        ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar, playerController.CurrentPlayer);
+        GameManager.Instance.OutRoom();
     }
 }
