@@ -68,6 +68,7 @@ public class ItemController : MonoBehaviour
 
             if (!listItemInBasket.Contains(item))
                 listItemInBasket.Add(item);
+           // GamePlayController.Instance.PlayerController.CurrentPlayer.RemoveItem(item.ItemB);
         }
     }
    

@@ -18,10 +18,15 @@ public class Item : MonoBehaviour
     [SerializeField] private GameObject balloon;
     [SerializeField] private float moveForce;
 
+    //private ItemBase _itemBase;
 
     private bool isPickUp = false;
     private bool isMove;
 
+   /* public ItemBase ItemB
+    {
+        get => _itemBase;
+    }*/
     public string ID
     {
         get => idItem;
@@ -47,6 +52,8 @@ public class Item : MonoBehaviour
         description = itemBase.description;
         isStackable = itemBase.isStackable;
         maxStackSize = itemBase.maxStackSize;
+
+        //_itemBase = itemBase;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

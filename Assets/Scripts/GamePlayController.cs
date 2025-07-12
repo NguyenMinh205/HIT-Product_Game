@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -96,6 +97,7 @@ public class GamePlayController : Singleton<GamePlayController>
 
             case TurnPlay.Player:
                 clawController.ResetMachineClaw();
+                //playerController.CurrentPlayer.AddItem();
                 StartPlayerTurn();
                 break;
         }

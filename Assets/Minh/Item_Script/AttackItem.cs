@@ -12,6 +12,7 @@ public abstract class AttackItem : IItemAction
 
     protected int CalculateDamageWithCrit(Player player, int baseDamage)
     {
+        Debug.Log("Sat thuong ban dau = " + baseDamage);
         if (player == null || player.Stats == null) return baseDamage;
 
         float criticalChance = player.Stats.CriticalChance;
