@@ -34,6 +34,12 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject uiSmithRoom;
     [SerializeField] private GameObject uiShredderRoom;
 
+    public IntoRoomTrigger IntoRoom
+    {
+        get => intoRoomTrigger;
+        set => intoRoomTrigger = value;
+    }
+
     private void CloseAllRoomsAndUIs()
     {
         HealingRoom.SetActive(false);

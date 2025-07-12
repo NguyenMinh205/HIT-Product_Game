@@ -3877,7 +3877,7 @@ GameObject:
   - component: {fileID: 4582163910737804148}
   - component: {fileID: 8382661019486492642}
   m_Layer: 9
-  m_Name: Box
+  m_Name: DefaultMachineClawBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
