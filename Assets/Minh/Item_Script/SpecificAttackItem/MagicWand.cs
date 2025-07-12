@@ -36,4 +36,9 @@ public class MagicWand : AttackWithBuff
             Buff(player);
         }
     }
+
+    public override void Upgrade()
+    {
+        damage *= 2;
+    }
 }

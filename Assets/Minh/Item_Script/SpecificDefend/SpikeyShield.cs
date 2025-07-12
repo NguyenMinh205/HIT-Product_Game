@@ -24,4 +24,9 @@ public class SpikeyShield : DefendWithBuff
             Buff(player);
         }
     }
+
+    public override void Upgrade()
+    {
+        shield *= 2;
+    }
 }

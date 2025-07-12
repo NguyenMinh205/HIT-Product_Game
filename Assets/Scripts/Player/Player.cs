@@ -111,6 +111,25 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void AddItem()
+    {
+        foreach (ItemInventory item in GamePlayController.Instance.PlayerController.TotalInventory.Items)
+        {
+            inventory.AddItem(item.itemBase, (int)Math.Ceiling((item.quantity) / 2.0), item.quantity);
+        }
+    }
+
+    public void RemoveItem(ItemBase itemBase)
+    {
+        foreach (ItemInventory item in inventory.Items)
+        {
+            if (item.itemBase == itemBase)
+            {
+                inventory.RemoveItem(itemBase, 1);
+            }
+        }
+    }
+
     public void ClearAllEffects()
     {
         foreach (IBuffEffect effect in activeEffects.ToArray())
@@ -124,18 +143,23 @@ public class Player : MonoBehaviour
         ObserverManager<EventID>.PostEven(EventID.OnTakeDamage, damage);
         if (IsDodge)
         {
-            IsDodge = false; 
+            IsDodge = false;
             return;
         }
 
         if (IsCounterAttack)
         {
+            IsCounterAttack = false;
             return;
         }
 
         float effectiveDamage = damage - stats.Shield;
+        stats.ChangeShield(-damage);
         effectiveDamage = Mathf.Max(0, effectiveDamage);
         stats.ChangeCurHP(-effectiveDamage);
+
+        health.UpdateArmor(this);
+        health.UpdateHp(this);
 
         if (stats.CurrentHP <= 0)
         {

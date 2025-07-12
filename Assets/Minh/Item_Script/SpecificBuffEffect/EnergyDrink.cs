@@ -18,4 +18,9 @@ public class EnergyDrink : BuffItem
             Buff(player);
         }
     }
+
+    public override void Upgrade()
+    {
+        return;
+    }
 }

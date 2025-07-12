@@ -76,17 +76,23 @@ public class CharacterStatSO : ScriptableObject
 
     public void ChangeShield(float value)
     {
+        if (this.shield + value <= 0)
+        {
+            this.shield = 0;
+            return;
+        }
         this.shield += value;
     }
 
     public void ChangeCoin(int value)
     {
         this.coin += value;
+        GamePlayController.Instance.PlayerController.UpdateCoinText();
     }
 
-    public void DoubleShield()
+    public void MultipleShield(int val)
     {
-        this.shield *= 2;
+        this.shield *= val;
     }
 
     public void ChangeDamageExtra(float value)
@@ -94,9 +100,9 @@ public class CharacterStatSO : ScriptableObject
         this.damageIncrease += value;
     }
 
-    public void DoubleDamageExtra()
+    public void MultipleDamageExtra(int value)
     {
-        this.damageIncrease *= 2;
+        this.damageIncrease *= value;
     }
 
     public void ChangeCriticalChance(float value)

@@ -18,4 +18,9 @@ public class VitaminPill : BuffItem
             Buff(player);
         }
     }
+
+    public override void Upgrade()
+    {
+        return;
+    }
 }

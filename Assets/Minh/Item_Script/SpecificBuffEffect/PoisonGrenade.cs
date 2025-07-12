@@ -28,6 +28,10 @@ public class PoisonGrenade : EffectItem
                 Execute(player, target);
             }
         }
+    }
 
+    public override void Upgrade()
+    {
+        effectVal = 5;
     }
 }

@@ -28,4 +28,9 @@ public class Sickle : AttackItem
             AttackEnemy(enemy);
         }
     }
+
+    public override void Upgrade()
+    {
+        damage += 10;
+    }
 }

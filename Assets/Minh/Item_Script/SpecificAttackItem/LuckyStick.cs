@@ -24,4 +24,10 @@ public class LuckyStick : AttackItem
             AttackEnemy(enemy);
         }
     }
+
+    public override void Upgrade()
+    {
+        minDamage = 5;
+        maxDamage *= 2;
+    }
 }

@@ -20,16 +20,22 @@ public class ItemBase : ScriptableObject
     public bool isStackable = true;
     public int maxStackSize = 99;
     public bool isMetal = false;
+    public bool isUpgraded;
+    public ItemBase upgradedItem;
 
     [SerializeField] private IItemAction action;
+    public IItemAction Action => action;
 
     public void ExecuteAction(Player player = null, Enemy target = null, List<Enemy> targets = null)
     {
         if (action == null)
         {
-            action = ItemDatabase.Instance.CreateItemAction(id);
+            action = ItemActionFactory.CreateItemAction(id);
+            if (isUpgraded && action != null)
+            {
+                action.Upgrade();
+            }
         }
-
 
         if (action != null && action is GreatSword greatSword)
         {
@@ -39,7 +45,7 @@ public class ItemBase : ScriptableObject
         {
             poisonGrenade.Execute(player, targets);
         }
-        else if(action != null && action is Shuriken shuriken)
+        else if (action != null && action is Shuriken shuriken)
         {
             shuriken.Execute(player, targets);
         }

@@ -27,4 +27,10 @@ public class Syringe : AttackItem
         curDamage = CalculateDamageWithCrit(player, damage);
         AttackEnemy(enemy);
     }
+
+    public override void Upgrade()
+    {
+        damageIncrease = 5;
+        maxDamage = 30;
+    }
 }

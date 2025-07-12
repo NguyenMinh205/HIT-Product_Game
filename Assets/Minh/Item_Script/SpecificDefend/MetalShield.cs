@@ -18,4 +18,9 @@ public class MetalShield : DefendItem
             Defend(player);
         }
     }
+
+    public override void Upgrade()
+    {
+        shield *= 2;
+    }
 }

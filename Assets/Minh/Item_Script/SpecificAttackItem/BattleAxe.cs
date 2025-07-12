@@ -28,4 +28,9 @@ public class BattleAxe : AttackWithEffect
             AttackEnemy(enemy);
         }
     }
+
+    public override void Upgrade()
+    {
+        damage += 25;
+    }
 }

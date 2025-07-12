@@ -10,5 +10,11 @@ public class PerkBase : ScriptableObject
     public Sprite icon;
     [TextArea(1, 10)]
     public string description;
-    
+
+    [SerializeField] private IPerkAction action;
+
+    public void ExecuteAction(Player player)
+    {
+
+    }
 }

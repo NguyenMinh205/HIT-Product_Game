@@ -18,4 +18,9 @@ public class AmuletOfStrength : BuffItem
             Buff(player);
         }
     }
+
+    public override void Upgrade()
+    {
+        buffVal *= 2;
+    }
 }

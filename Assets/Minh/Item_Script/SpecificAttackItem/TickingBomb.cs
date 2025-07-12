@@ -16,4 +16,9 @@ public class TickingBomb : BuffItem
         if (player == null) return;
         Buff(player);
     }
+
+    public override void Upgrade()
+    {
+        buffVal = 2;
+    }
 }

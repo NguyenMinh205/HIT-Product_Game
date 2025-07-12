@@ -22,4 +22,9 @@ public class SmallSword: AttackItem
             AttackEnemy(enemy);
         }
     }
+
+    public override void Upgrade()
+    {
+        damage *= 2;
+    }
 }

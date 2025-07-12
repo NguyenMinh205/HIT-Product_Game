@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public class Thief : IBuffEffect
+public class ThiefEffect : IBuffEffect
 {
     public string Name { get; set; }
     public float Value { get; set; }
     public float Duration { get; set; }
     private Player player;
 
-    public Thief(float value, float duration)
+    public ThiefEffect(float value, float duration)
     {
         Name = "thief";
         Value = value; // Số lượng vàng hoặc vật phẩm bị ăn trộm mỗi lần

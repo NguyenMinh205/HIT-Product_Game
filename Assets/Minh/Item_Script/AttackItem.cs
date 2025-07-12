@@ -8,6 +8,8 @@ public abstract class AttackItem : IItemAction
 
     public abstract void Execute(Player player, Enemy target);
 
+    public abstract void Upgrade();
+
     protected int CalculateDamageWithCrit(Player player, int baseDamage)
     {
         if (player == null || player.Stats == null) return baseDamage;

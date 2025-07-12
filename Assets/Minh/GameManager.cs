@@ -17,6 +17,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject DefaultRoom;
     private IntoRoomTrigger intoRoomTrigger;
     private GameObject currentRoom;
+    public GameObject CurrentRoom => currentRoom;
 
     [Space]
     [Header("Machine")]
