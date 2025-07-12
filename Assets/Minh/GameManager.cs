@@ -17,6 +17,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject DefaultRoom;
     private IntoRoomTrigger intoRoomTrigger;
     private GameObject currentRoom;
+    private GameObject currenMachine;
 
     [Space]
     [Header("Machine")]
@@ -32,6 +33,11 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject uiTumblerRoom;
     [SerializeField] private GameObject uiSmithRoom;
     [SerializeField] private GameObject uiShredderRoom;
+
+    public IntoRoomTrigger IntoRoom
+    {
+        set => intoRoomTrigger = value;
+    }
 
     private void CloseAllRoomsAndUIs()
     {
@@ -68,6 +74,7 @@ public class GameManager : Singleton<GameManager>
         DefaultRoom.SetActive(true);
         DefaultClawMachineBox.SetActive(true);
         currentRoom = DefaultRoom;
+        currenMachine = DefaultClawMachineBox;
         GamePlayController.Instance.StartRoom();
     }
 
@@ -128,16 +135,20 @@ public class GameManager : Singleton<GameManager>
         if (currentRoom != null)
         {
             currentRoom.SetActive(false);
+            currenMachine.SetActive(false);
             CloseAllRoomsAndUIs();
             MapController.Instance.SetActiveMapStore(true);
             MapManager.Instance.SetActiveRoomVisual(true);
             uiMap.SetActive(true);
             PlayerMapController.Instance.IsIntoRoom = false;
+            PlayerMapController.Instance.IsMoving = false;
+
             if (intoRoomTrigger != null)
             {
                 intoRoomTrigger.gameObject.SetActive(false);
             }
             currentRoom = null;
+            currenMachine = null;
         }
     }
 

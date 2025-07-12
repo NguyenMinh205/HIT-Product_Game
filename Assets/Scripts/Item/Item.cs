@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Item : MonoBehaviour
 {
@@ -14,28 +15,27 @@ public class Item : MonoBehaviour
     [SerializeField] public bool isStackable;
     [SerializeField] public int maxStackSize = 99;
 
-    [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameObject balloon;
     [SerializeField] private float moveForce;
 
 
-    private bool isPickUp;
+    private bool isPickUp = false;
     private bool isMove;
 
     public string ID
     {
         get => idItem;
     }
-    public bool IsPickUp
+    public SpriteRenderer SR
     {
-        get => this.isPickUp;
-        set => this.isPickUp = value;
+        get => this.spriteRenderer;
+        set => this.spriteRenderer = value;
     }
     private void OnEnable()
     {
-        isPickUp = false;
+        //isPickUp = false;
         isMove = false;
-        balloon.SetActive(false);
+        //balloon.SetActive(false);
     }
     public void Init(ItemBase itemBase)
     {
@@ -50,14 +50,15 @@ public class Item : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Basket"))
+        if(collision.CompareTag("Basket") && !isPickUp)
         {
             Debug.Log("Item in Basket");
             isPickUp = true;
 
+            this.GetComponent<PolygonCollider2D>().isTrigger = true;
+            this.GetComponent<Rigidbody2D>().simulated = false;
             ObserverManager<ItemMove>.PostEven(ItemMove.AddItemToMove, this);
-
-            balloon.SetActive(true);
+            
 
             ObserverManager<IDItem>.PostEven(IDItem.ItemChange, this);
         }
@@ -81,5 +82,9 @@ public class Item : MonoBehaviour
             sr.sprite.GetPhysicsShape(i, shape);
             poly.SetPath(i, shape);
         }
+    }
+    public void SetBalloon(bool val)
+    {
+        balloon.SetActive(val);
     }
 }

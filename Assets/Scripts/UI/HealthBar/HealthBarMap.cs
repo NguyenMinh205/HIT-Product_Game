@@ -18,10 +18,10 @@ public class HealthBarMap : MonoBehaviour
         ObserverManager<IDMap>.AddDesgisterEvent(IDMap.UpdateHpBar, UpdateHpBarInMap);
     }
 
-    private void OnDisable()
+/*    private void OnDisable()
     {
         ObserverManager<IDMap>.RemoveAddListener(IDMap.UpdateHpBar, UpdateHpBarInMap);
-    }
+    }*/
 
 
     public void UpdateHpBarInMap(object obj)

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6262871788618826098}
   - component: {fileID: 7929153184085620473}
   - component: {fileID: 4930247587765300604}
-  - component: {fileID: 9112401239775922810}
+  - component: {fileID: 8237852290779243864}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -97,7 +97,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 884660179733124090}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
@@ -122,16 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0905a08d957bf40bf731e668e41b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 4278605123151132739}
-  spriteIDle: {fileID: 0}
-  curent_Hp: 0
-  armor: 0
-  armorIncreased: 0
-  health: {fileID: 0}
   playerSprite: {fileID: 0}
   distancePlayerAndHealthBar: 0
-  playerAnim: {fileID: 0}
-  characterStatModifier: {fileID: 0}
+  playerAnimator: {fileID: 8237852290779243864}
+  health: {fileID: 0}
   inventory: {fileID: 4930247587765300604}
 --- !u!60 &7929153184085620473
 PolygonCollider2D:
@@ -313,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17dc6daed903e14da55412aae4ed8d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &9112401239775922810
+--- !u!114 &8237852290779243864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -322,7 +316,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 884660179733124090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6ea603d1fb522343a5b35292f9e7e6b, type: 3}
+  m_Script: {fileID: 11500000, guid: 597d65c12e8a0404cb8344357b2a10e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  animator: {fileID: 4278605123151132739}
+  timeDelayAttack: 1
+  timeDelayBuff: 1
+  timeDelayHit: 1

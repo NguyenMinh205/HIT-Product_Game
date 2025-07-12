@@ -61,7 +61,13 @@ public class HealthBar : MonoBehaviour
             if(player.Stats.Shield > 0)
             {
                 armor.SetActive(true);
+                textArmor.gameObject.SetActive(true);
                 textArmor.text = player.Stats.Shield.ToString();
+            }
+            else if(player.Stats.Shield <= 0)
+            {
+                armor.SetActive(false);
+                textArmor.gameObject.SetActive(false);
             }
         }
     }
@@ -78,6 +84,7 @@ public class HealthBar : MonoBehaviour
         }
         else if (obj is Player player)
         {
+            Debug.Log("Update Hp Player");
             textHp.text = player.Stats.CurrentHP + "/" + player.Stats.MaxHP;
             imageHp.fillAmount = (float)player.Stats.CurrentHP / player.Stats.MaxHP;
         }

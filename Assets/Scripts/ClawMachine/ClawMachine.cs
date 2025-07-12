@@ -220,7 +220,11 @@ public class ClawMachine : MonoBehaviour
     {
         //OpenClaw();
         yield return new WaitForSeconds(time);
-        if(mode != ModeClaw.DeSpawn)
+
+        if (this == null || gameObject == null || clawController == null)
+            yield break;
+
+        if (mode != ModeClaw.DeSpawn)
         {
             mode = ModeClaw.DeSpawn;
             clawController.ChangeClaw();

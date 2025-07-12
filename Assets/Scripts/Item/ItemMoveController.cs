@@ -14,13 +14,13 @@ public class ItemMoveController : MonoBehaviour
     [SerializeField] private Transform posEnd;
     [SerializeField] private ItemUsage itemUsage;
     private Transform playerTarget;
-    private Queue<Item> itemQueue = new Queue<Item>();
+    [SerializeField] private List<Item> listItemMove = new List<Item>();
     private bool isRunningCoroutine = false;
     private bool isPaused = false;
 
     private List<Tween> activeTweens = new List<Tween>();
     [SerializeField] private float delayBetweenItems = 0.2f;
-    [SerializeField] private float pauseAfterAnyFinish = 1f;
+    [SerializeField] private float pauseAfterAnyFinish = 4f;
 
     private bool isTemporarilyPaused = false;
 
@@ -33,7 +33,8 @@ public class ItemMoveController : MonoBehaviour
     {
         if (obj is Item item)
         {
-            itemQueue.Enqueue(item);
+            listItemMove.Add(item);
+            item.gameObject.SetActive(false);
 
             if (!isRunningCoroutine && !isPaused)
                 StartCoroutine(StartMovingItems());
@@ -44,18 +45,22 @@ public class ItemMoveController : MonoBehaviour
     {
         isRunningCoroutine = true;
 
-        playerTarget = GamePlayController.Instance.PlayerController.CurrentPlayer?.transform;
+        /*playerTarget = GamePlayController.Instance.PlayerController.CurrentPlayer?.transform;
         if (playerTarget == null)
         {
             isRunningCoroutine = false;
             yield break;
         }
-
-        while (itemQueue.Count > 0)
+*/
+        while (listItemMove.Count > 0)
         {
-            if (isPaused) yield break;
-
-            Item item = itemQueue.Dequeue();
+            //if (isPaused) yield break;
+            Debug.Log("Check Item Count");
+            Item item = listItemMove[0];
+            listItemMove.RemoveAt(0);
+            Debug.Log("Set True Item");
+            item.gameObject.SetActive(true);
+            item.SetBalloon(true);
             MoveItem(item);
 
             yield return new WaitForSeconds(delayBetweenItems);
@@ -66,14 +71,20 @@ public class ItemMoveController : MonoBehaviour
 
     private void MoveItem(Item item)
     {
+        Debug.Log("Move Item");
+        //item.gameObject.SetActive(true);
         //item.GetComponent<Collider2D>().enabled = false;
-        item.GetComponent<PolygonCollider2D>().isTrigger = true;
+        //item.GetComponent<PolygonCollider2D>().isTrigger = true;
 
         Vector3 start = posStart.position;
         item.transform.position = start;
-        Vector3 end = playerTarget.position;
+        Vector3 end = posEnd.position;
+
+
         Vector3 dropPoint = start + Vector3.down * 1.39f + Vector3.left * 0.37f;
         Vector3 midCurve = dropPoint + Vector3.left * 6.4f;
+
+
         Vector3[] path = new Vector3[] { start, dropPoint, midCurve, end };
 
         float duration = Vector3.Distance(start, end) / 5f * 2f;
@@ -96,30 +107,7 @@ public class ItemMoveController : MonoBehaviour
         {
             Debug.Log("Item Complete Player");
 
-            var player = GamePlayController.Instance.PlayerController.CurrentPlayer;
-            var enemyList = GamePlayController.Instance.EnemyController.ListEnemy;
-
-            if (itemUsage == null)
-            {
-                Debug.LogWarning("itemUsage is null");
-                return;
-            }
-
-            if (player == null)
-            {
-                Debug.LogWarning("CurrentPlayer is null");
-                return;
-            }
-
-            if (enemyList == null || enemyList.Count == 0 || enemyList[0] == null)
-            {
-                Debug.LogWarning("Enemy is null");
-                return;
-            }
-
-            itemUsage.UseItem(item.ID, player, enemyList[0]);
-            ObserverManager<IDItem>.PostEven(IDItem.ItemPlayer, item);
-            PoolingManager.Despawn(item.gameObject);
+            HandleItemArrived(item);
         });
 
         if (isPaused)
@@ -130,52 +118,65 @@ public class ItemMoveController : MonoBehaviour
         activeTweens.Add(seq);
     }
 
-    private IEnumerator PauseAllTweensTemporarily()
+    private void HandleItemArrived(Item item)
     {
-        isTemporarilyPaused = true;
+        var player = GamePlayController.Instance.PlayerController.CurrentPlayer;
+        var enemyList = GamePlayController.Instance.EnemyController.ListEnemy;
 
-        foreach (var tween in activeTweens)
+        if (itemUsage == null || player == null || enemyList == null || enemyList.Count == 0)
         {
-            if (tween.IsActive() && tween.IsPlaying())
-            {
-                Debug.Log("Pause Tween");
-                tween.Pause();
-            }
+            Debug.LogWarning("Missing references when using item");
+            return;
         }
 
-        yield return new WaitForSeconds(pauseAfterAnyFinish);
+        itemUsage.UseItem(item.ID, player, enemyList[0]);
+        ObserverManager<IDItem>.PostEven(IDItem.ItemPlayer, item);
+        
+        EffectItem(item);
 
-        foreach (var tween in activeTweens)
-        {
-            if (tween.IsActive() && !tween.IsPlaying())
-                tween.Play();
-        }
-
-        isTemporarilyPaused = false;
+        StartCoroutine(PauseThenResume());
     }
 
-/*    public void PauseMovement()
+    public void PauseMovement()
     {
+        if (isPaused) return;
         isPaused = true;
 
-        foreach (var tween in activeTweens)
-        {
-            if (tween.IsActive()) tween.Pause();
-        }
+        // Pause tất cả tween đang chạy
+        foreach (var seq in activeTweens)
+            if (seq.IsActive()) seq.Pause();
     }
-
+    private IEnumerator PauseThenResume()
+    {
+        PauseMovement();
+        yield return new WaitForSeconds(pauseAfterAnyFinish);
+        ResumeMovement();
+    }
     public void ResumeMovement()
     {
+        if (!isPaused) return;
         isPaused = false;
 
-        foreach (var tween in activeTweens)
-        {
-            if (tween.IsActive()) tween.Play();
-        }
+        foreach (var seq in activeTweens)
+            if (seq.IsActive()) seq.Play();
 
-        if (!isRunningCoroutine && itemQueue.Count > 0)
+        // Tiếp tục hàng đợi nếu còn item
+        //if (!isRunningCoroutine && listItemMove.Count > 0)
+            //StartCoroutine(StartMovingItems());
+    }
+
+    public void EffectItem(Item item)
+    {
+        Sequence fx = DOTween.Sequence();
+
+        fx.Join(item.transform.DOScale(item.transform.localScale * 1.3f, 1f)
+                 .SetEase(Ease.OutBack));
+
+        var sr = item.SR;
+        fx.Join(sr.DOFade(0f, 1f));
+        fx.OnComplete(() =>
         {
-            StartCoroutine(StartMovingItems());
-        }
-    }*/
+            PoolingManager.Despawn(item.gameObject);
+        });
+    }
 }

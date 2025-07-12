@@ -160,17 +160,20 @@ public class GamePlayController : Singleton<GamePlayController>
         clawController.EndGame();
         clawController.IsStart = false;
         enemyController.EndGame();
+        playerController.EndGame();
+        itemController.EndGame();
 
-        //MapController.Instance.SetActiveMapStore(true);
+        GameManager.Instance.OutRoom();
+        /*MapController.Instance.SetActiveMapStore(true);
+        intoRoomTrigger.gameObject.SetActive(false);
         StartCoroutine(DelayOutTrigger(0.2f));
-        //MapManager.Instance.SetActiveRoomVisual(true);
+        MapManager.Instance.SetActiveRoomVisual(true);*/
 
-        PlayerMapController.Instance.IsIntoRoom = false;
-        PlayerMapController.Instance.IsMoving = false;
+        /*PlayerMapController.Instance.IsIntoRoom = false;
+        PlayerMapController.Instance.IsMoving = false;*/
 
         StartCoroutine(PlayerMapController.Instance.MoveToPosition(-1 * directionPlayer));
 
-        GameManager.Instance.OutRoom();
     }
 
     IEnumerator DelayOutTrigger(float time)
@@ -184,14 +187,17 @@ public class GamePlayController : Singleton<GamePlayController>
         clawController.EndGame();
         clawController.IsStart = false;
         enemyController.EndGame();
+        playerController.EndGame();
+        itemController.EndGame();
+        GameManager.Instance.OutRoom();
 
         /*MapController.Instance.SetActiveMapStore(true);
+        intoRoomTrigger.gameObject.SetActive(false);
         MapManager.Instance.SetActiveRoomVisual(true);*/
 
-        PlayerMapController.Instance.IsIntoRoom = false;
-        PlayerMapController.Instance.IsMoving = false;
+        /*PlayerMapController.Instance.IsIntoRoom = false;
+        PlayerMapController.Instance.IsMoving = false;*/
 
         ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar, playerController.CurrentPlayer);
-        GameManager.Instance.OutRoom();
     }
 }

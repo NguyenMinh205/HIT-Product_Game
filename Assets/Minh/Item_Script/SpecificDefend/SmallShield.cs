@@ -9,6 +9,7 @@ public class SmallShield : DefendItem
     public override void Defend(Player player)
     {
         player.Stats.ChangeShield(shield);
+        player.Health.UpdateArmor(player);
     }
 
     public override void Execute(Player player, Enemy enemy)
@@ -16,6 +17,7 @@ public class SmallShield : DefendItem
         if (player != null)
         {
             Defend(player);
+            ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Buff, null);
         }
     }
 }

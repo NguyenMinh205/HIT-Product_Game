@@ -77,6 +77,8 @@ public class ClawController : MonoBehaviour
     }
     public void ResetMachineClaw()
     {
+        if (!isStart) return;
+
         Debug.Log("Reset Claw Machine");
         claws.Clear();
         Debug.Log("Reset -> Spawn");
@@ -114,8 +116,8 @@ public class ClawController : MonoBehaviour
             Destroy(claws[i].gameObject);
         }
         claws.Clear();
-        Destroy(currentClaw.gameObject);
-        currentClaw = null;
+        if (currentClaw != null)
+            Destroy(currentClaw.gameObject);
     }
 
 }

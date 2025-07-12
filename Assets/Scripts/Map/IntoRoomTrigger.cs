@@ -12,7 +12,7 @@ public class IntoRoomTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             CheckIDRoom(idNameRoom);
-            GamePlayController.Instance.IntoRoom = this;
+            GameManager.Instance.IntoRoom = this;
         }
     }
 

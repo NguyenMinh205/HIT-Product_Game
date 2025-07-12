@@ -15,7 +15,7 @@ MonoBehaviour:
   dataEnemy:
   - idEnemy: enemy01
     nameEnemy: GreenSlime
-    hpEnemy: 10
+    hpEnemy: 5
     damageEnemy: 9
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1270891317, guid: 6bce7071b00f308438d96b4c54407650, type: 3}
@@ -25,7 +25,7 @@ MonoBehaviour:
     - actionEnemy: 00000000
   - idEnemy: enemy02
     nameEnemy: FireSlime
-    hpEnemy: 10
+    hpEnemy: 5
     damageEnemy: 3
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1214416665, guid: 0a19935fd40f3ec478b1f332b34fa255, type: 3}
@@ -35,7 +35,7 @@ MonoBehaviour:
     - actionEnemy: 000000000000000000000000
   - idEnemy: enemy03
     nameEnemy: IceSlime
-    hpEnemy: 15
+    hpEnemy: 5
     damageEnemy: 6
     armorIncreased: 6
     spriteEnemyIdle: {fileID: 59322720, guid: 4a28702e3377b9744b8a8cfba4dc2cc9, type: 3}
@@ -45,7 +45,7 @@ MonoBehaviour:
     - actionEnemy: 01000000
   - idEnemy: enemy04
     nameEnemy: HiveRide
-    hpEnemy: 16
+    hpEnemy: 5
     damageEnemy: 3
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -783777960, guid: ef9edf03a9471db4393f4a4e52c51df5, type: 3}
@@ -55,7 +55,7 @@ MonoBehaviour:
     - actionEnemy: 000000000000000000000000
   - idEnemy: enemy05
     nameEnemy: MushroomHead
-    hpEnemy: 20
+    hpEnemy: 5
     damageEnemy: 5
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1243730137, guid: 0e816514cd42aec48afa8c80d96680f9, type: 3}

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer playerSprite;
     [SerializeField] private float distancePlayerAndHealthBar;
-    [SerializeField] private RuntimeAnimatorController playerAnim;
+    [SerializeField] private PlayerAnimator playerAnimator;
     [SerializeField] private HealthBar health;
 
     private Character character;
@@ -33,7 +34,7 @@ public class Player : MonoBehaviour
         character = selectedCharacter;
         if (character.skins.Count > index)
         {
-            playerAnim = character.skins[index].anim;
+            playerAnimator.InitAnimator(character.skins[index].anim);
         }
         else
         {
@@ -61,6 +62,8 @@ public class Player : MonoBehaviour
             }
         }
         UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
+        health.UpdateHp(this);
+        health.UpdateArmor(this);
     }
 
     public void CalculationPositionPlayer(Vector3 posPlayer)
@@ -157,5 +160,7 @@ public class Player : MonoBehaviour
     {
         ClearAllEffects();
         Debug.Log("Game Over for Player");
+        this.Health.UnShowHealthBarEnemy();
+        PoolingManager.Despawn(gameObject);
     }
 }
