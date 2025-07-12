@@ -14,4 +14,6 @@ public class ItemInventory
 
     public string ItemId => itemBase != null ? itemBase.id : string.Empty;
     public Sprite Icon => itemBase != null ? itemBase.icon : null;
+
+    public bool CanUpgrade => itemBase != null && !itemBase.isUpgraded && itemBase.upgradedItem != null;
 }

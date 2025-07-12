@@ -39,7 +39,7 @@ public static class BuffEffectFactory
             case "thorns_damage":
                 return new ThornsDamage(value, duration);
             case "thief":
-                return new Thief(value, duration);
+                return new ThiefEffect(value, duration);
 
             default:
                 Debug.LogWarning($"Hiệu ứng {effectName} không được hỗ trợ!");

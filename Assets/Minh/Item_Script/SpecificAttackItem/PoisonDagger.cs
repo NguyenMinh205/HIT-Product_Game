@@ -6,7 +6,7 @@ public class PoisonDagger : AttackWithEffect
 {
     private int damage = 5;
     public int Damage { get { return damage; } set { damage = value; } }
-    private int effectVal = 2;
+    private int effectVal = 3;
     public int EffectVal => effectVal;
     private int curDamage = 0;
     public override void AttackEnemy(Enemy enemy)
@@ -28,5 +28,11 @@ public class PoisonDagger : AttackWithEffect
             Effect(enemy);
             AttackEnemy(enemy);
         }
+    }
+
+    public override void Upgrade()
+    {
+        damage *= 2;
+        effectVal = 5;
     }
 }

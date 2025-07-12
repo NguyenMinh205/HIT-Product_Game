@@ -21,4 +21,9 @@ public class SpikedMace : AttackItem
             AttackEnemy(enemy);
         }
     }
+
+    public override void Upgrade()
+    {
+        shieldSpendPercent /= 2;
+    }
 }

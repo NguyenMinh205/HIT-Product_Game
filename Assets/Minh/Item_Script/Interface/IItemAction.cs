@@ -6,4 +6,5 @@ using UnityEngine;
 public interface IItemAction
 {
     void Execute(Player player, Enemy target);
+    void Upgrade();
 }

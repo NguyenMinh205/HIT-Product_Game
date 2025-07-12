@@ -32,6 +32,10 @@ public class GreatSword : AttackItem
                 Execute(player, target);
             }
         } 
-            
+    }
+
+    public override void Upgrade()
+    {
+        damage *= 2;
     }
 }

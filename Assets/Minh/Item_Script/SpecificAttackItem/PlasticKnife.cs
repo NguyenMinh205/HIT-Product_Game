@@ -27,4 +27,10 @@ public class PlasticKnife : AttackItem
             AttackEnemy(enemy);
         }
     }
+
+    public override void Upgrade()
+    {
+        damage += 10;
+        minDamage = 5;
+    }
 }

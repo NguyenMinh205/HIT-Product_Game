@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class StrengthPoison : BuffItem
 {
+    private int buffVal = 2;
+    public int BuffVal { get; set; }
     public override void Buff(Player player)
     {
-        player.Stats.DoubleDamageExtra();
+        player.Stats.MultipleDamageExtra(buffVal);
     }
 
     public override void Execute(Player player, Enemy enemy)
@@ -15,5 +17,10 @@ public class StrengthPoison : BuffItem
         {
             Buff(player);
         }
+    }
+
+    public override void Upgrade()
+    {
+        buffVal = 3;
     }
 }

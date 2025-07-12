@@ -33,4 +33,10 @@ public class Warhammer : AttackWithBuff
             Buff(player);
         }
     }
+
+    public override void Upgrade()
+    {
+        damage += 10;
+        buffVal *= 2;
+    }
 }

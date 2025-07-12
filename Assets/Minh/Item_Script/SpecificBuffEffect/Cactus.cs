@@ -19,4 +19,9 @@ public class Cactus : BuffItem
             Buff(player);
         }
     }
+
+    public override void Upgrade()
+    {
+        buffVal *= 2;
+    }
 }

@@ -34,4 +34,9 @@ public class DoubleBladedSword : AttackWithBuff
             Buff(player);
         }
     }
+
+    public override void Upgrade()
+    {
+        damage += 10;
+    }
 }

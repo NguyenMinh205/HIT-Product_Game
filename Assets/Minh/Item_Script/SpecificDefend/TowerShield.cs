@@ -18,4 +18,9 @@ public class TowerShield : DefendItem
             Defend(player);
         }
     }
+
+    public override void Upgrade()
+    {
+        shield += 10;
+    }
 }

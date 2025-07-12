@@ -6,5 +6,7 @@ public abstract class EffectItem : IItemAction
 {
     public abstract void Effect(Enemy enemy);
 
+    public abstract void Upgrade();
+
     public abstract void Execute(Player player, Enemy target);
 }

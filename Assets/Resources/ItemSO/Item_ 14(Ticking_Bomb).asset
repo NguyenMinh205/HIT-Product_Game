@@ -21,3 +21,5 @@ MonoBehaviour:
   isStackable: 0
   maxStackSize: 99
   isMetal: 0
+  upgradedItem: {fileID: 11400000, guid: 231c2dd19ff6ddf4a909562086245723, type: 2}
+  isUpgrade: 0

@@ -13,14 +13,19 @@ public class Thermometer : AttackItem
         enemy.ReceiverDamage(damage);
     }
 
-    public override void Execute(Player player, Enemy target)
+    public override void Execute(Player player, Enemy enemy)
     {
-        if (player != null && target != null)
+        if (player != null && enemy != null)
         {
             float lostHP = player.Stats.MaxHP - player.Stats.CurrentHP;
             damage = multiDamage * ((int)lostHP / 2);
             damage = CalculateDamageWithCrit(player, damage);
-            AttackEnemy(target);
+            AttackEnemy(enemy);
         } 
+    }
+
+    public override void Upgrade()
+    {
+        multiDamage *= 2;
     }
 }

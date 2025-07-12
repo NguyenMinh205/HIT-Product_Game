@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Eyepatch : BuffItem
 {
-    private int buffVal = 50;
-    public int BuffVal { get { return buffVal; } set { buffVal = value; } }
+    private float buffVal = 0.5f;
+    public float BuffVal { get { return buffVal; } set { buffVal = value; } }
 
     public override void Buff(Player player)
     {
@@ -18,5 +18,10 @@ public class Eyepatch : BuffItem
         {
             Buff(player);
         }
+    }
+
+    public override void Upgrade()
+    {
+        buffVal *= 2;
     }
 }

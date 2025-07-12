@@ -23,9 +23,9 @@ public class Inventory : MonoBehaviour
         UpdateInventoryUI();
     }
 
-    public void RemoveItem(string itemId, int quantity)
+    public void RemoveItem(ItemBase itemBase, int quantity)
     {
-        ItemInventory item = items.Find(item => item.ItemId == itemId);
+        ItemInventory item = items.Find(item => item.itemBase == itemBase);
         if (item != null)
         {
             item.quantity -= quantity;
@@ -33,6 +33,24 @@ public class Inventory : MonoBehaviour
             {
                 items.Remove(item);
             }
+            UpdateInventoryUI();
+        }
+    }
+
+    public void UpgradeItem(ItemInventory item)
+    {
+        if (item != null && item.CanUpgrade)
+        {
+            // Thay thế ItemBase bằng upgradedItem
+            ItemBase upgradedItemBase = item.itemBase.upgradedItem;
+            item.quantity--; // Giảm số lượng vật phẩm gốc
+            if (item.quantity <= 0)
+            {
+                items.Remove(item);
+            }
+            // Thêm vật phẩm nâng cấp với số lượng 1
+            ItemInventory newItem = new ItemInventory(upgradedItemBase, 1);
+            items.Add(newItem);
             UpdateInventoryUI();
         }
     }
@@ -49,6 +67,4 @@ public class Inventory : MonoBehaviour
         //    inventoryUIController.UpdateInventoryDisplay(items);
         //}
     }
-
-    //[SerializeField] private InventoryUIController inventoryUIController;
 }

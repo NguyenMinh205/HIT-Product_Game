@@ -20,4 +20,9 @@ public class SmallShield : DefendItem
             ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Buff, null);
         }
     }
+
+    public override void Upgrade()
+    {
+        shield *= 2;
+    }
 }

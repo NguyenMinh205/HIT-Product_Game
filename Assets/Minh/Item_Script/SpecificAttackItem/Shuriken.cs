@@ -40,4 +40,10 @@ public class Shuriken : AttackWithEffect
             }
         }
     }
+
+    public override void Upgrade()
+    {
+        damage = 5;
+        effectVal *= 2;
+    }
 }

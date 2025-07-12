@@ -10,6 +10,7 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private CharacterStatSO playerStat;
     [SerializeField] private Inventory totalInventory;
     [SerializeField] private TextMeshProUGUI numOfCoin;
+    [SerializeField] private TextMeshProUGUI numOfCoinInRoom;
     public Inventory TotalInventory => totalInventory;
     public CharacterStatSO PlayerStat => playerStat;
 
@@ -50,8 +51,9 @@ public class PlayerManager : Singleton<PlayerManager>
         currentPlayer?.EndGame();
     }
 
-    private void UpdateCoinText()
+    public void UpdateCoinText()
     {
-        numOfCoin.text = playerStat.Coin.ToString();
+        numOfCoin.text = CurrentPlayer.Stats.Coin.ToString();
+        numOfCoinInRoom.text = CurrentPlayer.Stats.Coin.ToString();
     }    
 }

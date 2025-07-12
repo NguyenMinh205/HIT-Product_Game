@@ -28,4 +28,9 @@ public class Paperclips : AttackItem
             AttackEnemy(enemy);
         }
     }
+
+    public override void Upgrade()
+    {
+        damage *= 2;
+    }
 }
