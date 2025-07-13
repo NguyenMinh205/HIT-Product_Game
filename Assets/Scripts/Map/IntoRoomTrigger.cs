@@ -22,39 +22,39 @@ public class IntoRoomTrigger : MonoBehaviour
         {
             case "boss_fight":
                 Debug.Log("Boss FIght");
-                GameManager.Instance.OpenRoomBossFight();
+                StartCoroutine(GameManager.Instance.OpenRoomBossFight());
                 break;
             case "fight":
                 Debug.Log("Fight");
-                GameManager.Instance.OpenRoomFight();
+                StartCoroutine(GameManager.Instance.OpenRoomFight());
                 break;
             case "gambling":
                 Debug.Log("Gambling");
-                GameManager.Instance.OpenRoomPachinko();
+                StartCoroutine(GameManager.Instance.OpenRoomPachinko());
                 break;
             case "hard_fight":
                 Debug.Log("Hard FIght");
-                GameManager.Instance.OpenRoomFight();
+                StartCoroutine(GameManager.Instance.OpenRoomFight());
                 break;
             case "healing":
                 Debug.Log("Healing");
-                GameManager.Instance.OpenRoomHealing();
+                StartCoroutine(GameManager.Instance.OpenRoomHealing());
                 break;
             case "mystery_machine":
                 Debug.Log("Mystery Claw Machine");
-                GameManager.Instance.OpenRoomMystery();
+                StartCoroutine(GameManager.Instance.OpenRoomMystery());
                 break;
             case "perk":
                 Debug.Log("Perk Reward");
-                GameManager.Instance.OpenRoomPerkReward();
+                StartCoroutine(GameManager.Instance.OpenRoomPerkReward());
                 break;
             case "shredder":
                 Debug.Log("Shredder");
-                GameManager.Instance.OpenRoomSmith();
+                StartCoroutine(GameManager.Instance.OpenRoomShredder());
                 break;
             case "upgrade":
                 Debug.Log("Upgrade Smith");
-                GameManager.Instance.OpenRoomShredder();
+                StartCoroutine(GameManager.Instance.OpenRoomSmith());
                 break;
         }
     }

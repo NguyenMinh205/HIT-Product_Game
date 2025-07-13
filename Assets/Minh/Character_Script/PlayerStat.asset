@@ -15,7 +15,7 @@ MonoBehaviour:
   characterId: 
   currentHP: 100
   maxHP: 100
-  coin: 0
+  coin: 50
   damageIncrease: 0
   criticalChance: 0.05
   criticalDamage: 1.8

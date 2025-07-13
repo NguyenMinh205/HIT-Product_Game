@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -37,7 +38,7 @@ public class SmithRoomManager : MonoBehaviour
         upgradeBtn.onClick.AddListener(UpgradeSelectedItem);
     }
 
-    private void OnEnable()
+    public void Init()
     {
         inventory = GamePlayController.Instance.PlayerController.TotalInventory;
         LoadInventoryList();
@@ -71,7 +72,14 @@ public class SmithRoomManager : MonoBehaviour
         {
             selectedItem = itemBase;
 
-            // Hiển thị chi tiết trước nâng cấp
+            CanvasGroup canvasGroupBefore = itemDetailBeforeUpgrade.GetComponent<CanvasGroup>();
+            if (canvasGroupBefore == null)
+            {
+                canvasGroupBefore = itemDetailBeforeUpgrade.AddComponent<CanvasGroup>();
+            }
+
+            canvasGroupBefore.alpha = 0f;
+
             itemDetailBeforeUpgrade.SetActive(true);
             detailIconBefore.sprite = itemBase.icon;
             detailIconBefore.SetNativeSize();
@@ -79,13 +87,26 @@ public class SmithRoomManager : MonoBehaviour
             detailNameBefore.text = itemBase.itemName;
             detailDescriptionBefore.text = itemBase.description;
 
+            canvasGroupBefore.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
+
             // Hiển thị chi tiết sau nâng cấp
+
+            CanvasGroup canvasGroupAfter = itemDetailAfterUpgrade.GetComponent<CanvasGroup>();
+            if (canvasGroupAfter == null)
+            {
+                canvasGroupAfter = itemDetailAfterUpgrade.AddComponent<CanvasGroup>();
+            }
+
+            canvasGroupAfter.alpha = 0f;
+
             itemDetailAfterUpgrade.SetActive(true);
             detailIconAfter.sprite = itemBase.upgradedItem.icon;
             detailIconAfter.SetNativeSize();
             detailIconAfter.rectTransform.sizeDelta *= 0.85f;
             detailNameAfter.text = itemBase.upgradedItem.itemName;
             detailDescriptionAfter.text = itemBase.upgradedItem.description;
+
+            canvasGroupAfter.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
         }
         else
         {
