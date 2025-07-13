@@ -1,4 +1,5 @@
-﻿using Gameplay;
+﻿using DG.Tweening;
+using Gameplay;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -28,6 +29,14 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
     [SerializeField] private TextMeshProUGUI coinToRollTxt;
     [SerializeField] private ItemDatabase itemDatabase;
 
+    [Space]
+    [Header("Item Detail")]
+    [SerializeField] private GameObject itemDetail;
+    [SerializeField] private Image detailIcon;
+    [SerializeField] private TextMeshProUGUI detailName;
+    [SerializeField] private TextMeshProUGUI detailDescription;
+
+
     private PachinkoState _state = PachinkoState.Waiting;
     private PachinkoItem _item;
     private bool _gameEnded;
@@ -46,18 +55,38 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
         curClaw.Init(this, spawnPos.position);
         startButton?.onClick.AddListener(StartGame);
         rollButton?.onClick.AddListener(RollItem);
+        _state = PachinkoState.Waiting;
 
         // Khởi tạo vật phẩm ngẫu nhiên khi bắt đầu room
-        _item = Instantiate(itemPrefab, curClaw.ItemPosition.position, Quaternion.identity, this.transform.parent);
+        _item = PoolingManager.Spawn(itemPrefab, curClaw.ItemPosition.position, Quaternion.identity, this.transform.parent);
         ItemBase newItem = itemDatabase.GetRandomItem();
-        while (newItem == _lastRolledItem && itemDatabase.GetItems().Count > 1) // Tránh trùng vật phẩm trước
-        {
-            newItem = itemDatabase.GetRandomItem();
-        }
         _lastRolledItem = newItem;
-        _item.Init(newItem.icon);
+        _item.Init(newItem);
         _item.SetDrop();
+        UpdateItemDetail();
         UpdateCoinTexts(); // Cập nhật văn bản ban đầu
+    }
+
+    public void UpdateItemDetail()
+    {
+        if (_lastRolledItem != null)
+        {
+            CanvasGroup canvasGroup = itemDetail.GetComponent<CanvasGroup>();
+            if (canvasGroup == null)
+            {
+                canvasGroup = itemDetail.AddComponent<CanvasGroup>();
+            }
+
+            canvasGroup.alpha = 0f;
+
+            detailIcon.sprite = _lastRolledItem.icon;
+            detailIcon.SetNativeSize();
+            detailIcon.rectTransform.sizeDelta *= 0.7f;
+            detailName.text = _lastRolledItem.itemName;
+            detailDescription.text = _lastRolledItem.description;
+
+            canvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
+        }
     }
 
     private void UpdateCoinTexts()
@@ -68,7 +97,7 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
             coinToRollTxt.text = coinToRoll.ToString();
     }
 
-    private void StartGame()
+    public void StartGame()
     {
         if (_state != PachinkoState.Waiting || _item == null) return;
         if (GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin < coinToStart)
@@ -97,8 +126,9 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
             newItem = itemDatabase.GetRandomItem();
         }
         _lastRolledItem = newItem;
-        _item.Init(newItem.icon);
+        _item.Init(newItem);
         coinToRoll *= 2;
+        UpdateItemDetail();
         UpdateCoinTexts();
     }
 
@@ -111,28 +141,27 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
     public void EndGame(bool success)
     {
         if (_state != PachinkoState.Dropping) return;
+        PoolingManager.Despawn(_item.gameObject);
+        _item = null;
         if (success)
         {
             _state = PachinkoState.Ended;
             _gameEnded = true;
             GamePlayController.Instance.PlayerController.TotalInventory.AddItem(_lastRolledItem, 1);
             Debug.Log("Thắng: Vật phẩm trúng rổ!");
+            coinToRoll = 2;
+            coinToStart += 2;
             GameManager.Instance.OutRoom();
         }
         else
         {
             _state = PachinkoState.Waiting;
             _gameEnded = false;
-            _item = Instantiate(itemPrefab, curClaw.ItemPosition.position, Quaternion.identity, this.transform.parent);
-            _item.Init(_lastRolledItem.icon);
+            _item = PoolingManager.Spawn(itemPrefab, curClaw.ItemPosition.position, Quaternion.identity, this.transform.parent);
+            _item.Init(_lastRolledItem);
             _item.SetDrop();
         }
-        if (success)
-        {
-            Destroy(_item.gameObject);
-            if (_item != null) _item = null;
-            _lastRolledItem = null; // Reset vật phẩm trước khi kết thúc
-        }
+        _lastRolledItem = null;
     }
 
     private void OnDisable()

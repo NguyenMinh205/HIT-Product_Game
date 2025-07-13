@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +14,23 @@ public class ShredderRoomManager : MonoBehaviour
     [SerializeField] private Transform shredArea;
 
     [Space]
-    [Header("Chi tiết item")]
+    [Header("Item Detail")]
     [SerializeField] private GameObject itemDetail;
     [SerializeField] private Image detailIcon;
     [SerializeField] private TextMeshProUGUI detailName;
     [SerializeField] private TextMeshProUGUI detailDescription;
 
-    [SerializeField] private TextMeshProUGUI shredCostText; // Hiển thị tổng chi phí
+    [SerializeField] private TextMeshProUGUI shredCostText;
     [SerializeField] private int shredCostPerItem = 10;
+    [SerializeField] private Button shredBtn;
     private int numItemToShred = 0;
     private Inventory inventory;
     private List<ItemInventoryUI> itemsToShred = new List<ItemInventoryUI>();
 
-    private void OnEnable()
+    public void Init()
     {
         inventory = GamePlayController.Instance.PlayerController.TotalInventory;
+        shredBtn.onClick.AddListener(ShredItems);
         LoadInventoryList();
         UpdateShredCost();
     }
@@ -64,11 +67,22 @@ public class ShredderRoomManager : MonoBehaviour
 
     public void ShowDetail(ItemBase itemBase)
     {
+        CanvasGroup canvasGroup = itemDetail.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = itemDetail.AddComponent<CanvasGroup>();
+        }
+
+        canvasGroup.alpha = 0f;
+        itemDetail.SetActive(true);
+
         detailIcon.sprite = itemBase.icon;
         detailIcon.SetNativeSize();
         detailIcon.rectTransform.sizeDelta *= 0.85f;
         detailName.text = itemBase.itemName;
         detailDescription.text = itemBase.description;
+
+        canvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
 
         foreach (Transform child in listItemStore)
         {

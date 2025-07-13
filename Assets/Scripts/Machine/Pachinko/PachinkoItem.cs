@@ -5,17 +5,21 @@ public class PachinkoItem : MonoBehaviour
 {
     private Rigidbody2D _rb;
     [SerializeField] private Image itemImage;
+    [SerializeField] private ItemBase itemBase;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Init(Sprite itemSprite = null)
+    public void Init(ItemBase item)
     {
-        if (itemImage != null && itemSprite != null)
+        if (itemImage != null && item != null)
         {
-            itemImage.sprite = itemSprite;
+            itemBase = item;
+            itemImage.sprite = item.icon;
+            itemImage.SetNativeSize();
+            itemImage.rectTransform.sizeDelta *= 0.0035f;
             itemImage.enabled = true;
         }
     }

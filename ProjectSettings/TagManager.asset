@@ -55,11 +55,11 @@ TagManager:
   - name: IconTile
     uniqueID: 2052983253
     locked: 0
-  - name: Claw
-    uniqueID: 3693211049
-    locked: 0
   - name: Machine
     uniqueID: 726081065
+    locked: 0
+  - name: Claw
+    uniqueID: 3693211049
     locked: 0
   - name: Item
     uniqueID: 3082289705

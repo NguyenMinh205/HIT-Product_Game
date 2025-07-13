@@ -21,9 +21,9 @@ public class GameManager : Singleton<GameManager>
 
     [Space]
     [Header("Machine")]
-    [SerializeField] private GameObject DefaultClawMachineBox;
-    [SerializeField] private GameObject PachinkoMachineBox;
-    [SerializeField] private GameObject TumblerMachineBox;
+    [SerializeField] private GameObject defaultClawMachineBox;
+    [SerializeField] private GameObject pachinkoMachineBox;
+    [SerializeField] private GameObject tumblerMachineBox;
 
     [Space]
     [Header("UI")]
@@ -55,79 +55,97 @@ public class GameManager : Singleton<GameManager>
         uiTumblerRoom.SetActive(false);
         uiSmithRoom.SetActive(false);
         uiShredderRoom.SetActive(false);
+
+        defaultClawMachineBox.SetActive(false);
+        pachinkoMachineBox.SetActive(false);
+        tumblerMachineBox.SetActive(false);
     }
 
-    private IEnumerator OpenRoom()
+    private void OpenRoom()
     {
         CloseAllRoomsAndUIs();
         PlayerMapController.Instance.IsIntoRoom = true;
-
-        yield return new WaitForSeconds(0.5f);
         MapController.Instance.SetActiveMapStore(false);
         MapManager.Instance.SetActiveRoomVisual(false);
         uiMap.SetActive(false);
         uiInRoom.SetActive(true);
     }
 
-    public void OpenRoomFight()
+    public IEnumerator OpenRoomFight()
     {
-        StartCoroutine(OpenRoom());
+        yield return new WaitForSeconds(0.5f);
+        OpenRoom();
         DefaultRoom.SetActive(true);
-        DefaultClawMachineBox.SetActive(true);
+        defaultClawMachineBox.SetActive(true);
         currentRoom = DefaultRoom;
         GamePlayController.Instance.StartRoom();
     }
 
-    public void OpenRoomBossFight()
+    public IEnumerator OpenRoomBossFight()
     {
-        StartCoroutine(OpenRoom());
+        yield return new WaitForSeconds(0.5f);
+        OpenRoom();
         BossRoom.SetActive(true);
+        defaultClawMachineBox.SetActive(true);
         currentRoom = BossRoom;
     }
 
-    public void OpenRoomHealing()
+    public IEnumerator OpenRoomHealing()
     {
-        StartCoroutine(OpenRoom());
+        yield return new WaitForSeconds(0.5f);
+        OpenRoom();
         HealingRoom.SetActive(true);
+        defaultClawMachineBox.SetActive(true);
         currentRoom = HealingRoom;
     }
 
-    public void OpenRoomMystery()
+    public IEnumerator OpenRoomMystery()
     {
-        StartCoroutine(OpenRoom());
+        yield return new WaitForSeconds(0.5f);
+        OpenRoom();
         MysteryRoom.SetActive(true);
+        defaultClawMachineBox.SetActive(true);
         currentRoom = MysteryRoom;
     }
 
-    public void OpenRoomPerkReward()
+    public IEnumerator OpenRoomPerkReward()
     {
-        StartCoroutine(OpenRoom());
+        yield return new WaitForSeconds(0.5f);
+        OpenRoom();
+        tumblerMachineBox.SetActive(true);
+        uiTumblerRoom.SetActive(true);
         DefaultRoom.SetActive(true);
         currentRoom = DefaultRoom;
     }
 
-    public void OpenRoomPachinko()
+    public IEnumerator OpenRoomPachinko()
     {
-        StartCoroutine(OpenRoom());
+        yield return new WaitForSeconds(0.5f);
+        OpenRoom();
         PachinkoRoom.SetActive(true);
         uiPachinkoRoom.SetActive(true);
+        pachinkoMachineBox.SetActive(true);
         currentRoom = PachinkoRoom;
     }
 
-    public void OpenRoomSmith()
+    public IEnumerator OpenRoomSmith()
     {
-        StartCoroutine(OpenRoom());
+        yield return new WaitForSeconds(0.5f);
+        OpenRoom();
         SmithRoom.SetActive(true);
         uiSmithRoom.SetActive(true);
         currentRoom = SmithRoom;
+        currentRoom.GetComponent<SmithRoomManager>().Init();
     }
 
-    public void OpenRoomShredder()
+    public IEnumerator OpenRoomShredder()
     {
-        StartCoroutine(OpenRoom());
+        yield return new WaitForSeconds(0.5f);
+        OpenRoom();
         ShredderRoom.SetActive(true);
         uiShredderRoom.SetActive(true);
         currentRoom = ShredderRoom;
+        currentRoom.GetComponent<ShredderRoomManager>().Init();
     }
 
     public void OutRoom()
@@ -140,6 +158,7 @@ public class GameManager : Singleton<GameManager>
             MapManager.Instance.SetActiveRoomVisual(true);
             uiMap.SetActive(true);
             PlayerMapController.Instance.IsIntoRoom = false;
+            PlayerMapController.Instance.IsMoving = false;
             if (intoRoomTrigger != null)
             {
                 intoRoomTrigger.gameObject.SetActive(false);

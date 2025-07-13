@@ -37,6 +37,7 @@ public class PlayerManager : Singleton<PlayerManager>
                 totalInventory.AddItem(item.itemBase, item.quantity);
             }
         }
+        UpdateCoinText();
     }
 
     public void SpawnPlayer()

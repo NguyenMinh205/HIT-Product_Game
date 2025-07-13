@@ -6,7 +6,7 @@ public class PlayerMapController : Singleton<PlayerMapController>
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Vector2Int posInGrid;
-    [SerializeField] private float moveDelay = 0.2f;
+    [SerializeField] private float moveDelay = 0.25f;
 
     private bool isIntoRoom;
     public bool IsIntoRoom
@@ -54,8 +54,30 @@ public class PlayerMapController : Singleton<PlayerMapController>
     private void Update()
     {
         Debug.Log("Check Player Map Controller");
-        if (isMoving || tilemap == null || currentMapData == null || IsIntoRoom) return;
-        Debug.Log("Check Player in Room");
+        if (isMoving)
+        {
+            Debug.LogError("Không thể thực hiện vì đang di chuyển (isMoving == true)");
+            return;
+        }
+
+        if (tilemap == null)
+        {
+            Debug.LogError("Không thể thực hiện vì tilemap == null");
+            return;
+        }
+
+        if (currentMapData == null)
+        {
+            Debug.LogError("Không thể thực hiện vì currentMapData == null");
+            return;
+        }
+
+        if (IsIntoRoom)
+        {
+            Debug.LogError("Không thể thực hiện vì đang ở trong phòng (IsIntoRoom == true)");
+            return;
+        }
+
         if (Input.GetKey(KeyCode.W))
         {
             TryMove(new Vector2Int(0, 1));
@@ -128,6 +150,8 @@ public class PlayerMapController : Singleton<PlayerMapController>
             transform.position = Vector3.Lerp(startPosition, targetPosition, t);
             yield return null;
         }
+
+        yield return new WaitForSeconds(moveDelay);
 
         transform.position = targetPosition;
         posInGrid = posInGrid + direction;

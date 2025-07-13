@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 0}
   posInGrid: {x: 0, y: 0}
-  moveDelay: 0.2
+  moveDelay: 0.25
 --- !u!50 &764958509684723835
 Rigidbody2D:
   serializedVersion: 4

@@ -16,23 +16,25 @@ public class ItemInventoryUI : MonoBehaviour
     {
         this.data = data;
         iconImage.sprite = data.icon;
+        iconImage.SetNativeSize();
+        iconImage.rectTransform.sizeDelta *= 0.75f;
         numOfItem.text = quantity.ToString();
 
         //if (GameManager.Instance.CurrentRoom == )
-        if (data.isUpgraded || data.upgradedItem == null)
-        {
-            Color color = iconImage.color;
-            color.a = 200f / 255f;
-            iconImage.color = color;
-            GetComponent<Button>().interactable = false;
-        }
-        else
-        {
-            Color color = iconImage.color;
-            color.a = 1f;
-            iconImage.color = color;
-            GetComponent<Button>().interactable = true;
-        }
+        //if (data.isUpgraded || data.upgradedItem == null)
+        //{
+        //    Color color = iconImage.color;
+        //    color.a = 200f / 255f;
+        //    iconImage.color = color;
+        //    GetComponent<Button>().interactable = false;
+        //}
+        //else
+        //{
+        //    Color color = iconImage.color;
+        //    color.a = 1f;
+        //    iconImage.color = color;
+        //    GetComponent<Button>().interactable = true;
+        //}
 
         GetComponent<Button>().onClick.RemoveAllListeners();
         GetComponent<Button>().onClick.AddListener(() => action(this.data));
