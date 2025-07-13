@@ -85,6 +85,15 @@ public class EnemyController : MonoBehaviour
         if (listEnemy.Count == 0)
             GamePlayController.Instance.WInGame();
     }
+    public void ResetShield()
+    {
+        for (int i = 0; i < listEnemy.Count; i++)
+        {
+            Debug.Log("Reset Shield Enemy" + i);
+            listEnemy[i].Armor = 0;
+            listEnemy[i].Health.UpdateArmor(listEnemy[i]);
+        }
+    }
     public void EndGame()
     {
         Debug.Log("Enemy Count : " + listEnemy.Count);

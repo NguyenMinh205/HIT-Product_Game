@@ -90,12 +90,14 @@ public class GamePlayController : Singleton<GamePlayController>
         switch (newTurn)
         {
             case TurnPlay.Enemy:
+                enemyController.ResetShield();
                 isCheckTurnByClaw = false;
                 isCheckTurnByItem = false;
                 StartCoroutine(enemyController.CheckEnemyToNextTurn());
                 break;
 
             case TurnPlay.Player:
+                playerController.ResetSheild();
                 clawController.ResetMachineClaw();
                 //playerController.CurrentPlayer.AddItem();
                 StartPlayerTurn();

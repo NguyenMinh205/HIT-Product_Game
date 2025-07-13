@@ -18,7 +18,7 @@ public class Dagger : AttackItem
     {
         if (enemy != null)
         {
-            curDamage = CalculateDamageWithCrit(player, curDamage);
+            curDamage = CalculateDamageWithCrit(player, damage);
             AttackEnemy(enemy);
             ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Attack, null);
         }

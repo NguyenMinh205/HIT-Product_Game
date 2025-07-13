@@ -45,7 +45,11 @@ public class PlayerManager : Singleton<PlayerManager>
         currentPlayer.Initialize(curCharacter, playerStat.Clone(), PlayerPrefs.GetInt("SelectedSkinIndex", 0));
         currentPlayer.CalculationPositionPlayer(posSpawnPlayer.position);
     }
-
+    public void ResetSheild()
+    {
+        currentPlayer.Stats.ChangeShield(0);
+        currentPlayer.Health.UpdateArmor(currentPlayer);
+    }
     public void EndGame()
     {
         currentPlayer?.EndGame();

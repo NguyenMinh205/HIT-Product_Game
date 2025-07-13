@@ -8569,6 +8569,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4599680308661713210}
     - target: {fileID: 1329408037857685438, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 6262871788618826098, guid: 2a702c109e5df8544b3c316b1c7a76f4, type: 3}
+    - target: {fileID: 1329408037857685438, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
       propertyPath: posSpawnPlayer
       value: 
       objectReference: {fileID: 2033524331}
@@ -8624,6 +8628,10 @@ PrefabInstance:
       propertyPath: posSpawnClaws.Array.data[2]
       value: 
       objectReference: {fileID: 1516508436}
+    - target: {fileID: 2676145791475241921, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+      propertyPath: currentObjectPrefab
+      value: 
+      objectReference: {fileID: -54595170146916652, guid: d490d2240242d8d42aa443f5203747d6, type: 3}
     - target: {fileID: 2676145791475241921, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
       propertyPath: listPosSpawnItem.Array.data[0]
       value: 
