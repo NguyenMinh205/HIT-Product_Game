@@ -50,6 +50,7 @@ public class ItemController : MonoBehaviour
             for(int i=0;i<coutItem;i++)
             {
                 Item newItem = PoolingManager.Spawn(currentObjectPrefab, listPosSpawnItem[i].transform.position, Quaternion.identity, itemParent);
+                newItem.SetBalloon(false);
 
                 newItem.Init(item.itemBase);
                 listItemInBox.Add(newItem);

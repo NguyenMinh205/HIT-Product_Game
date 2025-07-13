@@ -90,10 +90,7 @@ public class GamePlayController : Singleton<GamePlayController>
         switch (newTurn)
         {
             case TurnPlay.Enemy:
-                enemyController.ResetShield();
-                isCheckTurnByClaw = false;
-                isCheckTurnByItem = false;
-                StartCoroutine(enemyController.CheckEnemyToNextTurn());
+                TurnEnemy();
                 break;
 
             case TurnPlay.Player:
@@ -141,6 +138,9 @@ public class GamePlayController : Singleton<GamePlayController>
 
     public void TurnEnemy()
     {
+        enemyController.ResetShield();
+        isCheckTurnByClaw = false;
+        isCheckTurnByItem = false;
         StartCoroutine(enemyController.CheckEnemyToNextTurn());
     }
 

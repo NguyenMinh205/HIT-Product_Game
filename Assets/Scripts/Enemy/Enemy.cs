@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     private int damage;
 
     [SerializeField] private Animator animator;
+    public Animator Ani => animator;    
     [SerializeField] private Sprite spriteIDle;
 
     [SerializeField] private int maxHp;
@@ -25,6 +26,7 @@ public class Enemy : MonoBehaviour
 
     public List<ProcedureActionEnemy> actions;
     private int indexAction;
+    public int IndexAction => indexAction;
 
     public string ID
     {
@@ -123,25 +125,40 @@ public class Enemy : MonoBehaviour
 
         HP -= finalDamage;
 
+        if (HP < 0)
+            HP = 0;
+
+        //Chay Animation Enemy Receiver Damage
+        ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Hit, this);
+
         health.UpdateArmor(this);
         health.UpdateHp(this);
 
+        if (HP < 0)
+        {
+            uiActionEnemy.UnShowActionEnemy();
+            return true;
+        }
+
+        return false;
+    }
+    public void CheckDieEnemy()
+    {
         if (HP <= 0)
         {
             //Goi khi enemy died
-            uiActionEnemy.UnShowActionEnemy();
             ObserverManager<IDEnemyState>.PostEven(IDEnemyState.EnemyDied, this);
-            return true;
         }
-        return false;
     }
 
-    public void ExecuteAction()
+    public IEnumerator ExecuteAction()
     {
         for (int i = 0; i < actions[indexAction].actionEnemy.Count; i++)
         {
             EnemyActionFactory.GetActionEnemy(actions[indexAction].actionEnemy[i], this);
             uiActionEnemy.UnActionIndexEnemy(i);
+
+            yield return new WaitForSeconds(1f);
         }
 
         indexAction++;

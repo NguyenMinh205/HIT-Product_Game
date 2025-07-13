@@ -55,8 +55,9 @@ public class EnemyController : MonoBehaviour
     {
         for (int i= 0; i < listEnemy.Count ;i++)
         {
-            yield return new WaitForSeconds(2f);
-            listEnemy[i].ExecuteAction();
+            StartCoroutine(listEnemy[i].ExecuteAction());
+            float time = listEnemy[i].actions[listEnemy[i].IndexAction].actionEnemy.Count;
+            yield return new WaitForSeconds(time);
         }
         GamePlayController.Instance.Turn = TurnPlay.Player;
         for (int i = 0; i < listEnemy.Count; i++)

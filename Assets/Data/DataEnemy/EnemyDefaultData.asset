@@ -19,7 +19,7 @@ MonoBehaviour:
     damageEnemy: 9
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1270891317, guid: 6bce7071b00f308438d96b4c54407650, type: 3}
-    controller: {fileID: 9100000, guid: a952d6c3492591440a6112fac2a761ef, type: 2}
+    controller: {fileID: 9100000, guid: 2531a500c7c8b2e4f8f875780992c9a1, type: 2}
     actions:
     - actionEnemy: 00000000
     - actionEnemy: 00000000
@@ -29,7 +29,7 @@ MonoBehaviour:
     damageEnemy: 3
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1214416665, guid: 0a19935fd40f3ec478b1f332b34fa255, type: 3}
-    controller: {fileID: 9100000, guid: d5eeef9551453724584ec9335d36717f, type: 2}
+    controller: {fileID: 9100000, guid: 30b9ab7898af1404797f0d35a619c64e, type: 2}
     actions:
     - actionEnemy: 000000000000000000000000
     - actionEnemy: 000000000000000000000000
@@ -39,7 +39,7 @@ MonoBehaviour:
     damageEnemy: 6
     armorIncreased: 6
     spriteEnemyIdle: {fileID: 59322720, guid: 4a28702e3377b9744b8a8cfba4dc2cc9, type: 3}
-    controller: {fileID: 9100000, guid: 51e77e6f9319fcb46a4f50176bf54ae6, type: 2}
+    controller: {fileID: 9100000, guid: e84e499bcafcf3041bfd594158b76cb4, type: 2}
     actions:
     - actionEnemy: 00000000
     - actionEnemy: 01000000
@@ -49,7 +49,7 @@ MonoBehaviour:
     damageEnemy: 3
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -783777960, guid: ef9edf03a9471db4393f4a4e52c51df5, type: 3}
-    controller: {fileID: 9100000, guid: e7c6001bace18634ab512bb6e8233505, type: 2}
+    controller: {fileID: 9100000, guid: 3f7cd421fdb2e2b49b118820dbc38d33, type: 2}
     actions:
     - actionEnemy: 03000000
     - actionEnemy: 000000000000000000000000
@@ -59,7 +59,7 @@ MonoBehaviour:
     damageEnemy: 5
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1243730137, guid: 0e816514cd42aec48afa8c80d96680f9, type: 3}
-    controller: {fileID: 9100000, guid: 874838d634f22eb4aa057c37b40108d2, type: 2}
+    controller: {fileID: 9100000, guid: 46e52a19b6a0284469d79e4e40899210, type: 2}
     actions:
     - actionEnemy: 03000000
     - actionEnemy: 02000000
@@ -70,7 +70,7 @@ MonoBehaviour:
     damageEnemy: 7
     armorIncreased: 7
     spriteEnemyIdle: {fileID: -903061839, guid: 1db21c890022a3a4d8da82431637dd16, type: 3}
-    controller: {fileID: 9100000, guid: f9d4fadc337f6494aac63a8537f3e88a, type: 2}
+    controller: {fileID: 9100000, guid: a8b3fd62732c9b142898893b998273eb, type: 2}
     actions:
     - actionEnemy: 03000000
     - actionEnemy: 0000000001000000
@@ -80,7 +80,7 @@ MonoBehaviour:
     damageEnemy: 15
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -938404122, guid: 1022e3d323b44df49b318437daf54080, type: 3}
-    controller: {fileID: 9100000, guid: 70ed0855daca39540bbbb588c7124c4c, type: 2}
+    controller: {fileID: 9100000, guid: 3f942e859a225f040a2c7017e0da9d00, type: 2}
     actions:
     - actionEnemy: 03000000
     - actionEnemy: 00000000
@@ -90,7 +90,7 @@ MonoBehaviour:
     damageEnemy: 12
     armorIncreased: 12
     spriteEnemyIdle: {fileID: 1636345924, guid: 945a400ba39539a409b9800c6fc4a8ea, type: 3}
-    controller: {fileID: 9100000, guid: 0aec5931a93a1694fa1c794dc1780755, type: 2}
+    controller: {fileID: 9100000, guid: 61fefd24d1f9cb5419f6d897ef5a6d02, type: 2}
     actions:
     - actionEnemy: 03000000
     - actionEnemy: 01000000
@@ -101,7 +101,7 @@ MonoBehaviour:
     damageEnemy: 12
     armorIncreased: 24
     spriteEnemyIdle: {fileID: -1731744006, guid: 17183bdd70dab3142b55e81e30ced9d3, type: 3}
-    controller: {fileID: 9100000, guid: b0fd28b50c79b224db16866a0cbea049, type: 2}
+    controller: {fileID: 9100000, guid: a0f5f0b537b4da64f8ac46492c7006f8, type: 2}
     actions:
     - actionEnemy: 04000000
     - actionEnemy: 0000000001000000
@@ -111,7 +111,7 @@ MonoBehaviour:
     damageEnemy: 13
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1336480041, guid: 361cb9fb92fac0e4abf80400af632d46, type: 3}
-    controller: {fileID: 9100000, guid: 5dced2223e4f7f34fb86f87f8a397a73, type: 2}
+    controller: {fileID: 9100000, guid: 83f8b33cb0f66f0428d39d15b02dff84, type: 2}
     actions:
     - actionEnemy: 00000000
     - actionEnemy: 03000000

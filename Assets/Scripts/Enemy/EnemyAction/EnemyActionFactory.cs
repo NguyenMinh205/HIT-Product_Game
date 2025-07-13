@@ -10,22 +10,28 @@ public static class EnemyActionFactory
         switch(type)
         {
             case TypeEnemyAction.Attack:
+                Debug.Log("Enemy Attack Player");
+                ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Attack, enemy);
                 EnemyActionAttack.Execute(enemy);
                 break;
 
             case TypeEnemyAction.Defend:
+                ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Buff, enemy);
                 EnemyActionDefend.Execute(enemy);
                 break;
 
             case TypeEnemyAction.Heal:
+                ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Buff, enemy);
                 EnemyActionHead.Execute(enemy);
                 break;
 
             case TypeEnemyAction.Effect:
+                ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Buff, enemy);
                 GetEffectEnemy(enemy.ID, enemy);
                 break;
 
             case TypeEnemyAction.Buff:
+                ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Buff, enemy);
                 GetBuffEnemy(enemy.ID, enemy);
                 break;
         }

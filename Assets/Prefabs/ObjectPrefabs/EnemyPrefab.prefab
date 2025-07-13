@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7524476990195415135}
   - component: {fileID: 8086658410631364270}
   - component: {fileID: 5553438048735617525}
+  - component: {fileID: 9099237690994380999}
   m_Layer: 0
   m_Name: EnemyPrefab
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 726081065
-  m_SortingLayer: 6
+  m_SortingLayer: 4
   m_SortingOrder: 50
   m_Sprite: {fileID: -554361053, guid: a798d4dca3c882f468c8c27af068fb82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -96,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 3583153092506176974}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 792e68d298b35ea46a7bba86d543fcc7, type: 2}
+  m_Controller: {fileID: 9100000, guid: a0f5f0b537b4da64f8ac46492c7006f8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -121,10 +122,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 8086658410631364270}
   spriteIDle: {fileID: 0}
-  curent_Hp: 50
+  maxHp: 0
+  currentHp: 0
   armor: 0
   armorIncreased: 0
   health: {fileID: 1830390511627116580, guid: a11d8f21ee149b04d8f9fcd8a8bcb924, type: 3}
-  distanceEnemyAndHealthBar: 0.3
   uiActionEnemy: {fileID: 5594641283351776450, guid: 14f9718a664c4454781243bbeded2fb7, type: 3}
+  distanceEnemyAndHealthBar: 0.3
   actions: []
+--- !u!114 &9099237690994380999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3583153092506176974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06c5183dd43ac945aa51f08553f9dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 8086658410631364270}
+  timeDelayAttack: 1
+  timeDelayBuff: 1
+  timeDelayHit: 1

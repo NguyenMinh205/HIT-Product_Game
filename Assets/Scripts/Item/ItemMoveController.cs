@@ -129,10 +129,10 @@ public class ItemMoveController : MonoBehaviour
             return;
         }
 
+        EffectItem(item);
         itemUsage.UseItem(item.ID, player, enemyList[0]);
         ObserverManager<IDItem>.PostEven(IDItem.ItemPlayer, item);
         
-        EffectItem(item);
 
         StartCoroutine(PauseThenResume());
     }
@@ -169,7 +169,7 @@ public class ItemMoveController : MonoBehaviour
     {
         Sequence fx = DOTween.Sequence();
 
-        fx.Join(item.transform.DOScale(item.transform.localScale * 1.3f, 1f)
+        fx.Join(item.transform.DOScale(item.transform.localScale * 1.7f, 1f)
                  .SetEase(Ease.OutBack));
 
         var sr = item.SR;

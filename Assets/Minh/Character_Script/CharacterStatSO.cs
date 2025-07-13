@@ -62,6 +62,8 @@ public class CharacterStatSO : ScriptableObject
 
     public void ChangeCurHP(float value)
     {
+        if (value < 0)
+            ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Hit, null);
         this.currentHP += value;
         if (this.currentHP > this.maxHP)
         {
