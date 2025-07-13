@@ -15,6 +15,7 @@ public class ItemMoveController : MonoBehaviour
     [SerializeField] private ItemUsage itemUsage;
     private Transform playerTarget;
     [SerializeField] private List<Item> listItemMove = new List<Item>();
+    [SerializeField] private List<Item> listItemMoving = new List<Item>();
     private bool isRunningCoroutine = false;
     private bool isPaused = false;
 
@@ -57,6 +58,7 @@ public class ItemMoveController : MonoBehaviour
             //if (isPaused) yield break;
             Debug.Log("Check Item Count");
             Item item = listItemMove[0];
+            listItemMoving.Add(item);
             listItemMove.RemoveAt(0);
             Debug.Log("Set True Item");
             item.gameObject.SetActive(true);
@@ -120,6 +122,7 @@ public class ItemMoveController : MonoBehaviour
 
     private void HandleItemArrived(Item item)
     {
+        listItemMoving.Remove(item);
         var player = GamePlayController.Instance.PlayerController.CurrentPlayer;
         var enemyList = GamePlayController.Instance.EnemyController.ListEnemy;
 
@@ -179,5 +182,18 @@ public class ItemMoveController : MonoBehaviour
             Destroy(item.gameObject);
             //PoolingManager.Despawn(item.gameObject);
         });
+    }
+
+    public void EndGame()
+    {
+        foreach (var seq in activeTweens)
+        {
+            seq.Kill();
+        }
+        foreach(Item item in listItemMoving)
+        {
+            if (item != null)
+                Destroy(item.gameObject);
+        }
     }
 }

@@ -8782,6 +8782,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591583426}
   m_CullTransparentMesh: 1
+--- !u!114 &1621165506 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 537126079914093169, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+  m_PrefabInstance: {fileID: 1621944809}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be876bcfca6b9b147942387b38211e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1621944809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8926,6 +8937,10 @@ PrefabInstance:
       propertyPath: posSpawnClaws.Array.data[2]
       value: 
       objectReference: {fileID: 1516508436}
+    - target: {fileID: 2676145791475241921, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+      propertyPath: move
+      value: 
+      objectReference: {fileID: 1621165506}
     - target: {fileID: 2676145791475241921, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
       propertyPath: currentObjectPrefab
       value: 
