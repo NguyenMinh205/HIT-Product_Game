@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2688443546229368612}
   - component: {fileID: 1237445441407493707}
-  - component: {fileID: 4880880478966815227}
   m_Layer: 3
   m_Name: Balloon
   m_TagString: Untagged
@@ -72,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 726081065
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 71
   m_Sprite: {fileID: -865292460, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -85,41 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &4880880478966815227
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2998969794922113574}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.13476562
 --- !u!1 &8388720295640628949
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +166,6 @@ MonoBehaviour:
   description: 
   isStackable: 0
   maxStackSize: 99
-  rb: {fileID: 1265572493536559128}
   balloon: {fileID: 2998969794922113574}
   moveForce: 3
 --- !u!212 &8422109728651766705
@@ -244,7 +207,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 726081065
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 51
   m_Sprite: {fileID: -1786454754, guid: 622c19d79a0b621458b3e53d3df2a482, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

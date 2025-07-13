@@ -13,6 +13,7 @@ public class ItemController : MonoBehaviour
     [SerializeField] private List<GameObject> listPosSpawnItem;
     [SerializeField] private Item currentObjectPrefab;
     [SerializeField] private Transform itemParent;
+    [SerializeField] private ItemMoveController move;
 
     [Space]
     [Header("Item")]
@@ -95,6 +96,7 @@ public class ItemController : MonoBehaviour
         {
             PoolingManager.Despawn(listItemInBox[i].gameObject);
         }
+        move.EndGame();
         listItemInBox.Clear();
     }
 }
