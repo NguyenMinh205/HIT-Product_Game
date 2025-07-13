@@ -176,7 +176,8 @@ public class ItemMoveController : MonoBehaviour
         fx.Join(sr.DOFade(0f, 1f));
         fx.OnComplete(() =>
         {
-            PoolingManager.Despawn(item.gameObject);
+            Destroy(item.gameObject);
+            //PoolingManager.Despawn(item.gameObject);
         });
     }
 }
