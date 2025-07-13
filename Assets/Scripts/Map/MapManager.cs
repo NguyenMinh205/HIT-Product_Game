@@ -47,7 +47,7 @@ public class MapManager : Singleton<MapManager>
             return;
         }
         currentMapIndex++;
-        curMap = fightMaps[0];
+        curMap = fightMaps[5];
         curMap.UpdateMapLayout(); // Xóa danh sách ExitDoors cũ và cập nhật layout
         MapController.Instance.LoadMap(curMap); // Spawn các đối tượng và thêm ExitTrigger vào curMap.ExitDoors
         GenerateSequenceMap(); // Bây giờ, curMap.ExitDoors sẽ chứa các ExitTrigger đã spawn và sẵn sàng để gán SubsequentMap
@@ -213,6 +213,11 @@ public class MapManager : Singleton<MapManager>
 
     public void ProceedToNextMap(MapData subsequentMap)
     {
+        if (subsequentMap == null)
+        {
+            Debug.LogError("Loi1");
+            return;
+        }
         currentMapIndex++;
         if (currentMapIndex <= numFloor)
         {
@@ -221,7 +226,6 @@ public class MapManager : Singleton<MapManager>
             MapController.Instance.LoadMap(curMap); 
             GenerateSequenceMap();
             UpdateFloorText();
-            Debug.Log($"Loaded Map: {curMap.MapType} at index {currentMapIndex}");
         }
         else
         {

@@ -96,7 +96,6 @@ public class GamePlayController : Singleton<GamePlayController>
             case TurnPlay.Player:
                 playerController.ResetSheild();
                 clawController.ResetMachineClaw();
-                //playerController.CurrentPlayer.AddItem();
                 StartPlayerTurn();
                 break;
         }
@@ -123,6 +122,8 @@ public class GamePlayController : Singleton<GamePlayController>
     public void StartPlayerTurn()
     {
         ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
+        playerController.CurrentPlayer.AddItem();
+        itemController.SpawnAdditionalItems();
         Debug.Log("Player Turn Started");
     }
 

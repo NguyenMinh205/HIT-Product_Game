@@ -60,6 +60,11 @@ public class Inventory : MonoBehaviour
         return new List<ItemInventory>(items);
     }
 
+    public void ClearInventory()
+    {
+        items.Clear();
+    }    
+
     private void UpdateInventoryUI()
     {
         //if (inventoryUIController != null)

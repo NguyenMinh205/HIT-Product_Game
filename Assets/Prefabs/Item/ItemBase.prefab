@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 726081065
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 71
   m_Sprite: {fileID: -865292460, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -202,7 +202,6 @@ MonoBehaviour:
   description: 
   isStackable: 0
   maxStackSize: 99
-  rb: {fileID: 1265572493536559128}
   balloon: {fileID: 2998969794922113574}
   moveForce: 3
 --- !u!212 &8422109728651766705
@@ -244,7 +243,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 726081065
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 51
   m_Sprite: {fileID: -1786454754, guid: 622c19d79a0b621458b3e53d3df2a482, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
