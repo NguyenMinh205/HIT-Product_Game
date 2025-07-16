@@ -176,8 +176,9 @@ public class ClawMachine : MonoBehaviour
     }
     public void CheckPickUp()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) && mode != ModeClaw.PickUp)
         {
+            Debug.Log("Claw is Pick up");
             mode = ModeClaw.PickUp;
         }
     }
