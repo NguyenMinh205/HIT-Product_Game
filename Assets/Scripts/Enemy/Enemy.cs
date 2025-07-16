@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private Animator animator;
     public Animator Ani => animator;    
-    [SerializeField] private Sprite spriteIDle;
+    [SerializeField] private Sprite spriteIdle;
 
     [SerializeField] private int maxHp;
     [SerializeField] private int currentHp;
@@ -20,12 +20,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int armor;
     [SerializeField] private int armorIncreased;
 
+    [SerializeField] private SpriteRenderer enemySprite;
     [SerializeField] private HealthBar health;
     [SerializeField] private UIActionEnemy uiActionEnemy;
-    [SerializeField] private float distanceEnemyAndHealthBar;
+    [SerializeField] private float offsetHealthBar = 1;
 
     public List<ProcedureActionEnemy> actions;
     private int indexAction;
+    private float height;
     public int IndexAction => indexAction;
 
     public string ID
@@ -67,7 +69,7 @@ public class Enemy : MonoBehaviour
     }
     public Sprite SpriteIdle
     {
-        get => spriteIDle;
+        get => spriteIdle;
     }
 
     private void Awake()
@@ -98,7 +100,7 @@ public class Enemy : MonoBehaviour
         armorIncreased = data.armorIncreased;
 
         animator.runtimeAnimatorController = data.controller;
-        spriteIDle = data.spriteEnemyIdle;
+        spriteIdle = data.spriteEnemyIdle;
 
         actions = data.actions;
         indexAction = 0;
@@ -108,13 +110,11 @@ public class Enemy : MonoBehaviour
         UIActionEnemyController.Instance.InitUIAction(this, indexAction);
 
         UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
-    }
-    public void CalulationPositionEnemy(Vector3 posSpawnEnemy)
-    {
-        float height = SpriteIdle.bounds.extents.y;
-        Vector3 newPos = posSpawnEnemy + Vector3.up * height + Vector3.up * distanceEnemyAndHealthBar;
-
-        transform.position = newPos;
+        enemySprite = gameObject.GetComponent<SpriteRenderer>();
+        enemySprite.sprite = spriteIdle;
+        height = enemySprite.bounds.size.y / 2;
+        this.gameObject.transform.position += Vector3.up * height;
+        health.transform.position = this.gameObject.transform.position - Vector3.up * (height + offsetHealthBar) ;
     }
 
     public bool ReceiverDamage(int damage)

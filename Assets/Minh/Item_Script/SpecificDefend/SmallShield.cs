@@ -9,7 +9,6 @@ public class SmallShield : DefendItem
     public override void Defend(Player player)
     {
         player.Stats.ChangeShield(shield);
-        player.Health.UpdateArmor(player);
     }
 
     public override void Execute(Player player, Enemy enemy)

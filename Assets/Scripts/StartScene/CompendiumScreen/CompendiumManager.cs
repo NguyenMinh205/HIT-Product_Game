@@ -5,6 +5,7 @@ using static UnityEditor.Progress;
 using TMPro;
 using System.Linq;
 using Unity.VisualScripting;
+using DG.Tweening;
 
 public enum CompendiumType
 {
@@ -22,6 +23,7 @@ public class CompendiumManager : Singleton<CompendiumManager>
 
     [Space]
     [Header("Show Detail Setting")]
+    [SerializeField] private GameObject detailObj;
     [SerializeField] private Sprite itemBG;
     [SerializeField] private Sprite perkBG;
     [SerializeField] private Image detailBG;
@@ -79,6 +81,9 @@ public class CompendiumManager : Singleton<CompendiumManager>
     public void ShowDetail(ScriptableObject data)
     {
         detailIcon.gameObject.SetActive(true);
+        CanvasGroup canvasGroup = detailObj.GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 0.25f;
+        canvasGroup.DOFade(1f, 0.25f).SetEase(Ease.OutQuad);
         if (data is ItemBase item)
         {
             detailIcon.sprite = item.icon;

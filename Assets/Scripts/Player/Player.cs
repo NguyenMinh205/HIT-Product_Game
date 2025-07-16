@@ -6,8 +6,8 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class Player : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer playerSprite;
-    [SerializeField] private float distancePlayerAndHealthBar;
     [SerializeField] private PlayerAnimator playerAnimator;
+    [SerializeField] private float offsetHealthBar = 1f;
     [SerializeField] private HealthBar health;
 
     private Character character;
@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     public bool IsCounterAttack { get; set; }
 
     public Inventory Inventory => inventory;
-    public List<ItemInventory> AddedItems => addedItems; // Getter cho danh sách vật phẩm đã thêm
+    public List<ItemInventory> AddedItems => addedItems;
 
     public HealthBar Health
     {
@@ -64,16 +64,10 @@ public class Player : MonoBehaviour
             }
         }
         UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
-        health.UpdateHp(this);
-        health.UpdateArmor(this);
-    }
-
-    public void CalculationPositionPlayer(Vector3 posPlayer)
-    {
-        playerSprite = GetComponent<SpriteRenderer>();
-        float height = playerSprite.bounds.extents.y;
-        Vector3 newPos = posPlayer + Vector3.up * height + Vector3.up * distancePlayerAndHealthBar;
-        transform.position = newPos;
+        playerSprite = gameObject.GetComponent<SpriteRenderer>();
+        float height = playerSprite.bounds.size.y / 2;
+        this.gameObject.transform.position += Vector3.up * height;
+        health.transform.position = this.gameObject.transform.position - Vector3.up * (height + offsetHealthBar);
     }
 
     public void AddBuffEffect(string effectName, float value, float duration)
@@ -180,15 +174,23 @@ public class Player : MonoBehaviour
         stats.ChangeShield(-damage);
         effectiveDamage = Mathf.Max(0, effectiveDamage);
         stats.ChangeCurHP(-effectiveDamage);
-
-        health.UpdateArmor(this);
-        health.UpdateHp(this);
+        UpdateHpUI();
 
         if (stats.CurrentHP <= 0)
         {
             EndGame();
         }
     }
+
+    public void UpdateHpUI()
+    {
+        health.UpdateHp(this);
+    }    
+
+    public void UpdateArmorUI()
+    {
+        health.UpdateArmor(this);
+    }    
 
     public void DealDamage(int damage)
     {

@@ -17,7 +17,7 @@ public class MapManager : Singleton<MapManager>
 
     public int MapIndex
     {
-        get => this.currentMapIndex;   // lay ra index map de set spawn enemy
+        get => this.currentMapIndex;
     }
 
     [SerializeField] private GameObject RoomVisual;
@@ -47,7 +47,7 @@ public class MapManager : Singleton<MapManager>
             return;
         }
         currentMapIndex++;
-        curMap = fightMaps[5];
+        curMap = fightMaps[0];
         curMap.UpdateMapLayout(); // Xóa danh sách ExitDoors cũ và cập nhật layout
         MapController.Instance.LoadMap(curMap); // Spawn các đối tượng và thêm ExitTrigger vào curMap.ExitDoors
         GenerateSequenceMap(); // Bây giờ, curMap.ExitDoors sẽ chứa các ExitTrigger đã spawn và sẵn sàng để gán SubsequentMap

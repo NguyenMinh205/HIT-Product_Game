@@ -18,13 +18,13 @@ public enum ModeClaw
 }
 public class ClawMachine : MonoBehaviour
 {
-    [SerializeField] protected LineRenderer line;
+    [SerializeField] protected LineRenderer rope;
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected GameObject chain;
+    [SerializeField] private float ropeLength = 10f;
 
     [Space]
     [Header("ClawLimits")]
-    //[SerializeField] private Transform topLimit;
     public GameObject lowLimit;
     public GameObject leftLimit;
     public GameObject rightLimit;
@@ -36,7 +36,7 @@ public class ClawMachine : MonoBehaviour
     public Vector3 posMove;
 
     protected ModeClaw mode;
-    protected float moveForce = 3f;
+    protected float moveForce = 5f;
 
     protected ClawController clawController;
 
@@ -51,12 +51,11 @@ public class ClawMachine : MonoBehaviour
     }
     private void Update()
     {
-        MoveLine();
+        UpdateRope();
         Claw();
     }
     public void Claw()
     {
-        Debug.Log("Execute Claw");
         switch(mode)
         {
             case ModeClaw.Wait:
@@ -84,7 +83,7 @@ public class ClawMachine : MonoBehaviour
                 break;
 
             case ModeClaw.DeSpawn:
-                DeSpawn();
+                Despawn();
                 break;
 
         }
@@ -92,11 +91,11 @@ public class ClawMachine : MonoBehaviour
 
     public void MoveClaw()
     {
-        float pessHorizotal = Input.GetAxis("Horizontal");
+        float horizontal = Input.GetAxis("Horizontal");
 
-        if (pessHorizotal != 0)
+        if (horizontal != 0)
         {
-            CheckPosLimit(pessHorizotal);
+            CheckPosLimit(horizontal);
         }
         else
         {
@@ -120,12 +119,12 @@ public class ClawMachine : MonoBehaviour
                 rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
-    public void MoveLine()
+    public void UpdateRope()
     {
-        Vector3 currentPos = line.GetPosition(0);
+        Vector3 currentPos = rope.GetPosition(0);
 
-        line.SetPosition(0, new Vector3(chain.transform.position.x, chain.transform.position.y, currentPos.z));
-        line.SetPosition(1, new Vector3(chain.transform.position.x, chain.transform.position.y + 6, currentPos.z));
+        rope.SetPosition(0, new Vector3(chain.transform.position.x, chain.transform.position.y, currentPos.z));
+        rope.SetPosition(1, new Vector3(chain.transform.position.x, chain.transform.position.y + ropeLength, currentPos.z));
     }
 
     public void AutoMove()
@@ -144,7 +143,9 @@ public class ClawMachine : MonoBehaviour
     {
         Debug.Log("Start Claw ");
         if (chain.transform.position.x <= posStartClaw.position.x)
+        {
             rb.velocity = Vector2.right * moveForce;
+        }    
         else if (chain.transform.position.y > posStartClaw.position.y)
         {
             rb.velocity = Vector2.down * moveForce;
@@ -162,17 +163,19 @@ public class ClawMachine : MonoBehaviour
         else if (chain.transform.position.y < posStopClaw.position.y)
         {
             rb.velocity = Vector2.zero * moveForce;
-            StartCoroutine(DelaOpen(1.2f));
+            StartCoroutine(DelayOpen(1.5f));
         }
     }
-    public void DeSpawn()
+    public void Despawn()
     {
         if (chain.transform.position.y < posStopClaw.position.y)
         {
             rb.velocity = Vector2.up * moveForce;
         }
         else
-            DeSpawnClaw();
+        {
+            Destroy(gameObject);
+        }
     }
     public void CheckPickUp()
     {
@@ -181,7 +184,7 @@ public class ClawMachine : MonoBehaviour
             mode = ModeClaw.PickUp;
         }
     }
-    public void PickUp()
+    public virtual void PickUp()
     {
         Debug.Log("Pick Up");
         if(chain.transform.position.y > lowLimit.transform.position.y)
@@ -194,14 +197,8 @@ public class ClawMachine : MonoBehaviour
             StartCoroutine(DelayPickUp(1.5f));
         }
     }
-    public void DeSpawnClaw()
-    {
-        Debug.Log("DeSpawn");
-        //PoolingManager.Despawn(gameObject);
-        Destroy(gameObject);
-    }
 
-    protected virtual IEnumerator DelayPickUp(float time)
+    protected IEnumerator DelayPickUp(float time)
     {
         yield return new WaitForSeconds(time);
 
@@ -216,7 +213,7 @@ public class ClawMachine : MonoBehaviour
         }
 
     }
-    protected virtual IEnumerator DelaOpen(float time)
+    protected virtual IEnumerator DelayOpen(float time)
     {
         //OpenClaw();
         yield return new WaitForSeconds(time);

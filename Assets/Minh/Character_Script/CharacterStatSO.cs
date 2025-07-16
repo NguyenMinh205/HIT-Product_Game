@@ -84,6 +84,7 @@ public class CharacterStatSO : ScriptableObject
             return;
         }
         this.shield += value;
+        GamePlayController.Instance.PlayerController.CurrentPlayer.UpdateArmorUI();
     }
 
     public void ChangeCoin(int value)
@@ -95,6 +96,7 @@ public class CharacterStatSO : ScriptableObject
     public void MultipleShield(int val)
     {
         this.shield *= val;
+        GamePlayController.Instance.PlayerController.CurrentPlayer.UpdateArmorUI();
     }
 
     public void ChangeDamageExtra(float value)

@@ -5,33 +5,28 @@ using UnityEngine;
 public enum IDItem
 {
     ItemChange,
-    ItemPlayer,
+    ItemPlayer
 }
 
 public class ItemController : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> listPosSpawnItem; // Danh sách vị trí spawn vật phẩm
-    [SerializeField] private Item currentObjectPrefab; // Prefab vật phẩm
-    [SerializeField] private Transform itemParent; // Parent cho các vật phẩm được spawn
+    [SerializeField] private List<GameObject> listPosSpawnItem;
+    [SerializeField] private Item currentObjectPrefab;
+    [SerializeField] private Transform itemParent;
+    [SerializeField] private ItemMoveController move;
 
     [Space]
     [Header("Item Lists")]
-    [SerializeField] private List<Item> listItemInBox; // Danh sách vật phẩm trong máy gắp
-    [SerializeField] private List<Item> listItemInBasket; // Danh sách vật phẩm trong giỏ
+    [SerializeField] private List<Item> listItemInBox;
+    [SerializeField] private List<Item> listItemInBasket;
+    public bool IsPickupItemSuccess { get; set; }
 
     private void Awake()
     {
-        // Đăng ký sự kiện cho Observer
         ObserverManager<IDItem>.AddDesgisterEvent(IDItem.ItemChange, ChangeBoxToBasket);
         ObserverManager<IDItem>.AddDesgisterEvent(IDItem.ItemPlayer, DeleteItemOutBasket);
     }
 
-    private void Update()
-    {
-        CheckNextTurn();
-    }
-
-    // Spawn vật phẩm từ inventory của Player khi vào room
     public void Spawn(Inventory inven)
     {
         SpawnItem(inven.Items);
@@ -39,21 +34,23 @@ public class ItemController : MonoBehaviour
 
     public void SpawnItem(List<ItemInventory> items)
     {
-        Debug.Log("Spawning items in machine");
-
+        if (GamePlayController.Instance.IsEndGame)
+        {
+            return;
+        }
         foreach (ItemInventory item in items)
         {
             for (int i = 0; i < item.quantity; i++)
             {
                 int randomIndex = Random.Range(0, listPosSpawnItem.Count);
                 Vector3 spawnPos = listPosSpawnItem[randomIndex].transform.position;
-
                 Item newItem = PoolingManager.Spawn(currentObjectPrefab, spawnPos, Quaternion.identity, itemParent);
                 newItem.Init(item.itemBase);
                 listItemInBox.Add(newItem);
                 newItem.gameObject.SetActive(true);
             }
         }
+        IsPickupItemSuccess = false;
     }
 
     public void ChangeBoxToBasket(object obj)
@@ -62,9 +59,9 @@ public class ItemController : MonoBehaviour
         {
             if (listItemInBox.Contains(item))
             {
+                IsPickupItemSuccess = true;
                 listItemInBox.Remove(item);
                 listItemInBasket.Add(item);
-
                 GamePlayController.Instance.PlayerController.CurrentPlayer.RemoveItem(item.ItemBase);
                 Debug.Log($"Item {item.ID} moved to basket and removed from inventory");
             }
@@ -77,12 +74,12 @@ public class ItemController : MonoBehaviour
         {
             Debug.Log($"Deleting item {item.ID} from basket");
             listItemInBasket.Remove(item);
+            if (listItemInBasket.Count == 0)
+            {
+                ObserverManager<EventID>.PostEven(EventID.OnBasketEmpty);
+                Debug.Log("Basket is empty, notifying turn change.");
+            }
         }
-    }
-
-    public void CheckNextTurn()
-    {
-        GamePlayController.Instance.isCheckTurnByItem = listItemInBasket.Count == 0;
     }
 
     public void EndGame()
@@ -93,6 +90,7 @@ public class ItemController : MonoBehaviour
         }
         listItemInBox.Clear();
         listItemInBasket.Clear();
+        move.EndGame();
         Debug.Log("Cleared all items from machine");
     }
 

@@ -4356,7 +4356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 246.3158
+      value: 246.31578
       objectReference: {fileID: 0}
     - target: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -7881,7 +7881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 47.333313, y: -50}
+  m_AnchoredPosition: {x: 47.333332, y: -50}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &734045836
@@ -14816,7 +14816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 45.263184
+      value: 45.263157
       objectReference: {fileID: 0}
     - target: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -16655,6 +16655,7 @@ MonoBehaviour:
   itemList: {fileID: 1341981325}
   perkList: {fileID: 1980665759}
   scroll: {fileID: 730354588}
+  detailObj: {fileID: 1983169257026175641}
   itemBG: {fileID: 414902742, guid: 98e04d94db4f4cf4b87773d201b5f93a, type: 3}
   perkBG: {fileID: 408325968, guid: 36faea9524a9687439c88d15b6f65379, type: 3}
   detailBG: {fileID: 5413071201273084521}
@@ -16753,7 +16754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 145.78949
+      value: 145.78947
       objectReference: {fileID: 0}
     - target: {fileID: 6366161042711984383, guid: 3c33c9ef5d820ae42bf71bd0fe214923, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -24383,6 +24384,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3299288156458728203}
+  - component: {fileID: 3299288156458728204}
   m_Layer: 5
   m_Name: ItemBackground
   m_TagString: Untagged
@@ -24479,6 +24481,18 @@ RectTransform:
   m_AnchoredPosition: {x: 1147.5, y: -200}
   m_SizeDelta: {x: 320, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &3299288156458728204
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983169257026175641}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3720427065204262806
 GameObject:
   m_ObjectHideFlags: 0

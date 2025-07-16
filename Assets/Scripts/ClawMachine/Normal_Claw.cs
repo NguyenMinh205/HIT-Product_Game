@@ -26,25 +26,25 @@ public class Normal_Claw : ClawMachine
             mode = ModeClaw.Use;
         }
     }
-    protected override IEnumerator DelayPickUp(float time)
+    public override void PickUp()
     {
-        CloseClaw();
-        yield return new WaitForSeconds(time);
-
-        if (chain.transform.position.y < posStartClaw.position.y)
+        Debug.Log("Normal Claw Pick Up");
+        if (chain.transform.position.y > lowLimit.transform.position.y)
         {
-            rb.velocity = Vector2.up * moveForce;
+            rb.velocity = Vector2.down * moveForce;
         }
         else
         {
             rb.velocity = Vector2.zero;
-            mode = ModeClaw.End;
+            CloseClaw();
+            StartCoroutine(DelayPickUp(1.5f));
         }
-
     }
-    protected override IEnumerator DelaOpen(float time)
+
+    protected override IEnumerator DelayOpen(float time)
     {
-        OpenClaw(); // Gọi OpenClaw của Normal_Claw
+        yield return new WaitForSeconds(time/2);
+        OpenClaw();
         yield return new WaitForSeconds(time);
 
         if (mode != ModeClaw.DeSpawn)
@@ -57,30 +57,36 @@ public class Normal_Claw : ClawMachine
 
     public void OpenClaw()
     {
-        Debug.Log("Open Normal Claw");
-        JointMotor2D motor = leftClaw.motor;
-        motor.motorSpeed = 50f;
-        motor.maxMotorTorque = 50f;
-        leftClaw.motor = motor;
-
-        motor = rightClaw.motor;
-        motor.motorSpeed = -50f;
-        motor.maxMotorTorque = 50f;
-        rightClaw.motor = motor;
-
+        SetClawStrength(clawStrength, true);
     }
+
     public void CloseClaw()
     {
-        Debug.Log("Close Normal Claw");
-        JointMotor2D motor = leftClaw.motor;
-        motor.motorSpeed = -50f;
-        motor.maxMotorTorque = 10000f;
-        leftClaw.motor = motor;
+        SetClawStrength(clawStrength * 2, false);
+    }
 
-        motor = rightClaw.motor;
-        motor.motorSpeed = 50f;
-        motor.maxMotorTorque = 10000f;
-        rightClaw.motor = motor;
+    private void SetClawStrength(float strength, bool isOpening)
+    {
+        if (leftClaw == null || rightClaw == null) return;
 
+        var leftMotor = leftClaw.motor;
+        var rightMotor = rightClaw.motor;
+
+        if (isOpening)
+        {
+            leftMotor.motorSpeed = strength * closeAngle;
+            rightMotor.motorSpeed = -strength * closeAngle;
+        }
+        else
+        {
+            leftMotor.motorSpeed = -strength * closeAngle;
+            rightMotor.motorSpeed = strength * closeAngle;
+        }
+
+        leftMotor.maxMotorTorque = Mathf.Abs(strength * 2);
+        rightMotor.maxMotorTorque = Mathf.Abs(strength * 2);
+
+        leftClaw.motor = leftMotor;
+        rightClaw.motor = rightMotor;
     }
 }

@@ -19,10 +19,11 @@ public class RewardManager : Singleton<RewardManager>
     private int coinToRoll = 2;
     private int numOfReward = 3;
     private RewardDetailUI selectedReward;
-    private int commonRate = 70;
+    private int commonRate = 65;
     public int CommonRate { get { return commonRate; } set { commonRate = value; } }
-    private int rareRate = 20;
-    private int RareRate { get { return rareRate; } set { rareRate = value; } }
+    private int rareRate = 25;
+    public int RareRate { get { return rareRate; } set { rareRate = value; } }
+    private List<ItemBase> lastRolledItems = new List<ItemBase>(); // Lưu 3 vật phẩm của lần roll trước
 
     private void Start()
     {
@@ -39,23 +40,45 @@ public class RewardManager : Singleton<RewardManager>
             PoolingManager.Despawn(child.gameObject);
         }
 
+        List<ItemBase> selectedItems = new List<ItemBase>();
+
         for (int i = 0; i < numOfReward; i++)
         {
-            RewardDetailUI reward = PoolingManager.Spawn(rewardDetailPrefab, this.transform.position, Quaternion.identity, content);
-            Rarity rarity = GetRandomRarity();
-            ItemBase randomItem = itemDatabase.GetRandomItem(rarity);
+            ItemBase randomItem = null;
+            int attempts = 0;
+            const int maxAttempts = 10;
+
+            while (attempts < maxAttempts)
+            {
+                Rarity rarity = GetRandomRarity();
+                randomItem = itemDatabase.GetRandomItem(rarity);
+
+                if (randomItem != null &&
+                    !selectedItems.Contains(randomItem) &&
+                    !lastRolledItems.Contains(randomItem))
+                {
+                    selectedItems.Add(randomItem);
+                    break;
+                }
+                attempts++;
+            }
+
             if (randomItem != null)
             {
+                RewardDetailUI reward = PoolingManager.Spawn(rewardDetailPrefab, this.transform.position, Quaternion.identity, content);
                 reward.Init(randomItem);
             }
         }
+
+        lastRolledItems.Clear();
+        lastRolledItems.AddRange(selectedItems);
     }
 
     private Rarity GetRandomRarity()
     {
         int rarityRoll = Random.Range(0, 100);
         if (rarityRoll < commonRate) return Rarity.Common;
-        else if (rarityRoll < rareRate) return Rarity.Rare;
+        else if (rarityRoll < commonRate + rareRate) return Rarity.Rare;
         else return Rarity.Epic;
     }
 
@@ -70,8 +93,9 @@ public class RewardManager : Singleton<RewardManager>
             }
             coinToRoll = 2;
             selectedReward = null;
-            takeBtn.interactable = false;
             rewardUI.SetActive(false);
+            lastRolledItems.Clear();
+            GameManager.Instance.OutRoom();
         }
     }
 
@@ -80,7 +104,6 @@ public class RewardManager : Singleton<RewardManager>
         if (PlayerManager.Instance.CurrentPlayer.Stats.Coin >= coinToRoll)
         {
             PlayerManager.Instance.CurrentPlayer.Stats.ChangeCoin(-coinToRoll);
-            PlayerManager.Instance.UpdateCoinText();
             coinToRoll *= 2;
             InitReward();
             UpdateUI();
@@ -96,7 +119,7 @@ public class RewardManager : Singleton<RewardManager>
         if (selectedReward != null)
         {
             selectedReward.transform.localScale = Vector3.one;
-            selectedReward.MarkChoice.color = Color.white;
+            selectedReward.MarkChoice.color = reward.ColorDefault;
         }
 
         selectedReward = reward;
