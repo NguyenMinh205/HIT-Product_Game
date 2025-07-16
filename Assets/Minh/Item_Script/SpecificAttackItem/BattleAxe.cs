@@ -16,7 +16,7 @@ public class BattleAxe : AttackWithEffect
 
     public override void Effect(Enemy enemy)
     {
-        //Xóa toàn bộ khiên của enemy
+        enemy.Armor = 0;
     }
 
     public override void Execute(Player player, Enemy enemy)

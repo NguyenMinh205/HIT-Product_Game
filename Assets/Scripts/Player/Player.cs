@@ -174,6 +174,7 @@ public class Player : MonoBehaviour
         stats.ChangeShield(-damage);
         effectiveDamage = Mathf.Max(0, effectiveDamage);
         stats.ChangeCurHP(-effectiveDamage);
+        ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Hit, null);
         UpdateHpUI();
 
         if (stats.CurrentHP <= 0)

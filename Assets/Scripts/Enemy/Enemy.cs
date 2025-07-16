@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
     public int Armor
     {
         get => this.armor;
-        set => this.armor = value;
+        set { this.armor = value; health.UpdateArmor(this); }
     }
     public int ArmorIncreased
     {

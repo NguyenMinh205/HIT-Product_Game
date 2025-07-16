@@ -16,7 +16,6 @@ public class SmallShield : DefendItem
         if (player != null)
         {
             Defend(player);
-            ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Buff, null);
         }
     }
 
