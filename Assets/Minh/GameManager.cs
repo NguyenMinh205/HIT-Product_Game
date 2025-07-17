@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,7 +34,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject uiTumblerRoom;
     [SerializeField] private GameObject uiSmithRoom;
     [SerializeField] private GameObject uiShredderRoom;
+    [SerializeField] private GameObject rewardUI;
+    [SerializeField] private TextMeshProUGUI numOfCoinTxt;
 
+    public GameObject RewardUI => rewardUI;
     public IntoRoomTrigger IntoRoom
     {
         get => intoRoomTrigger;
@@ -78,7 +82,7 @@ public class GameManager : Singleton<GameManager>
         DefaultRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
         currentRoom = DefaultRoom;
-        GamePlayController.Instance.StartRoom();
+        GamePlayController.Instance.StartFightRoom();
     }
 
     public IEnumerator OpenRoomBossFight()
@@ -157,6 +161,7 @@ public class GameManager : Singleton<GameManager>
             MapController.Instance.SetActiveMapStore(true);
             MapManager.Instance.SetActiveRoomVisual(true);
             uiMap.SetActive(true);
+            numOfCoinTxt.text = GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin.ToString();
             PlayerMapController.Instance.IsIntoRoom = false;
             PlayerMapController.Instance.IsMoving = false;
             if (intoRoomTrigger != null)
@@ -164,6 +169,7 @@ public class GameManager : Singleton<GameManager>
                 intoRoomTrigger.gameObject.SetActive(false);
             }
             currentRoom = null;
+            ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar,GamePlayController.Instance.PlayerController.CurrentPlayer);
         }
     }
 

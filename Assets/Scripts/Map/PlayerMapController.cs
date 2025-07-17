@@ -48,7 +48,6 @@ public class PlayerMapController : Singleton<PlayerMapController>
         PosInGrid = spawnPos;
         rb.velocity = Vector2.zero;
         isMoving = false;
-        Debug.Log($"Player initialized at grid position: {spawnPos}, world position: {transform.position}");
     }
 
     private void Update()
@@ -56,25 +55,25 @@ public class PlayerMapController : Singleton<PlayerMapController>
         Debug.Log("Check Player Map Controller");
         if (isMoving)
         {
-            Debug.LogError("Không thể thực hiện vì đang di chuyển (isMoving == true)");
+            //Debug.LogError("Không thể thực hiện vì đang di chuyển (isMoving == true)");
             return;
         }
 
         if (tilemap == null)
         {
-            Debug.LogError("Không thể thực hiện vì tilemap == null");
+            //Debug.LogError("Không thể thực hiện vì tilemap == null");
             return;
         }
 
         if (currentMapData == null)
         {
-            Debug.LogError("Không thể thực hiện vì currentMapData == null");
+            //Debug.LogError("Không thể thực hiện vì currentMapData == null");
             return;
         }
 
         if (IsIntoRoom)
         {
-            Debug.LogError("Không thể thực hiện vì đang ở trong phòng (IsIntoRoom == true)");
+            //Debug.LogError("Không thể thực hiện vì đang ở trong phòng (IsIntoRoom == true)");
             return;
         }
 
@@ -101,7 +100,6 @@ public class PlayerMapController : Singleton<PlayerMapController>
         Vector2Int newPos = posInGrid + direction;
         if (IsValidMove(newPos))
         {
-            Debug.Log(" Check Function Try Move");
             GamePlayController.Instance.Dir = direction;
             StartCoroutine(MoveToPosition(direction));
         }
@@ -109,21 +107,17 @@ public class PlayerMapController : Singleton<PlayerMapController>
 
     private bool IsValidMove(Vector2Int newPos)
     {
-        if (newPos.x < 0 || newPos.x >= currentMapData.MapLayout.Count ||
-            newPos.y < 0 || newPos.y >= currentMapData.MapLayout[newPos.x].Count)
+        if (newPos.x < 0 || newPos.x >= currentMapData.MapLayout.Count || newPos.y < 0 || newPos.y >= currentMapData.MapLayout[newPos.x].Count)
         {
-            Debug.Log($"Move to ({newPos.x}, {newPos.y}) blocked: Out of bounds");
             return false;
         }
 
         EMapTileType tileType = currentMapData.MapLayout[newPos.x][newPos.y];
         if (tileType == EMapTileType.Nothing)
         {
-            Debug.Log($"Move to ({newPos.x}, {newPos.y}) blocked: Tile is Nothing");
             return false;
         }
 
-        Debug.Log($"Move to ({newPos.x}, {newPos.y}) allowed: Tile is {tileType}");
         return true;
     }
 

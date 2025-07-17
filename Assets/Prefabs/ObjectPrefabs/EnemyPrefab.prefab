@@ -126,9 +126,10 @@ MonoBehaviour:
   currentHp: 0
   armor: 0
   armorIncreased: 0
+  enemySprite: {fileID: 0}
   health: {fileID: 1830390511627116580, guid: a11d8f21ee149b04d8f9fcd8a8bcb924, type: 3}
   uiActionEnemy: {fileID: 5594641283351776450, guid: 14f9718a664c4454781243bbeded2fb7, type: 3}
-  distanceEnemyAndHealthBar: 0.3
+  offsetHealthBar: 0.25
   actions: []
 --- !u!114 &9099237690994380999
 MonoBehaviour:
@@ -142,7 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06c5183dd43ac945aa51f08553f9dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 8086658410631364270}
   timeDelayAttack: 1
   timeDelayBuff: 1
   timeDelayHit: 1

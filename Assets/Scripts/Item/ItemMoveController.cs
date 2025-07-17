@@ -123,21 +123,8 @@ public class ItemMoveController : MonoBehaviour
     private void HandleItemArrived(Item item)
     {
         listItemMoving.Remove(item);
-        var player = GamePlayController.Instance.PlayerController.CurrentPlayer;
-        var enemyList = GamePlayController.Instance.EnemyController.ListEnemy;
-
-        if (itemUsage == null || player == null || enemyList == null || enemyList.Count == 0)
-        {
-            Debug.LogWarning("Missing references when using item");
-            return;
-        }
 
         EffectItem(item);
-        itemUsage.UseItem(item.ID, player, enemyList[0]);
-        ObserverManager<IDItem>.PostEven(IDItem.ItemPlayer, item);
-        
-
-        StartCoroutine(PauseThenResume());
     }
 
     public void PauseMovement()
@@ -145,16 +132,10 @@ public class ItemMoveController : MonoBehaviour
         if (isPaused) return;
         isPaused = true;
 
-        // Pause tất cả tween đang chạy
         foreach (var seq in activeTweens)
             if (seq.IsActive()) seq.Pause();
     }
-    private IEnumerator PauseThenResume()
-    {
-        PauseMovement();
-        yield return new WaitForSeconds(pauseAfterAnyFinish);
-        ResumeMovement();
-    }
+
     public void ResumeMovement()
     {
         if (!isPaused) return;
@@ -162,14 +143,14 @@ public class ItemMoveController : MonoBehaviour
 
         foreach (var seq in activeTweens)
             if (seq.IsActive()) seq.Play();
-
-        // Tiếp tục hàng đợi nếu còn item
-        //if (!isRunningCoroutine && listItemMove.Count > 0)
-            //StartCoroutine(StartMovingItems());
     }
 
     public void EffectItem(Item item)
     {
+        PauseMovement();
+        var player = GamePlayController.Instance.PlayerController.CurrentPlayer;
+        var enemyList = GamePlayController.Instance.EnemyController.ListEnemy;
+        itemUsage.UseItem(item.ID, player, enemyList[0]);
         Sequence fx = DOTween.Sequence();
 
         fx.Join(item.transform.DOScale(item.transform.localScale * 1.7f, 1f)
@@ -180,7 +161,8 @@ public class ItemMoveController : MonoBehaviour
         fx.OnComplete(() =>
         {
             Destroy(item.gameObject);
-            //PoolingManager.Despawn(item.gameObject);
+            ResumeMovement();
+            ObserverManager<IDItem>.PostEven(IDItem.ItemPlayer, item);
         });
     }
 

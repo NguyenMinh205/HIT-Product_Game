@@ -21,23 +21,7 @@ public class Magnet_Claw : ClawMachine
         //circle.enabled = false;
     }
 
-    protected override IEnumerator DelayPickUp(float time)
-    {
-        SetStateMagnet(true);
-        yield return new WaitForSeconds(time);
-
-        if (chain.transform.position.y < posStartClaw.position.y)
-        {
-            rb.velocity = Vector2.up * moveForce;
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
-            mode = ModeClaw.End;
-        }
-
-    }
-    protected override IEnumerator DelaOpen(float time)
+    protected override IEnumerator DelayOpen(float time)
     {
         SetStateMagnet(false);
         yield return new WaitForSeconds(time);

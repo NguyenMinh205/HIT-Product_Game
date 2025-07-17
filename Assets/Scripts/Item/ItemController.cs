@@ -5,98 +5,109 @@ using UnityEngine;
 public enum IDItem
 {
     ItemChange,
-    ItemPlayer,
+    ItemPlayer
 }
+
 public class ItemController : MonoBehaviour
 {
-
     [SerializeField] private List<GameObject> listPosSpawnItem;
     [SerializeField] private Item currentObjectPrefab;
     [SerializeField] private Transform itemParent;
     [SerializeField] private ItemMoveController move;
 
     [Space]
-    [Header("Item")]
+    [Header("Item Lists")]
     [SerializeField] private List<Item> listItemInBox;
     [SerializeField] private List<Item> listItemInBasket;
-
+    public bool IsPickupItemSuccess { get; set; }
 
     private void Awake()
     {
         ObserverManager<IDItem>.AddDesgisterEvent(IDItem.ItemChange, ChangeBoxToBasket);
         ObserverManager<IDItem>.AddDesgisterEvent(IDItem.ItemPlayer, DeleteItemOutBasket);
     }
-    private void Update()
-    {
-        CheckNextTurn();
-    }
 
     public void Spawn(Inventory inven)
     {
         SpawnItem(inven.Items);
     }
+
     public void SpawnItem(List<ItemInventory> items)
     {
-        Debug.Log("Spawn Item");
-
-        foreach(ItemInventory item in items)  
+        if (GamePlayController.Instance.IsEndGame)
         {
-            int qualityItem = item.quantity; // so luong item
-            //Tinh toan so luong Item can Spawm
-
-
-            //---------
-            int coutItem = qualityItem;
-
-            for(int i=0;i<coutItem;i++)
+            return;
+        }
+        foreach (ItemInventory item in items)
+        {
+            for (int i = 0; i < item.quantity; i++)
             {
-                Item newItem = PoolingManager.Spawn(currentObjectPrefab, listPosSpawnItem[i].transform.position, Quaternion.identity, itemParent);
-                newItem.SetBalloon(false);
-
+                int randomIndex = Random.Range(0, listPosSpawnItem.Count);
+                Vector3 spawnPos = listPosSpawnItem[randomIndex].transform.position;
+                Item newItem = PoolingManager.Spawn(currentObjectPrefab, spawnPos, Quaternion.identity, itemParent);
                 newItem.Init(item.itemBase);
                 listItemInBox.Add(newItem);
                 newItem.gameObject.SetActive(true);
             }
-            
         }
+        IsPickupItemSuccess = false;
     }
 
     public void ChangeBoxToBasket(object obj)
     {
-        if(obj is Item item)
+        if (obj is Item item)
         {
             if (listItemInBox.Contains(item))
+            {
+                IsPickupItemSuccess = true;
                 listItemInBox.Remove(item);
-
-            if (!listItemInBasket.Contains(item))
                 listItemInBasket.Add(item);
-           // GamePlayController.Instance.PlayerController.CurrentPlayer.RemoveItem(item.ItemB);
+                GamePlayController.Instance.PlayerController.CurrentPlayer.RemoveItem(item.ItemBase);
+                Debug.Log($"Item {item.ID} moved to basket and removed from inventory");
+            }
         }
     }
-   
+
     public void DeleteItemOutBasket(object obj)
     {
-        if(obj is Item item)
+        if (obj is Item item)
         {
-            Debug.Log("Delete Item Out Basket");
+            Debug.Log($"Deleting item {item.ID} from basket");
             listItemInBasket.Remove(item);
+            if (listItemInBasket.Count == 0)
+            {
+                ObserverManager<EventID>.PostEven(EventID.OnBasketEmpty);
+                Debug.Log("Basket is empty, notifying turn change.");
+            }
         }
-    }
-    public void CheckNextTurn()
-    {
-        if (listItemInBasket.Count == 0)
-            GamePlayController.Instance.isCheckTurnByItem = true;
-        else if (listItemInBasket.Count > 0)
-            GamePlayController.Instance.isCheckTurnByItem = false;
     }
 
     public void EndGame()
     {
-        for(int i=0; i < listItemInBox.Count; i++)
+        foreach (Item item in listItemInBox)
         {
-            PoolingManager.Despawn(listItemInBox[i].gameObject);
+            PoolingManager.Despawn(item.gameObject);
         }
-        move.EndGame();
         listItemInBox.Clear();
+        listItemInBasket.Clear();
+        move.EndGame();
+        Debug.Log("Cleared all items from machine");
+    }
+
+    public void SpawnAdditionalItems()
+    {
+        var addedItems = GamePlayController.Instance.PlayerController.CurrentPlayer.AddedItems;
+        if (addedItems.Count > 0)
+        {
+            SpawnItem(addedItems);
+            foreach (var item in addedItems)
+            {
+                Debug.Log($"Spawned additional item {item.itemBase.id} with quantity {item.quantity} for new turn");
+            }
+        }
+        else
+        {
+            Debug.Log("No items in addedItems to spawn");
+        }
     }
 }

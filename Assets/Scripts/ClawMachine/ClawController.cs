@@ -45,7 +45,7 @@ public class ClawController : MonoBehaviour
         {
             Debug.Log("Claws have 0 claw -> next turn ");
             Debug.Log("Next Turn By Claw");
-            GamePlayController.Instance.isCheckTurnByClaw = true;
+            ObserverManager<EventID>.PostEven(EventID.OnClawsEmpty);
         }
         else
         {
@@ -88,10 +88,12 @@ public class ClawController : MonoBehaviour
     }
     public void Spawn()
     {
+        if (GamePlayController.Instance.IsEndGame)
+        {
+            return;
+        }
         for (int i = 0; i < quantityClaws ; i++)
         {
-            Debug.Log("Spawn Claw" + i.ToString());
-            //ClawMachine newClaw = PoolingManager.Spawn(clawPrefabs, posSpawnClaws[i].position, Quaternion.identity, ClawParent);
             ClawMachine newClaw = Instantiate(clawPrefabs, posSpawnClaws[i].position, Quaternion.identity, ClawParent);
             newClaw.ClawController = this;
             newClaw.leftLimit = leftClawLimit;

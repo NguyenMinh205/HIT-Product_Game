@@ -6,8 +6,8 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class Player : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer playerSprite;
-    [SerializeField] private float distancePlayerAndHealthBar;
     [SerializeField] private PlayerAnimator playerAnimator;
+    [SerializeField] private float offsetHealthBar = 1f;
     [SerializeField] private HealthBar health;
 
     private Character character;
@@ -17,11 +17,13 @@ public class Player : MonoBehaviour
 
     private List<IBuffEffect> activeEffects = new List<IBuffEffect>();
     [SerializeField] private Inventory inventory;
+    private List<ItemInventory> addedItems = new List<ItemInventory>(); // Danh sách vật phẩm được thêm bởi AddItem
 
     public bool IsDodge { get; set; }
     public bool IsCounterAttack { get; set; }
 
     public Inventory Inventory => inventory;
+    public List<ItemInventory> AddedItems => addedItems;
 
     public HealthBar Health
     {
@@ -62,16 +64,10 @@ public class Player : MonoBehaviour
             }
         }
         UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
-        health.UpdateHp(this);
-        health.UpdateArmor(this);
-    }
-
-    public void CalculationPositionPlayer(Vector3 posPlayer)
-    {
-        playerSprite = GetComponent<SpriteRenderer>();
-        float height = playerSprite.bounds.extents.y;
-        Vector3 newPos = posPlayer + Vector3.up * height + Vector3.up * distancePlayerAndHealthBar;
-        transform.position = newPos;
+        playerSprite = gameObject.GetComponent<SpriteRenderer>();
+        float height = playerSprite.bounds.size.y / 2;
+        this.gameObject.transform.position += Vector3.up * height;
+        health.transform.position = this.gameObject.transform.position - Vector3.up * (height + offsetHealthBar);
     }
 
     public void AddBuffEffect(string effectName, float value, float duration)
@@ -116,9 +112,26 @@ public class Player : MonoBehaviour
 
     public void AddItem()
     {
-        foreach (ItemInventory item in GamePlayController.Instance.PlayerController.TotalInventory.Items)
+        addedItems.Clear();
+        foreach (ItemInventory totalItem in GamePlayController.Instance.PlayerController.TotalInventory.Items)
         {
-            inventory.AddItem(item.itemBase, (int)Math.Ceiling((item.quantity) / 2.0), item.quantity);
+            int currentQuantity = 0;
+            foreach (var playerItem in inventory.Items)
+            {
+                if (playerItem.itemBase.id == totalItem.itemBase.id)
+                {
+                    currentQuantity = playerItem.quantity;
+                    break;
+                }
+            }
+
+            int quantityToAdd = (int)Math.Ceiling((totalItem.quantity - currentQuantity) / 2.0);
+            if (quantityToAdd > 0)
+            {
+                inventory.AddItem(totalItem.itemBase, quantityToAdd, totalItem.quantity);
+                addedItems.Add(new ItemInventory(totalItem.itemBase, quantityToAdd));
+                Debug.Log($"Added item {totalItem.itemBase.id} with quantity {quantityToAdd} to Player inventory");
+            }
         }
     }
 
@@ -129,6 +142,7 @@ public class Player : MonoBehaviour
             if (item.itemBase == itemBase)
             {
                 inventory.RemoveItem(itemBase, 1);
+                break;
             }
         }
     }
@@ -160,15 +174,24 @@ public class Player : MonoBehaviour
         stats.ChangeShield(-damage);
         effectiveDamage = Mathf.Max(0, effectiveDamage);
         stats.ChangeCurHP(-effectiveDamage);
-
-        health.UpdateArmor(this);
-        health.UpdateHp(this);
+        ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Hit, null);
+        UpdateHpUI();
 
         if (stats.CurrentHP <= 0)
         {
             EndGame();
         }
     }
+
+    public void UpdateHpUI()
+    {
+        health.UpdateHp(this);
+    }    
+
+    public void UpdateArmorUI()
+    {
+        health.UpdateArmor(this);
+    }    
 
     public void DealDamage(int damage)
     {
@@ -183,6 +206,8 @@ public class Player : MonoBehaviour
     public void EndGame()
     {
         ClearAllEffects();
+        addedItems.Clear();
+        inventory.ClearInventory();
         Debug.Log("Game Over for Player");
         this.Health.UnShowHealthBarEnemy();
         PoolingManager.Despawn(gameObject);

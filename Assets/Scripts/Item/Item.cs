@@ -18,15 +18,15 @@ public class Item : MonoBehaviour
     [SerializeField] private GameObject balloon;
     [SerializeField] private float moveForce;
 
-    //private ItemBase _itemBase;
+    private ItemBase _itemBase;
 
     private bool isPickUp = false;
     private bool isMove;
 
-   /* public ItemBase ItemB
+    public ItemBase ItemBase
     {
         get => _itemBase;
-    }*/
+    }
     public string ID
     {
         get => idItem;
@@ -53,7 +53,7 @@ public class Item : MonoBehaviour
         isStackable = itemBase.isStackable;
         maxStackSize = itemBase.maxStackSize;
 
-        //_itemBase = itemBase;
+        _itemBase = itemBase;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -65,7 +65,6 @@ public class Item : MonoBehaviour
             this.GetComponent<PolygonCollider2D>().isTrigger = true;
             this.GetComponent<Rigidbody2D>().simulated = false;
             ObserverManager<ItemMove>.PostEven(ItemMove.AddItemToMove, this);
-            
 
             ObserverManager<IDItem>.PostEven(IDItem.ItemChange, this);
         }

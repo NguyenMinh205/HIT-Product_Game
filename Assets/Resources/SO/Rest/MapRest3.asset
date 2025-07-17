@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MapRest3
   m_EditorClassIdentifier: 
   mapType: 2
-  mapPrefab: {fileID: 0}
+  mapPrefab: {fileID: 7071237325700915883, guid: 6aeca520bf86acb4d894508dc8a7919a, type: 3}
   moveTiles:
   - position: {x: 0, y: -2}
     tileType: 2

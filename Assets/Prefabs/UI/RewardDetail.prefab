@@ -33,10 +33,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1812570420360956962}
-  - {fileID: 5581696195439811345}
   - {fileID: 6363833535792941224}
   - {fileID: 2067931910745976903}
   - {fileID: 2011810619318448476}
+  - {fileID: 5581696195439811345}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -130,6 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00fdf08842403d14dac6175ffbd0f3ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  markChoice: {fileID: 1285314616585586093}
+  itemIcon: {fileID: 6667042866419798702}
+  itemName: {fileID: 7371451878386682795}
+  itemDescription: {fileID: 1785688974599985085}
+  colorDefault: {r: 0.2, g: 0.15294118, b: 0.37254903, a: 0}
 --- !u!222 &729028958104682955
 CanvasRenderer:
   m_ObjectHideFlags: 0

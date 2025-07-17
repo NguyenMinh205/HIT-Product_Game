@@ -9,7 +9,6 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private CharacterDatabaseSO characterDatabase;
     [SerializeField] private CharacterStatSO playerStat;
     [SerializeField] private Inventory totalInventory;
-    [SerializeField] private TextMeshProUGUI numOfCoin;
     [SerializeField] private TextMeshProUGUI numOfCoinInRoom;
     public Inventory TotalInventory => totalInventory;
     public CharacterStatSO PlayerStat => playerStat;
@@ -37,16 +36,14 @@ public class PlayerManager : Singleton<PlayerManager>
                 totalInventory.AddItem(item.itemBase, item.quantity);
             }
         }
-        UpdateCoinText();
     }
 
     public void SpawnPlayer()
     {
         currentPlayer = PoolingManager.Spawn(playerPrefab, posSpawnPlayer.position, Quaternion.identity, playerParent);
         currentPlayer.Initialize(curCharacter, playerStat.Clone(), PlayerPrefs.GetInt("SelectedSkinIndex", 0));
-        currentPlayer.CalculationPositionPlayer(posSpawnPlayer.position);
     }
-    public void ResetSheild()
+    public void ResetShield()
     {
         currentPlayer.Stats.ChangeShield(0);
         currentPlayer.Health.UpdateArmor(currentPlayer);
@@ -58,7 +55,6 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void UpdateCoinText()
     {
-        numOfCoin.text = CurrentPlayer.Stats.Coin.ToString();
         numOfCoinInRoom.text = CurrentPlayer.Stats.Coin.ToString();
     }    
 }

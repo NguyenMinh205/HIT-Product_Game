@@ -62,8 +62,6 @@ public class CharacterStatSO : ScriptableObject
 
     public void ChangeCurHP(float value)
     {
-        if (value < 0)
-            ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Hit, null);
         this.currentHP += value;
         if (this.currentHP > this.maxHP)
         {
@@ -84,6 +82,7 @@ public class CharacterStatSO : ScriptableObject
             return;
         }
         this.shield += value;
+        GamePlayController.Instance.PlayerController.CurrentPlayer.UpdateArmorUI();
     }
 
     public void ChangeCoin(int value)
@@ -95,6 +94,7 @@ public class CharacterStatSO : ScriptableObject
     public void MultipleShield(int val)
     {
         this.shield *= val;
+        GamePlayController.Instance.PlayerController.CurrentPlayer.UpdateArmorUI();
     }
 
     public void ChangeDamageExtra(float value)

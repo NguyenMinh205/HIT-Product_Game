@@ -8,12 +8,15 @@ public class ItemUsage : MonoBehaviour
         ItemBase item = ItemDatabase.Instance.GetItemById(itemId);
         if (item != null)
         {
-            Debug.Log($"Sử dụng vật phẩm: {item.itemName}");
             item.ExecuteAction(player, target);
-        }
-        else
-        {
-            Debug.LogWarning($"Không tìm thấy vật phẩm với ID: {itemId}");
+            if (item.Action is AttackItem or AttackWithBuff or AttackWithEffect)
+            {
+                ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Attack, null);
+            }
+            else
+            {
+                ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Buff, null);
+            }
         }
     }
 

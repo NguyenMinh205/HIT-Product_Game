@@ -28,32 +28,34 @@ public class EnemyController : MonoBehaviour
     {
         get => listEnemy;
     }
+
     private void Awake()
     {
         ObserverManager<IDEnemyState>.AddDesgisterEvent(IDEnemyState.EnemyDied, DieEnemy);
     }
+
     public void Spawn()
     {
         SpawnEnemy(enemySpawController.GetListEnemyToSpawn(MapManager.Instance.MapIndex));
     }
+
     public void SpawnEnemy(List<string> dataEnemySetUp)
     {
-        Debug.Log("Spawn Enemy");
-        for(int i=0; i<dataEnemySetUp.Count; i++)
+        if (GamePlayController.Instance.IsEndGame)
         {
-            //Spawn New Enemy Base
+            return;
+        }
+        for (int i = 0; i < dataEnemySetUp.Count; i++)
+        {
             Enemy newEnemy = PoolingManager.Spawn(enemyPrefab, listPosSpawnEnemy[i].position, Quaternion.identity, enemyParent);
-
             newEnemy.Init(enemyData, dataEnemySetUp[i]);
-            newEnemy.CalulationPositionEnemy(listPosSpawnEnemy[i].position);
-
-            //Add New Enemy To List
             listEnemy.Add(newEnemy);
         }
     }
+
     public IEnumerator CheckEnemyToNextTurn()
     {
-        for (int i= 0; i < listEnemy.Count ;i++)
+        for (int i = 0; i < listEnemy.Count; i++)
         {
             StartCoroutine(listEnemy[i].ExecuteAction());
             float time = listEnemy[i].actions[listEnemy[i].IndexAction].actionEnemy.Count;
@@ -65,14 +67,16 @@ public class EnemyController : MonoBehaviour
             listEnemy[i].NextAction();
         }
     }
+
     public void DieEnemy(object obj)
     {
-        if(obj is Enemy enemy)
+        if (obj is Enemy enemy)
         {
             Debug.Log("Die Enemy");
-            if(listEnemy.Contains(enemy))
+            if (listEnemy.Contains(enemy))
             {
                 listEnemy.Remove(enemy);
+                GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(1);
                 CheckEnemyCountZero();
             }
             enemy.UIAction.UnShowActionEnemy();
@@ -80,12 +84,14 @@ public class EnemyController : MonoBehaviour
             PoolingManager.Despawn(enemy.gameObject);
         }
     }
+
     public void CheckEnemyCountZero()
     {
         Debug.Log("Enemy Count is Zero");
         if (listEnemy.Count == 0)
-            GamePlayController.Instance.WInGame();
+            GamePlayController.Instance.WinGame();
     }
+
     public void ResetShield()
     {
         for (int i = 0; i < listEnemy.Count; i++)
@@ -95,15 +101,9 @@ public class EnemyController : MonoBehaviour
             listEnemy[i].Health.UpdateArmor(listEnemy[i]);
         }
     }
+
     public void EndGame()
     {
-        Debug.Log("Enemy Count : " + listEnemy.Count);
-        for(int i=0; i < listEnemy.Count; i++)
-        {
-            Debug.Log("DesTroy Enemy" + i);
-            //listEnemy[i].EndGame();
-        }
         listEnemy.Clear();
     }
-
 }

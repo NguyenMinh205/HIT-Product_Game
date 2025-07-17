@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public enum EventID
@@ -14,6 +12,8 @@ public enum EventID
     OnGoldChanged,
     OnHealthChanged,
     OnStartEnemyTurn,
+    OnBasketEmpty,
+    OnClawsEmpty
 }
 
 public enum TurnPlay
@@ -45,13 +45,11 @@ public class GamePlayController : Singleton<GamePlayController>
     [SerializeField] private TextMeshProUGUI textTurn;
 
     [Space]
-    [Header("Room")]
-
-    
-    [Space]
     [Header("CheckTurn")]
     public bool isCheckTurnByClaw;
     public bool isCheckTurnByItem;
+    private bool isEndGame = false;
+    public bool IsEndGame => isEndGame;
 
     private Vector2Int directionPlayer;
 
@@ -68,6 +66,41 @@ public class GamePlayController : Singleton<GamePlayController>
     protected override void Awake()
     {
         turnGame = TurnPlay.Player;
+        isCheckTurnByClaw = false;
+        isCheckTurnByItem = false;
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnBasketEmpty, HandleBasketEmpty);
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnClawsEmpty, HandleClawsEmpty);
+    }
+
+    private void HandleBasketEmpty(object obj)
+    {
+        isCheckTurnByItem = true;
+        CheckTurnConditions();
+        Debug.Log("Basket is empty, checking turn conditions.");
+    }
+
+    private void HandleClawsEmpty(object obj)
+    {
+        isCheckTurnByClaw = true;
+        CheckTurnConditions();
+        Debug.Log("Claws are empty, checking turn conditions.");
+    }
+
+    private void CheckTurnConditions()
+    {
+        if (isCheckTurnByClaw && (isCheckTurnByItem || !itemController.IsPickupItemSuccess) && turnGame == TurnPlay.Player)
+        {
+            Turn = TurnPlay.Enemy;
+            Debug.Log("Both claws and basket are empty, switching to Enemy turn.");
+        }
+        else
+        {
+            if (isCheckTurnByItem)
+            {
+                isCheckTurnByItem = false;
+                itemController.IsPickupItemSuccess = false;
+            }
+        } 
     }
 
     public TurnPlay Turn
@@ -94,17 +127,11 @@ public class GamePlayController : Singleton<GamePlayController>
                 break;
 
             case TurnPlay.Player:
-                playerController.ResetSheild();
+                playerController.ResetShield();
                 clawController.ResetMachineClaw();
-                //playerController.CurrentPlayer.AddItem();
                 StartPlayerTurn();
                 break;
         }
-    }
-
-    private void Update()
-    {
-        TurnPlayer();
     }
 
     private void ShowChangeTurn()
@@ -123,17 +150,9 @@ public class GamePlayController : Singleton<GamePlayController>
     public void StartPlayerTurn()
     {
         ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
+        playerController.CurrentPlayer.AddItem();
+        itemController.SpawnAdditionalItems();
         Debug.Log("Player Turn Started");
-    }
-
-    public void TurnPlayer()
-    {
-        if (turnGame != TurnPlay.Player) return;
-
-        if (isCheckTurnByClaw && isCheckTurnByItem)
-        {
-            Turn = TurnPlay.Enemy;
-        }
     }
 
     public void TurnEnemy()
@@ -144,10 +163,10 @@ public class GamePlayController : Singleton<GamePlayController>
         StartCoroutine(enemyController.CheckEnemyToNextTurn());
     }
 
-    public void StartRoom()
+    public void StartFightRoom()
     {
-        Debug.Log("Open Room");
         ShowChangeTurn();
+        isEndGame = false;
 
         enemyController.Spawn();
         playerController.SpawnPlayer();
@@ -160,7 +179,7 @@ public class GamePlayController : Singleton<GamePlayController>
 
     public void LoseGame()
     {
-        Debug.Log("---------------Lose Game ---------------");
+        isEndGame = true;
         clawController.EndGame();
         clawController.IsStart = false;
         enemyController.EndGame();
@@ -168,40 +187,22 @@ public class GamePlayController : Singleton<GamePlayController>
         itemController.EndGame();
 
         GameManager.Instance.OutRoom();
-        /*MapController.Instance.SetActiveMapStore(true);
-        intoRoomTrigger.gameObject.SetActive(false);
-        StartCoroutine(DelayOutTrigger(0.2f));
-        MapManager.Instance.SetActiveRoomVisual(true);*/
-
-        /*PlayerMapController.Instance.IsIntoRoom = false;
-        PlayerMapController.Instance.IsMoving = false;*/
-
         StartCoroutine(PlayerMapController.Instance.MoveToPosition(-1 * directionPlayer));
-
     }
 
-    IEnumerator DelayOutTrigger(float time)
+    public void WinGame()
     {
-        yield return new WaitForSeconds(time);
-    }
-
-    public void WInGame()
-    {
-        Debug.Log("---------------Win Game ---------------");
+        isEndGame = true;
         clawController.EndGame();
         clawController.IsStart = false;
         enemyController.EndGame();
         playerController.EndGame();
         itemController.EndGame();
-        GameManager.Instance.OutRoom();
 
-        /*MapController.Instance.SetActiveMapStore(true);
-        intoRoomTrigger.gameObject.SetActive(false);
-        MapManager.Instance.SetActiveRoomVisual(true);*/
+        int bonusGold = 3 + MapManager.Instance.MapIndex;
+        playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
 
-        /*PlayerMapController.Instance.IsIntoRoom = false;
-        PlayerMapController.Instance.IsMoving = false;*/
-
-        ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar, playerController.CurrentPlayer);
+        GameManager.Instance.RewardUI.SetActive(true);
+        RewardManager.Instance.InitReward();
     }
 }

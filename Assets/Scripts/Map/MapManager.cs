@@ -17,7 +17,7 @@ public class MapManager : Singleton<MapManager>
 
     public int MapIndex
     {
-        get => this.currentMapIndex;   // lay ra index map de set spawn enemy
+        get => this.currentMapIndex;
     }
 
     [SerializeField] private GameObject RoomVisual;
@@ -213,6 +213,11 @@ public class MapManager : Singleton<MapManager>
 
     public void ProceedToNextMap(MapData subsequentMap)
     {
+        if (subsequentMap == null)
+        {
+            Debug.LogError("Loi1");
+            return;
+        }
         currentMapIndex++;
         if (currentMapIndex <= numFloor)
         {
@@ -221,7 +226,6 @@ public class MapManager : Singleton<MapManager>
             MapController.Instance.LoadMap(curMap); 
             GenerateSequenceMap();
             UpdateFloorText();
-            Debug.Log($"Loaded Map: {curMap.MapType} at index {currentMapIndex}");
         }
         else
         {
