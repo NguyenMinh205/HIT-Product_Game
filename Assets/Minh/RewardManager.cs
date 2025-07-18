@@ -95,6 +95,7 @@ public class RewardManager : Singleton<RewardManager>
             selectedReward = null;
             rewardUI.SetActive(false);
             lastRolledItems.Clear();
+            MapController.Instance.SetRoomVisited(PlayerMapController.Instance.PosInMap);
             GameManager.Instance.OutRoom();
         }
     }

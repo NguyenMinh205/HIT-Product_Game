@@ -1,4 +1,5 @@
 public interface ICharacterAbility
 {
-    void StartSetup(Player player);
+    void StartSetupStat();
+    void StartSetupEffect(Player player);
 }

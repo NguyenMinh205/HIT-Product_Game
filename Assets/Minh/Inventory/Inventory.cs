@@ -21,6 +21,7 @@ public class Inventory : MonoBehaviour
             items.Add(new ItemInventory(itemBase, quantity));
         }
         UpdateInventoryUI();
+        GamePlayController.Instance.PlayerController.SavePlayerData();
     }
 
     public void RemoveItem(ItemBase itemBase, int quantity)
@@ -34,6 +35,7 @@ public class Inventory : MonoBehaviour
                 items.Remove(item);
             }
             UpdateInventoryUI();
+            GamePlayController.Instance.PlayerController.SavePlayerData();
         }
     }
 

@@ -178,7 +178,7 @@ public class ShredderRoomManager : MonoBehaviour
     public void ShredItems()
     {
         int totalCost = numItemToShred * shredCostPerItem;
-        if (GamePlayController.Instance.PlayerController.PlayerStat.Coin >= totalCost)
+        if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= totalCost)
         {
             GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-totalCost);
             foreach (var itemUI in itemsToShred.ToList())

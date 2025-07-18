@@ -1,5 +1,9 @@
 ﻿using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEditor.Playables;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
+using DG.Tweening;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
@@ -7,14 +11,16 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private Transform playerParent;
     [SerializeField] private Transform posSpawnPlayer;
     [SerializeField] private CharacterDatabaseSO characterDatabase;
-    [SerializeField] private CharacterStatSO playerStat;
+    [SerializeField] private CharacterStatSO playerStatBase;
+    [SerializeField] private CharacterStatSO curPlayerStat;
     [SerializeField] private Inventory totalInventory;
     [SerializeField] private TextMeshProUGUI numOfCoinInRoom;
     public Inventory TotalInventory => totalInventory;
-    public CharacterStatSO PlayerStat => playerStat;
+    public CharacterStatSO CurPlayerStat { get { return curPlayerStat; } set { curPlayerStat = value; SavePlayerData(); } }
 
     private Character curCharacter;
     private Player currentPlayer;
+    private ICharacterAbility ability;
 
     public Player CurrentPlayer
     {
@@ -26,9 +32,14 @@ public class PlayerManager : Singleton<PlayerManager>
         get => currentPlayer.transform.position;
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        curCharacter = characterDatabase.GetCharacterById(PlayerPrefs.GetString("SelectedCharacterId", ""));
+        curCharacter = characterDatabase.GetCharacterById(GameData.Instance.startData.selectedCharacterId);
+        if (GameData.Instance.startData.isKeepingPlayGame)
+        {
+            LoadPlayerData();
+            return;
+        }    
         if (totalInventory != null && curCharacter.initialItems != null)
         {
             foreach (ItemInventory item in curCharacter.initialItems)
@@ -36,13 +47,23 @@ public class PlayerManager : Singleton<PlayerManager>
                 totalInventory.AddItem(item.itemBase, item.quantity);
             }
         }
+        ability = CharacterAbilityFactory.CreateAbility(curCharacter.id);
+        curPlayerStat = playerStatBase.Clone();
+        if (ability != null && curPlayerStat != null)
+        {
+            ability.StartSetupStat();
+        }
+
+        SavePlayerData();
     }
 
     public void SpawnPlayer()
     {
         currentPlayer = PoolingManager.Spawn(playerPrefab, posSpawnPlayer.position, Quaternion.identity, playerParent);
-        currentPlayer.Initialize(curCharacter, playerStat.Clone(), PlayerPrefs.GetInt("SelectedSkinIndex", 0));
+        currentPlayer.Initialize(curCharacter, curPlayerStat, GameData.Instance.startData.selectedSkinIndex);
+        ability?.StartSetupEffect(currentPlayer);
     }
+
     public void ResetShield()
     {
         currentPlayer.Stats.ChangeShield(0);
@@ -56,5 +77,51 @@ public class PlayerManager : Singleton<PlayerManager>
     public void UpdateCoinText()
     {
         numOfCoinInRoom.text = CurrentPlayer.Stats.Coin.ToString();
+    }
+
+    public void SavePlayerData()
+    {
+        GameData.Instance.mainGameData.playerData.stats = curPlayerStat.Clone();
+        if (GameData.Instance.mainGameData.playerData.stats == null)
+        {
+            Debug.LogError("Player stats are null, cannot save player data!");
+        }
+        GameData.Instance.mainGameData.playerData.inventory = totalInventory;
+        if (GameData.Instance.mainGameData.playerData.inventory == null)
+        {
+            Debug.LogError("Player inventory is null, cannot save player data!");
+        }
+
+        //GameData.Instance.SaveMainGameData();
     }    
+
+    public void LoadPlayerData()
+    {
+        GameData.Instance.LoadMainGameData();
+        DOVirtual.DelayedCall(0.25f, () =>
+        {
+            if (GameData.Instance.mainGameData.playerData != null)
+            {
+                if (GameData.Instance.mainGameData.playerData.stats == null)
+                {
+                    Debug.LogError("Player stats are null, cannot load player data!");
+                }
+                curPlayerStat = GameData.Instance.mainGameData.playerData.stats.Clone();
+                if (curPlayerStat == null)
+                {
+                    Debug.LogError("Bug1");
+                }
+                totalInventory = GameData.Instance.mainGameData.playerData.inventory;
+                if (totalInventory == null)
+                {
+                    Debug.LogError("Bug2");
+                }
+            }
+            else
+            {
+                Debug.LogError("No player data found!");
+            }
+        });
+        
+    }
 }

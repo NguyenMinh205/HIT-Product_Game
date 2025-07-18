@@ -18,18 +18,15 @@ public class HealthBarMap : MonoBehaviour
         ObserverManager<IDMap>.AddDesgisterEvent(IDMap.UpdateHpBar, UpdateHpBarInMap);
     }
 
-/*    private void OnDisable()
-    {
-        ObserverManager<IDMap>.RemoveAddListener(IDMap.UpdateHpBar, UpdateHpBarInMap);
-    }*/
+    /*    private void OnDisable()
+        {
+            ObserverManager<IDMap>.RemoveAddListener(IDMap.UpdateHpBar, UpdateHpBarInMap);
+        }*/
 
 
     public void UpdateHpBarInMap(object obj)
     {
-        if(obj is Player player)
-        {
-            textHp.text = player.Stats.CurrentHP + "/" + player.Stats.MaxHP;
-            imageHp.fillAmount = (float)player.Stats.CurrentHP / player.Stats.MaxHP;
-        }
+        textHp.text = GamePlayController.Instance.PlayerController.CurPlayerStat.CurrentHP + "/" + GamePlayController.Instance.PlayerController.CurPlayerStat.MaxHP;
+        imageHp.fillAmount = (float)GamePlayController.Instance.PlayerController.CurPlayerStat.CurrentHP / GamePlayController.Instance.PlayerController.CurPlayerStat.MaxHP;
     }
 }

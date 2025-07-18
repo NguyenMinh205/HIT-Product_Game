@@ -5,6 +5,7 @@ using System.Collections;
 public class PlayerMapController : Singleton<PlayerMapController>
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Vector2Int posInMap;
     [SerializeField] private Vector2Int posInGrid;
     [SerializeField] private float moveDelay = 0.25f;
 
@@ -12,7 +13,10 @@ public class PlayerMapController : Singleton<PlayerMapController>
     public bool IsIntoRoom
     {
         get => isIntoRoom;
-        set => isIntoRoom = value;
+        set
+        {
+            isIntoRoom = value;
+        }
     }
     public Vector2Int PosInGrid
     {
@@ -20,6 +24,15 @@ public class PlayerMapController : Singleton<PlayerMapController>
         set
         {
             posInGrid = value;
+        }
+    }
+
+    public Vector2Int PosInMap
+    {
+        get => posInMap;
+        set
+        {
+            posInMap = value;
         }
     }
 
@@ -33,47 +46,28 @@ public class PlayerMapController : Singleton<PlayerMapController>
         set => isMoving = value;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         isIntoRoom = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Initialize(Tilemap mapTilemap, MapData mapData, Vector2Int spawnPos, Sprite sprite)
+    public void Initialize(Tilemap mapTilemap, MapData mapData, Vector2Int spawnPosMap, Vector2Int spawnPosGrid, Sprite sprite)
     {
         spriteRenderer.sprite = sprite;
         tilemap = mapTilemap;
         currentMapData = mapData;
-        PosInGrid = spawnPos;
+        posInMap = spawnPosMap;
+        posInGrid = spawnPosGrid;
         rb.velocity = Vector2.zero;
         isMoving = false;
     }
 
     private void Update()
     {
-        Debug.Log("Check Player Map Controller");
-        if (isMoving)
+        if (isMoving || tilemap == null || currentMapData == null || IsIntoRoom)
         {
-            //Debug.LogError("Không thể thực hiện vì đang di chuyển (isMoving == true)");
-            return;
-        }
-
-        if (tilemap == null)
-        {
-            //Debug.LogError("Không thể thực hiện vì tilemap == null");
-            return;
-        }
-
-        if (currentMapData == null)
-        {
-            //Debug.LogError("Không thể thực hiện vì currentMapData == null");
-            return;
-        }
-
-        if (IsIntoRoom)
-        {
-            //Debug.LogError("Không thể thực hiện vì đang ở trong phòng (IsIntoRoom == true)");
             return;
         }
 
@@ -117,7 +111,6 @@ public class PlayerMapController : Singleton<PlayerMapController>
         {
             return false;
         }
-
         return true;
     }
 
@@ -148,8 +141,11 @@ public class PlayerMapController : Singleton<PlayerMapController>
         yield return new WaitForSeconds(moveDelay);
 
         transform.position = targetPosition;
+        posInMap = posInMap + direction;
         posInGrid = posInGrid + direction;
         rb.velocity = Vector2.zero;
         isMoving = false;
+        GameData.Instance.mainGameData.playerNodePosition = posInMap;
+        //GameData.Instance.SaveMainGameData();
     }
 }

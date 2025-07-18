@@ -125,7 +125,7 @@ public class SmithRoomManager : MonoBehaviour
             ItemInventory inventoryItem = inventory.Items.Find(item => item.itemBase == selectedItem);
             if (inventoryItem != null && !inventoryItem.itemBase.isUpgraded && inventoryItem.itemBase.upgradedItem != null)
             {
-                if (GamePlayController.Instance.PlayerController.PlayerStat.Coin >= coinUpgrade)
+                if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinUpgrade)
                 {
                     GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-coinUpgrade);
                     inventory.UpgradeItem(inventoryItem);

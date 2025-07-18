@@ -16,6 +16,7 @@ public class StartSceneManager : Singleton<StartSceneManager>
     [Space]
     [Header("Screen")]
     [SerializeField] private GameObject startScreen;
+    [SerializeField] private GameObject choiceKeepPlayingUI;
     [SerializeField] private GameObject compendiumScreen;
     [SerializeField] private GameObject optionScreen;
     [SerializeField] private GameObject characterSelectionScreen;
@@ -32,15 +33,41 @@ public class StartSceneManager : Singleton<StartSceneManager>
     [SerializeField] private CharacterDatabaseSO characterDatabaseSO;
     public UIChoicePlayer _UIChoicePlayer => uiChoicePlayer;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         characterDatabaseSO.SetupStartData();
+        GameData.Instance.LoadStartGameData();
     }
+
     public void OnStartButton()
     {
         AudioManager.Instance.PlaySoundClickButton();
+
+        if (GameData.Instance.startData.isKeepingPlayGame)
+        {
+            choiceKeepPlayingUI.SetActive(true);
+            return;
+        }
         characterSelectionScreen.SetActive(true);
         startScreen.gameObject.SetActive(false);
+    }
+
+    public void OnChoiceKeepPlayingButton()
+    {
+        AudioManager.Instance.PlaySoundClickButton();
+        SceneManager.LoadScene(1);
+    }
+
+    public void OnChoiceNewGameButton()
+    {
+        AudioManager.Instance.PlaySoundClickButton();
+        GameData.Instance.ClearMainGameData();
+        GameData.Instance.startData.isKeepingPlayGame = false;
+        GameData.Instance.SaveStartGameData();
+        characterSelectionScreen.SetActive(true);
+        startScreen.gameObject.SetActive(false);
+        choiceKeepPlayingUI.SetActive(false);
     }
 
     public void OnCompendiumButton()
@@ -64,7 +91,7 @@ public class StartSceneManager : Singleton<StartSceneManager>
         gachaMachine.SetActive(true);
         startScreen.gameObject.SetActive(false);
     }
-    
+
     public void OnDifficultyButton()
     {
         AudioManager.Instance.PlaySoundClickButton();
@@ -78,6 +105,7 @@ public class StartSceneManager : Singleton<StartSceneManager>
         screen.SetActive(false);
         startScreen.gameObject.SetActive(true);
     }
+
     public void BackScreenFromGacha()
     {
         AudioManager.Instance.PlaySoundClickButton();
@@ -85,6 +113,7 @@ public class StartSceneManager : Singleton<StartSceneManager>
         gachaMachine.SetActive(false);
         startScreen.gameObject.SetActive(true);
     }
+
     public void BackScreenFromDifficulty()
     {
         AudioManager.Instance.PlaySoundClickButton();
@@ -94,8 +123,10 @@ public class StartSceneManager : Singleton<StartSceneManager>
 
     public void PlayGame()
     {
+        GameData.Instance.startData.isKeepingPlayGame = false;
+        GameData.Instance.SaveStartGameData();
         SceneManager.LoadScene(1);
-    }    
+    }
 
     public void QuitGame()
     {

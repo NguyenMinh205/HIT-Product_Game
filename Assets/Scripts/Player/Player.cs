@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     private Character character;
     private CharacterStatSO stats;
     public CharacterStatSO Stats => stats;
-    private ICharacterAbility ability;
 
     private List<IBuffEffect> activeEffects = new List<IBuffEffect>();
     [SerializeField] private Inventory inventory;
@@ -48,12 +47,6 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("CharacterStatSO không được cung cấp!");
             return;
-        }
-
-        ability = CharacterAbilityFactory.CreateAbility(character.id);
-        if (ability != null && stats != null)
-        {
-            ability.StartSetup(this);
         }
 
         if (inventory != null)
@@ -208,6 +201,8 @@ public class Player : MonoBehaviour
         ClearAllEffects();
         addedItems.Clear();
         inventory.ClearInventory();
+        stats.ResetStatAfterRound();
+        GamePlayController.Instance.PlayerController.CurPlayerStat = stats;
         Debug.Log("Game Over for Player");
         this.Health.UnShowHealthBarEnemy();
         PoolingManager.Despawn(gameObject);

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New CharacterStat", menuName = "Character/CharacterStat")]
-public class CharacterStatSO : ScriptableObject
+public class StatsTest
 {
     [SerializeField] private string characterId;
     private string CharacterId => characterId;
@@ -19,7 +19,7 @@ public class CharacterStatSO : ScriptableObject
     public float CriticalChance => criticalChance;
     [SerializeField] private float criticalDamage = 1.8f;
     public float CriticalDamage => criticalDamage;
-    [SerializeField] private float bloodsuckingRate;
+    [SerializeField] private float bloodsuckingRate = 0;
     public float BloodsuckingRate => bloodsuckingRate;
     [SerializeField] private float shield;
     public float Shield => shield;
@@ -38,9 +38,9 @@ public class CharacterStatSO : ScriptableObject
     [SerializeField] private int clawInGrannyRoom = 1;
     public int ClawInGrannyRoom => clawInGrannyRoom;
 
-    public CharacterStatSO Clone()
+    public StatsTest Clone()
     {
-        CharacterStatSO clone = ScriptableObject.CreateInstance<CharacterStatSO>();
+        StatsTest clone = new StatsTest();
         clone.characterId = characterId;
         clone.currentHP = currentHP;
         clone.maxHP = maxHP;
@@ -130,5 +130,5 @@ public class CharacterStatSO : ScriptableObject
     {
         this.shield = 0;
         this.damageIncrease = 0;
-    }    
+    }
 }

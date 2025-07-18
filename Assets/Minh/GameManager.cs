@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : Singleton<GameManager>
@@ -35,13 +36,28 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject uiSmithRoom;
     [SerializeField] private GameObject uiShredderRoom;
     [SerializeField] private GameObject rewardUI;
+    [SerializeField] private GameObject finishUI;
     [SerializeField] private TextMeshProUGUI numOfCoinTxt;
 
+    private bool isFinishGame = false;
+    public bool IsFinishGame
+    {
+        get => isFinishGame;
+        set
+        {
+            isFinishGame = value;
+        }
+    }
     public GameObject RewardUI => rewardUI;
+    public GameObject FinishUI => finishUI;
+
     public IntoRoomTrigger IntoRoom
     {
         get => intoRoomTrigger;
-        set => intoRoomTrigger = value;
+        set
+        {
+            intoRoomTrigger = value;
+        }
     }
 
     private void CloseAllRoomsAndUIs()
@@ -173,4 +189,36 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void BackHome()
+    {
+        if (GameData.Instance.startData.isKeepingPlayGame)
+        {
+            GameData.Instance.SaveMainGameData();
+        }
+        else
+        {
+            GameData.Instance.ClearMainGameData();
+        }
+        SceneManager.LoadScene(0);
+    }
+
+    public void OnDestroy()
+    {
+        if (!isFinishGame)
+        {
+            GameData.Instance.startData.isKeepingPlayGame = true;
+            GameData.Instance.SaveStartGameData();
+        }    
+    }
+
+    private void OnApplicationQuit()
+    {
+        if (!isFinishGame)
+        {
+            GameData.Instance.startData.isKeepingPlayGame = true;
+            GameData.Instance.SaveStartGameData();
+            GameData.Instance.SaveMainGameData();
+            Debug.LogError("Application is quitting, saving game data.");
+        }
+    }
 }

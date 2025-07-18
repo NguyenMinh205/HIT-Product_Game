@@ -105,7 +105,6 @@ public class Enemy : MonoBehaviour
         actions = data.actions;
         indexAction = 0;
 
-        //Set ActionUI Enemy
         UIActionEnemyController.Instance.InitActionToEnemy(this);
         UIActionEnemyController.Instance.InitUIAction(this, indexAction);
 
@@ -128,7 +127,6 @@ public class Enemy : MonoBehaviour
         if (HP < 0)
             HP = 0;
 
-        //Chay Animation Enemy Receiver Damage
         ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Hit, this);
 
         health.UpdateArmor(this);
@@ -146,7 +144,6 @@ public class Enemy : MonoBehaviour
     {
         if (HP <= 0)
         {
-            //Goi khi enemy died
             ObserverManager<IDEnemyState>.PostEven(IDEnemyState.EnemyDied, this);
         }
     }
