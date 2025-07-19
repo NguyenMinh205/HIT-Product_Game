@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public enum IDItem
@@ -45,9 +44,13 @@ public class ItemController : MonoBehaviour
                 int randomIndex = Random.Range(0, listPosSpawnItem.Count);
                 Vector3 spawnPos = listPosSpawnItem[randomIndex].transform.position;
                 Item newItem = PoolingManager.Spawn(currentObjectPrefab, spawnPos, Quaternion.identity, itemParent);
-                newItem.Init(item.itemBase);
-                listItemInBox.Add(newItem);
-                newItem.gameObject.SetActive(true);
+                ItemBase itemBase = item.GetItemBase();
+                if (itemBase != null)
+                {
+                    newItem.Init(itemBase);
+                    listItemInBox.Add(newItem);
+                    newItem.gameObject.SetActive(true);
+                }
             }
         }
         IsPickupItemSuccess = false;
@@ -62,7 +65,7 @@ public class ItemController : MonoBehaviour
                 IsPickupItemSuccess = true;
                 listItemInBox.Remove(item);
                 listItemInBasket.Add(item);
-                GamePlayController.Instance.PlayerController.CurrentPlayer.RemoveItem(item.ItemBase);
+                GamePlayController.Instance.PlayerController.CurrentPlayer.RemoveItem(item.ItemBase.id, isUpgraded: item.ItemBase.isUpgraded);
                 Debug.Log($"Item {item.ID} moved to basket and removed from inventory");
             }
         }
@@ -102,7 +105,7 @@ public class ItemController : MonoBehaviour
             SpawnItem(addedItems);
             foreach (var item in addedItems)
             {
-                Debug.Log($"Spawned additional item {item.itemBase.id} with quantity {item.quantity} for new turn");
+                Debug.Log($"Spawned additional item {item.itemId} (isUpgraded: {item.isUpgraded}) with quantity {item.quantity} for new turn");
             }
         }
         else

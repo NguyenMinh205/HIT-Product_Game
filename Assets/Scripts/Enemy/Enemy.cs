@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private SpriteRenderer enemySprite;
     [SerializeField] private HealthBar health;
     [SerializeField] private UIActionEnemy uiActionEnemy;
-    [SerializeField] private float offsetHealthBar;
+    [SerializeField] private float offsetHealthBar = 1;
 
     public List<ProcedureActionEnemy> actions;
     private int indexAction;
@@ -77,22 +77,10 @@ public class Enemy : MonoBehaviour
         actions = new List<ProcedureActionEnemy>();
     }
 
-    public void InitEnemy(EnemyData data, string id)
+    public void Init(EnemyData data, string id)
     {
         Debug.Log("Init Enemy");
         foreach (DataEnemy enemy in data.dataEnemy)
-        {
-            if (enemy.idEnemy == id)
-            {
-                InitEnemyDetail(enemy);
-                return;
-            }
-        }
-    }
-    public void InitBoss(EnemyData data, string id)
-    {
-        Debug.Log("Init Boss");
-        foreach (DataEnemy enemy in data.dataBoss)
         {
             if (enemy.idEnemy == id)
             {
@@ -117,22 +105,15 @@ public class Enemy : MonoBehaviour
         actions = data.actions;
         indexAction = 0;
 
-        //Set ActionUI Enemy
-        //UIActionEnemyController.Instance.InitActionToEnemy(this);
-        //-------------------------
+        UIActionEnemyController.Instance.InitActionToEnemy(this);
+        UIActionEnemyController.Instance.InitUIAction(this, indexAction);
 
-        health.InitHealthBar(this);
-
+        UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
         enemySprite = gameObject.GetComponent<SpriteRenderer>();
         enemySprite.sprite = spriteIdle;
         height = enemySprite.bounds.size.y / 2;
-        Debug.Log("Height of Enemy: " + height);
         this.gameObject.transform.position += Vector3.up * height;
-
-        RectTransform rectUIAction = uiActionEnemy.GetComponent<RectTransform>();
-        rectUIAction.position = this.transform.position + Vector3.up * height + Vector3.up * offsetHealthBar;
-
-        UIActionEnemyController.Instance.InitUIAction(this, indexAction);
+        health.transform.position = this.gameObject.transform.position - Vector3.up * (height + offsetHealthBar) ;
     }
 
     public bool ReceiverDamage(int damage)
@@ -146,7 +127,6 @@ public class Enemy : MonoBehaviour
         if (HP < 0)
             HP = 0;
 
-        //Chay Animation Enemy Receiver Damage
         ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Hit, this);
 
         health.UpdateArmor(this);
@@ -164,7 +144,6 @@ public class Enemy : MonoBehaviour
     {
         if (HP <= 0)
         {
-            //Goi khi enemy died
             ObserverManager<IDEnemyState>.PostEven(IDEnemyState.EnemyDied, this);
         }
     }
@@ -184,13 +163,12 @@ public class Enemy : MonoBehaviour
         {
             indexAction = 0;
         }
-        UIActionEnemyController.Instance.InitUIAction(this, indexAction);
+        //UIActionEnemyController.Instance.InitUIAction(this, indexAction);
     }
 
     public void NextAction()
     {
         UIActionEnemyController.Instance.InitUIAction(this, indexAction);
-        //--------------------------
     }
 
 }

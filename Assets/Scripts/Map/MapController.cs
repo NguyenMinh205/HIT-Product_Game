@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.WSA;
 
 public class MapController : Singleton<MapController>
 {
@@ -11,6 +14,8 @@ public class MapController : Singleton<MapController>
 
     private GameObject currentMapInstance;
     private MapData currentMapData;
+    private List<SpecialTile> specialTile = new List<SpecialTile>();
+    public List<SpecialTile> SpecialTile => specialTile;
 
     public void SetActiveMapStore(bool val)
     {
@@ -32,6 +37,28 @@ public class MapController : Singleton<MapController>
         }
         currentMapInstance = PoolingManager.Spawn(mapData.MapPrefab, this.transform.position - new Vector3(offsetX, offsetY, 0), Quaternion.identity, mapStore);
         currentMapData = mapData;
+        if (specialTile != null) specialTile.Clear();
+        if (GameData.Instance.startData.isKeepingPlayGame)
+        {
+            specialTile = GameData.Instance.mainGameData.specialTiles;
+        }
+        else
+        {
+            foreach (var tile in mapData.MoveTiles)
+            {
+                if (tile != null)
+                {
+                    SpecialTile special = new SpecialTile
+                    {
+                        tileData = tile,
+                        isInto = false,
+                    };
+                    specialTile.Add(special);
+                }
+            }
+            GameData.Instance.mainGameData.specialTiles = specialTile;
+            //GameData.Instance.SaveMainGameData();
+        }
         SetupMap();
     }
 
@@ -68,15 +95,23 @@ public class MapController : Singleton<MapController>
                                     if (tile.tileIcon != null)
                                     {
                                         GameObject spawnedObject = PoolingManager.Spawn(tile.tileIcon, adjustedPos, Quaternion.identity, mapStore);
-                                        Debug.Log($"Spawned {tile.tileIcon.name} at {adjustedPos} (Grid: {x}, {y}) for Entrance");
                                     }
                                     break;
                                 }
                             }
                         }
-                        PlayerMapController newPlayer = PoolingManager.Spawn<PlayerMapController>(playerPrefab, adjustedPos, Quaternion.identity, mapStore);
-                        newPlayer.Initialize(tilemap, currentMapData, new Vector2Int(x, y), characterDatabase.GetCharacterById(PlayerPrefs.GetString("SelectedCharacterId", "")).skins[PlayerPrefs.GetInt("SelectedSkinIndex", 0)].skin);
-                        Debug.Log($"Player spawned at Entrance: {adjustedPos} (Grid: {x}, {y})");
+                        if (GameData.Instance.startData.isKeepingPlayGame)
+                        {
+                            int distanceX = Mathf.Abs(gridX - GameData.Instance.mainGameData.playerNodePosition.x);
+                            int distanceY = Mathf.Abs(gridY - GameData.Instance.mainGameData.playerNodePosition.y);
+                            PlayerMapController newPlayer = PoolingManager.Spawn<PlayerMapController>(playerPrefab, adjustedPos + new Vector3(distanceX, distanceY, 0), Quaternion.identity, mapStore);
+                            newPlayer.Initialize(tilemap, currentMapData, GameData.Instance.mainGameData.playerNodePosition, GameData.Instance.mainGameData.playerNodePosition - new Vector2Int(bounds.xMin, bounds.yMin), characterDatabase.GetCharacterById(GameData.Instance.startData.selectedCharacterId).skins[GameData.Instance.startData.selectedSkinIndex].skin);
+                        }
+                        else
+                        {
+                            PlayerMapController newPlayer = PoolingManager.Spawn<PlayerMapController>(playerPrefab, adjustedPos, Quaternion.identity, mapStore);
+                            newPlayer.Initialize(tilemap, currentMapData, new Vector2Int(gridX, gridY), new Vector2Int(x,y), characterDatabase.GetCharacterById(GameData.Instance.startData.selectedCharacterId).skins[GameData.Instance.startData.selectedSkinIndex].skin);
+                        }
                         break;
                     case EMapTileType.Exit:
                         if (currentMapData.MoveTiles != null)
@@ -92,7 +127,6 @@ public class MapController : Singleton<MapController>
                                         if (exitTrigger != null)
                                         {
                                             currentMapData.AddSpawnedExitTrigger(exitTrigger);
-                                            Debug.Log($"Spawned {tile.tileIcon.name} với ExitTrigger tại {adjustedPos} (Grid: {x}, {y}) cho Exit");
                                         }
                                         else
                                         {
@@ -119,10 +153,14 @@ public class MapController : Singleton<MapController>
                             {
                                 if (tile != null && tile.position.x == gridX && tile.position.y == gridY && tile.tileType == currentMapData.MapLayout[x][y])
                                 {
+                                    var special = specialTile?.Find(s => s.tileData.position == tile.position && s.tileData.tileType == tile.tileType);
+
+                                    if (special.isInto)
+                                        break;
+
                                     if (tile.tileIcon != null)
                                     {
                                         GameObject spawnedObject = PoolingManager.Spawn(tile.tileIcon, adjustedPos, Quaternion.identity, mapStore);
-                                        Debug.Log($"Spawned {tile.tileIcon.name} at {adjustedPos} (Grid: {x}, {y}) for {currentMapData.MapLayout[x][y]}");
                                     }
                                     break;
                                 }
@@ -133,4 +171,22 @@ public class MapController : Singleton<MapController>
             }
         }
     }
+
+    public void SetRoomVisited(Vector2Int position)
+    {
+        var tile = specialTile.Find(t => t.tileData.position == position);
+        if (tile != null)
+        {
+            tile.isInto = true;
+        }
+        GameData.Instance.mainGameData.specialTiles = specialTile;
+        //GameData.Instance.SaveMainGameData();
+    }
+}
+
+[Serializable]
+public class SpecialTile
+{
+    public TileData tileData;
+    public bool isInto;
 }

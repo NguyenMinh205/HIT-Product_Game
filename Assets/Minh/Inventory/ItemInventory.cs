@@ -3,17 +3,46 @@
 [System.Serializable]
 public class ItemInventory
 {
-    public ItemBase itemBase;
+    public string itemId;
     public int quantity;
+    public bool isUpgraded;
 
-    public ItemInventory(ItemBase itemBase, int qty)
+    public ItemInventory(string itemId, int qty, bool upgraded = false)
     {
-        this.itemBase = itemBase;
+        this.itemId = itemId;
         quantity = qty;
+        isUpgraded = upgraded;
     }
 
-    public string ItemId => itemBase != null ? itemBase.id : string.Empty;
-    public Sprite Icon => itemBase != null ? itemBase.icon : null;
+    public string ItemId => itemId;
+    public Sprite Icon
+    {
+        get
+        {
+            ItemBase itemBase = ItemDatabase.Instance.GetItemById(itemId);
+            if (itemBase != null && isUpgraded && itemBase.upgradedItem != null)
+            {
+                return itemBase.upgradedItem.icon;
+            }
+            return itemBase?.icon;
+        }
+    }
+    public bool CanUpgrade
+    {
+        get
+        {
+            ItemBase itemBase = ItemDatabase.Instance.GetItemById(itemId);
+            return itemBase != null && !isUpgraded && itemBase.upgradedItem != null;
+        }
+    }
 
-    public bool CanUpgrade => itemBase != null && !itemBase.isUpgraded && itemBase.upgradedItem != null;
+    public ItemBase GetItemBase()
+    {
+        ItemBase itemBase = ItemDatabase.Instance.GetItemById(itemId);
+        if (itemBase != null && isUpgraded && itemBase.upgradedItem != null)
+        {
+            return itemBase.upgradedItem;
+        }
+        return itemBase;
+    }
 }

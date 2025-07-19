@@ -59,7 +59,6 @@ public class GachaMachine : Singleton<GachaMachine>
         yield return new WaitForSeconds(0.5f);
 
         ApplyReward();
-        GachaManager.Instance.SaveCoin(); // Lưu coin sau khi quay
         Restart();
     }
 

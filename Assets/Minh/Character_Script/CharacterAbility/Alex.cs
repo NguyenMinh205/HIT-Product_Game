@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Alex : ICharacterAbility
 {
-    public void StartSetup(Player player)
+    public void StartSetupEffect(Player player)
     {
-        player.Stats.ChangeMaxHP(10);
-        player.Stats.ChangeCurHP(10);
         player.AddBuffEffect("buff_shield_start_turn", 5, -1);
+    }
+
+    public void StartSetupStat()
+    {
+        GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeMaxHP(10);
+        GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCurHP(10);
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 
 public class AudioManager : Singleton<AudioManager>
@@ -41,10 +40,6 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private AudioClip enemyHit;
     [SerializeField] private AudioClip enemyBuff;
 
-    private const string MUSIC_VOLUME_KEY = "MusicVolume";
-    private const string SOUND_VOLUME_KEY = "SoundVolume";
-    private const float DEFAULT_VOLUME = 0.5f;
-
     protected override void Awake()
     {
         base.KeepActive(true);
@@ -53,8 +48,9 @@ public class AudioManager : Singleton<AudioManager>
 
     void Start()
     {
-        SetMusicVolume(PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, DEFAULT_VOLUME));
-        SetSoundVolume(PlayerPrefs.GetFloat(SOUND_VOLUME_KEY, DEFAULT_VOLUME));
+        GameData.Instance.LoadStartGameData();
+        SetMusicVolume(GameData.Instance.startData.musicVolume);
+        SetSoundVolume(GameData.Instance.startData.soundVolume);
     }
 
     public void SetMusicVolume(float volume)
@@ -62,8 +58,8 @@ public class AudioManager : Singleton<AudioManager>
         if (musicSource != null)
         {
             musicSource.volume = volume;
-            PlayerPrefs.SetFloat(MUSIC_VOLUME_KEY, volume);
-            PlayerPrefs.Save();
+            GameData.Instance.startData.musicVolume = volume;
+            GameData.Instance.SaveStartGameData();
         }
     }
 
@@ -72,20 +68,20 @@ public class AudioManager : Singleton<AudioManager>
         if (soundSource != null)
         {
             soundSource.volume = volume;
-            PlayerPrefs.SetFloat(SOUND_VOLUME_KEY, volume);
-            PlayerPrefs.Save();
+            GameData.Instance.startData.soundVolume = volume;
+            GameData.Instance.SaveStartGameData();
         }
     }
 
     public void ResetDefault()
     {
         if (musicSource != null)
-            musicSource.volume = DEFAULT_VOLUME;
+            musicSource.volume = 0.5f;
         if (soundSource != null)
-            soundSource.volume = DEFAULT_VOLUME;
-        PlayerPrefs.SetFloat(MUSIC_VOLUME_KEY, DEFAULT_VOLUME);
-        PlayerPrefs.SetFloat(SOUND_VOLUME_KEY, DEFAULT_VOLUME);
-        PlayerPrefs.Save();
+            soundSource.volume = 0.5f;
+        GameData.Instance.startData.musicVolume = 0.5f;
+        GameData.Instance.startData.soundVolume = 0.5f;
+        GameData.Instance.SaveStartGameData();
     }
 
     public void PlayMusicInGame()
@@ -95,7 +91,7 @@ public class AudioManager : Singleton<AudioManager>
             musicSource.clip = musicInGame;
             musicSource.volume = 0f;
             musicSource.Play();
-            musicSource.DOFade(PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, DEFAULT_VOLUME), 0.5f).SetUpdate(true);
+            musicSource.DOFade(GameData.Instance.startData.musicVolume, 0.5f).SetUpdate(true);
         }
     }
 
@@ -106,7 +102,7 @@ public class AudioManager : Singleton<AudioManager>
             musicSource.clip = musicStartGame;
             musicSource.volume = 0f;
             musicSource.Play();
-            musicSource.DOFade(PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, DEFAULT_VOLUME), 0.5f).SetUpdate(true);
+            musicSource.DOFade(GameData.Instance.startData.musicVolume, 0.5f).SetUpdate(true);
         }
     }
 
@@ -117,7 +113,7 @@ public class AudioManager : Singleton<AudioManager>
             musicSource.clip = musicSelectRoom;
             musicSource.volume = 0f;
             musicSource.Play();
-            musicSource.DOFade(PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, DEFAULT_VOLUME), 0.5f).SetUpdate(true);
+            musicSource.DOFade(GameData.Instance.startData.musicVolume, 0.5f).SetUpdate(true);
         }
     }
 
@@ -146,7 +142,7 @@ public class AudioManager : Singleton<AudioManager>
             else
             {
                 soundSource.loop = false;
-                soundSource.PlayOneShot(sound, PlayerPrefs.GetFloat(SOUND_VOLUME_KEY, DEFAULT_VOLUME));
+                soundSource.PlayOneShot(sound, GameData.Instance.startData.soundVolume);
             }
         }
     }

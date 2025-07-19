@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,10 +32,10 @@ public class UIChoicePlayer : MonoBehaviour
             _characterDatabaseSO.LoadUnlockedStates();
         }
 
-        if (_characterDatabaseSO != null && _characterDatabaseSO.CharacterCount() > 0)
+        if (_characterDatabaseSO.CharacterCount() > 0)
         {
-            string savedCharacterId = PlayerPrefs.GetString("SelectedCharacterId", "");
-            int savedSkinIndex = PlayerPrefs.GetInt("SelectedSkinIndex", 0);
+            string savedCharacterId = GameData.Instance.startData.selectedCharacterId;
+            int savedSkinIndex = GameData.Instance.startData.selectedSkinIndex;
 
             if (!string.IsNullOrEmpty(savedCharacterId))
             {
@@ -58,18 +57,6 @@ public class UIChoicePlayer : MonoBehaviour
         {
             characterSpriteRenderer = characterDisplayObject.GetComponent<SpriteRenderer>();
             characterAnimator = characterDisplayObject.GetComponent<Animator>();
-            if (characterSpriteRenderer == null)
-            {
-                Debug.LogError("SpriteRenderer not found on CharacterDisplayObject!");
-            }
-            if (characterAnimator == null)
-            {
-                Debug.LogError("Animator not found on CharacterDisplayObject!");
-            }
-        }
-        else
-        {
-            Debug.LogError("characterDisplayObject is not assigned!");
         }
     }
 
@@ -173,10 +160,14 @@ public class UIChoicePlayer : MonoBehaviour
         {
             GameObject newItemInventoryPrefab = Instantiate(itemInventoryPrefab, listStartItem);
             Image icon = newItemInventoryPrefab.GetComponent<Image>();
-            icon.sprite = item.itemBase.icon;
-            icon.SetNativeSize();
-            icon.rectTransform.sizeDelta *= 0.75f;
-            newItemInventoryPrefab.GetComponentInChildren<TextMeshProUGUI>().SetText(item.quantity.ToString());
+            ItemBase itemBase = item.GetItemBase();
+            if (itemBase != null)
+            {
+                icon.sprite = itemBase.icon;
+                icon.SetNativeSize();
+                icon.rectTransform.sizeDelta *= 0.75f;
+                newItemInventoryPrefab.GetComponentInChildren<TextMeshProUGUI>().SetText(item.quantity.ToString());
+            }
         }
     }
 
@@ -184,19 +175,14 @@ public class UIChoicePlayer : MonoBehaviour
     {
         if (curCharacter.isUnlocked && curCharacter.skins[skinSelectOption].isUnlocked)
         {
-            SaveSelection(curCharacter, skinSelectOption);
+            GameData.Instance.startData.selectedCharacterId = curCharacter.id;
+            GameData.Instance.startData.selectedSkinIndex = skinSelectOption;
+            GameData.Instance.SaveStartGameData();
             StartSceneManager.Instance.OnDifficultyButton();
         }
         else
         {
             Debug.LogWarning("Cannot confirm selection: Character or skin is locked.");
         }
-    }
-
-    public void SaveSelection(Character character, int skinIndex)
-    {
-        PlayerPrefs.SetString("SelectedCharacterId", character.id);
-        PlayerPrefs.SetInt("SelectedSkinIndex", skinIndex);
-        PlayerPrefs.Save();
     }
 }

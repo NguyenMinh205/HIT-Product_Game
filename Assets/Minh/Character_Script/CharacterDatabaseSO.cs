@@ -8,56 +8,58 @@ public class CharacterDatabaseSO : ScriptableObject
 
     public void SetupStartData()
     {
-        if (PlayerPrefs.GetInt("IsSetupStartCharacterData", 0) == 1)
+        GameData.Instance.LoadStartGameData();
+        if (GameData.Instance.startData.characterStates.Count > 0)
         {
-            Debug.Log("PlayerPrefs already initialized, skipping default save.");
+            Debug.Log("Character states already initialized, skipping default save.");
             return;
         }
 
-        if (characters == null || characters.Count == 0)
-        {
-            Debug.LogWarning("Character list is null or empty in CharacterDatabaseSO!");
-            return;
-        }
-
+        GameData.Instance.startData.characterStates.Clear();
         foreach (Character character in characters)
         {
-            PlayerPrefs.SetInt($"CharacterUnlocked_{character.id}", character.isUnlocked ? 1 : 0);
+            CharacterState state = new CharacterState
+            {
+                id = character.id,
+                isUnlocked = character.isUnlocked,
+                skinUnlocks = new List<bool>()
+            };
             if (character.skins != null)
             {
-                for (int i = 0; i < character.skins.Count; i++)
+                foreach (var skin in character.skins)
                 {
-                    PlayerPrefs.SetInt($"SkinUnlocked_{character.id}_{i}", character.skins[i].isUnlocked ? 1 : 0);
+                    state.skinUnlocks.Add(skin.isUnlocked);
                 }
             }
+            GameData.Instance.startData.characterStates.Add(state);
         }
-
-        PlayerPrefs.SetInt("IsSetupStartCharacterData", 1);
-        PlayerPrefs.Save();
-        Debug.Log("Initialized PlayerPrefs with default character and skin states.");
+        GameData.Instance.SaveStartGameData();
+        Debug.Log("Initialized character and skin states.");
     }
 
     public void LoadUnlockedStates()
     {
-        if (characters == null || characters.Count == 0)
+        GameData.Instance.LoadStartGameData();
+        if (GameData.Instance.startData.characterStates == null || GameData.Instance.startData.characterStates.Count == 0)
         {
-            Debug.LogWarning("Character list is null or empty in CharacterDatabaseSO!");
+            Debug.LogWarning("No character states found, initializing default.");
+            SetupStartData();
             return;
         }
 
-        foreach (Character character in characters)
+        foreach (var state in GameData.Instance.startData.characterStates)
         {
-            character.isUnlocked = PlayerPrefs.GetInt($"CharacterUnlocked_{character.id}", 0) == 1;
-
-            if (character.skins != null)
+            Character character = characters.Find(c => c.id == state.id);
+            if (character != null)
             {
-                for (int i = 0; i < character.skins.Count; i++)
+                character.isUnlocked = state.isUnlocked;
+                for (int i = 0; i < state.skinUnlocks.Count && i < character.skins.Count; i++)
                 {
-                    character.skins[i].isUnlocked = PlayerPrefs.GetInt($"SkinUnlocked_{character.id}_{i}", 0) == 1;
+                    character.skins[i].isUnlocked = state.skinUnlocks[i];
                 }
             }
         }
-        Debug.Log("Loaded unlocked states from PlayerPrefs.");
+        Debug.Log("Loaded character and skin states.");
     }
 
     public int CharacterCount()
@@ -77,42 +79,27 @@ public class CharacterDatabaseSO : ScriptableObject
 
     public void UnlockCharacter(string id)
     {
-        Character character = characters.Find(c => c.id == id);
-        if (character == null)
+        CharacterState state = GameData.Instance.startData.characterStates.Find(s => s.id == id);
+        if (state != null)
         {
-            Debug.LogWarning($"Character with ID {id} not found!");
-            return;
+            state.isUnlocked = true;
         }
-        character.isUnlocked = true;
-        PlayerPrefs.SetInt($"CharacterUnlocked_{id}", 1);
-
-        if (character.skins != null && character.skins.Count > 0)
+        if (state != null)
         {
-            character.skins[0].isUnlocked = true;
-            PlayerPrefs.SetInt($"SkinUnlocked_{id}_0", 1);
-            Debug.Log($"Unlocked default skin (index 0) for character: {character.name}");
+            state.skinUnlocks[0] = true;
         }
 
-        PlayerPrefs.Save();
-        Debug.Log($"Unlocked character: {character.name}");
+        GameData.Instance.SaveStartGameData();
     }
 
     public void UnlockSkin(string characterId, int skinIndex)
     {
-        Character character = characters.Find(c => c.id == characterId);
-        if (character == null)
+        CharacterState state = GameData.Instance.startData.characterStates.Find(s => s.id == characterId);
+        if (state != null)
         {
-            Debug.LogWarning($"Character with ID {characterId} not found!");
-            return;
+            state.skinUnlocks[skinIndex] = true;
         }
-        if (skinIndex < 1 || skinIndex >= character.skins.Count)
-        {
-            Debug.LogWarning($"Invalid skin index {skinIndex} for character {character.name}!");
-            return;
-        }
-        character.skins[skinIndex].isUnlocked = true;
-        PlayerPrefs.SetInt($"SkinUnlocked_{characterId}_{skinIndex}", 1);
-        PlayerPrefs.Save();
-        Debug.Log($"Unlocked skin {skinIndex} for character: {character.name}");
+
+        GameData.Instance.SaveStartGameData();
     }
 }

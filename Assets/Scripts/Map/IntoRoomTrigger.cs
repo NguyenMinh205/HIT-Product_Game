@@ -6,6 +6,7 @@ using UnityEngine;
 public class IntoRoomTrigger : MonoBehaviour
 {
     [SerializeField] private string idNameRoom;
+    public string IdNameRoom => idNameRoom;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -16,7 +17,7 @@ public class IntoRoomTrigger : MonoBehaviour
         }
     }
 
-    private void CheckIDRoom(string idRoom)
+    public void CheckIDRoom(string idRoom)
     {
         switch(idRoom)
         {

@@ -147,7 +147,7 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
         {
             _state = PachinkoState.Ended;
             _gameEnded = true;
-            GamePlayController.Instance.PlayerController.TotalInventory.AddItem(_lastRolledItem, 1);
+            GamePlayController.Instance.PlayerController.TotalInventory.AddItem(_lastRolledItem.id, 1);
             Debug.Log("Thắng: Vật phẩm trúng rổ!");
             coinToRoll = 2;
             coinToStart += 2;

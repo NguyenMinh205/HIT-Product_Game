@@ -106,8 +106,7 @@ public class MapData : ScriptableObject
 
             Debug.Log($"Vị trí Tilemap ({tile.position.x}, {tile.position.y}) -> Chỉ số MapLayout ({layoutX}, {layoutY})");
 
-            if (layoutX >= 0 && layoutX < mapLayout.Count &&
-                layoutY >= 0 && layoutY < mapLayout[layoutX].Count)
+            if (layoutX >= 0 && layoutX < mapLayout.Count && layoutY >= 0 && layoutY < mapLayout[layoutX].Count)
             {
                 if (mapLayout[layoutX][layoutY] == EMapTileType.Empty)
                 {

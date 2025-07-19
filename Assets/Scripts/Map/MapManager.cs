@@ -27,7 +27,16 @@ public class MapManager : Singleton<MapManager>
         fightMaps = Resources.LoadAll<MapData>("SO/Fight").ToList();
         bossMaps = Resources.LoadAll<MapData>("SO/Boss").ToList();
         restMaps = Resources.LoadAll<MapData>("SO/Rest").ToList();
-        LoadInitialMap();
+        if (GameData.Instance.startData.isKeepingPlayGame)
+        {
+            currentMapIndex = GameData.Instance.mainGameData.curFloor;
+            LoadSaveMap();
+        }
+        else
+        {
+            currentMapIndex = 0;
+            LoadInitialMap();
+        }
     }
 
     private void UpdateFloorText()
@@ -47,13 +56,31 @@ public class MapManager : Singleton<MapManager>
             return;
         }
         currentMapIndex++;
+        GameData.Instance.mainGameData.curFloor = currentMapIndex;
         curMap = fightMaps[0];
-        curMap.UpdateMapLayout(); // Xóa danh sách ExitDoors cũ và cập nhật layout
-        MapController.Instance.LoadMap(curMap); // Spawn các đối tượng và thêm ExitTrigger vào curMap.ExitDoors
+        GameData.Instance.mainGameData.curMapData = curMap;
+        //GameData.Instance.SaveMainGameData();
+        curMap.UpdateMapLayout();
+        MapController.Instance.LoadMap(curMap);
         GenerateSequenceMap(); // Bây giờ, curMap.ExitDoors sẽ chứa các ExitTrigger đã spawn và sẵn sàng để gán SubsequentMap
         UpdateFloorText();
         Debug.Log($"Initial map loaded: {curMap.MapType} at index {currentMapIndex}");
     }
+
+    private void LoadSaveMap()
+    {
+        currentMapIndex = GameData.Instance.mainGameData.curFloor;
+        curMap = GameData.Instance.mainGameData.curMapData;
+        if (curMap == null)
+        {
+            Debug.LogError("Current map data is null! Cannot load saved map.");
+            return;
+        }
+        curMap.UpdateMapLayout();
+        MapController.Instance.LoadMap(curMap);
+        GenerateSequenceMap();
+        UpdateFloorText();
+    }    
 
     private void GenerateSequenceMap()
     {
@@ -64,7 +91,6 @@ public class MapManager : Singleton<MapManager>
             return;
         }
 
-        Debug.Log($"Đang tạo chuỗi map cho tầng {currentMapIndex}, loại: {curMap.MapType}, số cửa thoát: {curMap.NumOfExitDoor}");
 
         if (currentMapIndex == numFloor - 1)
         {
@@ -77,7 +103,6 @@ public class MapManager : Singleton<MapManager>
                     if (exit != null)
                     {
                         exit.SubsequentMap = finalBossMap;
-                        Debug.Log($"Tầng {currentMapIndex}: Cửa thoát dẫn đến map Boss cuối: {finalBossMap.MapType}");
                     }
                 }
             }
@@ -103,7 +128,6 @@ public class MapManager : Singleton<MapManager>
                     if (exit != null)
                     {
                         exit.SubsequentMap = nextBossMap;
-                        Debug.Log($"Tầng {currentMapIndex}: Cửa thoát dẫn đến map Boss: {nextBossMap.MapType} cho tầng {nextMapIndex}");
                     }
                 }
             }
@@ -129,13 +153,12 @@ public class MapManager : Singleton<MapManager>
                     // Gán cửa thoát còn lại (nếu có)
                     if (curMap.ExitDoors.Count > 1)
                     {
-                        int fightExitIndex = (restExitIndex + 1) % curMap.ExitDoors.Count; // Đảm bảo chọn cửa khác
+                        int fightExitIndex = (restExitIndex + 1) % curMap.ExitDoors.Count; 
                         curMap.ExitDoors[fightExitIndex].SubsequentMap = fightMap;
-                        Debug.Log($"Tầng {currentMapIndex} (Boss): Cửa {restExitIndex} -> {restMap.MapType}, Cửa {fightExitIndex} -> {fightMap.MapType} cho tầng {nextMapIndex}");
                     }
                     else
                     {
-                        Debug.Log($"Tầng {currentMapIndex} (Boss): Chỉ có 1 cửa thoát -> {restMap.MapType} cho tầng {nextMapIndex}");
+                        Debug.LogError($"Tầng {currentMapIndex} (Boss): Chỉ có 1 cửa thoát -> {restMap.MapType} cho tầng {nextMapIndex}");
                     }
                 }
                 else
@@ -153,7 +176,6 @@ public class MapManager : Singleton<MapManager>
                         if (exit != null)
                         {
                             exit.SubsequentMap = nextFightMap;
-                            Debug.Log($"Tầng {currentMapIndex} (Boss): Cửa thoát dẫn đến map Fight: {nextFightMap.MapType} cho tầng {nextMapIndex}");
                         }
                     }
                 }
@@ -178,7 +200,6 @@ public class MapManager : Singleton<MapManager>
                         if (curMap.ExitDoors[i] != null)
                         {
                             curMap.ExitDoors[i].SubsequentMap = nextFightMap;
-                            Debug.Log($"Tầng {currentMapIndex}: Cửa thoát {i} dẫn đến map Fight: {nextFightMap.MapType} cho tầng {nextMapIndex}");
                         }
                         availableFightMaps.RemoveAt(randomIndex);
                     }
@@ -199,7 +220,6 @@ public class MapManager : Singleton<MapManager>
                         if (exit != null)
                         {
                             exit.SubsequentMap = nextFightMap;
-                            Debug.Log($"Tầng {currentMapIndex}: Cửa thoát dẫn đến map Fight: {nextFightMap.MapType} cho tầng {nextMapIndex}");
                         }
                     }
                 }
@@ -219,6 +239,9 @@ public class MapManager : Singleton<MapManager>
             return;
         }
         currentMapIndex++;
+        GameData.Instance.mainGameData.curFloor = currentMapIndex;
+        GameData.Instance.mainGameData.curMapData = subsequentMap;
+        GameData.Instance.SaveStartGameData();
         if (currentMapIndex <= numFloor)
         {
             curMap = subsequentMap;
@@ -229,8 +252,10 @@ public class MapManager : Singleton<MapManager>
         }
         else
         {
-            Debug.Log("Dungeon completed!");
-            // Thêm logic xử lý khi hoàn thành dungeon ở đây
+            Debug.LogError("Dungeon completed!");
+            GameManager.Instance.FinishUI.SetActive(true);
+            GameData.Instance.startData.isKeepingPlayGame = false;
+            GameData.Instance.SaveStartGameData();
         }
     }
 }

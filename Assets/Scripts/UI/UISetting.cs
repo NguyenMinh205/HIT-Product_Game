@@ -24,8 +24,9 @@ public class UISetting : MonoBehaviour
             return;
         }
 
-        originalMusicVolume = audioManager.MusicSource != null ? audioManager.MusicSource.volume : 0.5f;
-        originalSfxVolume = audioManager.SoundSource != null ? audioManager.SoundSource.volume : 0.5f;
+        GameData.Instance.LoadStartGameData();
+        originalMusicVolume = GameData.Instance.startData.musicVolume;
+        originalSfxVolume = GameData.Instance.startData.soundVolume;
         tempMusicVolume = originalMusicVolume;
         tempSfxVolume = originalSfxVolume;
 

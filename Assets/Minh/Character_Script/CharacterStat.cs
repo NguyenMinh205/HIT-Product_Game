@@ -2,8 +2,8 @@
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New CharacterStat", menuName = "Character/CharacterStat")]
-public class CharacterStatSO : ScriptableObject
+[System.Serializable]
+public class CharacterStat
 {
     [SerializeField] private string characterId;
     private string CharacterId => characterId;
@@ -38,9 +38,9 @@ public class CharacterStatSO : ScriptableObject
     [SerializeField] private int clawInGrannyRoom = 1;
     public int ClawInGrannyRoom => clawInGrannyRoom;
 
-    public CharacterStatSO Clone()
+    public CharacterStat Clone()
     {
-        CharacterStatSO clone = ScriptableObject.CreateInstance<CharacterStatSO>();
+        CharacterStat clone = new CharacterStat();
         clone.characterId = characterId;
         clone.currentHP = currentHP;
         clone.maxHP = maxHP;
@@ -125,4 +125,10 @@ public class CharacterStatSO : ScriptableObject
     {
         this.bloodsuckingRate += value;
     }
+
+    public void ResetStatAfterRound()
+    {
+        this.shield = 0;
+        this.damageIncrease = 0;
+    }    
 }
