@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
 
     [Space]
     [Header("Enemy Object")]
-    [SerializeField] private Enemy enemyPrefab;
+    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform enemyParent;
 
     [Space]
@@ -38,7 +38,20 @@ public class EnemyController : MonoBehaviour
     {
         SpawnEnemy(enemySpawController.GetListEnemyToSpawn(MapManager.Instance.MapIndex));
     }
-
+    public void SetPosEnemy(GameObject currentRoom, string checkRoom)
+    {
+        listPosSpawnEnemy.Clear();
+        if(checkRoom == "BossRoom")
+        {
+            listPosSpawnEnemy.Add(currentRoom.transform.Find("BossPos"));
+        }
+        else
+        {
+            listPosSpawnEnemy.Add(currentRoom.transform.Find("EnemyPos 1"));
+            listPosSpawnEnemy.Add(currentRoom.transform.Find("EnemyPos 2"));
+            listPosSpawnEnemy.Add(currentRoom.transform.Find("EnemyPos 3"));
+        }
+    }
     public void SpawnEnemy(List<string> dataEnemySetUp)
     {
         if (GamePlayController.Instance.IsEndGame)
@@ -47,12 +60,24 @@ public class EnemyController : MonoBehaviour
         }
         for (int i = 0; i < dataEnemySetUp.Count; i++)
         {
-            Enemy newEnemy = PoolingManager.Spawn(enemyPrefab, listPosSpawnEnemy[i].position, Quaternion.identity, enemyParent);
-            newEnemy.Init(enemyData, dataEnemySetUp[i]);
+            GameObject newObject = PoolingManager.Spawn(enemyPrefab, listPosSpawnEnemy[i].position, Quaternion.identity, enemyParent);
+            Enemy newEnemy = newObject.transform.Find("EnemyPrefab").GetComponent<Enemy>();
+            newEnemy.InitEnemy(enemyData, dataEnemySetUp[i]);
             listEnemy.Add(newEnemy);
         }
     }
-
+    public void SpawnBoss()
+    {
+        string boosID = enemySpawController.GetIDBossToSpawn();
+        if (GamePlayController.Instance.IsEndGame)
+        {
+            return;
+        }
+        GameObject newObject = PoolingManager.Spawn(enemyPrefab, listPosSpawnEnemy[0].position, Quaternion.identity, enemyParent);
+        Enemy newEnemy = newObject.transform.Find("EnemyPrefab").GetComponent<Enemy>();
+        newEnemy.InitBoss(enemyData, boosID);
+        listEnemy.Add(newEnemy);
+    }
     public IEnumerator CheckEnemyToNextTurn()
     {
         for (int i = 0; i < listEnemy.Count; i++)

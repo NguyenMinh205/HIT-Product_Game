@@ -63,11 +63,7 @@ public class Player : MonoBehaviour
                 inventory.AddItem(item.itemBase, (int)Math.Ceiling(item.quantity / 2.0), item.quantity);
             }
         }
-        UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
-        playerSprite = gameObject.GetComponent<SpriteRenderer>();
-        float height = playerSprite.bounds.size.y / 2;
-        this.gameObject.transform.position += Vector3.up * height;
-        health.transform.position = this.gameObject.transform.position - Vector3.up * (height + offsetHealthBar);
+        health.InitHealthBar(this);
     }
 
     public void AddBuffEffect(string effectName, float value, float duration)

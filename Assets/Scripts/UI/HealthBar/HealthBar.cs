@@ -29,8 +29,6 @@ public class HealthBar : MonoBehaviour
     }*/
     public void InitHealthBar(Object obj)
     {
-        gameObject.SetActive(true);
-
         UpdateArmor(obj);
         UpdateHp(obj);
     }

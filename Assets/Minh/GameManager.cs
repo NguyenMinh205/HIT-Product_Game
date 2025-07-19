@@ -81,8 +81,13 @@ public class GameManager : Singleton<GameManager>
         OpenRoom();
         DefaultRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
+        ObserverManager<IDBackGroundBoxMachine>.PostEven(IDBackGroundBoxMachine.FightNormal);
+        ObserverManager<IDBasketBackGround>.PostEven(IDBasketBackGround.FightNormal);
+        ObserverManager<IDMoveBackGround>.PostEven(IDMoveBackGround.FightNormal);
         currentRoom = DefaultRoom;
-        GamePlayController.Instance.StartFightRoom();
+        GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
+        GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "FightRoom");
+        GamePlayController.Instance.StartFightRoom("FightRoom");
     }
 
     public IEnumerator OpenRoomBossFight()
@@ -91,7 +96,13 @@ public class GameManager : Singleton<GameManager>
         OpenRoom();
         BossRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
+        ObserverManager<IDBackGroundBoxMachine>.PostEven(IDBackGroundBoxMachine.FightBoss);
+        ObserverManager<IDBasketBackGround>.PostEven(IDBasketBackGround.FightBoss);
+        ObserverManager<IDMoveBackGround>.PostEven(IDMoveBackGround.FightBoss);
         currentRoom = BossRoom;
+        GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
+        GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "BossRoom");
+        GamePlayController.Instance.StartFightRoom("BossRoom");
     }
 
     public IEnumerator OpenRoomHealing()

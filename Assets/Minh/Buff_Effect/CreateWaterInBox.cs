@@ -79,7 +79,6 @@ public class CreateWaterInBox : MonoBehaviour ,IBuffEffect
 
     public void Remove(Player player)
     {
-        // Optional: làm nước biến mất nếu muốn
         UnregisterEvents();
     }
 

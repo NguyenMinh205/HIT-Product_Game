@@ -36,5 +36,7 @@ public enum TypeEnemyAction
     Defend,
     Heal,
     Effect,
-    Buff
+    Buff,
+    DeBuff,
+    Drop
 }

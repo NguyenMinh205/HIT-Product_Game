@@ -58,7 +58,7 @@ MonoBehaviour:
     hpEnemy: 5
     damageEnemy: 5
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: -1243730137, guid: 0e816514cd42aec48afa8c80d96680f9, type: 3}
+    spriteEnemyIdle: {fileID: 1430185463, guid: 0e816514cd42aec48afa8c80d96680f9, type: 3}
     controller: {fileID: 9100000, guid: 46e52a19b6a0284469d79e4e40899210, type: 2}
     actions:
     - actionEnemy: 03000000
@@ -118,27 +118,34 @@ MonoBehaviour:
   - idEnemy: enemy11
     nameEnemy: 
     hpEnemy: 100
-    damageEnemy: 0
+    damageEnemy: 10
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 0}
     controller: {fileID: 0}
-    actions: []
+    actions:
+    - actionEnemy: 03000000
+    - actionEnemy: 00000000
   - idEnemy: enemy12
     nameEnemy: 
     hpEnemy: 100
-    damageEnemy: 0
+    damageEnemy: 2
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 0}
     controller: {fileID: 0}
-    actions: []
+    actions:
+    - actionEnemy: 00000000000000000000000000000000
+    - actionEnemy: 04000000
   - idEnemy: enemy13
     nameEnemy: 
     hpEnemy: 100
-    damageEnemy: 0
+    damageEnemy: 15
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 0}
     controller: {fileID: 0}
-    actions: []
+    actions:
+    - actionEnemy: 00000000
+    - actionEnemy: 04000000
+    - actionEnemy: 03000000
   - idEnemy: enemy14
     nameEnemy: 
     hpEnemy: 100
@@ -146,78 +153,96 @@ MonoBehaviour:
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 0}
     controller: {fileID: 0}
-    actions: []
+    actions:
+    - actionEnemy: 04000000
+    - actionEnemy: 04000000
+    - actionEnemy: 03000000
   - idEnemy: enemy15
-    nameEnemy: 
+    nameEnemy: 100
+    hpEnemy: 100
+    damageEnemy: 8
+    armorIncreased: 0
+    spriteEnemyIdle: {fileID: 0}
+    controller: {fileID: 0}
+    actions:
+    - actionEnemy: 04000000
+    - actionEnemy: 00000000
+  - idEnemy: enemy16
+    nameEnemy: 100
+    hpEnemy: 100
+    damageEnemy: 3
+    armorIncreased: 0
+    spriteEnemyIdle: {fileID: 0}
+    controller: {fileID: 0}
+    actions:
+    - actionEnemy: 04000000
+    - actionEnemy: 000000000000000000000000
+  - idEnemy: enemy17
+    nameEnemy: 100
+    hpEnemy: 0
+    damageEnemy: 9
+    armorIncreased: 0
+    spriteEnemyIdle: {fileID: 0}
+    controller: {fileID: 0}
+    actions:
+    - actionEnemy: 0400000000000000
+    - actionEnemy: 0000000000000000
+  - idEnemy: enemy18
+    nameEnemy: 100
+    hpEnemy: 100
+    damageEnemy: 20
+    armorIncreased: 30
+    spriteEnemyIdle: {fileID: 0}
+    controller: {fileID: 0}
+    actions:
+    - actionEnemy: 00000000
+    - actionEnemy: 01000000
+  - idEnemy: enemy19
+    nameEnemy: 100
+    hpEnemy: 100
+    damageEnemy: 15
+    armorIncreased: 0
+    spriteEnemyIdle: {fileID: 0}
+    controller: {fileID: 0}
+    actions:
+    - actionEnemy: 04000000
+    - actionEnemy: 00000000
+    - actionEnemy: 00000000
+  - idEnemy: enemy20
+    nameEnemy: 100
     hpEnemy: 100
     damageEnemy: 0
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 0}
     controller: {fileID: 0}
-    actions: []
-  - idEnemy: enemy16
-    nameEnemy: 
-    hpEnemy: 0
-    damageEnemy: 0
-    armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
-    controller: {fileID: 0}
-    actions: []
-  - idEnemy: enemy17
-    nameEnemy: 
-    hpEnemy: 0
-    damageEnemy: 0
-    armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
-    controller: {fileID: 0}
-    actions: []
-  - idEnemy: enemy18
-    nameEnemy: 
-    hpEnemy: 0
-    damageEnemy: 0
-    armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
-    controller: {fileID: 0}
-    actions: []
-  - idEnemy: enemy19
-    nameEnemy: 
-    hpEnemy: 0
-    damageEnemy: 0
-    armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
-    controller: {fileID: 0}
-    actions: []
-  - idEnemy: enemy20
-    nameEnemy: 
-    hpEnemy: 0
-    damageEnemy: 0
-    armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
-    controller: {fileID: 0}
-    actions: []
+    actions:
+    - actionEnemy: 04000000
+    - actionEnemy: 00000000
   - idEnemy: enemy21
-    nameEnemy: 
-    hpEnemy: 0
+    nameEnemy: 100
+    hpEnemy: 100
     damageEnemy: 0
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 0}
     controller: {fileID: 0}
-    actions: []
+    actions:
+    - actionEnemy: 000000000000000000000000
   - idEnemy: enemy22
     nameEnemy: 
-    hpEnemy: 0
-    damageEnemy: 0
+    hpEnemy: 100
+    damageEnemy: 3
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 0}
     controller: {fileID: 0}
-    actions: []
+    actions:
+    - actionEnemy: 0400000000000000
   dataBoss:
   - idEnemy: boss01
     nameEnemy: 
-    hpEnemy: 0
-    damageEnemy: 0
+    hpEnemy: 55
+    damageEnemy: 6
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: -1182551776, guid: a798d4dca3c882f468c8c27af068fb82, type: 3}
     controller: {fileID: 0}
     actions:
     - actionEnemy: 04000000
@@ -225,6 +250,27 @@ MonoBehaviour:
     - actionEnemy: 04000000
   - idEnemy: boss02
     nameEnemy: 
+    hpEnemy: 55
+    damageEnemy: 6
+    armorIncreased: 0
+    spriteEnemyIdle: {fileID: -1074711646, guid: ffe401bd7e581eb4e8902bbe42a2bde9, type: 3}
+    controller: {fileID: 0}
+    actions:
+    - actionEnemy: 04000000
+    - actionEnemy: 00000000
+  - idEnemy: boss03
+    nameEnemy: 
+    hpEnemy: 55
+    damageEnemy: 17
+    armorIncreased: 0
+    spriteEnemyIdle: {fileID: 0}
+    controller: {fileID: 0}
+    actions:
+    - actionEnemy: 04000000
+    - actionEnemy: 0000000001000000
+    - actionEnemy: 00000000
+  - idEnemy: boss04
+    nameEnemy: 
     hpEnemy: 0
     damageEnemy: 0
     armorIncreased: 0
@@ -232,4 +278,40 @@ MonoBehaviour:
     controller: {fileID: 0}
     actions:
     - actionEnemy: 04000000
+    - actionEnemy: 0000000000000000
+  - idEnemy: boss05
+    nameEnemy: 
+    hpEnemy: 0
+    damageEnemy: 0
+    armorIncreased: 0
+    spriteEnemyIdle: {fileID: 0}
+    controller: {fileID: 0}
+    actions:
+    - actionEnemy: 04000000
+    - actionEnemy: 00000000
+    - actionEnemy: 00000000
+    - actionEnemy: 00000000
+    - actionEnemy: 00000000
+  - idEnemy: boss06
+    nameEnemy: 
+    hpEnemy: 0
+    damageEnemy: 0
+    armorIncreased: 0
+    spriteEnemyIdle: {fileID: 0}
+    controller: {fileID: 0}
+    actions:
+    - actionEnemy: 04000000
+    - actionEnemy: 00000000
+    - actionEnemy: 00000000
+  - idEnemy: boss07
+    nameEnemy: 
+    hpEnemy: 0
+    damageEnemy: 0
+    armorIncreased: 0
+    spriteEnemyIdle: {fileID: 0}
+    controller: {fileID: 0}
+    actions:
+    - actionEnemy: 00000000
+    - actionEnemy: 04000000
+    - actionEnemy: 0000000000000000
     - actionEnemy: 00000000

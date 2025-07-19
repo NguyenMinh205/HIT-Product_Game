@@ -11,59 +11,60 @@ public class UIActionEnemyController : Singleton<UIActionEnemyController>
     [SerializeField] private Sprite spriteBuff;
     [SerializeField] private Sprite spriteEffect;
     [SerializeField] private Sprite spriteHeal;
+    [SerializeField] private Sprite spriteDeBuff;
+    [SerializeField] private Sprite spriteDrop;
 
     [Space]
     [Header("Action Enemy")]
-    [SerializeField] private List<UIActionEnemy> _uiActionEnemy;
     [SerializeField] private float distanceEnemyAndActionUI = 0.4f;
 
     public void InitActionToEnemy(Enemy enemy)
     {
         Debug.Log("Init Action To Enemy");
-        for(int i=0;i<_uiActionEnemy.Count; i++)
-        {
-            if(!_uiActionEnemy[i].gameObject.activeSelf)
-            {
-                _uiActionEnemy[i].gameObject.SetActive(true);
-                enemy.UIAction = _uiActionEnemy[i];
-                SetPosUIAction(enemy);
-                return;
-            }
-        }
+
     }
 
     public void InitUIAction(Enemy enemy, int indexAction)  // 
     {
         ProcedureActionEnemy procedure = enemy.actions[indexAction];
+        //Xu ly toa do UI Action Enemy
+        int countAction = procedure.actionEnemy.Count;
+
+        int posXActionUI = (countAction - 1) * -15;
+
         for (int i = 0; i < procedure.actionEnemy.Count; i++)
         {
             TypeEnemyAction type = procedure.actionEnemy[i];
             switch(type)
             {
                 case TypeEnemyAction.Attack:
-                    enemy.UIAction.SetAction(spriteAttack, i, enemy.Damage);
+                    enemy.UIAction.SetAction(spriteAttack, posXActionUI, enemy.Damage, enemy);
                     break;
 
                 case TypeEnemyAction.Defend:
-                    enemy.UIAction.SetAction(spriteDefend, i, 0);
+                    enemy.UIAction.SetAction(spriteDefend, posXActionUI, 0, enemy);
                     break;
 
                 case TypeEnemyAction.Heal:
-                    enemy.UIAction.SetAction(spriteHeal, i, 0);
+                    enemy.UIAction.SetAction(spriteHeal, posXActionUI, 0, enemy);
                     break;
 
                 case TypeEnemyAction.Effect:
-                    enemy.UIAction.SetAction(spriteEffect, i, 0);
+                    enemy.UIAction.SetAction(spriteEffect, posXActionUI, 0, enemy);
                     break;
 
                 case TypeEnemyAction.Buff:
-                    enemy.UIAction.SetAction(spriteBuff, i, 0);
+                    enemy.UIAction.SetAction(spriteBuff, posXActionUI, 0, enemy);
+                    break;
+
+                case TypeEnemyAction.DeBuff:    
+                    enemy.UIAction.SetAction(spriteDeBuff, posXActionUI, 0, enemy);
+                    break;
+                case TypeEnemyAction.Drop:
+                    enemy.UIAction.SetAction(spriteDrop, posXActionUI, 0, enemy);
                     break;
             }
-        }
-        for(int i=2; i >= procedure.actionEnemy.Count; i--)
-        {
-            enemy.UIAction.UnActionIndexEnemy(i);
+            posXActionUI += 30;
         }
     }
     public void SetPosUIAction(Enemy enemy)

@@ -16,23 +16,39 @@ public static class EnemyActionFactory
                 break;
 
             case TypeEnemyAction.Defend:
+                Debug.Log("Enemy Defend");
                 ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Buff, enemy);
                 EnemyActionDefend.Execute(enemy);
                 break;
 
             case TypeEnemyAction.Heal:
+                Debug.Log("Enemy Heal");
                 ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Buff, enemy);
                 EnemyActionHead.Execute(enemy);
                 break;
 
             case TypeEnemyAction.Effect:
+                Debug.Log("Enemy Effect");
                 ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Buff, enemy);
                 GetEffectEnemy(enemy.ID, enemy);
                 break;
 
             case TypeEnemyAction.Buff:
+                Debug.Log("Enemy Buff");
                 ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Buff, enemy);
                 GetBuffEnemy(enemy.ID, enemy);
+                break;
+
+            case TypeEnemyAction.DeBuff:
+                Debug.Log("Enemy DeBuff");
+                ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Buff, enemy);
+                //EnemyActionDeBuff.Execute(enemy);
+                break;
+
+            case TypeEnemyAction.Drop:
+                Debug.Log("Enemy Drop");
+                ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Buff, enemy);
+                //EnemyActionDrop.Execute(enemy);
                 break;
         }
     }
@@ -52,6 +68,7 @@ public static class EnemyActionFactory
             case "enemy04":
                 break;
             case "enemy05":
+                enemyAction = new DropThreeFruitPoison();
                 break;
             case "enemy06":
                 break;
@@ -98,7 +115,7 @@ public static class EnemyActionFactory
                 enemyAction = new DropThreeFruitPoison();
                 break;
             case "enemy06":
-                //enemyAction = new CreateWaterInBox();
+                enemyAction = new CreateWaterInBoxEffect();
                 break;
             case "enemy07":
                 enemyAction = new GetPoison();

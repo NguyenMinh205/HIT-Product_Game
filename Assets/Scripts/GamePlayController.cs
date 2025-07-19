@@ -163,12 +163,19 @@ public class GamePlayController : Singleton<GamePlayController>
         StartCoroutine(enemyController.CheckEnemyToNextTurn());
     }
 
-    public void StartFightRoom()
+    public void StartFightRoom(string typeFight)
     {
         ShowChangeTurn();
         isEndGame = false;
 
-        enemyController.Spawn();
+        if(typeFight == "BossRoom")
+        {
+            enemyController.SpawnBoss();
+        }
+        else
+        {
+            enemyController.Spawn();
+        }
         playerController.SpawnPlayer();
         clawController.Spawn();
         itemController.Spawn(playerController.CurrentPlayer.Inventory);

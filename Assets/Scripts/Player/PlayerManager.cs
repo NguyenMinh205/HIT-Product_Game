@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
-    [SerializeField] private Player playerPrefab;
+    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform playerParent;
     [SerializeField] private Transform posSpawnPlayer;
     [SerializeField] private CharacterDatabaseSO characterDatabase;
@@ -37,10 +37,15 @@ public class PlayerManager : Singleton<PlayerManager>
             }
         }
     }
+    public void SetPosPlayer(GameObject currenRoom)
+    {
+        posSpawnPlayer = currenRoom.transform.Find("PlayerPos");
+    }
 
     public void SpawnPlayer()
     {
-        currentPlayer = PoolingManager.Spawn(playerPrefab, posSpawnPlayer.position, Quaternion.identity, playerParent);
+        GameObject newObject = PoolingManager.Spawn(playerPrefab, posSpawnPlayer.position, Quaternion.identity, playerParent);
+        currentPlayer = newObject.transform.Find("PlayerPrefab").GetComponent<Player>();
         currentPlayer.Initialize(curCharacter, playerStat.Clone(), PlayerPrefs.GetInt("SelectedSkinIndex", 0));
     }
     public void ResetShield()
