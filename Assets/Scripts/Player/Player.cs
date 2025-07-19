@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class Player : MonoBehaviour
 {
@@ -11,12 +10,12 @@ public class Player : MonoBehaviour
     [SerializeField] private HealthBar health;
 
     private Character character;
-    private CharacterStatSO stats;
-    public CharacterStatSO Stats => stats;
+    private CharacterStat stats;
+    public CharacterStat Stats => stats;
 
     private List<IBuffEffect> activeEffects = new List<IBuffEffect>();
     [SerializeField] private Inventory inventory;
-    private List<ItemInventory> addedItems = new List<ItemInventory>(); // Danh sách vật phẩm được thêm bởi AddItem
+    private List<ItemInventory> addedItems = new List<ItemInventory>();
 
     public bool IsDodge { get; set; }
     public bool IsCounterAttack { get; set; }
@@ -30,7 +29,7 @@ public class Player : MonoBehaviour
         set => health = value;
     }
 
-    public void Initialize(Character selectedCharacter, CharacterStatSO characterStatSO, int index)
+    public void Initialize(Character selectedCharacter, CharacterStat characterStatSO, int index)
     {
         character = selectedCharacter;
         if (character.skins.Count > index)
@@ -53,7 +52,7 @@ public class Player : MonoBehaviour
         {
             foreach (ItemInventory item in GamePlayController.Instance.PlayerController.TotalInventory.Items)
             {
-                inventory.AddItem(item.itemBase, (int)Math.Ceiling(item.quantity / 2.0), item.quantity);
+                inventory.AddItem(item.itemId, (int)Math.Ceiling(item.quantity / 2.0), item.quantity, item.isUpgraded);
             }
         }
         UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
@@ -111,7 +110,7 @@ public class Player : MonoBehaviour
             int currentQuantity = 0;
             foreach (var playerItem in inventory.Items)
             {
-                if (playerItem.itemBase.id == totalItem.itemBase.id)
+                if (playerItem.itemId == totalItem.itemId && playerItem.isUpgraded == totalItem.isUpgraded)
                 {
                     currentQuantity = playerItem.quantity;
                     break;
@@ -121,23 +120,16 @@ public class Player : MonoBehaviour
             int quantityToAdd = (int)Math.Ceiling((totalItem.quantity - currentQuantity) / 2.0);
             if (quantityToAdd > 0)
             {
-                inventory.AddItem(totalItem.itemBase, quantityToAdd, totalItem.quantity);
-                addedItems.Add(new ItemInventory(totalItem.itemBase, quantityToAdd));
-                Debug.Log($"Added item {totalItem.itemBase.id} with quantity {quantityToAdd} to Player inventory");
+                inventory.AddItem(totalItem.itemId, quantityToAdd, totalItem.quantity, totalItem.isUpgraded);
+                addedItems.Add(new ItemInventory(totalItem.itemId, quantityToAdd, totalItem.isUpgraded));
+                Debug.Log($"Added item {totalItem.itemId} (isUpgraded: {totalItem.isUpgraded}) with quantity {quantityToAdd} to Player inventory");
             }
         }
     }
 
-    public void RemoveItem(ItemBase itemBase)
+    public void RemoveItem(string itemId, bool isUpgraded = false)
     {
-        foreach (ItemInventory item in inventory.Items)
-        {
-            if (item.itemBase == itemBase)
-            {
-                inventory.RemoveItem(itemBase, 1);
-                break;
-            }
-        }
+        inventory.RemoveItem(itemId, 1, isUpgraded);
     }
 
     public void ClearAllEffects()
@@ -179,12 +171,12 @@ public class Player : MonoBehaviour
     public void UpdateHpUI()
     {
         health.UpdateHp(this);
-    }    
+    }
 
     public void UpdateArmorUI()
     {
         health.UpdateArmor(this);
-    }    
+    }
 
     public void DealDamage(int damage)
     {

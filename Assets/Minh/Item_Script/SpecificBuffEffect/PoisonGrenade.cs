@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PoisonGrenade : EffectItem
 {
-    private int effectVal = 3;
+    private int effectVal = 5;
     public int EffectVal { get { return effectVal; } set { effectVal = value; } }
     public override void Effect(Enemy enemy)
     {
@@ -32,6 +32,6 @@ public class PoisonGrenade : EffectItem
 
     public override void Upgrade()
     {
-        effectVal = 5;
+        effectVal *= 2;
     }
 }

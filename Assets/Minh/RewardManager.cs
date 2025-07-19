@@ -86,7 +86,7 @@ public class RewardManager : Singleton<RewardManager>
     {
         if (selectedReward != null)
         {
-            PlayerManager.Instance.TotalInventory.AddItem(selectedReward.Item, 1);
+            PlayerManager.Instance.TotalInventory.AddItem(selectedReward.Item.id, 1);
             foreach (Transform child in content)
             {
                 PoolingManager.Despawn(child.gameObject);

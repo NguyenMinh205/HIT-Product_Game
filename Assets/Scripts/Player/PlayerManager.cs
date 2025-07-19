@@ -1,8 +1,5 @@
 ﻿using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using UnityEditor.Playables;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using DG.Tweening;
 
 public class PlayerManager : Singleton<PlayerManager>
@@ -11,12 +8,12 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private Transform playerParent;
     [SerializeField] private Transform posSpawnPlayer;
     [SerializeField] private CharacterDatabaseSO characterDatabase;
-    [SerializeField] private CharacterStatSO playerStatBase;
-    [SerializeField] private CharacterStatSO curPlayerStat;
-    [SerializeField] private Inventory totalInventory;
+    [SerializeField] private CharacterStat playerStatBase = new CharacterStat();
+    [SerializeField] private CharacterStat curPlayerStat = new CharacterStat();
+    [SerializeField] private Inventory totalInventory = new Inventory();
     [SerializeField] private TextMeshProUGUI numOfCoinInRoom;
     public Inventory TotalInventory => totalInventory;
-    public CharacterStatSO CurPlayerStat { get { return curPlayerStat; } set { curPlayerStat = value; SavePlayerData(); } }
+    public CharacterStat CurPlayerStat { get { return curPlayerStat; } set { curPlayerStat = value; SavePlayerData(); } }
 
     private Character curCharacter;
     private Player currentPlayer;
@@ -39,12 +36,12 @@ public class PlayerManager : Singleton<PlayerManager>
         {
             LoadPlayerData();
             return;
-        }    
+        }
         if (totalInventory != null && curCharacter.initialItems != null)
         {
             foreach (ItemInventory item in curCharacter.initialItems)
             {
-                totalInventory.AddItem(item.itemBase, item.quantity);
+                totalInventory.AddItem(item.itemId, item.quantity, item.quantity, item.isUpgraded);
             }
         }
         ability = CharacterAbilityFactory.CreateAbility(curCharacter.id);
@@ -69,6 +66,7 @@ public class PlayerManager : Singleton<PlayerManager>
         currentPlayer.Stats.ChangeShield(0);
         currentPlayer.Health.UpdateArmor(currentPlayer);
     }
+
     public void EndGame()
     {
         currentPlayer?.EndGame();
@@ -91,9 +89,7 @@ public class PlayerManager : Singleton<PlayerManager>
         {
             Debug.LogError("Player inventory is null, cannot save player data!");
         }
-
-        //GameData.Instance.SaveMainGameData();
-    }    
+    }
 
     public void LoadPlayerData()
     {
@@ -122,6 +118,5 @@ public class PlayerManager : Singleton<PlayerManager>
                 Debug.LogError("No player data found!");
             }
         });
-        
     }
 }

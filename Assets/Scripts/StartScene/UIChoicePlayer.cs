@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -161,10 +160,14 @@ public class UIChoicePlayer : MonoBehaviour
         {
             GameObject newItemInventoryPrefab = Instantiate(itemInventoryPrefab, listStartItem);
             Image icon = newItemInventoryPrefab.GetComponent<Image>();
-            icon.sprite = item.itemBase.icon;
-            icon.SetNativeSize();
-            icon.rectTransform.sizeDelta *= 0.75f;
-            newItemInventoryPrefab.GetComponentInChildren<TextMeshProUGUI>().SetText(item.quantity.ToString());
+            ItemBase itemBase = item.GetItemBase();
+            if (itemBase != null)
+            {
+                icon.sprite = itemBase.icon;
+                icon.SetNativeSize();
+                icon.rectTransform.sizeDelta *= 0.75f;
+                newItemInventoryPrefab.GetComponentInChildren<TextMeshProUGUI>().SetText(item.quantity.ToString());
+            }
         }
     }
 

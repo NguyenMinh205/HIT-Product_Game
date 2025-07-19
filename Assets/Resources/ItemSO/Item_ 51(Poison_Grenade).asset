@@ -15,10 +15,10 @@ MonoBehaviour:
   id: Buf17
   itemName: Poison Grenade
   icon: {fileID: -613424204, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
-  itemRarity: 0
-  description: Applies 3 Poison for all enemies
+  itemRarity: 1
+  description: Applies 5 Poison for all enemies
   isStackable: 0
   maxStackSize: 99
   isMetal: 0
+  isUpgraded: 0
   upgradedItem: {fileID: 11400000, guid: 341346f53e42837439748775ac5e7f4f, type: 2}
-  isUpgrade: 0

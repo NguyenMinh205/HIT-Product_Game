@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4278605123151132739}
   - component: {fileID: 6262871788618826098}
   - component: {fileID: 7929153184085620473}
-  - component: {fileID: 4930247587765300604}
   - component: {fileID: 3961715528732008939}
   m_Layer: 0
   m_Name: PlayerPrefab
@@ -126,7 +125,6 @@ MonoBehaviour:
   playerAnimator: {fileID: 3961715528732008939}
   offsetHealthBar: 0.25
   health: {fileID: 0}
-  inventory: {fileID: 4930247587765300604}
 --- !u!60 &7929153184085620473
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -295,18 +293,6 @@ PolygonCollider2D:
       - {x: -0.21499999, y: -0.85799986}
       - {x: -0.16499999, y: -0.80299985}
   m_UseDelaunayMesh: 0
---- !u!114 &4930247587765300604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 884660179733124090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e17dc6daed903e14da55412aae4ed8d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3961715528732008939
 MonoBehaviour:
   m_ObjectHideFlags: 0

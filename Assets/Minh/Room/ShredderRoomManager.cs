@@ -1,6 +1,4 @@
 ﻿using DG.Tweening;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -44,7 +42,11 @@ public class ShredderRoomManager : MonoBehaviour
             {
                 GameObject newItemInventoryPrefab = Instantiate(itemInvenPrefab, listItemStore);
                 ItemInventoryUI ui = newItemInventoryPrefab.GetComponent<ItemInventoryUI>();
-                ui.Init(item.itemBase, ShowDetail, item.quantity);
+                ItemBase itemBase = item.GetItemBase();
+                if (itemBase != null)
+                {
+                    ui.Init(item, itemBase, ShowDetail, item.quantity);
+                }
             }
         }
     }
@@ -65,8 +67,16 @@ public class ShredderRoomManager : MonoBehaviour
         }
     }
 
-    public void ShowDetail(ItemBase itemBase)
+    public void ShowDetail(ItemInventory inventoryItem)
     {
+        ItemBase itemBase = inventoryItem.GetItemBase();
+        if (itemBase == null)
+        {
+            Debug.LogWarning($"ItemBase not found for itemId: {inventoryItem.itemId}");
+            itemDetail.SetActive(false);
+            return;
+        }
+
         CanvasGroup canvasGroup = itemDetail.GetComponent<CanvasGroup>();
         if (canvasGroup == null)
         {
@@ -97,7 +107,6 @@ public class ShredderRoomManager : MonoBehaviour
                     Destroy(child.gameObject);
                 }
 
-                // Tạo hoặc cập nhật item trong shred
                 ItemInventoryUI shredUI = null;
                 foreach (Transform shredChild in shredArea)
                 {
@@ -112,22 +121,23 @@ public class ShredderRoomManager : MonoBehaviour
                 {
                     GameObject newShredItem = Instantiate(itemInvenPrefab, shredArea);
                     shredUI = newShredItem.GetComponent<ItemInventoryUI>();
-                    shredUI.Init(itemBase, ReturnItem, 0);
+                    shredUI.Init(inventoryItem, inventoryItem.GetItemBase(), ReturnItem, 0);
                     itemsToShred.Add(shredUI);
                 }
                 int shredQuantity = int.Parse(shredUI.NumOfItem.text);
                 shredUI.NumOfItem.text = (shredQuantity + 1).ToString();
-                numItemToShred++; // Tăng số lượng item sẽ shred
+                numItemToShred++;
 
-                break; // Giảm 1 item mỗi lần nhấp
+                break;
             }
         }
-        LoadInventoryList(); // Cập nhật lại danh sách
+        LoadInventoryList();
         UpdateShredCost();
     }
 
-    private void ReturnItem(ItemBase itemBase)
+    private void ReturnItem(ItemInventory inventoryItem)
     {
+        ItemBase itemBase = inventoryItem.GetItemBase();
         foreach (Transform child in shredArea)
         {
             ItemInventoryUI ui = child.GetComponent<ItemInventoryUI>();
@@ -157,7 +167,7 @@ public class ShredderRoomManager : MonoBehaviour
                 {
                     GameObject newStoreItem = Instantiate(itemInvenPrefab, listItemStore);
                     storeUI = newStoreItem.GetComponent<ItemInventoryUI>();
-                    storeUI.Init(itemBase, ShowDetail, 0);
+                    storeUI.Init(inventoryItem, inventoryItem.GetItemBase(), ShowDetail, 0);
                 }
                 int storeQuantity = int.Parse(storeUI.NumOfItem.text);
                 storeUI.NumOfItem.text = (storeQuantity + 1).ToString();
@@ -183,16 +193,13 @@ public class ShredderRoomManager : MonoBehaviour
             GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-totalCost);
             foreach (var itemUI in itemsToShred.ToList())
             {
-                ItemInventory invItem = inventory.Items.Find(i => i.itemBase == itemUI.Data);
+                ItemBase itemBase = itemUI.Data;
+                ItemInventory invItem = inventory.Items.Find(i => i.GetItemBase() == itemBase);
                 if (invItem != null)
                 {
                     if (int.TryParse(itemUI.NumOfItem.text, out int quantity))
                     {
-                        invItem.quantity -= quantity;
-                        if (invItem.quantity <= 0)
-                        {
-                            inventory.Items.Remove(invItem);
-                        }
+                        inventory.RemoveItem(invItem.itemId, quantity, invItem.isUpgraded);
                     }
                 }
                 itemsToShred.Remove(itemUI);

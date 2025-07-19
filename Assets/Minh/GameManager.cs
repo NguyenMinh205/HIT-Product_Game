@@ -202,15 +202,6 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene(0);
     }
 
-    public void OnDestroy()
-    {
-        if (!isFinishGame)
-        {
-            GameData.Instance.startData.isKeepingPlayGame = true;
-            GameData.Instance.SaveStartGameData();
-        }    
-    }
-
     private void OnApplicationQuit()
     {
         if (!isFinishGame)

@@ -5,8 +5,8 @@ using UnityEngine;
 public class ItemDatabase : Singleton<ItemDatabase>
 {
     [SerializeField] private List<ItemBase> items;
-    [SerializeField] private List<ItemBase> commonItems = new List<ItemBase>(); // Vật phẩm thường
-    [SerializeField] private List<ItemBase> rareItems = new List<ItemBase>();   // Vật phẩm hiếm
+    [SerializeField] private List<ItemBase> commonItems = new List<ItemBase>();
+    [SerializeField] private List<ItemBase> rareItems = new List<ItemBase>();
     [SerializeField] private List<ItemBase> epicItems = new List<ItemBase>();
 
     private void Start()

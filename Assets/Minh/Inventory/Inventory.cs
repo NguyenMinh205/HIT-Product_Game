@@ -1,32 +1,31 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+[System.Serializable]
+public class Inventory
 {
-    private List<ItemInventory> items = new List<ItemInventory>();
+    [SerializeField] private List<ItemInventory> items = new List<ItemInventory>();
     public List<ItemInventory> Items => items;
 
-    public void AddItem(ItemBase itemBase, int quantity, int maxQuantity = 99)
+    public void AddItem(string itemId, int quantity, int maxQuantity = 99, bool isUpgraded = false)
     {
-        ItemInventory existingItem = items.Find(item => item.ItemId == itemBase.id);
-
+        ItemInventory existingItem = items.Find(item => item.itemId == itemId && item.isUpgraded == isUpgraded);
         if (existingItem != null)
         {
-            if (existingItem.quantity == maxQuantity) return;
-            existingItem.quantity += quantity;
-            if (existingItem.quantity > maxQuantity) existingItem.quantity = maxQuantity;
+            existingItem.quantity = Mathf.Min(existingItem.quantity + quantity, maxQuantity);
         }
         else
         {
-            items.Add(new ItemInventory(itemBase, quantity));
+            ItemInventory newItem = new ItemInventory(itemId, quantity, isUpgraded);
+            items.Add(newItem);
         }
         UpdateInventoryUI();
         GamePlayController.Instance.PlayerController.SavePlayerData();
     }
 
-    public void RemoveItem(ItemBase itemBase, int quantity)
+    public void RemoveItem(string itemId, int quantity, bool isUpgraded = false)
     {
-        ItemInventory item = items.Find(item => item.itemBase == itemBase);
+        ItemInventory item = items.Find(item => item.itemId == itemId && item.isUpgraded == isUpgraded);
         if (item != null)
         {
             item.quantity -= quantity;
@@ -43,17 +42,18 @@ public class Inventory : MonoBehaviour
     {
         if (item != null && item.CanUpgrade)
         {
-            // Thay thế ItemBase bằng upgradedItem
-            ItemBase upgradedItemBase = item.itemBase.upgradedItem;
-            item.quantity--; // Giảm số lượng vật phẩm gốc
-            if (item.quantity <= 0)
+            ItemBase currentItem = ItemDatabase.Instance.GetItemById(item.itemId);
+            if (currentItem != null && currentItem.upgradedItem != null)
             {
-                items.Remove(item);
+                item.quantity--;
+                if (item.quantity <= 0)
+                {
+                    items.Remove(item);
+                }
+                AddItem(currentItem.id, 1, 99, true);
+                UpdateInventoryUI();
+                GamePlayController.Instance.PlayerController.SavePlayerData();
             }
-            // Thêm vật phẩm nâng cấp với số lượng 1
-            ItemInventory newItem = new ItemInventory(upgradedItemBase, 1);
-            items.Add(newItem);
-            UpdateInventoryUI();
         }
     }
 
@@ -65,13 +65,12 @@ public class Inventory : MonoBehaviour
     public void ClearInventory()
     {
         items.Clear();
-    }    
+        UpdateInventoryUI();
+        GamePlayController.Instance.PlayerController.SavePlayerData();
+    }
 
     private void UpdateInventoryUI()
     {
-        //if (inventoryUIController != null)
-        //{
-        //    inventoryUIController.UpdateInventoryDisplay(items);
-        //}
+        // Implementation...
     }
 }

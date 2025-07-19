@@ -125,12 +125,6 @@ public class MainGameDataSave
 [Serializable]
 public class PlayerData
 {
-    public CharacterStatSO stats;
+    public CharacterStat stats;
     public Inventory inventory;
-
-    public PlayerData(CharacterStatSO stats, Inventory inventory)
-    {
-        this.stats = stats;
-        this.inventory = inventory;
-    }
 }

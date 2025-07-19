@@ -31,14 +31,18 @@ MonoBehaviour:
       anim: {fileID: 0}
       isUnlocked: 0
     initialItems:
-    - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
+    - itemId: Atk01
       quantity: 10
-    - itemBase: {fileID: 11400000, guid: eded065d072225e4695dd282993cf557, type: 2}
+      isUpgraded: 0
+    - itemId: Def08
       quantity: 10
-    - itemBase: {fileID: 11400000, guid: 21ac2415a21e2a44ba8c0dadeac1c878, type: 2}
+      isUpgraded: 0
+    - itemId: Def03
       quantity: 1
-    - itemBase: {fileID: 11400000, guid: a9f5fa0994ed89c4591f9b70a7217f84, type: 2}
+      isUpgraded: 0
+    - itemId: Atk02
       quantity: 1
+      isUpgraded: 0
   - id: Cha02
     name: Liam
     isUnlocked: 0
@@ -58,14 +62,18 @@ MonoBehaviour:
       anim: {fileID: 0}
       isUnlocked: 0
     initialItems:
-    - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
+    - itemId: Atk01
       quantity: 5
-    - itemBase: {fileID: 11400000, guid: eded065d072225e4695dd282993cf557, type: 2}
+      isUpgraded: 0
+    - itemId: Def08
       quantity: 10
-    - itemBase: {fileID: 11400000, guid: a9f5fa0994ed89c4591f9b70a7217f84, type: 2}
+      isUpgraded: 0
+    - itemId: Def03
       quantity: 1
-    - itemBase: {fileID: 11400000, guid: 21ac2415a21e2a44ba8c0dadeac1c878, type: 2}
+      isUpgraded: 0
+    - itemId: Atk02
       quantity: 1
+      isUpgraded: 0
   - id: Cha03
     name: Damian
     isUnlocked: 0
@@ -79,10 +87,12 @@ MonoBehaviour:
       anim: {fileID: 9100000, guid: 5a7711439cdf40a40afb3a3269114b2c, type: 2}
       isUnlocked: 0
     initialItems:
-    - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
+    - itemId: Atk01
       quantity: 10
-    - itemBase: {fileID: 11400000, guid: 21ac2415a21e2a44ba8c0dadeac1c878, type: 2}
+      isUpgraded: 0
+    - itemId: Atk02
       quantity: 3
+      isUpgraded: 0
   - id: Cha04
     name: Coby
     isUnlocked: 0
@@ -101,14 +111,18 @@ MonoBehaviour:
       anim: {fileID: 0}
       isUnlocked: 0
     initialItems:
-    - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
+    - itemId: Atk01
       quantity: 7
-    - itemBase: {fileID: 11400000, guid: eded065d072225e4695dd282993cf557, type: 2}
+      isUpgraded: 0
+    - itemId: Def08
       quantity: 7
-    - itemBase: {fileID: 11400000, guid: 950ce586231c48943824e75d761c49ed, type: 2}
+      isUpgraded: 0
+    - itemId: Atk13
       quantity: 3
-    - itemBase: {fileID: 11400000, guid: c6a20e3ecb102a4439ab894430a9606f, type: 2}
+      isUpgraded: 0
+    - itemId: Def09
       quantity: 3
+      isUpgraded: 0
   - id: Cha05
     name: Violet
     isUnlocked: 0
@@ -122,11 +136,15 @@ MonoBehaviour:
       anim: {fileID: 9100000, guid: 86e70bad4c46ecf4c93407b637abc691, type: 2}
       isUnlocked: 0
     initialItems:
-    - itemBase: {fileID: 11400000, guid: 76ec7c6bb45b38e40baabd2e5b9cc027, type: 2}
+    - itemId: Atk01
       quantity: 5
-    - itemBase: {fileID: 11400000, guid: eded065d072225e4695dd282993cf557, type: 2}
+      isUpgraded: 0
+    - itemId: Def08
       quantity: 5
-    - itemBase: {fileID: 11400000, guid: 99cea43d4e771c745a420beefd33422c, type: 2}
+      isUpgraded: 0
+    - itemId: Atk15
       quantity: 5
-    - itemBase: {fileID: 11400000, guid: 37e8ed00fbf8cb54ba7e086fb40f0c78, type: 2}
+      isUpgraded: 0
+    - itemId: Buf17
       quantity: 2
+      isUpgraded: 0

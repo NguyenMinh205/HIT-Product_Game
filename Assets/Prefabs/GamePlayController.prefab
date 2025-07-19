@@ -46,8 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   posStart: {fileID: 0}
   posEnd: {fileID: 0}
-  itemUsage: {fileID: 0}
-  delayBetweenItems: 0.2
+  itemUsage: {fileID: 4102144022588218388}
+  listItemMove: []
+  listItemMoving: []
+  delayBetweenItems: 0.25
   pauseAfterAnyFinish: 1
 --- !u!1 &914730474542095617
 GameObject:
@@ -180,6 +182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7778043706975158382}
+  - component: {fileID: 4102144022588218388}
   m_Layer: 0
   m_Name: ItemUse
   m_TagString: Untagged
@@ -202,6 +205,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4102767459576792299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4102144022588218388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2769539360881618432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dd604bdcb106a04b8b67e56bc4ff094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3694508098268956150
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +286,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1488100228986466741}
   - component: {fileID: 1329408037857685438}
-  - component: {fileID: 22637032908440100}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -311,21 +325,41 @@ MonoBehaviour:
   playerParent: {fileID: 2963511695041897165}
   posSpawnPlayer: {fileID: 0}
   characterDatabase: {fileID: 11400000, guid: 84e61f188e25ed14ba33f8bf64dd67c5, type: 2}
-  playerStat: {fileID: 11400000, guid: 52eaa40084e6c894283f7ae7678a16f1, type: 2}
-  totalInventory: {fileID: 22637032908440100}
-  numOfCoin: {fileID: 0}
---- !u!114 &22637032908440100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3729118087874818512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e17dc6daed903e14da55412aae4ed8d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  playerStatBase:
+    characterId: 
+    currentHP: 100
+    maxHP: 100
+    coin: 0
+    damageIncrease: 0
+    criticalChance: 0.05
+    criticalDamage: 1.8
+    bloodsuckingRate: 0
+    shield: 0
+    retainedBlock: 0
+    magnetStrength: 1
+    fluffCount: 30
+    maxItemAddPerTurn: 15
+    priceReduction: 0
+    clawPerTurn: 2
+    clawInGrannyRoom: 1
+  curPlayerStat:
+    characterId: 
+    currentHP: 100
+    maxHP: 100
+    coin: 0
+    damageIncrease: 0
+    criticalChance: 0.05
+    criticalDamage: 1.8
+    bloodsuckingRate: 0
+    shield: 0
+    retainedBlock: 0
+    magnetStrength: 1
+    fluffCount: 30
+    maxItemAddPerTurn: 15
+    priceReduction: 0
+    clawPerTurn: 2
+    clawInGrannyRoom: 1
+  numOfCoinInRoom: {fileID: 0}
 --- !u!1 &3763587124981900068
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +552,7 @@ MonoBehaviour:
   - {fileID: 0}
   currentObjectPrefab: {fileID: -54595170146916652, guid: d490d2240242d8d42aa443f5203747d6, type: 3}
   itemParent: {fileID: 6968261391967419613}
+  move: {fileID: 537126079914093169}
   listItemInBox: []
   listItemInBasket: []
 --- !u!114 &5729061167104631044
@@ -568,6 +603,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 37e8ed00fbf8cb54ba7e086fb40f0c78, type: 2}
   - {fileID: 11400000, guid: 908cd9f6a86e5124a8332ed1f9ce43f7, type: 2}
   - {fileID: 11400000, guid: 3c5b21b774ac9c74ba7fefc1e4a65158, type: 2}
+  commonItems: []
+  rareItems: []
+  epicItems: []
 --- !u!1 &7068529253157731464
 GameObject:
   m_ObjectHideFlags: 0

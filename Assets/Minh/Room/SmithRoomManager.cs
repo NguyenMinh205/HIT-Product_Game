@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -31,7 +30,7 @@ public class SmithRoomManager : MonoBehaviour
     [SerializeField] private int coinUpgrade = 10;
 
     private Inventory inventory;
-    private ItemBase selectedItem;
+    private ItemInventory selectedItem;
 
     private void Awake()
     {
@@ -52,7 +51,11 @@ public class SmithRoomManager : MonoBehaviour
         {
             GameObject newItemInventoryPrefab = Instantiate(itemInvenPrefab, listItemStore);
             ItemInventoryUI ui = newItemInventoryPrefab.GetComponent<ItemInventoryUI>();
-            ui.Init(item.itemBase, ShowDetail, item.quantity);
+            ItemBase itemBase = item.GetItemBase();
+            if (itemBase != null)
+            {
+                ui.Init(item, itemBase, ShowDetail, item.quantity);
+            }
         }
     }
 
@@ -64,14 +67,12 @@ public class SmithRoomManager : MonoBehaviour
         }
     }
 
-    public void ShowDetail(ItemBase itemBase)
+    public void ShowDetail(ItemInventory inventoryItem)
     {
-        // Tìm ItemInventory tương ứng để kiểm tra CanUpgrade
-        ItemInventory inventoryItem = inventory.Items.Find(item => item.itemBase == itemBase);
-        if (inventoryItem != null && !itemBase.isUpgraded && itemBase.upgradedItem != null)
+        selectedItem = inventoryItem;
+        ItemBase itemBase = ItemDatabase.Instance.GetItemById(inventoryItem.itemId);
+        if (inventoryItem != null && !inventoryItem.isUpgraded && itemBase?.upgradedItem != null)
         {
-            selectedItem = itemBase;
-
             CanvasGroup canvasGroupBefore = itemDetailBeforeUpgrade.GetComponent<CanvasGroup>();
             if (canvasGroupBefore == null)
             {
@@ -88,8 +89,6 @@ public class SmithRoomManager : MonoBehaviour
             detailDescriptionBefore.text = itemBase.description;
 
             canvasGroupBefore.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
-
-            // Hiển thị chi tiết sau nâng cấp
 
             CanvasGroup canvasGroupAfter = itemDetailAfterUpgrade.GetComponent<CanvasGroup>();
             if (canvasGroupAfter == null)
@@ -110,7 +109,6 @@ public class SmithRoomManager : MonoBehaviour
         }
         else
         {
-            // Ẩn thông tin nếu vật phẩm không thể nâng cấp
             itemDetailBeforeUpgrade.SetActive(false);
             itemDetailAfterUpgrade.SetActive(false);
             selectedItem = null;
@@ -122,23 +120,18 @@ public class SmithRoomManager : MonoBehaviour
     {
         if (selectedItem != null)
         {
-            ItemInventory inventoryItem = inventory.Items.Find(item => item.itemBase == selectedItem);
-            if (inventoryItem != null && !inventoryItem.itemBase.isUpgraded && inventoryItem.itemBase.upgradedItem != null)
+            if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinUpgrade)
             {
-                if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinUpgrade)
-                {
-                    GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-coinUpgrade);
-                    inventory.UpgradeItem(inventoryItem);
-                    LoadInventoryList();
-                    // Ẩn thông tin sau khi nâng cấp
-                    itemDetailBeforeUpgrade.SetActive(false);
-                    itemDetailAfterUpgrade.SetActive(false);
-                    selectedItem = null;
-                }
-                else
-                {
-                    Debug.LogWarning("Không đủ coin để nâng cấp!");
-                }
+                GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-coinUpgrade);
+                inventory.UpgradeItem(selectedItem);
+                LoadInventoryList();
+                itemDetailBeforeUpgrade.SetActive(false);
+                itemDetailAfterUpgrade.SetActive(false);
+                selectedItem = null;
+            }
+            else
+            {
+                Debug.LogWarning("Không đủ coin để nâng cấp!");
             }
         }
         UpdateUpgradeCost();
@@ -146,7 +139,7 @@ public class SmithRoomManager : MonoBehaviour
 
     private void UpdateUpgradeCost()
     {
-        if (selectedItem != null && !selectedItem.isUpgraded && selectedItem.upgradedItem != null)
+        if (selectedItem != null && selectedItem.CanUpgrade)
         {
             upgradeCostText.text = coinUpgrade.ToString();
         }
