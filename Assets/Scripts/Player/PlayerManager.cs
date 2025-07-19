@@ -4,7 +4,7 @@ using DG.Tweening;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
-    [SerializeField] private Player playerPrefab;
+    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform playerParent;
     [SerializeField] private Transform posSpawnPlayer;
     [SerializeField] private CharacterDatabaseSO characterDatabase;
@@ -53,10 +53,14 @@ public class PlayerManager : Singleton<PlayerManager>
 
         SavePlayerData();
     }
-
+    public void SetPosPlayer(GameObject currenRoom)
+    {
+        posSpawnPlayer = currenRoom.transform.Find("PlayerPos");
+    }
     public void SpawnPlayer()
     {
-        currentPlayer = PoolingManager.Spawn(playerPrefab, posSpawnPlayer.position, Quaternion.identity, playerParent);
+        GameObject newObject = PoolingManager.Spawn(playerPrefab, posSpawnPlayer.position, Quaternion.identity, playerParent);
+        currentPlayer = newObject.transform.Find("PlayerPrefab").GetComponent<Player>();
         currentPlayer.Initialize(curCharacter, curPlayerStat, GameData.Instance.startData.selectedSkinIndex);
         ability?.StartSetupEffect(currentPlayer);
     }
