@@ -14,5 +14,6 @@ public class UIEffectIcon : Singleton<UIEffectIcon>
 	[SerializeField] public Sprite CreateWater;
 	[SerializeField] public Sprite PosionGas;
 	[SerializeField] public Sprite BuffSheildTurn;
+	[SerializeField] public Sprite x2DamageTurn;
 
 }

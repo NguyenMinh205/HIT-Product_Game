@@ -31,12 +31,12 @@ public class PoisonGas : IBuffEffect
 
     public void RegisterEvents()
     {
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartPlayerTurn, OnStartPlayerTurn);
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartEnemyTurn, OnStartPlayerTurn);
     }
 
     public void UnregisterEvents()
     {
-        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartPlayerTurn, OnStartPlayerTurn);
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartEnemyTurn, OnStartPlayerTurn);
     }
 
     private void OnStartPlayerTurn(object param)
@@ -47,7 +47,7 @@ public class PoisonGas : IBuffEffect
             return;
         }
         
-        player.AddBuffEffect("poison_effect", Value, Value);
+        GamePlayController.Instance.PlayerController.CurrentPlayer.AddBuffEffect("poison_effect", Value, Value);
         Debug.Log($"Applied PoisonEffect to player with {Value} damage for {Value} turns.");
 
         if (Duration != -1)
@@ -58,11 +58,11 @@ public class PoisonGas : IBuffEffect
 
     public void ApplyEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        RegisterEvents();
     }
 
     public void RemoveEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        UnregisterEvents();
     }
 }

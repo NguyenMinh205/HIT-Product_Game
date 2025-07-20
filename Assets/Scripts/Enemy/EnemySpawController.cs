@@ -45,8 +45,8 @@ public class EnemySpawController : MonoBehaviour
             listEnemySpawn.Add(listIDEnemyApt[randomIndex]);
         }
         //test enemy
-        //return new List<string> { "enemy08" };
-        return listEnemySpawn;
+        return new List<string> { "enemy04" };
+        //return listEnemySpawn;
     }
 
     public string GetIDBossToSpawn()
@@ -57,6 +57,7 @@ public class EnemySpawController : MonoBehaviour
         }
         string idBoss = listIDBoss[currentIndexBoss];
         currentIndexBoss++;
-        return idBoss;
+        //return idBoss;
+        return "boss02";
     }
 }

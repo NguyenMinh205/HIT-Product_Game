@@ -55,11 +55,11 @@ public class PoisonEffect : IBuffEffect
 
     public void ApplyEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartEnemyTurn, OnStartPlayerTurn);
     }
 
     public void RemoveEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartEnemyTurn, OnStartPlayerTurn);
     }
 }

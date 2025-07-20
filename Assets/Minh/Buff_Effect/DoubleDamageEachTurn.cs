@@ -14,6 +14,7 @@ public class DoubleDamageEachTurn : IBuffEffect
         Name = "double_damage_each_turn";
         Value = value;
         Duration = duration;
+        Icon = UIEffectIcon.Instance.x2DamageTurn;
     }
 
     public void Apply(Player player)
@@ -35,12 +36,12 @@ public class DoubleDamageEachTurn : IBuffEffect
 
     public void RegisterEvents()
     {
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartPlayerTurn, OnStartPlayerTurn);
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartEnemyTurn, OnStartPlayerTurn);
     }
 
     public void UnregisterEvents()
     {
-        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartPlayerTurn, OnStartPlayerTurn);
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartEnemyTurn, OnStartPlayerTurn);
     }
 
     private void OnStartPlayerTurn(object param)
@@ -56,6 +57,8 @@ public class DoubleDamageEachTurn : IBuffEffect
         //player._CharacterStatModifier.ChangeDamage(player._CharacterStatModifier.Stats.damage * (Value > 0 ? Value : 2f));
         //Debug.Log($"Damage doubled to {player._CharacterStatModifier.Stats.damage}. Duration: {(Duration == -1 ? "Permanent" : Duration.ToString())}");
 
+        enemy.Damage *= 2; // Giả sử Enemy có thuộc tính Damage để điều chỉnh sát thương
+
         if (Duration != -1)
         {
             Duration--;
@@ -64,11 +67,12 @@ public class DoubleDamageEachTurn : IBuffEffect
 
     public void ApplyEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        this.enemy = enemy;
+        RegisterEvents();
     }
 
     public void RemoveEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        UnregisterEvents();
     }
 }

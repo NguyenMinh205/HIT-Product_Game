@@ -82,6 +82,11 @@ public static class EnemyActionFactory
                 break;
             case "enemy15":
                 break;
+
+            case "boss02":
+                Debug.Log("Boss Get Increase Damage");
+                enemyAction = new DoubleDamage();
+                break;
         }
 
         ExecuteAction(enemyAction, enemy);

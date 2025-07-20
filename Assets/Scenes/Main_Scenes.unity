@@ -9071,6 +9071,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1278751338, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
     - target: {fileID: 2999707689595744662, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+      propertyPath: x2DamageTurn
+      value: 
+      objectReference: {fileID: -1076636014, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
+    - target: {fileID: 2999707689595744662, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
       propertyPath: BuffSheildTurn
       value: 
       objectReference: {fileID: -810198731, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}

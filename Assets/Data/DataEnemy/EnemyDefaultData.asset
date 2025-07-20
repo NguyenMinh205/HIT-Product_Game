@@ -48,7 +48,7 @@ MonoBehaviour:
     - actionEnemy: 01000000
   - idEnemy: enemy04
     nameEnemy: HiveRide
-    hpEnemy: 5
+    hpEnemy: 35
     damageEnemy: 3
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -783777960, guid: ef9edf03a9471db4393f4a4e52c51df5, type: 3}
@@ -276,11 +276,11 @@ MonoBehaviour:
     - actionEnemy: 04000000
   - idEnemy: boss02
     nameEnemy: 
-    hpEnemy: 55
+    hpEnemy: 155
     damageEnemy: 6
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1074711646, guid: ffe401bd7e581eb4e8902bbe42a2bde9, type: 3}
-    controller: {fileID: 0}
+    controller: {fileID: 9100000, guid: 360d7d1dd92c8bf43b7982574a972d2d, type: 2}
     itemEffect: {fileID: 0}
     actions:
     - actionEnemy: 04000000
