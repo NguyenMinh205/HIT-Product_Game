@@ -65,7 +65,7 @@ public class GamePlayController : Singleton<GamePlayController>
 
     protected override void Awake()
     {
-        turnGame = TurnPlay.Player;
+        Turn = TurnPlay.Player;
         isCheckTurnByClaw = false;
         isCheckTurnByItem = false;
         ObserverManager<EventID>.AddDesgisterEvent(EventID.OnBasketEmpty, HandleBasketEmpty);
@@ -149,7 +149,7 @@ public class GamePlayController : Singleton<GamePlayController>
 
     public void StartPlayerTurn()
     {
-        ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
+        playerController.CurrentPlayer.ExecuteEffectStart();
         playerController.CurrentPlayer.AddItem();
         itemController.SpawnAdditionalItems();
         Debug.Log("Player Turn Started");

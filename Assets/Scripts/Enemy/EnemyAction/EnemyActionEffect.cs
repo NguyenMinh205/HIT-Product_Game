@@ -7,64 +7,12 @@ public class EnemyActionEffect : MonoBehaviour
     
 }
 
-public class DropThreeFruitPoison : IEnemyAction
-{
-    public void Execute(Enemy enemy)
-    {
-        
-    }
-}
-
-public class DropThreeHoney : IEnemyAction
-{
-    public void Execute(Enemy enemy)
-    {
-        
-    }
-}
-
 public class CreateWaterInBoxEffect : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        ObserverManager<EventID>.PostEven(EventID.OnStartEnemyTurn);
+        Debug.Log("Create Water In Box Effect");
+        enemy.AddBuffEffect("create_water_in_box", 0, 3);
     }
 }
 
-public class GetPoison : IEnemyAction
-{
-    public void Execute(Enemy enemy)
-    {
-        //GamePlayController.Instance.playerController.CurrentPlayer.IsPosion = true;
-       // GamePlayController.Instance.playerController.CurrentPlayer.PoisonDamage += 10;
-    }
-}
-public class GetGasPoison : IEnemyAction
-{
-    public void Execute(Enemy enemy)
-    {
-       
-    }
-}
-
-public class DropThreeFruitThorn : IEnemyAction
-{
-    public void Execute(Enemy enemy)
-    {
-       
-    }
-}
-public class DropFluffInBox : IEnemyAction
-{
-    public void Execute(Enemy enemy)
-    {
-       
-    }
-}
-public class DropThreeFruitPosionThorn : IEnemyAction
-{
-    public void Execute(Enemy enemy)
-    {
-        
-    }
-}

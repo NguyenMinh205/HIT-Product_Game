@@ -37,6 +37,8 @@ public class ItemBase : ScriptableObject
             }
         }
 
+        action.Execute(player, target);
+
         if (action != null && action is GreatSword greatSword)
         {
             greatSword.Execute(player, targets);

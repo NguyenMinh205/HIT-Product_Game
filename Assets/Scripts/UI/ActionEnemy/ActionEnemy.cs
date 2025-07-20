@@ -12,8 +12,7 @@ public class ActionEnemy : MonoBehaviour
 
     public void UnShow()
     {
-        icon.gameObject.SetActive(false);
-        textActionEnemy.gameObject.SetActive(false);
+        PoolingManager.Despawn(gameObject);
     }
     
     public void SetUIAction(Sprite sprite, int damage)

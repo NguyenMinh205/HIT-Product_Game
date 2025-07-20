@@ -41,6 +41,9 @@ public static class BuffEffectFactory
             case "thief":
                 return new ThiefEffect(value, duration);
 
+            case "create_water_in_box":
+                return new CreateWater();
+
             default:
                 Debug.LogWarning($"Hiệu ứng {effectName} không được hỗ trợ!");
                 return null;

@@ -55,6 +55,29 @@ public class ItemController : MonoBehaviour
         }
         IsPickupItemSuccess = false;
     }
+    public void DropInBox(ItemBase item, int val)
+    {
+        Debug.Log("Enemy Drop Item Effect In Box"); 
+        int value = val;
+        while (value > 0)
+        {
+            int posSpawn = Random.Range(0, listPosSpawnItem.Count);
+            Vector3 spawnPos = listPosSpawnItem[posSpawn].transform.position;
+            Item newItem = PoolingManager.Spawn(currentObjectPrefab, spawnPos, Quaternion.identity, itemParent);
+            if (newItem != null)
+            {
+                newItem.Init(item);
+                listItemInBox.Add(newItem);
+                newItem.gameObject.SetActive(true);
+                Debug.Log($"Spawned item {item.id} at position {spawnPos}");
+            }
+            else
+            {
+                Debug.LogError("Failed to spawn item, newItem is null");
+            }
+            value--;
+        }
+    }
 
     public void ChangeBoxToBasket(object obj)
     {

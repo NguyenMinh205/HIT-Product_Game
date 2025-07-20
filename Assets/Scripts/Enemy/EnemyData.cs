@@ -23,6 +23,8 @@ public class DataEnemy
 
     public RuntimeAnimatorController controller;
 
+    public ItemBase itemEffect;
+
     public List<ProcedureActionEnemy> actions = new List<ProcedureActionEnemy>();
 }
 [System.Serializable]

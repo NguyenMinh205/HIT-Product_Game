@@ -5,6 +5,8 @@ public class CounterAttack : IBuffEffect
     public string Name { get; set; }
     public float Value { get; set; } // Không dùng, giữ để tương thích IBuffEffect
     public float Duration { get; set; }
+
+    public Sprite Icon { get; set; }
     private Player player;
     private Enemy enemy;
 
@@ -13,6 +15,8 @@ public class CounterAttack : IBuffEffect
         Name = "counter_attack";
         Value = value; // Không dùng
         Duration = duration;
+        
+        Icon = UIEffectIcon.Instance.CounterAttack;
     }
 
     public void Apply(Player player)
@@ -64,5 +68,15 @@ public class CounterAttack : IBuffEffect
         }
 
         Duration--;
+    }
+
+    public void ApplyEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void RemoveEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
     }
 }

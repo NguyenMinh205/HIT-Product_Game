@@ -77,6 +77,15 @@ public static class ItemActionFactory
                 return new VitaminPill();
             case "Buf21":
                 return new EnergyDrink();
+
+            //Effect Item do Enemy Drop
+
+            case "ei01":
+                return new PosionousSpore();
+
+            case "ei04": 
+                return new ThornFruit();
+
             default:
                 Debug.LogWarning($"Không tìm thấy hành động cho ID: {id}");
                 return null;

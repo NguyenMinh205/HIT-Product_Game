@@ -5,6 +5,7 @@ public class EnragedEffect : IBuffEffect
     public string Name { get; set; }
     public float Value { get; set; }
     public float Duration { get; set; }
+    public Sprite Icon { get; set; }
     private Player player;
     private float percentIncrease = 0;
 
@@ -56,5 +57,15 @@ public class EnragedEffect : IBuffEffect
             player.Stats.ChangeCriticalChance(-percentIncrease);
             Remove(player);
         }
+    }
+
+    public void ApplyEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void RemoveEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -5,13 +5,17 @@ public class PoisonGas : IBuffEffect
     public string Name { get; set; }
     public float Value { get; set; }
     public float Duration { get; set; }
+
+    public Sprite Icon { get; set; }
     private Player player;
 
+    
     public PoisonGas(float value, float duration)
     {
         Name = "poison_gas";
         Value = value; // Sát thương của PoisonEffect
         Duration = duration;
+        Icon = UIEffectIcon.Instance.PosionGas; 
     }
 
     public void Apply(Player player)
@@ -42,7 +46,7 @@ public class PoisonGas : IBuffEffect
             Remove(player);
             return;
         }
-
+        
         player.AddBuffEffect("poison_effect", Value, Value);
         Debug.Log($"Applied PoisonEffect to player with {Value} damage for {Value} turns.");
 
@@ -50,5 +54,15 @@ public class PoisonGas : IBuffEffect
         {
             Duration--;
         }
+    }
+
+    public void ApplyEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void RemoveEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
     }
 }

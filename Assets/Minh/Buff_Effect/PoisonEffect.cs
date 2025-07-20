@@ -5,6 +5,8 @@ public class PoisonEffect : IBuffEffect
     public string Name { get; set; }
     public float Value { get; set; }
     public float Duration { get; set; }
+
+    public Sprite Icon { get; set; }
     private Player player;
 
     public PoisonEffect(float value, float duration)
@@ -12,6 +14,8 @@ public class PoisonEffect : IBuffEffect
         Name = "poison_effect";
         Value = value;
         Duration = duration;
+        Debug.Log("Set Icon For PoisonEffect");
+        Icon = UIEffectIcon.Instance.Posion; 
     }
 
     public void Apply(Player player)
@@ -44,7 +48,18 @@ public class PoisonEffect : IBuffEffect
         }
 
         Duration--;
-        player.ReceiveDamage((int)Value);
+        player.Stats.ChangeCurHP(-Value);
+        player.UpdateHpUI();
         Debug.Log($"Poison deals {Value} damage. Turns remaining: {Duration}");
+    }
+
+    public void ApplyEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void RemoveEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -44,7 +44,8 @@ public class EnemySpawController : MonoBehaviour
             
             listEnemySpawn.Add(listIDEnemyApt[randomIndex]);
         }
-
+        //test enemy
+        //return new List<string> { "enemy08" };
         return listEnemySpawn;
     }
 

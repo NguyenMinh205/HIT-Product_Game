@@ -4,15 +4,45 @@ using UnityEngine;
 
 public class EnemyActionDrop : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+}
+
+public class DropThreeFruitPoison : IEnemyAction
+{
+    public void Execute(Enemy enemy)
     {
-        
+        //Tha 3 qua doc vao trong box;
+
+        GamePlayController.Instance.ItemController.DropInBox(enemy.ItemEffect, 3);
+    }
+}
+
+public class DropThreeHoney : IEnemyAction
+{
+    public void Execute(Enemy enemy)
+    {
+        GamePlayController.Instance.ItemController.DropInBox(enemy.ItemEffect, 3);
+    }
+}
+public class DropThreeFruitThorn : IEnemyAction
+{
+    public void Execute(Enemy enemy)
+    {
+        GamePlayController.Instance.ItemController.DropInBox(enemy.ItemEffect, 3);
+    }
+}
+public class DropFluffInBox : IEnemyAction
+{
+    public void Execute(Enemy enemy)
+    {
+        int val = Random.Range(5, 10);
+        GamePlayController.Instance.ItemController.DropInBox(enemy.ItemEffect, val);
+    }
+}
+public class DropThreeFruitPosionThorn : IEnemyAction
+{
+    public void Execute(Enemy enemy)
+    {
+        //GamePlayController.Instance.ItemController.DropInBox(enemy.ItemEffect, 3);
     }
 }

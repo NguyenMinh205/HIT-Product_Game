@@ -67,7 +67,8 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void ResetShield()
     {
-        currentPlayer.Stats.ChangeShield(0);
+        Debug.Log("Reset Shield Player");
+        currentPlayer.Stats.ChangeShield(-9999);
         currentPlayer.Health.UpdateArmor(currentPlayer);
     }
 
