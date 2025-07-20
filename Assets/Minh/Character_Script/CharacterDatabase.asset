@@ -80,7 +80,7 @@ MonoBehaviour:
     description: Damian was too poor to build his own castle, so he skipped, hopped,
       and boogied his way into the dungeon, hoping to find a treasure chest bursting
       with gold to finally get his dream fortress!
-    abilityDescription: Cannot block damage, heals itself for 10% of all damage dealt
+    abilityDescription: Cannot block damage, heals itself for 15% of all damage dealt
       to enemies
     skins:
     - skin: {fileID: 1219110070, guid: 7c42b33d3ccda2b47b432ab366abd2fc, type: 3}

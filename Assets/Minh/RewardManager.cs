@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using System;
 
 public class RewardManager : Singleton<RewardManager>
 {
@@ -76,7 +77,7 @@ public class RewardManager : Singleton<RewardManager>
 
     private Rarity GetRandomRarity()
     {
-        int rarityRoll = Random.Range(0, 100);
+        int rarityRoll = UnityEngine.Random.Range(0, 100);
         if (rarityRoll < commonRate) return Rarity.Common;
         else if (rarityRoll < commonRate + rareRate) return Rarity.Rare;
         else return Rarity.Epic;
@@ -102,9 +103,10 @@ public class RewardManager : Singleton<RewardManager>
 
     public void RollReward()
     {
-        if (PlayerManager.Instance.CurrentPlayer.Stats.Coin >= coinToRoll)
+        int coinSpend = (int)Math.Floor(coinToRoll * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
+        if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinSpend)
         {
-            PlayerManager.Instance.CurrentPlayer.Stats.ChangeCoin(-coinToRoll);
+            GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCoin(-coinSpend);
             coinToRoll *= 2;
             InitReward();
             UpdateUI();
@@ -132,5 +134,6 @@ public class RewardManager : Singleton<RewardManager>
     private void UpdateUI()
     {
         coinTxt.text = coinToRoll.ToString();
+        coinTxt.color = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinToRoll ? Color.white : Color.red;
     }
 }

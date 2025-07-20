@@ -6,6 +6,6 @@ public class Bargain : IPerkAction
 {
     public void Execute(Player player)
     {
-        throw new System.NotImplementedException();
+        player.Stats.ChangePriceReduction(0.2f);
     }
 }

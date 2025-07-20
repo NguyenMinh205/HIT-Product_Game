@@ -63,15 +63,6 @@ public class GamePlayController : Singleton<GamePlayController>
         set => intoRoomTrigger = value;
     }
 
-    protected override void Awake()
-    {
-        turnGame = TurnPlay.Player;
-        isCheckTurnByClaw = false;
-        isCheckTurnByItem = false;
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnBasketEmpty, HandleBasketEmpty);
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnClawsEmpty, HandleClawsEmpty);
-    }
-
     private void HandleBasketEmpty(object obj)
     {
         isCheckTurnByItem = true;
@@ -165,9 +156,6 @@ public class GamePlayController : Singleton<GamePlayController>
 
     public void StartFightRoom(string typeFight)
     {
-        ShowChangeTurn();
-        isEndGame = false;
-
         if(typeFight == "BossRoom")
         {
             enemyController.SpawnBoss();
@@ -182,6 +170,14 @@ public class GamePlayController : Singleton<GamePlayController>
 
         clawController.IsStart = true;
         clawController.StartClaw();
+
+        turnGame = TurnPlay.Player;
+        isCheckTurnByClaw = false;
+        isCheckTurnByItem = false;
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnBasketEmpty, HandleBasketEmpty);
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnClawsEmpty, HandleClawsEmpty);
+        ShowChangeTurn();
+        isEndGame = false;
     }
 
     public void LoseGame()
@@ -193,8 +189,11 @@ public class GamePlayController : Singleton<GamePlayController>
         playerController.EndGame();
         itemController.EndGame();
 
-        GameManager.Instance.OutRoom();
-        StartCoroutine(PlayerMapController.Instance.MoveToPosition(-1 * directionPlayer));
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnBasketEmpty, HandleBasketEmpty);
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnClawsEmpty, HandleClawsEmpty);
+        GameData.Instance.startData.isKeepingPlayGame = false;
+        GameData.Instance.SaveStartGameData();
+        GameManager.Instance.BackHome();
     }
 
     public void WinGame()
@@ -208,7 +207,10 @@ public class GamePlayController : Singleton<GamePlayController>
 
         int bonusGold = 3 + MapManager.Instance.MapIndex;
         playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
+        playerController.SavePlayerData();
 
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnBasketEmpty, HandleBasketEmpty);
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnClawsEmpty, HandleClawsEmpty);
         GameManager.Instance.RewardUI.SetActive(true);
         RewardManager.Instance.InitReward();
     }

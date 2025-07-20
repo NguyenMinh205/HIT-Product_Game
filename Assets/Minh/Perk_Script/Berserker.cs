@@ -6,6 +6,6 @@ public class Berserker : IPerkAction
 {
     public void Execute(Player player)
     {
-        throw new System.NotImplementedException();
+        
     }
 }

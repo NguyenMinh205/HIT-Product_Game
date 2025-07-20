@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using Gameplay;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -92,20 +93,26 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
     private void UpdateCoinTexts()
     {
         if (coinToStartTxt != null)
+        {
             coinToStartTxt.text = coinToStart.ToString();
+            coinToStartTxt.color = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinToStart ? Color.white : Color.red;
+        }
         if (coinToRollTxt != null)
+        {
             coinToRollTxt.text = coinToRoll.ToString();
+            coinToRollTxt.color = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinToRoll ? Color.white : Color.red;
+        }
     }
 
     public void StartGame()
     {
         if (_state != PachinkoState.Waiting || _item == null) return;
-        if (GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin < coinToStart)
+        int coinSpend = (int)Math.Floor(coinToStart * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
+        if (GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin < coinSpend)
         {
-            Debug.Log("Không đủ xu để bắt đầu!");
             return;
         }
-        GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-coinToStart); // Trừ xu
+        GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-coinSpend); // Trừ xu
         _state = PachinkoState.Movingclaw;
         UpdateCoinTexts();
     }
@@ -113,12 +120,12 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
     public void RollItem()
     {
         if (_state != PachinkoState.Waiting || _item == null) return;
-        if (GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin < coinToRoll)
+        int coinSpend = (int)Math.Floor(coinToRoll * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
+        if (GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin < coinSpend)
         {
-            Debug.Log("Không đủ xu để roll!");
             return;
         }
-        GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-coinToRoll);
+        GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-coinSpend);
 
         ItemBase newItem = itemDatabase.GetRandomItem();
         while (newItem == _lastRolledItem && itemDatabase.GetItems().Count > 1)

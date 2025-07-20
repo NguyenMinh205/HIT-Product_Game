@@ -6,20 +6,20 @@ public class BombEffect : IBuffEffect
     public string Name { get; set; }
     public float Value { get; set; }
     public float Duration { get; set; }
-    private object target; // Có thể là Player hoặc List<Enemy>
-    private bool isAppliedByPlayer; // True nếu Player áp dụng, False nếu Enemy áp dụng
+    private object target;
+    private bool isAppliedByPlayer;
 
     public BombEffect(float value, float duration)
     {
         Name = "bomb_effect";
-        Value = value; // Sát thương bom (30 cho Player gây, 45 cho Enemy gây)
+        Value = value;
         Duration = duration;
     }
 
     public void Apply(Player player)
     {
         this.target = player;
-        this.isAppliedByPlayer = false; // Enemy áp dụng lên Player
+        this.isAppliedByPlayer = false;
         RegisterEvents();
     }
 

@@ -62,13 +62,13 @@ public class PlayerManager : Singleton<PlayerManager>
         GameObject newObject = PoolingManager.Spawn(playerPrefab, posSpawnPlayer.position, Quaternion.identity, playerParent);
         currentPlayer = newObject.transform.Find("PlayerPrefab").GetComponent<Player>();
         currentPlayer.Initialize(curCharacter, curPlayerStat, GameData.Instance.startData.selectedSkinIndex);
-        ability?.StartSetupEffect(currentPlayer);
+        ability.StartSetupEffect(currentPlayer);
     }
 
     public void ResetShield()
     {
-        currentPlayer.Stats.ChangeShield(0);
-        currentPlayer.Health.UpdateArmor(currentPlayer);
+        currentPlayer.Stats.ChangeShield(-currentPlayer.Stats.Shield);
+        currentPlayer.UpdateArmorUI();
     }
 
     public void EndGame()

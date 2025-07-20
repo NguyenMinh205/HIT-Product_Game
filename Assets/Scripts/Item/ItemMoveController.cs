@@ -148,9 +148,9 @@ public class ItemMoveController : MonoBehaviour
     public void EffectItem(Item item)
     {
         PauseMovement();
-        var player = GamePlayController.Instance.PlayerController.CurrentPlayer;
-        var enemyList = GamePlayController.Instance.EnemyController.ListEnemy;
-        itemUsage.UseItem(item.ID, player, enemyList[0]);
+        Player player = GamePlayController.Instance.PlayerController.CurrentPlayer;
+        List<Enemy> enemyList = GamePlayController.Instance.EnemyController.ListEnemy;
+        itemUsage.UseItem(item.ID, player, enemyList[0], enemyList);
         Sequence fx = DOTween.Sequence();
 
         fx.Join(item.transform.DOScale(item.transform.localScale * 1.7f, 1f)

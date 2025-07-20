@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -120,9 +121,10 @@ public class SmithRoomManager : MonoBehaviour
     {
         if (selectedItem != null)
         {
-            if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinUpgrade)
+            int coinSpend = (int)Math.Floor(coinUpgrade * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
+            if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinSpend)
             {
-                GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-coinUpgrade);
+                GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCoin(-coinSpend);
                 inventory.UpgradeItem(selectedItem);
                 LoadInventoryList();
                 itemDetailBeforeUpgrade.SetActive(false);
@@ -142,6 +144,7 @@ public class SmithRoomManager : MonoBehaviour
         if (selectedItem != null && selectedItem.CanUpgrade)
         {
             upgradeCostText.text = coinUpgrade.ToString();
+            upgradeCostText.color = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinUpgrade ? Color.white : Color.red;
         }
         else
         {

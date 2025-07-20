@@ -6,7 +6,7 @@ public class Liam : ICharacterAbility
 {
     public void StartSetupEffect(Player player)
     {
-        //Thay móc thứ 2 từ móc bình thường sang móc nam châm
+        player.AddBuffEffect("magnet_claw_each_turns", 1, -1);
     }
 
     public void StartSetupStat()

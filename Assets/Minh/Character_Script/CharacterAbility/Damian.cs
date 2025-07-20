@@ -13,6 +13,6 @@ public class Damian : ICharacterAbility
     {
         GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeMaxHP(10);
         GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCurHP(10);
-        GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeBloodsuckingRate(0.2f);
+        GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeBloodsuckingRate(0.15f);
     }
 }

@@ -13,7 +13,7 @@ public class CharacterStat
     public float MaxHP => maxHP;
     [SerializeField] private float coin = 0;
     public float Coin => coin;
-    [SerializeField] private float damageIncrease = 0;
+    [SerializeField] private float damageIncrease;
     public float DamageIncrease => damageIncrease;
     [SerializeField] private float criticalChance = 0.05f;
     public float CriticalChance => criticalChance;
@@ -79,9 +79,11 @@ public class CharacterStat
         if (this.shield + value <= 0)
         {
             this.shield = 0;
-            return;
         }
-        this.shield += value;
+        else
+        {
+            this.shield += value;
+        }
         GamePlayController.Instance.PlayerController.CurrentPlayer.UpdateArmorUI();
     }
 
@@ -124,6 +126,16 @@ public class CharacterStat
     public void ChangeBloodsuckingRate(float value)
     {
         this.bloodsuckingRate += value;
+    }
+
+    public void ChangeRetainedBlock(float value)
+    {
+        this.retainedBlock += value;
+    }
+
+    public void ChangePriceReduction(float value)
+    {
+        this.priceReduction += value;
     }
 
     public void ResetStatAfterRound()

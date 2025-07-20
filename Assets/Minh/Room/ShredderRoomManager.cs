@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -183,14 +184,15 @@ public class ShredderRoomManager : MonoBehaviour
     {
         int totalCost = numItemToShred * shredCostPerItem;
         shredCostText.text = totalCost.ToString();
+        shredCostText.color = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= totalCost ? Color.white : Color.red;
     }
 
     public void ShredItems()
     {
-        int totalCost = numItemToShred * shredCostPerItem;
+        int totalCost = (int)Math.Floor(numItemToShred * shredCostPerItem * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
         if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= totalCost)
         {
-            GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-totalCost);
+            GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCoin(-totalCost);
             foreach (var itemUI in itemsToShred.ToList())
             {
                 ItemBase itemBase = itemUI.Data;

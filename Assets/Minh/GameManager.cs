@@ -219,6 +219,7 @@ public class GameManager : Singleton<GameManager>
         {
             GameData.Instance.startData.isKeepingPlayGame = true;
             GameData.Instance.SaveStartGameData();
+            GameData.Instance.mainGameData.playerData.stats = GamePlayController.Instance.PlayerController.CurPlayerStat;
             GameData.Instance.SaveMainGameData();
             Debug.LogError("Application is quitting, saving game data.");
         }
