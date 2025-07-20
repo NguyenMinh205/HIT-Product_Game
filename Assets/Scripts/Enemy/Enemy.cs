@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private UIActionEnemy uiActionEnemy;
     [SerializeField] private float offsetHealthBar;
 
+
     public List<ProcedureActionEnemy> actions;
     private int indexAction;
     private float height;
@@ -131,7 +132,7 @@ public class Enemy : MonoBehaviour
         if(data.itemEffect != null)
             itemEffect = data.itemEffect;
 
-        actions = data.actions;
+        actions = new List<ProcedureActionEnemy>(data.actions);
         indexAction = 0;
 
         //UIActionEnemyController.Instance.InitActionToEnemy(this);
