@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class EnemyActionDeBuff : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GetPoison : IEnemyAction
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void Execute(Enemy enemy)
+        {
+            GamePlayController.Instance.PlayerController.CurrentPlayer.AddBuffEffect("poison_gas", 5, 3);
+        }
     }
 }

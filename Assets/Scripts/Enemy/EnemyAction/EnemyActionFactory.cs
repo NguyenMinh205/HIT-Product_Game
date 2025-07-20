@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using Unity.VisualScripting;
 using UnityEngine;
+using static EnemyActionDeBuff;
 
 public static class EnemyActionFactory 
 {
@@ -42,13 +44,13 @@ public static class EnemyActionFactory
             case TypeEnemyAction.DeBuff:
                 Debug.Log("Enemy DeBuff");
                 ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Buff, enemy);
-                //EnemyActionDeBuff.Execute(enemy);
+                GetDeBuffEnemy(enemy.ID, enemy);
                 break;
 
             case TypeEnemyAction.Drop:
                 Debug.Log("Enemy Drop");
                 ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Buff, enemy);
-                //EnemyActionDrop.Execute(enemy);
+                GetDropEnemy(enemy.ID, enemy);
                 break;
         }
     }
@@ -59,22 +61,11 @@ public static class EnemyActionFactory
 
         switch(idEnemy)
         {
-            case "enemy01":
-                break;
-            case "enemy02":
-                break;
-            case "enemy03":
-                break;
-            case "enemy04":
-                break;
-            case "enemy05":
-                enemyAction = new DropThreeFruitPoison();
-                break;
-            case "enemy06":
-                break;
             case "enemy07":
                 break;
             case "enemy08":
+                Debug.Log("Enemy Get Gas Poison");
+                enemyAction = new GetGasPoison();
                 break;
             case "enemy09":
                 enemyAction = new IncreaseDamage();
@@ -102,30 +93,10 @@ public static class EnemyActionFactory
 
         switch (idEnemy)
         {
-            case "enemy01":
-                break;
-            case "enemy02":
-                break;
-            case "enemy03":
-                break;
-            case "enemy04":
-                enemyAction = new DropThreeHoney();
-                break;
-            case "enemy05":
-                enemyAction = new DropThreeFruitPoison();
-                break;
             case "enemy06":
                 enemyAction = new CreateWaterInBoxEffect();
                 break;
-            case "enemy07":
-                enemyAction = new GetPoison();
-                break;
-            case "enemy08":
-                enemyAction = new GetGasPoison();
-                break;
-            case "enemy09":
-                enemyAction = new DropThreeFruitThorn();
-                break;
+
             case "enemy10":
                 break;
             case "enemy11":
@@ -140,6 +111,45 @@ public static class EnemyActionFactory
                 break;
         }
 
+        ExecuteAction(enemyAction, enemy);
+    }
+    public static void GetDeBuffEnemy(string idEnemy, Enemy enemy)
+    {
+        IEnemyAction enemyAction = null;
+        switch (idEnemy)
+        {
+            case "enemy07":
+                enemyAction = new GetPoison();
+                break;
+        }
+            ExecuteAction(enemyAction, enemy);
+    }
+    public static void GetDropEnemy(string idEnemy, Enemy enemy)
+    {
+        IEnemyAction enemyAction = null;
+
+        switch(idEnemy)
+        {
+            case "enemy04":
+                Debug.Log("Enemy Drop Three Honey");
+                enemyAction = new DropThreeHoney();
+                break;
+
+            case "enemy05":
+                Debug.Log("Enemy Drop Three Fruit Poison");
+                enemyAction = new DropThreeFruitPoison();
+                break;
+
+            case "enemy10":
+                Debug.Log("Enemy Drop Three Fruit Thorn");
+                enemyAction = new DropThreeFruitThorn();
+                break;
+
+            case "enemy11":
+                Debug.Log("Enemy Drop Fluff In Box");
+                enemyAction = new DropFluffInBox();
+                break;
+        }
         ExecuteAction(enemyAction, enemy);
     }
 

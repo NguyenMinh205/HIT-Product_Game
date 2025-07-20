@@ -81,7 +81,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2539403971029129629}
-  - {fileID: 4238052572545184425}
+  - {fileID: 5426377515444965608}
   m_Father: {fileID: 400818620494121921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &984118490385309059
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51bc3ec356ce3ca44a574c7d660bf2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 6262871788618826098, guid: 2a702c109e5df8544b3c316b1c7a76f4, type: 3}
+  playerPrefab: {fileID: 884660179733124090, guid: 2a702c109e5df8544b3c316b1c7a76f4, type: 3}
   playerParent: {fileID: 2963511695041897165}
   posSpawnPlayer: {fileID: 0}
   characterDatabase: {fileID: 11400000, guid: 84e61f188e25ed14ba33f8bf64dd67c5, type: 2}
@@ -359,6 +359,8 @@ MonoBehaviour:
     priceReduction: 0
     clawPerTurn: 2
     clawInGrannyRoom: 1
+  totalInventory:
+    items: []
   numOfCoinInRoom: {fileID: 0}
 --- !u!1 &3763587124981900068
 GameObject:
@@ -451,7 +453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 096120597069e674aba5730fe3f3eea1, type: 2}
-  enemyPrefab: {fileID: 5553438048735617525, guid: c575b4326c11da14e91eba9dba29931d, type: 3}
+  enemyPrefab: {fileID: 3583153092506176974, guid: c575b4326c11da14e91eba9dba29931d, type: 3}
   enemyParent: {fileID: 2172001150598642229}
   listEnemy: []
   listPosSpawnEnemy:
@@ -490,6 +492,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4662338006586081512}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4812470534552272572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5426377515444965608}
+  - component: {fileID: 2999707689595744662}
+  m_Layer: 0
+  m_Name: UIEffectIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5426377515444965608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4812470534552272572}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 419560294484504544}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2999707689595744662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4812470534552272572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07f8c26ff46691b47a4092de0433780d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Posion: {fileID: -482212116, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
+  Thorns: {fileID: 670334482, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
+  Explosion3: {fileID: -1549320834, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
+  Explosion2: {fileID: -1679015860, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
+  Explosion1: {fileID: 608522312, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
+  Explosion: {fileID: 597598577, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
+  CounterAttack: {fileID: -880141220, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
 --- !u!1 &4931496167649069302
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,55 +659,6 @@ MonoBehaviour:
   commonItems: []
   rareItems: []
   epicItems: []
---- !u!1 &7068529253157731464
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4238052572545184425}
-  - component: {fileID: 7812199151264053381}
-  m_Layer: 0
-  m_Name: UIHealthBarController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4238052572545184425
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7068529253157731464}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 419560294484504544}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7812199151264053381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7068529253157731464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b81265c1e5961a3439c314f558bb9d48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiHealthBarEnemy:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _healthBarPlayer: {fileID: 0}
 --- !u!1 &7136877001122343751
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,10 +739,8 @@ MonoBehaviour:
   spriteBuff: {fileID: -937346094, guid: 82e74b0fa4af4284f9497e30e7eb26bc, type: 3}
   spriteEffect: {fileID: 1394994083, guid: 82e74b0fa4af4284f9497e30e7eb26bc, type: 3}
   spriteHeal: {fileID: -1370395692, guid: 82e74b0fa4af4284f9497e30e7eb26bc, type: 3}
-  _uiActionEnemy:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  spriteDeBuff: {fileID: -2086307453, guid: 82e74b0fa4af4284f9497e30e7eb26bc, type: 3}
+  spriteDrop: {fileID: -1128308766, guid: 82e74b0fa4af4284f9497e30e7eb26bc, type: 3}
   distanceEnemyAndActionUI: 0.6
 --- !u!1 &8877485558718388563
 GameObject:

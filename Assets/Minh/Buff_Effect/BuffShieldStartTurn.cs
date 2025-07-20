@@ -5,6 +5,7 @@ public class BuffShieldStartTurn : IBuffEffect
     public string Name { get; set; }
     public float Value { get; set; }
     public float Duration { get; set; }
+    public Sprite Icon { get; set; }
     private Player player;
 
     public BuffShieldStartTurn(float value, float duration)
@@ -12,6 +13,7 @@ public class BuffShieldStartTurn : IBuffEffect
         Name = "buff_shield_start_turn";
         Value = value;
         Duration = duration;
+        Icon = UIEffectIcon.Instance.BuffSheildTurn;
     }
 
     public void Apply(Player player)
@@ -38,5 +40,15 @@ public class BuffShieldStartTurn : IBuffEffect
     private void OnStartPlayerTurn(object param)
     {
         player.Stats.ChangeShield(Value);
+    }
+
+    public void ApplyEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void RemoveEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
     }
 }

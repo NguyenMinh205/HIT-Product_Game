@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class Inventory
+public class Inventory 
 {
     [SerializeField] private List<ItemInventory> items = new List<ItemInventory>();
     public List<ItemInventory> Items => items;

@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum EnemyEffect
+{
+    Remove,
+}
 public class Enemy : MonoBehaviour
 {
     private string idEnemy;
@@ -19,6 +23,12 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private int armor;
     [SerializeField] private int armorIncreased;
+
+    private List<IBuffEffect> activeEffects = new List<IBuffEffect>();
+    [SerializeField] private UIEffectController effectController;
+    private ItemBase itemEffect;
+    public ItemBase ItemEffect => itemEffect;
+
 
     [SerializeField] private SpriteRenderer enemySprite;
     [SerializeField] private HealthBar health;
@@ -75,8 +85,12 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         actions = new List<ProcedureActionEnemy>();
+        ObserverManager<EnemyEffect>.AddDesgisterEvent(EnemyEffect.Remove, RemoveEffect);
     }
-
+    private void OnDisable()
+    {
+        ObserverManager<EnemyEffect>.RemoveAddListener(EnemyEffect.Remove, RemoveEffect);
+    }
     public void InitEnemy(EnemyData data, string id)
     {
         Debug.Log("Init Enemy");
@@ -113,6 +127,9 @@ public class Enemy : MonoBehaviour
 
         animator.runtimeAnimatorController = data.controller;
         spriteIdle = data.spriteEnemyIdle;
+
+        if(data.itemEffect != null)
+            itemEffect = data.itemEffect;
 
         actions = data.actions;
         indexAction = 0;
@@ -168,6 +185,7 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator ExecuteAction()
     {
+        ExecuteEffect();
         for (int i = 0; i < actions[indexAction].actionEnemy.Count; i++)
         {
             EnemyActionFactory.GetActionEnemy(actions[indexAction].actionEnemy[i], this);
@@ -183,11 +201,70 @@ public class Enemy : MonoBehaviour
         }
         //UIActionEnemyController.Instance.InitUIAction(this, indexAction);
     }
+    public void AddBuffEffect(string effectName, float value, float duration)
+    {
+        IBuffEffect effect = BuffEffectFactory.CreateEffect(effectName, value, duration);
+        if (effect == null) return;
 
+        IBuffEffect existingEffect = GetActiveEffect(effectName);
+        if (existingEffect != null)
+        {
+            if (existingEffect.Duration != -1 && duration != -1)
+            {
+                existingEffect.Duration += duration;
+                Debug.Log($"Effect {effectName} duration stacked. New duration: {existingEffect.Duration}");
+            }
+            else if (duration == -1)
+            {
+                existingEffect.Duration = -1;
+                Debug.Log($"Effect {effectName} set to permanent.");
+            }
+            return;
+        }
+
+        effect.ApplyEnemy(this);
+        activeEffects.Add(effect);
+        effectController.InitEffect(activeEffects.Count, effect);
+        Debug.Log($"Applied new effect {effectName} with value {value} and duration {duration}.");
+    }
+
+    public IBuffEffect GetActiveEffect(string effectName)
+    {
+        return activeEffects.Find(effect => effect.Name.ToLower() == effectName.ToLower());
+    }
+
+    public void RemoveBuffEffect(IBuffEffect effect)
+    {
+        if (activeEffects.Contains(effect))
+        {
+            //effect.Remove(this);
+            activeEffects.Remove(effect);
+        }
+    }
+    public void ExecuteEffect()
+    {
+        ObserverManager<EventID>.PostEven(EventID.OnStartEnemyTurn, this);
+        foreach (IBuffEffect effect in activeEffects)
+        {
+            effectController.SetEffect(effect);
+        }
+    }
     public void NextAction()
     {
         UIActionEnemyController.Instance.InitUIAction(this, indexAction);
     }
+
+    public void RemoveEffect(object obj )
+    {
+        IBuffEffect effect = obj as IBuffEffect;
+        if (activeEffects.Contains(effect))
+        {
+            effect.RemoveEnemy(this);
+            activeEffects.Remove(effect);
+            //effectController.RemoveEffect(effect);
+            Debug.Log($"Removed effect {effect.Name} from enemy.");
+        }
+    }   
 
 }
 

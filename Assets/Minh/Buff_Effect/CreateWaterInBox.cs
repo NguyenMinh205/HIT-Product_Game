@@ -1,49 +1,50 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class CreateWaterInBox : MonoBehaviour ,IBuffEffect
+public enum WaterEffectType
+{
+    CreateWater,
+    ExecuteWater
+}
+public class CreateWaterInBox : MonoBehaviour
 {
     [SerializeField] private GameObject water;
     [SerializeField] private float posYWaterTop;
     [SerializeField] private float distanceWater;
     [SerializeField] private float moveSpeed; // tốc độ nước di chuyển (unit/second)
 
-    public string Name { get; set; }
-    public float Value { get; set; }
-    public float Duration { get; set; }
-
     private Coroutine moveCoroutine;
 
-    public CreateWaterInBox(float value, float duration)
+    private void Awake()
     {
-        Name = "create_water_in_box";
-        Value = value;
-        Duration = duration;
-
-        CreateWater();
+        ObserverManager<WaterEffectType>.AddDesgisterEvent(WaterEffectType.CreateWater, CreateWater);
+        ObserverManager<WaterEffectType>.AddDesgisterEvent(WaterEffectType.ExecuteWater, ExecuteEffect);
+    }
+    private void OnDisable()
+    {
+        ObserverManager<WaterEffectType>.RemoveAddListener(WaterEffectType.CreateWater, CreateWater);
+        ObserverManager<WaterEffectType>.RemoveAddListener(WaterEffectType.ExecuteWater, ExecuteEffect);
     }
 
-    public void CreateWater()
+    public void CreateWater(object obj)
     {
-
         if (water != null)
         {
             Vector3 targetPos = new Vector3(water.transform.position.x, posYWaterTop, water.transform.position.z);
             Debug.Log(targetPos);
             StartMoveWater(targetPos);
         }
-    }
 
+    }
     public void ExecuteEffect(object obj)
     {
-        if (Duration <= 0 || water == null) return;
+        if (water == null) return;
 
         Vector3 currentPos = water.transform.position;
         Vector3 targetPos = new Vector3(currentPos.x, currentPos.y - distanceWater, currentPos.z);
 
         StartMoveWater(targetPos);
 
-        Duration--;
     }
 
     private void StartMoveWater(Vector3 targetPos)
@@ -71,24 +72,4 @@ public class CreateWaterInBox : MonoBehaviour ,IBuffEffect
         water.transform.position = target; // đảm bảo đến đúng vị trí cuối cùng
     }
 
-
-    public void Apply(Player player)
-    {
-        RegisterEvents();
-    }
-
-    public void Remove(Player player)
-    {
-        UnregisterEvents();
-    }
-
-    public void RegisterEvents()
-    {
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartPlayerTurn, ExecuteEffect);
-    }
-
-    public void UnregisterEvents()
-    {
-        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartPlayerTurn, ExecuteEffect);
-    }
 }

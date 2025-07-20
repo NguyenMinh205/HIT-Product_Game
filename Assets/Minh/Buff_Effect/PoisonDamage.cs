@@ -5,6 +5,8 @@ public class PoisonDamage : IBuffEffect
     public string Name { get; set; }
     public float Value { get; set; }
     public float Duration { get; set; }
+
+    public Sprite Icon { get; set; }
     private Player player;
 
     public PoisonDamage(float value, float duration)
@@ -64,5 +66,15 @@ public class PoisonDamage : IBuffEffect
         //}
 
         Duration--;
+    }
+
+    public void ApplyEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void RemoveEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
     }
 }

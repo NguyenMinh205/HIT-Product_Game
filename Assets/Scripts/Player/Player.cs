@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public CharacterStat Stats => stats;
 
     private List<IBuffEffect> activeEffects = new List<IBuffEffect>();
+    [SerializeField] private UIEffectController effectController;
     [SerializeField] private Inventory inventory;
     private List<ItemInventory> addedItems = new List<ItemInventory>();
 
@@ -55,7 +56,12 @@ public class Player : MonoBehaviour
                 inventory.AddItem(item.itemId, (int)Math.Ceiling(item.quantity / 2.0), item.quantity, item.isUpgraded);
             }
         }
+        IsDodge = false;
+        IsCounterAttack = false;
+
+        //activeEffects = new List<IBuffEffect>();
         health.InitHealthBar(this);
+        ClearAllEffects();
     }
 
     public void AddBuffEffect(string effectName, float value, float duration)
@@ -81,12 +87,23 @@ public class Player : MonoBehaviour
 
         effect.Apply(this);
         activeEffects.Add(effect);
+        effectController.InitEffect(activeEffects.Count, effect);
         Debug.Log($"Applied new effect {effectName} with value {value} and duration {duration}.");
+        
     }
 
     public IBuffEffect GetActiveEffect(string effectName)
     {
         return activeEffects.Find(effect => effect.Name.ToLower() == effectName.ToLower());
+    }
+
+    public void ExecuteEffectStart()
+    {
+        ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
+        foreach (IBuffEffect effect in activeEffects)
+        {
+            effectController.SetEffect(effect);
+        }
     }
 
     public void RemoveBuffEffect(IBuffEffect effect)
@@ -141,12 +158,14 @@ public class Player : MonoBehaviour
         ObserverManager<EventID>.PostEven(EventID.OnTakeDamage, damage);
         if (IsDodge)
         {
+            Debug.Log("Player dodged the attack! No damage taken.");
             IsDodge = false;
             return;
         }
 
         if (IsCounterAttack)
         {
+            Debug.Log("Player counter-attacked! No damage taken.");
             IsCounterAttack = false;
             return;
         }

@@ -15,6 +15,13 @@ public class IncreaseDamage : IEnemyAction
         enemy.Damage += 5;
     }
 }
+public class GetGasPoison : IEnemyAction
+{
+    public void Execute(Enemy enemy)
+    {
+        enemy.AddBuffEffect("poison_effect", 10, 3);
+    }
+}
 
 public class Explosive : IEnemyAction
 {

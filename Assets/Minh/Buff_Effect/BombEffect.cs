@@ -6,20 +6,22 @@ public class BombEffect : IBuffEffect
     public string Name { get; set; }
     public float Value { get; set; }
     public float Duration { get; set; }
-    private object target;
-    private bool isAppliedByPlayer;
+    public Sprite Icon { get; set; }
+    private object target; // Có thể là Player hoặc List<Enemy>
+    private bool isAppliedByPlayer; // True nếu Player áp dụng, False nếu Enemy áp dụng
 
     public BombEffect(float value, float duration)
     {
         Name = "bomb_effect";
-        Value = value;
+        Value = value; // Sát thương bom (30 cho Player gây, 45 cho Enemy gây)
         Duration = duration;
+        Icon = UIEffectIcon.Instance.Explosion3;
     }
 
     public void Apply(Player player)
     {
         this.target = player;
-        this.isAppliedByPlayer = false;
+        this.isAppliedByPlayer = false; // Enemy áp dụng lên Player
         RegisterEvents();
     }
 
@@ -107,5 +109,15 @@ public class BombEffect : IBuffEffect
         {
             Duration--;
         }
+    }
+
+    public void ApplyEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void RemoveEnemy(Enemy enemy)
+    {
+        throw new System.NotImplementedException();
     }
 }

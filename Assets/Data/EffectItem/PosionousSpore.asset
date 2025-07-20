@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a20c7cd64e093c4089e0cc1bfc91c56, type: 3}
+  m_Name: PosionousSpore
+  m_EditorClassIdentifier: 
+  id: ei01
+  itemName: Poisonous Spore
+  icon: {fileID: 500761891, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  itemRarity: 0
+  description: You Receiver 3 Poison when collecting whis
+  isStackable: 1
+  maxStackSize: 99
+  isMetal: 0
+  isUpgraded: 0
+  upgradedItem: {fileID: 0}
