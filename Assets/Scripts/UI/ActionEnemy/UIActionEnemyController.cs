@@ -26,6 +26,7 @@ public class UIActionEnemyController : Singleton<UIActionEnemyController>
 
     public void InitUIAction(Enemy enemy, int indexAction)  // 
     {
+        Debug.Log("Init UI Action Enem : Index Action Enemy : " + indexAction);
         ProcedureActionEnemy procedure = enemy.actions[indexAction];
         //Xu ly toa do UI Action Enemy
         int countAction = procedure.actionEnemy.Count;

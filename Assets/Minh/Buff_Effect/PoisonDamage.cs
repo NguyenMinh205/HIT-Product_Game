@@ -14,6 +14,7 @@ public class PoisonDamage : IBuffEffect
         Name = "poison_damage";
         Value = value;
         Duration = duration;
+        Icon = UIEffectIcon.Instance.GetPoison;
     }
 
     public void Apply(Player player)
@@ -64,17 +65,18 @@ public class PoisonDamage : IBuffEffect
         //        Debug.Log($"Applied PoisonEffect to enemy with {Value} damage for {Duration} turns.");
         //    }
         //}
+        GamePlayController.Instance.PlayerController.CurrentPlayer.AddBuffEffect("poison_effect", Value, Duration);
 
         Duration--;
     }
 
     public void ApplyEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        RegisterEvents();
     }
 
     public void RemoveEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        UnregisterEvents();
     }
 }

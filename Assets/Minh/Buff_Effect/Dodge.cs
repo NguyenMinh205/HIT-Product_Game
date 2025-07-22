@@ -14,6 +14,7 @@ public class Dodge : IBuffEffect
         Name = "dodge";
         Value = value; // Không dùng
         Duration = duration;
+        Icon = UIEffectIcon.Instance.Dodge; 
     }
 
     public void Apply(Player player)

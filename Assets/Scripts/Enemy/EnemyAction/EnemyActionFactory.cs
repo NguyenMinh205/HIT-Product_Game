@@ -79,8 +79,25 @@ public static class EnemyActionFactory
             case "enemy13":
                 break;
             case "enemy14":
+                Debug.Log(" Enemy is Explosive");
+                enemyAction = new Explosive();
                 break;
             case "enemy15":
+                enemyAction = new DodgeAttackByPlayer();
+                break;
+            case "enemy22":
+                Debug.Log("Enemy Set Posion With Action Attack");
+                enemyAction = new SetPoisonWithAttack();
+                break;
+
+            case "boss02":
+                Debug.Log("Boss Get Increase Damage");
+                enemyAction = new DoubleDamage();
+                break;
+
+            case "boss06":
+                Debug.Log("Boss Get Dodge Attack By Player Or Counter Attack by Player");
+                enemyAction = new SetDodgeOrCounterAttack();
                 break;
         }
 
@@ -121,6 +138,10 @@ public static class EnemyActionFactory
             case "enemy07":
                 enemyAction = new GetPoison();
                 break;
+
+            case "enemy13":
+                enemyAction = new GetPoison();
+                break;
         }
             ExecuteAction(enemyAction, enemy);
     }
@@ -148,6 +169,11 @@ public static class EnemyActionFactory
             case "enemy11":
                 Debug.Log("Enemy Drop Fluff In Box");
                 enemyAction = new DropFluffInBox();
+                break;
+            
+            case "enemy12":
+                Debug.Log("Enemy Drop Three Fruit Poison");
+                enemyAction = new DropThreeFruitPosionThorn();
                 break;
         }
         ExecuteAction(enemyAction, enemy);

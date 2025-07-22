@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private UIActionEnemy uiActionEnemy;
     [SerializeField] private float offsetHealthBar;
 
+
     public List<ProcedureActionEnemy> actions;
     private int indexAction;
     private float height;
@@ -131,7 +132,7 @@ public class Enemy : MonoBehaviour
         if(data.itemEffect != null)
             itemEffect = data.itemEffect;
 
-        actions = data.actions;
+        actions = new List<ProcedureActionEnemy>(data.actions);
         indexAction = 0;
 
         //UIActionEnemyController.Instance.InitActionToEnemy(this);
@@ -180,6 +181,7 @@ public class Enemy : MonoBehaviour
         if (HP <= 0)
         {
             ObserverManager<IDEnemyState>.PostEven(IDEnemyState.EnemyDied, this);
+            effectController.ClearAllEffectUI();
         }
     }
 
@@ -189,11 +191,12 @@ public class Enemy : MonoBehaviour
         for (int i = 0; i < actions[indexAction].actionEnemy.Count; i++)
         {
             EnemyActionFactory.GetActionEnemy(actions[indexAction].actionEnemy[i], this);
+            ObserverManager<EventID>.PostEven(EventID.OnDealDamage, this);
             uiActionEnemy.UnActionIndexEnemy(i);
 
             yield return new WaitForSeconds(1f);
         }
-
+        uiActionEnemy.ClearAllActionList();
         indexAction++;
         if (indexAction >= actions.Count)
         {

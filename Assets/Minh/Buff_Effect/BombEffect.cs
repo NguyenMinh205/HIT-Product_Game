@@ -15,7 +15,7 @@ public class BombEffect : IBuffEffect
         Name = "bomb_effect";
         Value = value; // Sát thương bom (30 cho Player gây, 45 cho Enemy gây)
         Duration = duration;
-        Icon = UIEffectIcon.Instance.Explosion3;
+        Icon = UIEffectIcon.Instance.Explosion2;
     }
 
     public void Apply(Player player)
@@ -113,11 +113,11 @@ public class BombEffect : IBuffEffect
 
     public void ApplyEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        RegisterEvents();
     }
 
     public void RemoveEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        UnregisterEvents();
     }
 }

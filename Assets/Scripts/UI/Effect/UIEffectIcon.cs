@@ -14,5 +14,12 @@ public class UIEffectIcon : Singleton<UIEffectIcon>
 	[SerializeField] public Sprite CreateWater;
 	[SerializeField] public Sprite PosionGas;
 	[SerializeField] public Sprite BuffSheildTurn;
+	[SerializeField] public Sprite x2DamageTurn;
+	[SerializeField] public Sprite Dodge;
+	[SerializeField] public Sprite SuckBlood;
+	[SerializeField] public Sprite Coin;
+	[SerializeField] public Sprite EnemyRun;
+	[SerializeField] public Sprite ThiefEffect;
+	[SerializeField] public Sprite GetPoison;
 
 }

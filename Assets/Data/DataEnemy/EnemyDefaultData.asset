@@ -48,7 +48,7 @@ MonoBehaviour:
     - actionEnemy: 01000000
   - idEnemy: enemy04
     nameEnemy: HiveRide
-    hpEnemy: 5
+    hpEnemy: 35
     damageEnemy: 3
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -783777960, guid: ef9edf03a9471db4393f4a4e52c51df5, type: 3}
@@ -127,47 +127,47 @@ MonoBehaviour:
     itemEffect: {fileID: 11400000, guid: b9b846970aaaa0542ada03ea5f49d661, type: 2}
     actions:
     - actionEnemy: 00000000
-    - actionEnemy: 03000000
+    - actionEnemy: 06000000
   - idEnemy: enemy11
     nameEnemy: 
     hpEnemy: 100
     damageEnemy: 10
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: 126299030, guid: f4455d5d949a0454aa5c38bf02ec107b, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 11400000, guid: aff11190db0b1234f9e0945ddc42f163, type: 2}
     actions:
-    - actionEnemy: 03000000
+    - actionEnemy: 06000000
     - actionEnemy: 00000000
   - idEnemy: enemy12
     nameEnemy: 
     hpEnemy: 100
     damageEnemy: 2
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: -990542152, guid: 5f0dca1bed81f0c478c1b2e09a3f943a, type: 3}
     controller: {fileID: 0}
-    itemEffect: {fileID: 0}
+    itemEffect: {fileID: 11400000, guid: b9b846970aaaa0542ada03ea5f49d661, type: 2}
     actions:
     - actionEnemy: 00000000000000000000000000000000
-    - actionEnemy: 04000000
+    - actionEnemy: 06000000
   - idEnemy: enemy13
     nameEnemy: 
     hpEnemy: 100
     damageEnemy: 15
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: 134605525, guid: e9a743dfb4e18d449a009b816aaa3229, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 0}
     actions:
     - actionEnemy: 00000000
-    - actionEnemy: 04000000
-    - actionEnemy: 03000000
+    - actionEnemy: 02000000
+    - actionEnemy: 05000000
   - idEnemy: enemy14
     nameEnemy: 
     hpEnemy: 100
     damageEnemy: 0
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: 1475919414, guid: 1a65d1d7e47e8c14c86894c691936789, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 0}
     actions:
@@ -179,7 +179,7 @@ MonoBehaviour:
     hpEnemy: 100
     damageEnemy: 8
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: -913989469, guid: afe4b0c79719a294f8cb7552a8ca9921, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 0}
     actions:
@@ -190,7 +190,7 @@ MonoBehaviour:
     hpEnemy: 100
     damageEnemy: 3
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: -970121392, guid: 1872f9b30c1cef24cba9b386f8b5d23e, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 0}
     actions:
@@ -201,7 +201,7 @@ MonoBehaviour:
     hpEnemy: 0
     damageEnemy: 9
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: 1455894691, guid: aaf2661d48b298b43813774efeb76154, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 0}
     actions:
@@ -212,7 +212,7 @@ MonoBehaviour:
     hpEnemy: 100
     damageEnemy: 20
     armorIncreased: 30
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: 251771158, guid: 0e09ee99986c769469980947843bf0fa, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 0}
     actions:
@@ -223,7 +223,7 @@ MonoBehaviour:
     hpEnemy: 100
     damageEnemy: 15
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: 419740717, guid: 23153bf85235a0e45b38c1fcc1539185, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 0}
     actions:
@@ -235,7 +235,7 @@ MonoBehaviour:
     hpEnemy: 100
     damageEnemy: 0
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: 827423073, guid: b0e16c680b1767d409e85f580754962f, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 0}
     actions:
@@ -246,7 +246,7 @@ MonoBehaviour:
     hpEnemy: 100
     damageEnemy: 0
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: -1154898096, guid: 0437ccdd3bb60b34c9822f51bbd4fd5a, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 0}
     actions:
@@ -256,7 +256,7 @@ MonoBehaviour:
     hpEnemy: 100
     damageEnemy: 3
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: 308893455, guid: f5f3d887469c6a9408656b4781975ddf, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 0}
     actions:
@@ -276,11 +276,11 @@ MonoBehaviour:
     - actionEnemy: 04000000
   - idEnemy: boss02
     nameEnemy: 
-    hpEnemy: 55
+    hpEnemy: 155
     damageEnemy: 6
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1074711646, guid: ffe401bd7e581eb4e8902bbe42a2bde9, type: 3}
-    controller: {fileID: 0}
+    controller: {fileID: 9100000, guid: 360d7d1dd92c8bf43b7982574a972d2d, type: 2}
     itemEffect: {fileID: 0}
     actions:
     - actionEnemy: 04000000
@@ -324,10 +324,10 @@ MonoBehaviour:
     - actionEnemy: 00000000
   - idEnemy: boss06
     nameEnemy: 
-    hpEnemy: 0
-    damageEnemy: 0
+    hpEnemy: 500
+    damageEnemy: 30
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: -1657666854, guid: 794dba34f04bda34b9738a368c1b7b69, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 0}
     actions:

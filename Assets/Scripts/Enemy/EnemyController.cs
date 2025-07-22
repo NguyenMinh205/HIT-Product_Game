@@ -84,11 +84,19 @@ public class EnemyController : MonoBehaviour
         {
             StartCoroutine(listEnemy[i].ExecuteAction());
             float time = listEnemy[i].actions[listEnemy[i].IndexAction].actionEnemy.Count;
+
+            if(listEnemy[i].actions[listEnemy[i].IndexAction].actionEnemy.Count > 3)
+            {
+                time += 0.1f;
+            }
+
+            Debug.Log("Time Enemy: " + time);
             yield return new WaitForSeconds(time);
         }
         GamePlayController.Instance.Turn = TurnPlay.Player;
         for (int i = 0; i < listEnemy.Count; i++)
         {
+            Debug.Log("Next Action Enemy:  " + listEnemy[i].IndexAction);
             listEnemy[i].NextAction();
         }
     }
