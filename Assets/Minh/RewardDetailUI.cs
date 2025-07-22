@@ -10,9 +10,11 @@ public class RewardDetailUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemDescription;
     [SerializeField] private Color colorDefault;
     private ItemBase item;
+    private PerkBase perk;
 
     public Image MarkChoice => markChoice;
     public ItemBase Item => item;
+    public PerkBase Perk => perk;
     public Color ColorDefault => colorDefault;
 
     public void Init(ItemBase item)
@@ -23,6 +25,18 @@ public class RewardDetailUI : MonoBehaviour
         itemIcon.rectTransform.sizeDelta *= 0.7f;
         itemName.text = item.itemName;
         itemDescription.text = item.description;
+        markChoice.color = colorDefault;
+        GetComponent<Button>().onClick.AddListener(() => RewardManager.Instance.SelectReward(this));
+    }
+
+    public void Init(PerkBase perk)
+    {
+        this.perk = perk;
+        itemIcon.sprite = perk.icon;
+        itemIcon.SetNativeSize();
+        itemIcon.rectTransform.sizeDelta *= 0.7f;
+        itemName.text = item.itemName;
+        itemDescription.text = perk.description;
         markChoice.color = colorDefault;
         GetComponent<Button>().onClick.AddListener(() => RewardManager.Instance.SelectReward(this));
     }

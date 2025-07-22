@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     public CharacterStat Stats => stats;
 
     private List<IBuffEffect> activeEffects = new List<IBuffEffect>();
+    public List<IBuffEffect> ActiveEffects => activeEffects;
     [SerializeField] private UIEffectController effectController;
     [SerializeField] private Inventory inventory;
     private List<ItemInventory> addedItems = new List<ItemInventory>();
@@ -173,7 +175,7 @@ public class Player : MonoBehaviour
         float effectiveDamage = damage - stats.Shield;
         stats.ChangeShield(-damage);
         effectiveDamage = Mathf.Max(0, effectiveDamage);
-        stats.ChangeCurHP(-effectiveDamage);
+        stats.ChangeCurHP(-effectiveDamage + (int)Math.Ceiling(damage * stats.DamageAbsorb));
         ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Hit, null);
         UpdateHpUI();
 
@@ -205,11 +207,15 @@ public class Player : MonoBehaviour
 
     public void EndGame()
     {
-        ClearAllEffects();
-        addedItems.Clear();
-        inventory.ClearInventory();
-        stats.ResetStatAfterRound();
-        GamePlayController.Instance.PlayerController.CurPlayerStat = stats;
+        ObserverManager<EventID>.PostEven(EventID.OnEndRound);
+        DOVirtual.DelayedCall(0.5f, () => {
+            ClearAllEffects();
+            addedItems.Clear();
+            inventory.ClearInventory();
+            stats.ResetStatAfterRound();
+            GamePlayController.Instance.PlayerController.CurPlayerStat = stats;
+        });
+
         Debug.Log("Game Over for Player");
         this.Health.UnShowHealthBarEnemy();
         PoolingManager.Despawn(gameObject);

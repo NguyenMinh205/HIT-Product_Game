@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PoisonWeapons : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        throw new System.NotImplementedException();
+        GamePlayController.Instance.PlayerController.startRoundBuffs.Add(new StartRoundBuffInfo("poison_damage", 1, -1));
     }
 }

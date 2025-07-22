@@ -66,6 +66,7 @@ public class ClawController : MonoBehaviour
             SetPosClaw();
         }
         currentClaw.Mode = ModeClaw.Start;
+        ObserverManager<EventID>.PostEven(EventID.OnUseClaw);
     }
     public void SetPosClaw()
     {

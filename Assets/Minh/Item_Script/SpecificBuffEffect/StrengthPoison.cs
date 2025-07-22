@@ -8,7 +8,7 @@ public class StrengthPoison : BuffItem
     public int BuffVal { get; set; }
     public override void Buff(Player player)
     {
-        player.Stats.MultipleDamageExtra(buffVal);
+        player.Stats.MultipleStrength(buffVal);
     }
 
     public override void Execute(Player player, Enemy enemy)

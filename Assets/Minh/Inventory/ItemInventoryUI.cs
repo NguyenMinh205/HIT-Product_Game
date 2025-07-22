@@ -21,21 +21,23 @@ public class ItemInventoryUI : MonoBehaviour
         iconImage.rectTransform.sizeDelta *= 0.75f;
         numOfItem.text = quantity.ToString();
 
-        // Tạm thời tắt logic kiểm tra nâng cấp để tránh xung đột, có thể bật lại sau
-        // if (inventoryItem.isUpgraded || data.upgradedItem == null)
-        // {
-        //     Color color = iconImage.color;
-        //     color.a = 200f / 255f;
-        //     iconImage.color = color;
-        //     GetComponent<Button>().interactable = false;
-        // }
-        // else
-        // {
-        //     Color color = iconImage.color;
-        //     color.a = 1f;
-        //     iconImage.color = color;
-        //     GetComponent<Button>().interactable = true;
-        // }
+        if (GameManager.Instance.CurrentRoom == GameManager.Instance.SmithRoom)
+        {
+            if (inventoryItem.isUpgraded || data.upgradedItem == null)
+            {
+                Color color = iconImage.color;
+                color.a = 200f / 255f;
+                iconImage.color = color;
+                GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                Color color = iconImage.color;
+                color.a = 1f;
+                iconImage.color = color;
+                GetComponent<Button>().interactable = true;
+            }
+        }    
 
         GetComponent<Button>().onClick.RemoveAllListeners();
         GetComponent<Button>().onClick.AddListener(() => action(inventoryItem));

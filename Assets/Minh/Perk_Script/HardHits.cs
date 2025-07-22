@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HardHits : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        throw new System.NotImplementedException();
+        GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCriticalChance(0.1f);
     }
 }

@@ -32,6 +32,7 @@ public class SmithRoomManager : MonoBehaviour
 
     private Inventory inventory;
     private ItemInventory selectedItem;
+    private int upgradeFreeTurn = 0;
 
     private void Awake()
     {
@@ -41,6 +42,7 @@ public class SmithRoomManager : MonoBehaviour
     public void Init()
     {
         inventory = GamePlayController.Instance.PlayerController.TotalInventory;
+        upgradeFreeTurn = GamePlayController.Instance.PlayerController.CurPlayerStat.UpgradeFreeTurn;
         LoadInventoryList();
         UpdateUpgradeCost();
     }
@@ -121,15 +123,16 @@ public class SmithRoomManager : MonoBehaviour
     {
         if (selectedItem != null)
         {
-            int coinSpend = (int)Math.Floor(coinUpgrade * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
-            if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinSpend)
+            int reduceCoin = (int)Math.Floor(coinUpgrade * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
+            if (upgradeFreeTurn > 0)
             {
-                GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCoin(-coinSpend);
-                inventory.UpgradeItem(selectedItem);
-                LoadInventoryList();
-                itemDetailBeforeUpgrade.SetActive(false);
-                itemDetailAfterUpgrade.SetActive(false);
-                selectedItem = null;
+                Upgrade();
+                upgradeFreeTurn--;
+            }    
+            if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= (coinUpgrade - reduceCoin))
+            {
+                GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCoin(-(coinUpgrade - reduceCoin));
+                Upgrade();
             }
             else
             {
@@ -139,9 +142,18 @@ public class SmithRoomManager : MonoBehaviour
         UpdateUpgradeCost();
     }
 
+    public void Upgrade()
+    {
+        inventory.UpgradeItem(selectedItem);
+        LoadInventoryList();
+        itemDetailBeforeUpgrade.SetActive(false);
+        itemDetailAfterUpgrade.SetActive(false);
+        selectedItem = null;
+    }    
+
     private void UpdateUpgradeCost()
     {
-        if (selectedItem != null && selectedItem.CanUpgrade)
+        if (selectedItem != null && selectedItem.CanUpgrade && upgradeFreeTurn > 0)
         {
             upgradeCostText.text = coinUpgrade.ToString();
             upgradeCostText.color = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinUpgrade ? Color.white : Color.red;

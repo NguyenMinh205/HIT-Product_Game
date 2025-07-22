@@ -15,4 +15,4 @@ MonoBehaviour:
   id: Per17
   perkName: Hedgehog
   icon: {fileID: -213464173, guid: 3d69594dab9cb7d4781e38e63be8c6a4, type: 3}
-  description: Gain 5 Spikes each time you take damage.
+  description: Gain 3 Spikes each time you take damage.

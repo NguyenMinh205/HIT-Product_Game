@@ -13,30 +13,38 @@ public class CharacterStat
     public float MaxHP => maxHP;
     [SerializeField] private float coin = 0;
     public float Coin => coin;
-    [SerializeField] private float damageIncrease;
-    public float DamageIncrease => damageIncrease;
+    [SerializeField] private float strength;
+    public float Strength => strength;
     [SerializeField] private float criticalChance = 0.05f;
     public float CriticalChance => criticalChance;
     [SerializeField] private float criticalDamage = 1.8f;
     public float CriticalDamage => criticalDamage;
-    [SerializeField] private float bloodsuckingRate;
+    [SerializeField] private float bloodsuckingRate = 0;
     public float BloodsuckingRate => bloodsuckingRate;
     [SerializeField] private float shield;
     public float Shield => shield;
-    [SerializeField] private float retainedBlock;
+    [SerializeField] private float retainedBlock = 0;
     public float RetainedBlock => retainedBlock;
+    [SerializeField] private float damageAbsorb = 0;
+    public float DamageAbsorb => damageAbsorb;
     [SerializeField] private float magnetStrength = 1;
     public float MagnetStrength => magnetStrength;
     [SerializeField] private int fluffCount = 30;
     public int FluffCount => fluffCount;
     [SerializeField] private float maxItemAddPerTurn = 15;
     public float MaxItemAddPerTurn => maxItemAddPerTurn;
-    [SerializeField] private float priceReduction;
+    [SerializeField] private float priceReduction = 0;
     public float PriceReduction => priceReduction;
     [SerializeField] private int clawPerTurn = 2;
     public float ClawPerTurn => clawPerTurn;
     [SerializeField] private int clawInGrannyRoom = 1;
     public int ClawInGrannyRoom => clawInGrannyRoom;
+    [SerializeField] private int upgradeFreeTurn = 0;
+    public int UpgradeFreeTurn => upgradeFreeTurn;
+    [SerializeField] private int shredderFreeTurn = 0;
+    public int ShredderFreeTurn => shredderFreeTurn;
+    [SerializeField] private int rerollFreeTurn = 0;
+    public int RerollFreeTurn => rerollFreeTurn;
 
     public CharacterStat Clone()
     {
@@ -45,7 +53,7 @@ public class CharacterStat
         clone.currentHP = currentHP;
         clone.maxHP = maxHP;
         clone.coin = coin;
-        clone.damageIncrease = damageIncrease;
+        clone.strength = strength;
         clone.criticalChance = criticalChance;
         clone.criticalDamage = criticalDamage;
         clone.bloodsuckingRate = bloodsuckingRate;
@@ -57,6 +65,8 @@ public class CharacterStat
         clone.priceReduction = priceReduction;
         clone.clawPerTurn = clawPerTurn;
         clone.clawInGrannyRoom = clawInGrannyRoom;
+        clone.upgradeFreeTurn = upgradeFreeTurn;
+        clone.shredderFreeTurn = shredderFreeTurn;
         return clone;
     }
 
@@ -76,6 +86,7 @@ public class CharacterStat
 
     public void ChangeShield(float value)
     {
+        Debug.Log(value);
         if (this.shield + value <= 0)
         {
             this.shield = 0;
@@ -99,28 +110,28 @@ public class CharacterStat
         GamePlayController.Instance.PlayerController.CurrentPlayer.UpdateArmorUI();
     }
 
-    public void ChangeDamageExtra(float value)
+    public void ChangeStrength(float value)
     {
-        this.damageIncrease += value;
+        this.strength += value;
     }
 
-    public void MultipleDamageExtra(int value)
+    public void MultipleStrength(int value)
     {
-        this.damageIncrease *= value;
+        this.strength *= value;
     }
 
     public void ChangeCriticalChance(float value)
     {
-        if (this.damageIncrease + value > 1)
+        if (this.criticalChance + value > 1)
         {
-            this.damageIncrease = 1f;
+            this.criticalChance = 1f;
         }
-        this.damageIncrease += value;
+        this.criticalChance += value;
     }
 
     public void ChangeCriticalDamage(float value)
     {
-        this.damageIncrease += value;
+        this.criticalDamage += value;
     }
 
     public void ChangeBloodsuckingRate(float value)
@@ -133,14 +144,39 @@ public class CharacterStat
         this.retainedBlock += value;
     }
 
+    public void ChangeDamageAbsorb(float value)
+    {
+        this.damageAbsorb += value;
+    }
+
     public void ChangePriceReduction(float value)
     {
         this.priceReduction += value;
     }
 
+    public void ChangeUpgradeFreeTurn(int value)
+    {
+        this.upgradeFreeTurn += value;
+    }
+
+    public void ChangeShredderFreeTurn(int value)
+    {
+        this.shredderFreeTurn += value;
+    }
+
+    public void ChangeRerollFreeTurn(int value)
+    {
+        this.rerollFreeTurn += value;
+    }
+
     public void ResetStatAfterRound()
     {
+        this.maxHP = GamePlayController.Instance.PlayerController.CurPlayerStat.MaxHP;
+        if (this.currentHP > this.maxHP)
+        {
+            this.currentHP = this.maxHP;
+        }
         this.shield = 0;
-        this.damageIncrease = 0;
+        this.strength = 0;
     }    
 }

@@ -15,4 +15,4 @@ MonoBehaviour:
   id: Per27
   perkName: Spikes
   icon: {fileID: -758794800, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
-  description: Start each fight with 3 Spikes
+  description: Start each fight with 5 Spikes

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HealingClaw : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        throw new System.NotImplementedException();
+        GamePlayController.Instance.PlayerController.startRoundBuffs.Add(new StartRoundBuffInfo("buff_health_use_claw", 3, -1));
     }
 }

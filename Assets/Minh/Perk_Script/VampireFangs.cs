@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class VampireFangs : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        throw new System.NotImplementedException();
+        GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeDamageAbsorb(0.05f);
     }
 }

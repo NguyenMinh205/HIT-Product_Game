@@ -19,7 +19,7 @@ public class Paperclips : AttackItem
     {
         if (player != null)
         {
-            strength = (int)player.Stats.DamageIncrease;
+            strength = (int)player.Stats.Strength;
         }
 
         if (enemy != null)

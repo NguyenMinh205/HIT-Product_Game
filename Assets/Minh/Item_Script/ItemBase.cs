@@ -20,7 +20,7 @@ public class ItemBase : ScriptableObject
     public bool isStackable = true;
     public int maxStackSize = 99;
     public bool isMetal = false;
-    public bool isUpgraded;
+    public bool isUpgraded = false;
     public ItemBase upgradedItem;
 
     [SerializeField] private IItemAction action;
@@ -31,13 +31,12 @@ public class ItemBase : ScriptableObject
         if (action == null)
         {
             action = ItemActionFactory.CreateItemAction(id);
-            if (isUpgraded && action != null)
-            {
-                action.Upgrade();
-            }
         }
 
-        action.Execute(player, target);
+        if (isUpgraded && action != null)
+        {
+            action.Upgrade();
+        }
 
         if (action != null && action is GreatSword greatSword)
         {

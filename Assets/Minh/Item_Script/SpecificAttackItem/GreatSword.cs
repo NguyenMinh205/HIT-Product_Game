@@ -18,7 +18,6 @@ public class GreatSword : AttackItem
     {
         if (enemy != null)
         {
-            Debug.LogError("Chay3");
             curDamage = CalculateDamageWithCrit(player, damage);
             AttackEnemy(enemy);
         }    
@@ -26,12 +25,10 @@ public class GreatSword : AttackItem
     
     public void Execute(Player player, List<Enemy> targets)
     {
-        Debug.LogError("Chay");
         foreach (Enemy target in targets)
         {
             if (target != null)
             {
-                Debug.LogError("Chay2");
                 Execute(player, target);
             }
         } 

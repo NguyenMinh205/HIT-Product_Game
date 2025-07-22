@@ -44,6 +44,32 @@ public static class BuffEffectFactory
             case "create_water_in_box":
                 return new CreateWater();
 
+            //Buff/Effect for perk
+            case "buff_shield_start_round":
+                return new BuffShieldStartRound(value, duration);
+            case "buff_strength_start_round":
+                return new BuffStrengthStartRound(value, duration);
+            case "add_spike_start_round":
+                return new AddSpikeStartRound(value, duration);
+            case "add_strength_take_damage":
+                return new AddStrengthTakeDamage(value, duration);
+            case "buff_health_per_coin":
+                return new BuffHealthPerCoin(value, duration);
+            case "add_spike_take_damage":
+                return new AddSpikeTakeDamage(value, duration);
+            case "buff_strength_by_items":
+                return new BuffStrengthByItems(value, duration);
+            case "buff_health_use_claw":
+                return new BuffHealthUseClaw(value, duration);
+            case "buff_health_end_round":
+                return new BuffHealthEndRound(value, duration);
+            case "buff_coin_end_round":
+                return new BuffCoinEndRound(value, duration);
+            case "add_coin_deal_damage":
+                return new AddCoinDealDamage(value, duration);
+            case "add_poison_on_enemy":
+                return new ApplyPoisonEffect(value, duration);
+
             default:
                 Debug.LogWarning($"Hiệu ứng {effectName} không được hỗ trợ!");
                 return null;

@@ -13,8 +13,12 @@ public class PerkBase : ScriptableObject
 
     [SerializeField] private IPerkAction action;
 
-    public void ExecuteAction(Player player)
+    public void Execute()
     {
-
+        if (action == null)
+        {
+            action = PerkActionFactory.CreatePerkAction(id);
+        }
+        action.Execute();
     }
 }

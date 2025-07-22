@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Cuddly : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        throw new System.NotImplementedException();
+        
     }
 }

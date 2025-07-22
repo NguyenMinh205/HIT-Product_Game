@@ -53,7 +53,6 @@ public class ItemController : MonoBehaviour
                 }
             }
         }
-        IsPickupItemSuccess = false;
     }
     public void DropInBox(ItemBase item, int val)
     {

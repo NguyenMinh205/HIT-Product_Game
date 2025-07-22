@@ -23,6 +23,7 @@ public class ShredderRoomManager : MonoBehaviour
     [SerializeField] private int shredCostPerItem = 10;
     [SerializeField] private Button shredBtn;
     private int numItemToShred = 0;
+    private int shredFreeTurn = 0;
     private Inventory inventory;
     private List<ItemInventoryUI> itemsToShred = new List<ItemInventoryUI>();
 
@@ -30,6 +31,7 @@ public class ShredderRoomManager : MonoBehaviour
     {
         inventory = GamePlayController.Instance.PlayerController.TotalInventory;
         shredBtn.onClick.AddListener(ShredItems);
+        shredFreeTurn = GamePlayController.Instance.PlayerController.CurPlayerStat.ShredderFreeTurn;
         LoadInventoryList();
         UpdateShredCost();
     }
@@ -182,17 +184,19 @@ public class ShredderRoomManager : MonoBehaviour
 
     private void UpdateShredCost()
     {
-        int totalCost = numItemToShred * shredCostPerItem;
+        int totalCost = (numItemToShred - shredFreeTurn) * shredCostPerItem;
         shredCostText.text = totalCost.ToString();
         shredCostText.color = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= totalCost ? Color.white : Color.red;
     }
 
     public void ShredItems()
     {
-        int totalCost = (int)Math.Floor(numItemToShred * shredCostPerItem * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
+        int totalCost = numItemToShred * shredCostPerItem;
+        int numFreeTurns = Math.Max(shredFreeTurn - numItemToShred, 0);
+        int reduceCost = (int)Math.Floor(totalCost * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
         if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= totalCost)
         {
-            GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCoin(-totalCost);
+            GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCoin(-(totalCost - reduceCost));
             foreach (var itemUI in itemsToShred.ToList())
             {
                 ItemBase itemBase = itemUI.Data;

@@ -8,7 +8,7 @@ public class EnergyDrink : BuffItem
     {
         int curShield = (int)player.Stats.Shield;
         int damageExtra = curShield / 4;
-        player.Stats.ChangeDamageExtra(damageExtra);
+        player.Stats.ChangeStrength(damageExtra);
     }
 
     public override void Execute(Player player, Enemy enemy)

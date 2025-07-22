@@ -6,14 +6,17 @@ using UnityEngine;
 
 public enum EventID
 {
+    OnStartRound,
     OnStartPlayerTurn,
     OnTakeDamage,
     OnDealDamage,
     OnGoldChanged,
     OnHealthChanged,
     OnStartEnemyTurn,
+    OnUseClaw,
     OnBasketEmpty,
-    OnClawsEmpty
+    OnClawsEmpty,
+    OnEndRound,
 }
 
 public enum TurnPlay
@@ -143,6 +146,7 @@ public class GamePlayController : Singleton<GamePlayController>
         ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
         playerController.CurrentPlayer.AddItem();
         itemController.SpawnAdditionalItems();
+        itemController.IsPickupItemSuccess = false;
         Debug.Log("Player Turn Started");
     }
 
@@ -178,6 +182,7 @@ public class GamePlayController : Singleton<GamePlayController>
         ObserverManager<EventID>.AddDesgisterEvent(EventID.OnClawsEmpty, HandleClawsEmpty);
         ShowChangeTurn();
         isEndGame = false;
+        itemController.IsPickupItemSuccess = false;
     }
 
     public void LoseGame()

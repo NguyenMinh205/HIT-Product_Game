@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Thief : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        throw new System.NotImplementedException();
+        GamePlayController.Instance.PlayerController.startRoundBuffs.Add(new StartRoundBuffInfo("add_coin_deal_damage", 1, -1));
     }
 }

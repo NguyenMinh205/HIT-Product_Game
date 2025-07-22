@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bulwark : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        throw new System.NotImplementedException();
+        GamePlayController.Instance.PlayerController.startRoundBuffs.Add(new StartRoundBuffInfo("buff_shield_start_round", 15, -1));
     }
 }

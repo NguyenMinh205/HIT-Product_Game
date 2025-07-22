@@ -153,7 +153,7 @@ public class Enemy : MonoBehaviour
 
     public bool ReceiverDamage(int damage)
     {
-        Debug.Log("Enemy Receiver Damage : "+ damage);
+        Debug.LogError("Enemy Receiver Damage : "+ damage);
         int finalDamage = Mathf.Max(damage - armor, 0);
         armor = Mathf.Max(0, armor - damage);
 

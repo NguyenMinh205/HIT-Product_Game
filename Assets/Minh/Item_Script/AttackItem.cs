@@ -12,7 +12,6 @@ public abstract class AttackItem : IItemAction
 
     protected int CalculateDamageWithCrit(Player player, int baseDamage)
     {
-        Debug.Log("Sat thuong ban dau = " + baseDamage);
         if (player == null || player.Stats == null) return baseDamage;
 
         float criticalChance = player.Stats.CriticalChance;
@@ -21,7 +20,7 @@ public abstract class AttackItem : IItemAction
         if (Random.value <= criticalChance)
         {
             float critDamage = baseDamage * criticalDamage;
-            Debug.Log($"Chí mạng! Sát thương tăng từ {baseDamage} lên {critDamage}");
+            Debug.LogError($"Chí mạng! Sát thương tăng từ {baseDamage} lên {critDamage}");
             return (int)critDamage;
         }
 

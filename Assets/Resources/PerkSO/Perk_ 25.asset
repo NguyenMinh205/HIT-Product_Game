@@ -15,4 +15,4 @@ MonoBehaviour:
   id: Per25
   perkName: Resilent
   icon: {fileID: 192446751, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
-  description: Heal 5 Health after each fight
+  description: Heal 10 Health after each fight

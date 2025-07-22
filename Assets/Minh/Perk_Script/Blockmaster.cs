@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Blockmaster : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        throw new System.NotImplementedException();
+        GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeRetainedBlock(0.25f);
     }
 }

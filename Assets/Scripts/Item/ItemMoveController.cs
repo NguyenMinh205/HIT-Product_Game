@@ -150,11 +150,13 @@ public class ItemMoveController : MonoBehaviour
         PauseMovement();
         Player player = GamePlayController.Instance.PlayerController.CurrentPlayer;
         List<Enemy> enemyList = GamePlayController.Instance.EnemyController.ListEnemy;
-        itemUsage.UseItem(item.ID, player, enemyList[0], enemyList);
         Sequence fx = DOTween.Sequence();
 
         fx.Join(item.transform.DOScale(item.transform.localScale * 1.7f, 1f)
                  .SetEase(Ease.OutBack));
+
+
+        itemUsage.UseItem(item.ID, player, enemyList[0], enemyList);
 
         var sr = item.SR;
         fx.Join(sr.DOFade(0f, 1f));

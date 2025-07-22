@@ -19,19 +19,20 @@ public class RewardManager : Singleton<RewardManager>
     [SerializeField] private TextMeshProUGUI coinTxt;
     private int coinToRoll = 2;
     private int numOfReward = 3;
+    private int rerollFreeTurn = 0;
     private RewardDetailUI selectedReward;
     private int commonRate = 65;
     public int CommonRate { get { return commonRate; } set { commonRate = value; } }
     private int rareRate = 25;
     public int RareRate { get { return rareRate; } set { rareRate = value; } }
-    private List<ItemBase> lastRolledItems = new List<ItemBase>(); // Lưu 3 vật phẩm của lần roll trước
+    private List<ItemBase> lastRolledItems = new List<ItemBase>();
+    private List<PerkBase> perkRewards = new List<PerkBase>();
 
     private void Start()
     {
         takeBtn.onClick.AddListener(TakeReward);
         rollBtn.onClick.AddListener(RollReward);
         takeBtn.interactable = false;
-        UpdateUI();
     }
 
     public void InitReward()
@@ -41,6 +42,21 @@ public class RewardManager : Singleton<RewardManager>
             PoolingManager.Despawn(child.gameObject);
         }
 
+        if (GameManager.Instance.CurrentRoom == GameManager.Instance.PerkRewardRoom)
+        {
+            perkRewards.Clear();
+            foreach (TumblerItem item in TumblerMachine.Instance.DroppedItems)
+            {
+                perkRewards.Add(item.PerkBase);
+            }    
+            foreach (PerkBase perk in perkRewards)
+            {
+                RewardDetailUI reward = PoolingManager.Spawn(rewardDetailPrefab, this.transform.position, Quaternion.identity, content);
+                reward.Init(perk);
+            }
+            rollBtn.gameObject.SetActive(false);
+            return;
+        }
         List<ItemBase> selectedItems = new List<ItemBase>();
 
         for (int i = 0; i < numOfReward; i++)
@@ -71,8 +87,10 @@ public class RewardManager : Singleton<RewardManager>
             }
         }
 
+        rerollFreeTurn = GamePlayController.Instance.PlayerController.CurPlayerStat.RerollFreeTurn;
         lastRolledItems.Clear();
         lastRolledItems.AddRange(selectedItems);
+        UpdateUI();
     }
 
     private Rarity GetRandomRarity()
@@ -87,7 +105,15 @@ public class RewardManager : Singleton<RewardManager>
     {
         if (selectedReward != null)
         {
-            PlayerManager.Instance.TotalInventory.AddItem(selectedReward.Item.id, 1);
+            if (GameManager.Instance.CurrentRoom == GameManager.Instance.PerkRewardRoom)
+            {
+                selectedReward.Perk.Execute();
+                rollBtn.gameObject.SetActive(true);
+                rewardUI.SetActive(false);
+                GameManager.Instance.OutRoom();
+                return;
+            }
+            GamePlayController.Instance.PlayerController.TotalInventory.AddItem(selectedReward.Item.id, 1);
             foreach (Transform child in content)
             {
                 PoolingManager.Despawn(child.gameObject);
@@ -96,17 +122,22 @@ public class RewardManager : Singleton<RewardManager>
             selectedReward = null;
             rewardUI.SetActive(false);
             lastRolledItems.Clear();
-            MapController.Instance.SetRoomVisited(PlayerMapController.Instance.PosInMap);
             GameManager.Instance.OutRoom();
         }
     }
 
     public void RollReward()
     {
-        int coinSpend = (int)Math.Floor(coinToRoll * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
-        if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinSpend)
+        int reduceCoin = (int)Math.Floor(coinToRoll * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
+        if (rerollFreeTurn > 0)
         {
-            GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCoin(-coinSpend);
+            rerollFreeTurn--;
+            InitReward();
+            UpdateUI();
+        }
+        else if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= (coinToRoll - reduceCoin))
+        {
+            GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCoin(-(coinToRoll - reduceCoin));
             coinToRoll *= 2;
             InitReward();
             UpdateUI();
@@ -133,7 +164,11 @@ public class RewardManager : Singleton<RewardManager>
 
     private void UpdateUI()
     {
+        if (rerollFreeTurn > 0)
+        {
+            coinTxt.text = "0";
+        }
         coinTxt.text = coinToRoll.ToString();
-        coinTxt.color = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinToRoll ? Color.white : Color.red;
+        coinTxt.color = GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin >= coinToRoll ? Color.white : Color.red;
     }
 }

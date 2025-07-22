@@ -61,6 +61,8 @@ public static class ItemActionFactory
                 return new Eyepatch();
             case "Buf04":
                 return new RingOfStrength();
+            case "Buf05":
+                return new PiggyBank();
             case "Buf08":
                 return new AmuletOfStrength();
             case "Buf10":
@@ -69,6 +71,8 @@ public static class ItemActionFactory
                 return new StrengthPoison();
             case "Buf13":
                 return new HealingFlask();
+            case "Buf14":
+                return new Antidote();
             case "Buf16":
                 return new WoodenBracelet();
             case "Buf17":
@@ -77,13 +81,15 @@ public static class ItemActionFactory
                 return new VitaminPill();
             case "Buf21":
                 return new EnergyDrink();
+            case "Buf24":
+                return new HandMirror();
 
             //Effect Item do Enemy Drop
 
             case "ei01":
                 return new PosionousSpore();
 
-            case "ei04": 
+            case "ei04":
                 return new ThornFruit();
 
             default:

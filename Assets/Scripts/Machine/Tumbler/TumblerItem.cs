@@ -6,6 +6,7 @@ public class TumblerItem : MonoBehaviour
     private PerkBase perkBase;
     [SerializeField] private Image icon;
     private Rigidbody2D _rb;
+    public PerkBase PerkBase => perkBase;
 
     public void Init(PerkBase perk)
     {
@@ -21,9 +22,4 @@ public class TumblerItem : MonoBehaviour
             TumblerMachine.Instance.OnItemCollected(this);
         }
     }
-
-    public virtual void AddPerkToPlayer()
-    {
-
-    }    
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Resilent : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        throw new System.NotImplementedException();
+        GamePlayController.Instance.PlayerController.startRoundBuffs.Add(new StartRoundBuffInfo("buff_health_end_round", 10, -1));
     }
 }

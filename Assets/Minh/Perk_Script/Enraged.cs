@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Enraged : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        throw new System.NotImplementedException();
+        GamePlayController.Instance.PlayerController.startRoundBuffs.Add(new StartRoundBuffInfo("enraged_effect", 1, -1));
     }
 }

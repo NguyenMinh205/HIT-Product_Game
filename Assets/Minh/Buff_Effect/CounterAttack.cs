@@ -3,7 +3,7 @@
 public class CounterAttack : IBuffEffect
 {
     public string Name { get; set; }
-    public float Value { get; set; } // Không dùng, giữ để tương thích IBuffEffect
+    public float Value { get; set; } 
     public float Duration { get; set; }
 
     public Sprite Icon { get; set; }
@@ -13,7 +13,7 @@ public class CounterAttack : IBuffEffect
     public CounterAttack(float value, float duration)
     {
         Name = "counter_attack";
-        Value = value; // Không dùng
+        Value = value;
         Duration = duration;
         
         Icon = UIEffectIcon.Instance.CounterAttack;
@@ -50,7 +50,7 @@ public class CounterAttack : IBuffEffect
 
     private void OnTakeDamage(object param)
     {
-        if (Duration <= 0)
+        if (Value <= 0)
         {
             Remove(player);
             return;
@@ -67,7 +67,7 @@ public class CounterAttack : IBuffEffect
             Debug.Log($"Enemy {enemy.name} CounterAttack triggered! Ready to counter damage.");
         }
 
-        Duration--;
+        Value--;
     }
 
     public void ApplyEnemy(Enemy enemy)

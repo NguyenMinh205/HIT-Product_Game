@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 976573761be2dd34bb1377563e75d7c4, type: 3}
   m_Name: Perk_ 33
   m_EditorClassIdentifier: 
-  id: Per32
+  id: Per33
   perkName: Hard Hits
   icon: {fileID: 154492983, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
   description: Increases Critical Hit chance by 10%

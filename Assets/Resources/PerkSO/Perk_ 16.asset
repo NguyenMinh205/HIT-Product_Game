@@ -15,4 +15,4 @@ MonoBehaviour:
   id: Per16
   perkName: HealingClaw
   icon: {fileID: -2036542697, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
-  description: Player get 10 health each time use claw
+  description: Player get 3 health each time use claw

@@ -107,12 +107,12 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
     public void StartGame()
     {
         if (_state != PachinkoState.Waiting || _item == null) return;
-        int coinSpend = (int)Math.Floor(coinToStart * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
-        if (GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin < coinSpend)
+        int reduceCoin = (int)Math.Floor(coinToStart * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
+        if (GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin < (coinToStart - reduceCoin))
         {
             return;
         }
-        GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-coinSpend); // Trừ xu
+        GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-(coinToStart - reduceCoin));
         _state = PachinkoState.Movingclaw;
         UpdateCoinTexts();
     }
@@ -120,12 +120,12 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
     public void RollItem()
     {
         if (_state != PachinkoState.Waiting || _item == null) return;
-        int coinSpend = (int)Math.Floor(coinToRoll * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
-        if (GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin < coinSpend)
+        int reduceCoin = (int)Math.Floor(coinToRoll * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
+        if (GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin < (coinToRoll - reduceCoin))
         {
             return;
         }
-        GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-coinSpend);
+        GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-(coinToRoll - reduceCoin));
 
         ItemBase newItem = itemDatabase.GetRandomItem();
         while (newItem == _lastRolledItem && itemDatabase.GetItems().Count > 1)

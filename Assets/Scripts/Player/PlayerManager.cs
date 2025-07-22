@@ -1,8 +1,10 @@
 ﻿using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using System;
+using System.Collections.Generic;
 
-public class PlayerManager : Singleton<PlayerManager>
+public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform playerParent;
@@ -18,6 +20,7 @@ public class PlayerManager : Singleton<PlayerManager>
     private Character curCharacter;
     private Player currentPlayer;
     private ICharacterAbility ability;
+    public List<StartRoundBuffInfo> startRoundBuffs = new List<StartRoundBuffInfo>();
 
     public Player CurrentPlayer
     {
@@ -32,6 +35,7 @@ public class PlayerManager : Singleton<PlayerManager>
     private void Start()
     {
         curCharacter = characterDatabase.GetCharacterById(GameData.Instance.startData.selectedCharacterId);
+        ability = CharacterAbilityFactory.CreateAbility(curCharacter.id);
         if (GameData.Instance.startData.isKeepingPlayGame)
         {
             LoadPlayerData();
@@ -44,7 +48,6 @@ public class PlayerManager : Singleton<PlayerManager>
                 totalInventory.AddItem(item.itemId, item.quantity, item.quantity, item.isUpgraded);
             }
         }
-        ability = CharacterAbilityFactory.CreateAbility(curCharacter.id);
         curPlayerStat = playerStatBase.Clone();
         if (ability != null && curPlayerStat != null)
         {
@@ -63,11 +66,19 @@ public class PlayerManager : Singleton<PlayerManager>
         currentPlayer = newObject.transform.Find("PlayerPrefab").GetComponent<Player>();
         currentPlayer.Initialize(curCharacter, curPlayerStat, GameData.Instance.startData.selectedSkinIndex);
         ability.StartSetupEffect(currentPlayer);
+        if (startRoundBuffs.Count > 0)
+        {
+            foreach (var buff in startRoundBuffs)
+            {
+                currentPlayer.AddBuffEffect(buff.name, buff.value, buff.duration);
+            }
+        }
     }
 
     public void ResetShield()
     {
-        currentPlayer.Stats.ChangeShield(-currentPlayer.Stats.Shield);
+        int retainBlock = (int)(currentPlayer.Stats.RetainedBlock * currentPlayer.Stats.Shield);
+        currentPlayer.Stats.ChangeShield(-(currentPlayer.Stats.Shield - retainBlock));
         currentPlayer.UpdateArmorUI();
     }
 
@@ -93,6 +104,11 @@ public class PlayerManager : Singleton<PlayerManager>
         {
             Debug.LogError("Player inventory is null, cannot save player data!");
         }
+        GameData.Instance.mainGameData.playerData.startRoundBuffs = new List<StartRoundBuffInfo>(startRoundBuffs);
+        if (GameData.Instance.mainGameData.playerData.startRoundBuffs == null)
+        {
+            Debug.LogError("Player start round buffs are null, cannot save player data!");
+        }
     }
 
     public void LoadPlayerData()
@@ -107,20 +123,28 @@ public class PlayerManager : Singleton<PlayerManager>
                     Debug.LogError("Player stats are null, cannot load player data!");
                 }
                 curPlayerStat = GameData.Instance.mainGameData.playerData.stats.Clone();
-                if (curPlayerStat == null)
-                {
-                    Debug.LogError("Bug1");
-                }
                 totalInventory = GameData.Instance.mainGameData.playerData.inventory;
-                if (totalInventory == null)
-                {
-                    Debug.LogError("Bug2");
-                }
+                startRoundBuffs = GameData.Instance.mainGameData.playerData.startRoundBuffs;
             }
             else
             {
                 Debug.LogError("No player data found!");
             }
         });
+    }
+}
+
+[Serializable]
+public class StartRoundBuffInfo
+{
+    public string name;
+    public int value;
+    public int duration;
+
+    public StartRoundBuffInfo(string name, int value, int duration)
+    {
+        this.name = name;
+        this.value = value;
+        this.duration = duration;
     }
 }

@@ -127,4 +127,5 @@ public class PlayerData
 {
     public CharacterStat stats;
     public Inventory inventory;
+    public List<StartRoundBuffInfo> startRoundBuffs;
 }

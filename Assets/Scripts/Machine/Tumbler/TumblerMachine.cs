@@ -39,13 +39,13 @@ public class TumblerMachine : Singleton<TumblerMachine>
     private TumblerItem _selectedItem;
 
     public TumblerBox TumblerBox => tumblerBox;
+    public List<TumblerItem> DroppedItems => _droppedItems;
     public TumblerState State => _state;
 
     private void Start()
     {
         startButton?.onClick.AddListener(StartTumbler);
         leaveButton?.onClick.AddListener(LeaveGame);
-        perkList = Resources.LoadAll<PerkBase>("PerkSO").ToList();
         _spawnedItems = new List<TumblerItem>();
         _droppedItems = new List<TumblerItem>();
         if (tumblerBox == null || perkMachineTumbler == null)
@@ -130,7 +130,8 @@ public class TumblerMachine : Singleton<TumblerMachine>
 
     public void ShowSelectItemUI()
     {
-        // TODO: Thêm logic hiển thị màn hình chọn (chưa có tài nguyên)
+        GameManager.Instance.RewardUI.SetActive(true);
+        RewardManager.Instance.InitReward();
     }
 
     public void SelectItem(TumblerItem item)

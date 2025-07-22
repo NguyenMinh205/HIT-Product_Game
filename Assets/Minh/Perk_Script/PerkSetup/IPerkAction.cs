@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IPerkAction
 {
-    public void Execute(Player player);
+    public void Execute();
 }

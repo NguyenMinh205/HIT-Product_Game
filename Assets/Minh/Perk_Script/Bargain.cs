@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bargain : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        player.Stats.ChangePriceReduction(0.2f);
+        GamePlayController.Instance.PlayerController.CurPlayerStat.ChangePriceReduction(0.2f);
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DeepCuts : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        throw new System.NotImplementedException();
+        GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCriticalDamage(0.2f);
     }
 }

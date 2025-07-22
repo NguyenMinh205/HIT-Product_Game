@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Hedgehog : IPerkAction
 {
-    public void Execute(Player player)
+    public void Execute()
     {
-        throw new System.NotImplementedException();
+        GamePlayController.Instance.PlayerController.startRoundBuffs.Add(new StartRoundBuffInfo("add_spike_take_damage", 3, -1));
     }
 }
