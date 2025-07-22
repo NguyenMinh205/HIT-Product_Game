@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
 
 public enum EventID
 {
@@ -160,7 +161,9 @@ public class GamePlayController : Singleton<GamePlayController>
 
     public void StartFightRoom(string typeFight)
     {
-        if(typeFight == "BossRoom")
+        isEndGame = false;
+
+        if (typeFight == "BossRoom")
         {
             enemyController.SpawnBoss();
         }
@@ -168,12 +171,16 @@ public class GamePlayController : Singleton<GamePlayController>
         {
             enemyController.Spawn();
         }
+
         playerController.SpawnPlayer();
         clawController.Spawn();
         itemController.Spawn(playerController.CurrentPlayer.Inventory);
 
-        clawController.IsStart = true;
-        clawController.StartClaw();
+        DOVirtual.DelayedCall(0.5f, () =>
+        {
+            clawController.IsStart = true;
+            clawController.StartClaw();
+        });
 
         turnGame = TurnPlay.Player;
         isCheckTurnByClaw = false;
@@ -181,7 +188,6 @@ public class GamePlayController : Singleton<GamePlayController>
         ObserverManager<EventID>.AddDesgisterEvent(EventID.OnBasketEmpty, HandleBasketEmpty);
         ObserverManager<EventID>.AddDesgisterEvent(EventID.OnClawsEmpty, HandleClawsEmpty);
         ShowChangeTurn();
-        isEndGame = false;
         itemController.IsPickupItemSuccess = false;
     }
 

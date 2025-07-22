@@ -15,7 +15,6 @@ public class SmallShield : DefendItem
     {
         if (player != null)
         {
-            Debug.LogError(shield);
             Defend(player);
         }
     }
