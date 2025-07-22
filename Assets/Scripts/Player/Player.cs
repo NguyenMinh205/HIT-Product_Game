@@ -206,6 +206,7 @@ public class Player : MonoBehaviour
     public void EndGame()
     {
         ClearAllEffects();
+        effectController.ClearAllEffectUI();
         addedItems.Clear();
         inventory.ClearInventory();
         stats.ResetStatAfterRound();

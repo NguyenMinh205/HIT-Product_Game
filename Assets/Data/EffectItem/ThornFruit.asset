@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: ei04
   itemName: Thorn Fruit
-  icon: {fileID: 1710272066, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
+  icon: {fileID: -1398119706, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
   itemRarity: 0
   description: 
   isStackable: 1

@@ -19,7 +19,7 @@ public class GetGasPoison : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        enemy.AddBuffEffect("poison_effect", 10, 3);
+        enemy.AddBuffEffect("poison_gas", 3, 3);
     }
 }
 
@@ -36,21 +36,21 @@ public class Explosive : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        
+        enemy.AddBuffEffect("explosive", 1, -1);
     }
 }
 public class DodgeAttackByPlayer : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        
+        enemy.AddBuffEffect("dodge", 1, 1);
     }
 }
 public class ThornsCounterDamage : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-       
+       enemy.AddBuffEffect("thorns_counter_damage", 1, 1);
     }
 }
 public class SuckBlood : IEnemyAction
@@ -67,3 +67,29 @@ public class UpCoinWhenKill : IEnemyAction
         
     }
 }
+public class SetPoisonWithAttack : IEnemyAction
+{
+    public void Execute(Enemy enemy)
+    {
+        enemy.AddBuffEffect("poison_damage", 3, 3);
+    }
+}
+
+public class SetDodgeOrCounterAttack : IEnemyAction
+{
+    public void Execute(Enemy enemy)
+    {
+        int randomIndex = Random.Range(0, 2);
+        if (randomIndex == 0)
+        {
+            Debug.Log("Enemy dodged the attack!");
+            enemy.AddBuffEffect("dodge", 1, 1);
+        }
+        else
+        {
+            Debug.Log("Enemy counter-attacked!");
+            enemy.AddBuffEffect("counter_attack", 1, 1);
+        }
+    }
+}   
+

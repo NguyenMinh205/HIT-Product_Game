@@ -8,7 +8,7 @@ public class EnemyActionDeBuff : MonoBehaviour
     {
         public void Execute(Enemy enemy)
         {
-            GamePlayController.Instance.PlayerController.CurrentPlayer.AddBuffEffect("poison_gas", 5, 3);
+            GamePlayController.Instance.PlayerController.CurrentPlayer.AddBuffEffect("poison_effect", 5, 3);
         }
     }
 }

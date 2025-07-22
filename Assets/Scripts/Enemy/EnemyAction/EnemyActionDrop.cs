@@ -43,6 +43,6 @@ public class DropThreeFruitPosionThorn : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        //GamePlayController.Instance.ItemController.DropInBox(enemy.ItemEffect, 3);
+        GamePlayController.Instance.ItemController.DropInBox(enemy.ItemEffect, 3);
     }
 }

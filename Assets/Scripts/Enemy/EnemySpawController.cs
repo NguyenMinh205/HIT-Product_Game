@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawController : MonoBehaviour
 {
     private List<string> listIDEnemy = new List<string> { "enemy01", "enemy02", "enemy03", "enemy04", "enemy05", "enemy06", "enemy07", "enemy08", "enemy09", "enemy10", "enemy11"
-    , "enemy12", "enemy13", "enemy14", "enemy15", "enemy16", "enemy17", "enemy18", "enemy19", "enemy20", "enemy21", "enemy22"};
+    , "enemy12", "enemy13", "enemy15", "enemy16", "enemy17", "enemy18", "enemy21", "enemy22"};
 
     private List<string> listIDEnemyApt = new List<string>();
     private int currentIndexFloor = 0;
@@ -45,8 +45,8 @@ public class EnemySpawController : MonoBehaviour
             listEnemySpawn.Add(listIDEnemyApt[randomIndex]);
         }
         //test enemy
-        return new List<string> { "enemy04" };
-        //return listEnemySpawn;
+        //return new List<string> { "enemy22" };
+        return listEnemySpawn;
     }
 
     public string GetIDBossToSpawn()

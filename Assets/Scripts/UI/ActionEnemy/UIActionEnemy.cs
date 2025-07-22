@@ -21,6 +21,10 @@ public class UIActionEnemy : MonoBehaviour
     {
         listAciton[index].UnShow();
     }
+    public void ClearAllActionList()
+    {
+        listAciton.Clear();
+    }
     public void UnShowActionEnemy()
     {
         gameObject.SetActive(false);

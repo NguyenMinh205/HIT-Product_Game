@@ -9063,13 +9063,37 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1736943664}
     - target: {fileID: 2999707689595744662, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+      propertyPath: Coin
+      value: 
+      objectReference: {fileID: 1218317004, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+    - target: {fileID: 2999707689595744662, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+      propertyPath: Dodge
+      value: 
+      objectReference: {fileID: 1254942077, guid: 6262b6c4b30e5c44baa2ed44e7cac70e, type: 3}
+    - target: {fileID: 2999707689595744662, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+      propertyPath: EnemyRun
+      value: 
+      objectReference: {fileID: -1427616646, guid: 6262b6c4b30e5c44baa2ed44e7cac70e, type: 3}
+    - target: {fileID: 2999707689595744662, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+      propertyPath: GetPoison
+      value: 
+      objectReference: {fileID: 1510280231, guid: 6262b6c4b30e5c44baa2ed44e7cac70e, type: 3}
+    - target: {fileID: 2999707689595744662, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
       propertyPath: PosionGas
       value: 
       objectReference: {fileID: -1418751461, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
     - target: {fileID: 2999707689595744662, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+      propertyPath: SuckBlood
+      value: 
+      objectReference: {fileID: 389818612, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
+    - target: {fileID: 2999707689595744662, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
       propertyPath: CreateWater
       value: 
       objectReference: {fileID: -1278751338, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
+    - target: {fileID: 2999707689595744662, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+      propertyPath: ThiefEffect
+      value: 
+      objectReference: {fileID: -328706186, guid: 6262b6c4b30e5c44baa2ed44e7cac70e, type: 3}
     - target: {fileID: 2999707689595744662, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
       propertyPath: x2DamageTurn
       value: 

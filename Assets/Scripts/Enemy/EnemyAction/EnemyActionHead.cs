@@ -25,8 +25,10 @@ public class EnemyActionHead : MonoBehaviour
     {
         if (enemy.HP < enemy.CurrentHp)
         {
+            Debug.Log($"Enemy {enemy.ID} is healing.");
             int recovery = enemy.HP + 15;
             enemy.HP = Mathf.Min(enemy.CurrentHp, recovery);
+            enemy.Health.UpdateHp(enemy);
             return true;
         }
 

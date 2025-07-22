@@ -60,4 +60,12 @@ public class UIEffectController : MonoBehaviour
             }
         }
     }
+
+    public void ClearAllEffectUI()
+    {
+        foreach (EffectUI effectUI in effectUIs)
+        {
+            PoolingManager.Despawn(effectUI.gameObject);
+        }
+    }
 }
