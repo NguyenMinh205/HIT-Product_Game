@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 public class ItemUsage : MonoBehaviour
 {
     public void UseItem(string itemId, Player player, Enemy target = null, List<Enemy> targets = null)
     {
         ItemBase item = ItemDatabase.Instance.GetItemById(itemId);
+        if(item == null)
+        {
+            item = ItemDatabase.Instance.GetItemEnemyById(itemId);
+        }
         if (item != null)
         {
             item.ExecuteAction(player, target, targets);

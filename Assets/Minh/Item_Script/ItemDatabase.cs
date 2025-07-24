@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemDatabase : Singleton<ItemDatabase>
 {
     [SerializeField] private List<ItemBase> items;
+    [SerializeField] private List<ItemBase> itemsByEnemy;
     [SerializeField] private List<ItemBase> commonItems = new List<ItemBase>();
     [SerializeField] private List<ItemBase> rareItems = new List<ItemBase>();
     [SerializeField] private List<ItemBase> epicItems = new List<ItemBase>();
@@ -32,6 +33,10 @@ public class ItemDatabase : Singleton<ItemDatabase>
     public ItemBase GetItemById(string id)
     {
         return items.Find(item => item.id == id);
+    }
+    public ItemBase GetItemEnemyById(string id)
+    {
+        return itemsByEnemy.Find(item => item.id == id);
     }
 
     public ItemBase GetRandomItem()

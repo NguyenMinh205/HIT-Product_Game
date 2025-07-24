@@ -83,12 +83,12 @@ public class SetDodgeOrCounterAttack : IEnemyAction
         if (randomIndex == 0)
         {
             Debug.Log("Enemy dodged the attack!");
-            enemy.AddBuffEffect("dodge", 1, 1);
+            enemy.AddBuffEffect("dodge", 2, -1);
         }
         else
         {
             Debug.Log("Enemy counter-attacked!");
-            enemy.AddBuffEffect("counter_attack", 1, 1);
+            enemy.AddBuffEffect("counter_attack", 2, -1);
         }
     }
 }   

@@ -157,7 +157,7 @@ public class Player : MonoBehaviour
 
     public void ReceiveDamage(int damage)
     {
-        ObserverManager<EventID>.PostEven(EventID.OnTakeDamage, damage);
+        ObserverManager<EventID>.PostEven(EventID.OnTakeDamage, this);
         if (IsDodge)
         {
             Debug.Log("Player dodged the attack! No damage taken.");
@@ -177,6 +177,7 @@ public class Player : MonoBehaviour
         effectiveDamage = Mathf.Max(0, effectiveDamage);
         stats.ChangeCurHP(-effectiveDamage + (int)Math.Ceiling(damage * stats.DamageAbsorb));
         ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Hit, null);
+        UIDamageController.Instance.ShowDamageText((int)effectiveDamage, this);
         UpdateHpUI();
 
         if (stats.CurrentHP <= 0)

@@ -36,12 +36,12 @@ public class DoubleDamageEachTurn : IBuffEffect
 
     public void RegisterEvents()
     {
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartEnemyTurn, OnStartPlayerTurn);
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnEndEnemyTurn, OnStartPlayerTurn);
     }
 
     public void UnregisterEvents()
     {
-        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartEnemyTurn, OnStartPlayerTurn);
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnEndEnemyTurn, OnStartPlayerTurn);
     }
 
     private void OnStartPlayerTurn(object param)

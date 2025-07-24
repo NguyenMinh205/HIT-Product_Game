@@ -141,7 +141,7 @@ public class ClawMachine : MonoBehaviour
     }
     public virtual void StartClaw()
     {
-        Debug.Log("Start Claw ");
+        //Debug.Log("Start Claw ");
         if (chain.transform.position.x <= posStartClaw.position.x)
         {
             rb.velocity = Vector2.right * moveForce;
@@ -187,7 +187,7 @@ public class ClawMachine : MonoBehaviour
     }
     public virtual void PickUp()
     {
-        Debug.Log("Pick Up");
+        //Debug.Log("Pick Up");
         if(chain.transform.position.y > lowLimit.transform.position.y)
         {
             rb.velocity = Vector2.down * moveForce;

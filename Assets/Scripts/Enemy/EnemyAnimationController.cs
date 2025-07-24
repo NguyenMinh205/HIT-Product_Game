@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,6 +49,10 @@ public class EnemyAnimationController : MonoBehaviour
 
     private IEnumerator PlayAnimation(string boolName, float delay, Enemy enemy)
     {
+        if(enemy == null || enemy.Ani == null)
+        {
+            yield break; // Tránh lỗi nếu enemy hoặc Ani không hợp lệ
+        }
         enemy.Ani.SetBool(boolName, true);
         isTrueAnimation = true;
         yield return new WaitForSeconds(delay);

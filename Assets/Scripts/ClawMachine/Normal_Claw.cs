@@ -12,7 +12,7 @@ public class Normal_Claw : ClawMachine
 
     public override void StartClaw()
     {
-        Debug.Log("Start Normal Claw");
+        //Debug.Log("Start Normal Claw");
         if (chain.transform.position.x <= posStartClaw.position.x)
             rb.velocity = Vector2.right * base.moveForce;
         else if (chain.transform.position.y > posStartClaw.position.y)
@@ -28,7 +28,7 @@ public class Normal_Claw : ClawMachine
     }
     public override void PickUp()
     {
-        Debug.Log("Normal Claw Pick Up");
+        //Debug.Log("Normal Claw Pick Up");
         if (chain.transform.position.y > lowLimit.transform.position.y)
         {
             rb.velocity = Vector2.down * moveForce;

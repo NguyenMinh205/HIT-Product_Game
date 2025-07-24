@@ -61,8 +61,6 @@ public static class EnemyActionFactory
 
         switch(idEnemy)
         {
-            case "enemy07":
-                break;
             case "enemy08":
                 Debug.Log("Enemy Get Gas Poison");
                 enemyAction = new GetGasPoison();
@@ -70,14 +68,7 @@ public static class EnemyActionFactory
             case "enemy09":
                 enemyAction = new IncreaseDamage();
                 break;
-            case "enemy10":
-                break;
-            case "enemy11":
-                break;
-            case "enemy12":
-                break;
-            case "enemy13":
-                break;
+
             case "enemy14":
                 Debug.Log(" Enemy is Explosive");
                 enemyAction = new Explosive();
@@ -112,19 +103,6 @@ public static class EnemyActionFactory
         {
             case "enemy06":
                 enemyAction = new CreateWaterInBoxEffect();
-                break;
-
-            case "enemy10":
-                break;
-            case "enemy11":
-                break;
-            case "enemy12":
-                break;
-            case "enemy13":
-                break;
-            case "enemy14":
-                break;
-            case "enemy15":
                 break;
         }
 

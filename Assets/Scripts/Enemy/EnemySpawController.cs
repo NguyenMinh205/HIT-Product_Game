@@ -58,6 +58,6 @@ public class EnemySpawController : MonoBehaviour
         string idBoss = listIDBoss[currentIndexBoss];
         currentIndexBoss++;
         //return idBoss;
-        return "boss02";
+        return "boss06";
     }
 }
