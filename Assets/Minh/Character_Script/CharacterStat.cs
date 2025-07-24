@@ -86,7 +86,6 @@ public class CharacterStat
 
     public void ChangeShield(float value)
     {
-        Debug.Log(value);
         if (this.shield + value <= 0)
         {
             this.shield = 0;

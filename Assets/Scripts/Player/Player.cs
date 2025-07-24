@@ -91,21 +91,11 @@ public class Player : MonoBehaviour
         activeEffects.Add(effect);
         effectController.InitEffect(activeEffects.Count, effect);
         Debug.Log($"Applied new effect {effectName} with value {value} and duration {duration}.");
-        
     }
 
     public IBuffEffect GetActiveEffect(string effectName)
     {
         return activeEffects.Find(effect => effect.Name.ToLower() == effectName.ToLower());
-    }
-
-    public void ExecuteEffectStart()
-    {
-        ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
-        foreach (IBuffEffect effect in activeEffects)
-        {
-            effectController.SetEffect(effect);
-        }
     }
 
     public void RemoveBuffEffect(IBuffEffect effect)
@@ -137,7 +127,6 @@ public class Player : MonoBehaviour
             {
                 inventory.AddItem(totalItem.itemId, quantityToAdd, totalItem.quantity, totalItem.isUpgraded);
                 addedItems.Add(new ItemInventory(totalItem.itemId, quantityToAdd, totalItem.isUpgraded));
-                Debug.Log($"Added item {totalItem.itemId} (isUpgraded: {totalItem.isUpgraded}) with quantity {quantityToAdd} to Player inventory");
             }
         }
     }
@@ -211,13 +200,12 @@ public class Player : MonoBehaviour
         ObserverManager<EventID>.PostEven(EventID.OnEndRound);
         DOVirtual.DelayedCall(0.5f, () => {
             ClearAllEffects();
+            effectController.ClearAllEffectUI();
             addedItems.Clear();
             inventory.ClearInventory();
             stats.ResetStatAfterRound();
             GamePlayController.Instance.PlayerController.CurPlayerStat = stats;
         });
-
-        Debug.Log("Game Over for Player");
         this.Health.UnShowHealthBarEnemy();
         PoolingManager.Despawn(gameObject);
     }
