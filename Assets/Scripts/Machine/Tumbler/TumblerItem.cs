@@ -19,7 +19,10 @@ public class TumblerItem : MonoBehaviour
     {
         if (collision == TumblerMachine.Instance.TumblerBox.ExitTrigger)
         {
-            TumblerMachine.Instance.OnItemCollected(this);
+            if (TumblerMachine.Instance.DroppedItems.Count < TumblerMachine.Instance.MaxItemsToCollect)
+            {
+                TumblerMachine.Instance.OnItemCollected(this);
+            }
         }
     }
 }

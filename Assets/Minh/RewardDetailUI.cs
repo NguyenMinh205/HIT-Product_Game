@@ -35,7 +35,7 @@ public class RewardDetailUI : MonoBehaviour
         itemIcon.sprite = perk.icon;
         itemIcon.SetNativeSize();
         itemIcon.rectTransform.sizeDelta *= 0.7f;
-        itemName.text = perk.name;
+        itemName.text = perk.perkName;
         itemDescription.text = perk.description;
         markChoice.color = colorDefault;
         GetComponent<Button>().onClick.AddListener(() => RewardManager.Instance.SelectReward(this));

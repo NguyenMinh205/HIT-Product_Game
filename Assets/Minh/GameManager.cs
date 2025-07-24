@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 
 public class GameManager : Singleton<GameManager>
@@ -63,6 +64,17 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        AudioManager.Instance.PlayMusicSelectRoom();
+        isFinishGame = false;
+        if (GameData.Instance.startData.isKeepingPlayGame)
+        {
+            GameData.Instance.LoadMainGameData();
+        }
+    }
+
     private void CloseAllRoomsAndUIs()
     {
         healingRoom.SetActive(false);
@@ -87,11 +99,13 @@ public class GameManager : Singleton<GameManager>
     private void OpenRoom()
     {
         CloseAllRoomsAndUIs();
+        AudioManager.Instance.PlayMusicInGame();
         PlayerMapController.Instance.IsIntoRoom = true;
         MapController.Instance.SetActiveMapStore(false);
         MapManager.Instance.SetActiveRoomVisual(false);
         uiMap.SetActive(false);
         uiInRoom.SetActive(true);
+        GamePlayController.Instance.PlayerController.NumOfCoinInRoom.text = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin.ToString();
     }
 
     public IEnumerator OpenRoomFight()
@@ -149,6 +163,7 @@ public class GameManager : Singleton<GameManager>
         tumblerMachineBox.SetActive(true);
         uiTumblerRoom.SetActive(true);
         perkRewardRoom.SetActive(true);
+        TumblerMachine.Instance.Init();
         currentRoom = perkRewardRoom;
     }
 
@@ -187,31 +202,52 @@ public class GameManager : Singleton<GameManager>
         if (currentRoom != null)
         {
             currentRoom.SetActive(false);
+            uiInRoom.SetActive(false);
             CloseAllRoomsAndUIs();
             MapController.Instance.SetActiveMapStore(true);
             MapManager.Instance.SetActiveRoomVisual(true);
             uiMap.SetActive(true);
-            numOfCoinTxt.text = GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin.ToString();
             PlayerMapController.Instance.IsIntoRoom = false;
             PlayerMapController.Instance.IsMoving = false;
             if (intoRoomTrigger != null)
             {
+                Debug.LogError("Out Room: " + intoRoomTrigger.IdNameRoom);
                 intoRoomTrigger.gameObject.SetActive(false);
             }
             currentRoom = null;
+            AudioManager.Instance.PlayMusicSelectRoom();
             MapController.Instance.SetRoomVisited(PlayerMapController.Instance.PosInMap);
             ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar,GamePlayController.Instance.PlayerController.CurrentPlayer);
+            DOVirtual.DelayedCall(0.2f, () =>
+            {
+                numOfCoinTxt.text = GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin.ToString();
+            });
         }
     }
 
     public void BackHome()
     {
-        if (GameData.Instance.startData.isKeepingPlayGame)
+        if (GamePlayController.Instance.IsLoseGame)
         {
+            isFinishGame = true;
+            GameData.Instance.startData.isKeepingPlayGame = false;
+            GameData.Instance.SaveStartGameData();
+            GameData.Instance.ClearMainGameData();
+            GamePlayController.Instance.IsLoseGame = false;
+            SceneManager.LoadScene(0);
+            return;
+        }    
+        if (!isFinishGame)
+        {
+            AudioManager.Instance.PlaySoundClickButton();
+            GameData.Instance.startData.isKeepingPlayGame = true;
             GameData.Instance.SaveMainGameData();
         }
         else
         {
+            AudioManager.Instance.PlaySoundClickButton();
+            GameData.Instance.startData.coin += GameData.Instance.mainGameData.playerData.stats.Coin;
+            GameData.Instance.SaveStartGameData();
             GameData.Instance.ClearMainGameData();
         }
         SceneManager.LoadScene(0);

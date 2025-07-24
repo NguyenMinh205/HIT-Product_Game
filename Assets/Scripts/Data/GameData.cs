@@ -94,7 +94,7 @@ public class StartGameDataSave
 {
     public float musicVolume = 0.5f;
     public float soundVolume = 0.5f;
-    public int coin = 1000;
+    public int coin = 100;
     public string selectedCharacterId;
     public int selectedSkinIndex;
     public int selectedDifficultyIndex;
@@ -120,6 +120,7 @@ public class MainGameDataSave
     public int curFloor;
     public MapData curMapData;
     public List<SpecialTile> specialTiles;
+    public List<string> usedBossIDs;
 }
 
 [Serializable]

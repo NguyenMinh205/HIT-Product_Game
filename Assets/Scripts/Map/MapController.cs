@@ -102,9 +102,9 @@ public class MapController : Singleton<MapController>
                         }
                         if (GameData.Instance.startData.isKeepingPlayGame)
                         {
-                            int distanceX = Mathf.Abs(gridX - GameData.Instance.mainGameData.playerNodePosition.x);
-                            int distanceY = Mathf.Abs(gridY - GameData.Instance.mainGameData.playerNodePosition.y);
-                            PlayerMapController newPlayer = PoolingManager.Spawn<PlayerMapController>(playerPrefab, adjustedPos + new Vector3(distanceX, distanceY, 0), Quaternion.identity, mapStore);
+                            int posX = GameData.Instance.mainGameData.playerNodePosition.x - gridX;
+                            int posY = GameData.Instance.mainGameData.playerNodePosition.y - gridY;
+                            PlayerMapController newPlayer = PoolingManager.Spawn<PlayerMapController>(playerPrefab, adjustedPos + new Vector3(posX, posY, 0), Quaternion.identity, mapStore);
                             newPlayer.Initialize(tilemap, currentMapData, GameData.Instance.mainGameData.playerNodePosition, GameData.Instance.mainGameData.playerNodePosition - new Vector2Int(bounds.xMin, bounds.yMin), characterDatabase.GetCharacterById(GameData.Instance.startData.selectedCharacterId).skins[GameData.Instance.startData.selectedSkinIndex].skin);
                         }
                         else

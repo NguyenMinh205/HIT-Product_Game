@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DG.Tweening;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class MapManager : Singleton<MapManager>
     [SerializeField] private TextMeshProUGUI floorTxt;
     [SerializeField] private TextMeshProUGUI floorInRoomTxt;
     [SerializeField] private int numFloor;
+    public int NumFloor => numFloor;
     private MapData curMap;
     private int currentMapIndex = 0;
 
@@ -62,8 +64,11 @@ public class MapManager : Singleton<MapManager>
         //GameData.Instance.SaveMainGameData();
         curMap.UpdateMapLayout();
         MapController.Instance.LoadMap(curMap);
-        GenerateSequenceMap(); // Bây giờ, curMap.ExitDoors sẽ chứa các ExitTrigger đã spawn và sẵn sàng để gán SubsequentMap
-        UpdateFloorText();
+        DOVirtual.DelayedCall(0.2f, () =>
+        {
+            GenerateSequenceMap();
+            UpdateFloorText();
+        });
         Debug.Log($"Initial map loaded: {curMap.MapType} at index {currentMapIndex}");
     }
 
@@ -254,6 +259,7 @@ public class MapManager : Singleton<MapManager>
         {
             Debug.LogError("Dungeon completed!");
             GameManager.Instance.FinishUI.SetActive(true);
+            GameManager.Instance.IsFinishGame = true;
             GameData.Instance.startData.isKeepingPlayGame = false;
             GameData.Instance.SaveStartGameData();
         }

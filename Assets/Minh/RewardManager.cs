@@ -55,6 +55,10 @@ public class RewardManager : Singleton<RewardManager>
                 reward.Init(perk);
             }
             rollBtn.gameObject.SetActive(false);
+            foreach (TumblerItem tumblerItem in TumblerMachine.Instance.DroppedItems)
+            {
+                PoolingManager.Despawn(tumblerItem.gameObject);
+            }
             return;
         }
         List<ItemBase> selectedItems = new List<ItemBase>();
@@ -108,12 +112,16 @@ public class RewardManager : Singleton<RewardManager>
             if (GameManager.Instance.CurrentRoom == GameManager.Instance.PerkRewardRoom)
             {
                 selectedReward.Perk.Execute();
+                Debug.LogError($"Đã chọn perk: {selectedReward.Perk.perkName}");
+                GamePlayController.Instance.PlayerController.SavePlayerData();
                 rollBtn.gameObject.SetActive(true);
                 rewardUI.SetActive(false);
                 GameManager.Instance.OutRoom();
+                Debug.LogError("Đã chọn perk, trở về phòng chính.");
                 return;
             }
             GamePlayController.Instance.PlayerController.TotalInventory.AddItem(selectedReward.Item.id, 1);
+            Debug.LogError($"Đã chọn vật phẩm: {selectedReward.Item.itemName}");
             foreach (Transform child in content)
             {
                 PoolingManager.Despawn(child.gameObject);

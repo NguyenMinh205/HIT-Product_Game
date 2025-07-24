@@ -54,6 +54,8 @@ public class GamePlayController : Singleton<GamePlayController>
     public bool isCheckTurnByItem;
     private bool isEndGame = false;
     public bool IsEndGame => isEndGame;
+    public bool isLoseGame = false;
+    public bool IsLoseGame { get; set; }
 
     private Vector2Int directionPlayer;
 
@@ -132,14 +134,11 @@ public class GamePlayController : Singleton<GamePlayController>
     private void ShowChangeTurn()
     {
         textTurn.text = turnGame == TurnPlay.Player ? "Your Turn" : "Enemy Turn";
-        uiTurnChange.SetActive(true);
-        StartCoroutine(DelayTurnDisplay(0.8f));
-    }
-
-    private IEnumerator DelayTurnDisplay(float time)
-    {
-        yield return new WaitForSeconds(time);
-        uiTurnChange.SetActive(false);
+        CanvasGroup turnCanvasGroup = uiTurnChange.GetComponent<CanvasGroup>();
+        turnCanvasGroup.alpha = 0f;
+        turnCanvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
+            turnCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.InQuad).SetDelay(1f)
+            );
     }
 
     public void StartPlayerTurn()
@@ -199,6 +198,7 @@ public class GamePlayController : Singleton<GamePlayController>
         enemyController.EndGame();
         playerController.EndGame();
         itemController.EndGame();
+        isLoseGame = true;
 
         ObserverManager<EventID>.RemoveAddListener(EventID.OnBasketEmpty, HandleBasketEmpty);
         ObserverManager<EventID>.RemoveAddListener(EventID.OnClawsEmpty, HandleClawsEmpty);

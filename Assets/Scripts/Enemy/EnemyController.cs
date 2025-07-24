@@ -93,6 +93,7 @@ public class EnemyController : MonoBehaviour
             Debug.Log("Time Enemy: " + time);
             yield return new WaitForSeconds(time);
         }
+        yield return new WaitForSeconds(0.5f);
         GamePlayController.Instance.Turn = TurnPlay.Player;
         for (int i = 0; i < listEnemy.Count; i++)
         {

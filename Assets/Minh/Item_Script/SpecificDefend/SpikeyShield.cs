@@ -8,7 +8,7 @@ public class SpikeyShield : DefendWithBuff
     public int Shield { get { return shield; } set { shield = value; } }
     public override void Buff(Player player)
     {
-        //player.AddBuffEffect("thorns_damage", 5, -1);
+        player.AddBuffEffect("thorns_damage", 5, -1);
     }
 
     public override void Defend(Player player)

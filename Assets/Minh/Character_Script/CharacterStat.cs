@@ -11,8 +11,8 @@ public class CharacterStat
     public float CurrentHP => currentHP;
     [SerializeField] private float maxHP = 100;
     public float MaxHP => maxHP;
-    [SerializeField] private float coin = 0;
-    public float Coin => coin;
+    [SerializeField] private int coin = 0;
+    public int Coin => coin;
     [SerializeField] private float strength;
     public float Strength => strength;
     [SerializeField] private float criticalChance = 0.05f;

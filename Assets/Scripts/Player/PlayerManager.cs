@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private CharacterStat curPlayerStat = new CharacterStat();
     [SerializeField] private Inventory totalInventory = new Inventory();
     [SerializeField] private TextMeshProUGUI numOfCoinInRoom;
+    public TextMeshProUGUI NumOfCoinInRoom => numOfCoinInRoom;
     public Inventory TotalInventory => totalInventory;
     public CharacterStat CurPlayerStat { get { return curPlayerStat; } set { curPlayerStat = value; SavePlayerData(); } }
 
@@ -39,6 +40,12 @@ public class PlayerManager : MonoBehaviour
         if (GameData.Instance.startData.isKeepingPlayGame)
         {
             LoadPlayerData();
+
+            DOVirtual.DelayedCall(0.25f, () =>
+            {
+                GameData.Instance.startData.isKeepingPlayGame = false;
+                ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar);
+            });
             return;
         }
         if (totalInventory != null && curCharacter.initialItems != null)
@@ -64,7 +71,7 @@ public class PlayerManager : MonoBehaviour
     {
         GameObject newObject = PoolingManager.Spawn(playerPrefab, posSpawnPlayer.position, Quaternion.identity, playerParent);
         currentPlayer = newObject.transform.Find("PlayerPrefab").GetComponent<Player>();
-        currentPlayer.Initialize(curCharacter, curPlayerStat, GameData.Instance.startData.selectedSkinIndex);
+        currentPlayer.Initialize(curCharacter, curPlayerStat.Clone(), GameData.Instance.startData.selectedSkinIndex);
         ability.StartSetupEffect(currentPlayer);
         if (startRoundBuffs.Count > 0)
         {
@@ -73,6 +80,7 @@ public class PlayerManager : MonoBehaviour
                 currentPlayer.AddBuffEffect(buff.name, buff.value, buff.duration);
             }
         }
+        ObserverManager<EventID>.PostEven(EventID.OnStartRound);
     }
 
     public void ResetShield()
@@ -104,7 +112,7 @@ public class PlayerManager : MonoBehaviour
         {
             Debug.LogError("Player inventory is null, cannot save player data!");
         }
-        GameData.Instance.mainGameData.playerData.startRoundBuffs = new List<StartRoundBuffInfo>(startRoundBuffs);
+        GameData.Instance.mainGameData.playerData.startRoundBuffs = startRoundBuffs;
         if (GameData.Instance.mainGameData.playerData.startRoundBuffs == null)
         {
             Debug.LogError("Player start round buffs are null, cannot save player data!");
@@ -113,7 +121,6 @@ public class PlayerManager : MonoBehaviour
 
     public void LoadPlayerData()
     {
-        GameData.Instance.LoadMainGameData();
         DOVirtual.DelayedCall(0.25f, () =>
         {
             if (GameData.Instance.mainGameData.playerData != null)

@@ -158,6 +158,7 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
             Debug.Log("Thắng: Vật phẩm trúng rổ!");
             coinToRoll = 2;
             coinToStart += 2;
+            Destroy(curClaw.gameObject);
             GameManager.Instance.OutRoom();
         }
         else
@@ -174,5 +175,6 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
     private void OnDisable()
     {
         if (_item) Destroy(_item.gameObject);
+        if (curClaw) Destroy(curClaw.gameObject);
     }
 }

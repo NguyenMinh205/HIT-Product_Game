@@ -26,6 +26,7 @@ public class TumblerMachine : Singleton<TumblerMachine>
     [SerializeField] private Button leaveButton;
     [SerializeField] private int numItemsInTumbler = 8;
     [SerializeField] private int maxItemsToCollect = 2;
+    public int MaxItemsToCollect => maxItemsToCollect;
     [SerializeField] private float maxRotationSpeed = 100f;
     [SerializeField] private float accelerationTime = 2f;
     [SerializeField] private float decelerationTime = 1f;
@@ -46,12 +47,17 @@ public class TumblerMachine : Singleton<TumblerMachine>
     {
         startButton?.onClick.AddListener(StartTumbler);
         leaveButton?.onClick.AddListener(LeaveGame);
-        _spawnedItems = new List<TumblerItem>();
-        _droppedItems = new List<TumblerItem>();
         if (tumblerBox == null || perkMachineTumbler == null)
         {
             Debug.LogError("TumblerBox hoặc PerkMachineTumbler chưa được gán!");
         }
+    }
+
+    public void Init()
+    {
+        perkMachineTumbler.rotation = Quaternion.Euler(0, 0, 0);
+        _spawnedItems = new List<TumblerItem>();
+        _droppedItems = new List<TumblerItem>();
         StartCoroutine(SpawnInitialItems());
     }
 
@@ -116,6 +122,11 @@ public class TumblerMachine : Singleton<TumblerMachine>
         }
 
         _state = TumblerState.Selecting;
+        foreach (TumblerItem item in _spawnedItems)
+        {
+            if (item != null) PoolingManager.Despawn(item.gameObject);
+        }
+        _spawnedItems.Clear();
         ShowSelectItemUI();
     }
 

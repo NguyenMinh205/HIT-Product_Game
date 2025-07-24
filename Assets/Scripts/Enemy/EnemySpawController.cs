@@ -1,62 +1,115 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawController : MonoBehaviour
 {
-    private List<string> listIDEnemy = new List<string> { "enemy01", "enemy02", "enemy03", "enemy04", "enemy05", "enemy06", "enemy07", "enemy08", "enemy09", "enemy10", "enemy11"
-    , "enemy12", "enemy13", "enemy15", "enemy16", "enemy17", "enemy18", "enemy21", "enemy22"};
+    private List<string> listIDEnemy = new List<string> { "enemy01", "enemy02", "enemy03", "enemy04", "enemy05", "enemy06", "enemy07", "enemy08", "enemy09", "enemy10", "enemy11",
+        "enemy12", "enemy13", "enemy15", "enemy16", "enemy17", "enemy18", "enemy21", "enemy22" };
 
-    private List<string> listIDEnemyApt = new List<string>();
-    private int currentIndexFloor = 0;
+    private const int numOfEnemyInFloor = 5;
+    private List<string> listIDBoss = new List<string> { "boss01", "boss02", "boss03", "boss04", "boss05", "boss06", "boss07" };
 
-    private List<string> listIDBoss = new List<string> { "boss01", "boss02", "boss03", "boss04", "boss05","boss06","boss07" };    
-    private int currentIndexBoss = 0;
+    private List<string> availableBossIDs;
 
-    public void SetIDEnemyApt(int indexFloor)
+    private void Start()
     {
-        if(indexFloor == 1 && currentIndexFloor == 0)
+        availableBossIDs = new List<string>(listIDBoss);
+        foreach (string usedBoss in GameData.Instance.mainGameData.usedBossIDs)
         {
-            currentIndexFloor = 1;
-            for(int i=0;i<5;i++)
-            {
-                listIDEnemyApt.Add(listIDEnemy[i]);
-            }
-        }
-        else if(currentIndexFloor < indexFloor)
-        {
-            listIDEnemyApt.Add(listIDEnemy[currentIndexFloor+4]);
-            currentIndexFloor++;
-            listIDEnemyApt.RemoveAt(0);
+            availableBossIDs.Remove(usedBoss);
         }
     }
+
+    public List<string> GetEnemyListForFloor(int floor)
+    {
+        List<string> enemyList = new List<string>();
+        int startIndex, endIndex;
+
+        if (floor == 1)
+        {
+            startIndex = 0;
+            endIndex = numOfEnemyInFloor - 1;
+        }
+        else if (floor == 2)
+        {
+            startIndex = 0;
+            endIndex = 6;
+        }
+        else
+        {
+            int cycle = (floor - 3) / 3;
+            int phase = (floor - 3) % 3;
+
+            if (phase == 0)
+            {
+                startIndex = 2 * cycle + 2;
+                endIndex = startIndex + numOfEnemyInFloor - 1;
+            }
+            else if (phase == 1)
+            {
+                startIndex = 2 * cycle + 2;
+                endIndex = startIndex + 6;
+            }
+            else
+            {
+                startIndex = 2 * cycle + 4;
+                endIndex = startIndex + numOfEnemyInFloor - 1;
+            }
+        }
+
+        for (int i = startIndex; i <= endIndex && i < listIDEnemy.Count; i++)
+        {
+            enemyList.Add(listIDEnemy[i]);
+        }
+
+        while (enemyList.Count < numOfEnemyInFloor && listIDEnemy.Count > 0)
+        {
+            enemyList.Add(listIDEnemy[listIDEnemy.Count - 1]);
+        }
+
+        return enemyList;
+    }
+
     public List<string> GetListEnemyToSpawn(int indexFloor)
     {
-        SetIDEnemyApt(indexFloor);
-
+        List<string> floorEnemyList = GetEnemyListForFloor(indexFloor);
         List<string> listEnemySpawn = new List<string>();
-
-        int enemyCount = Random.Range(2, 4);     // random enemy count
-        
+        int enemyCount = Random.Range(2, 4);
         for (int i = 0; i < enemyCount; i++)
         {
-            int randomIndex = Random.Range(0, listIDEnemyApt.Count);
-            
-            listEnemySpawn.Add(listIDEnemyApt[randomIndex]);
+            int randomIndex = Random.Range(0, floorEnemyList.Count);
+            listEnemySpawn.Add(floorEnemyList[randomIndex]);
         }
-        //test enemy
-        //return new List<string> { "enemy22" };
+
         return listEnemySpawn;
     }
 
     public string GetIDBossToSpawn()
     {
-        if (currentIndexBoss >= listIDBoss.Count)
-        {
-            currentIndexBoss = 0;
-        }
-        string idBoss = listIDBoss[currentIndexBoss];
-        currentIndexBoss++;
+        //int numFloor = MapManager.Instance.NumFloor;
+        //if (GameData.Instance.mainGameData.curFloor == numFloor)
+        //{
+        //    if (!GameData.Instance.mainGameData.usedBossIDs.Contains("boss07"))
+        //    {
+        //        GameData.Instance.mainGameData.usedBossIDs.Add("boss07");
+        //        GameData.Instance.SaveMainGameData();
+        //    }
+        //    return "boss07";
+        //}
+
+        //if (availableBossIDs.Count == 0)
+        //{
+        //    availableBossIDs = new List<string>(listIDBoss);
+        //    availableBossIDs.Remove("boss07");
+        //}
+
+        //int randomIndex = Random.Range(0, availableBossIDs.Count);
+        //string idBoss = availableBossIDs[randomIndex];
+        //availableBossIDs.RemoveAt(randomIndex);
+        //GameData.Instance.mainGameData.usedBossIDs.Add(idBoss);
+        //GameData.Instance.SaveMainGameData();
+
         //return idBoss;
         return "boss02";
     }
