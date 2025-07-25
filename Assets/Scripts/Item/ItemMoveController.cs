@@ -163,9 +163,6 @@ public class ItemMoveController : MonoBehaviour
         Debug.Log("Item Usage Effect");
         var sr = item.SR;
         fx.Join(sr.DOFade(0f, 1f));
-
-        Debug.Log("Test Item Fade");
-
         fx.OnComplete(() =>
         {
             Debug.Log("Item Destroy");
