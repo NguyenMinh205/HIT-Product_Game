@@ -97,7 +97,11 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdateCoinText()
     {
-        numOfCoinInRoom.text = CurrentPlayer.Stats.Coin.ToString();
+        if (currentPlayer == null)
+        {
+            numOfCoinInRoom.text = curPlayerStat.Coin.ToString();
+        }
+        numOfCoinInRoom.text = currentPlayer.Stats.Coin.ToString();
     }
 
     public void SavePlayerData()

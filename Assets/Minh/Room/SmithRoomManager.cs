@@ -121,6 +121,7 @@ public class SmithRoomManager : MonoBehaviour
 
     public void UpgradeSelectedItem()
     {
+        Debug.LogError("Upgrade Selected Item");
         if (selectedItem != null)
         {
             int reduceCoin = (int)Math.Floor(coinUpgrade * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
@@ -129,7 +130,7 @@ public class SmithRoomManager : MonoBehaviour
                 Upgrade();
                 upgradeFreeTurn--;
             }    
-            if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= (coinUpgrade - reduceCoin))
+            else if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= (coinUpgrade - reduceCoin))
             {
                 GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCoin(-(coinUpgrade - reduceCoin));
                 Upgrade();
@@ -153,7 +154,7 @@ public class SmithRoomManager : MonoBehaviour
 
     private void UpdateUpgradeCost()
     {
-        if (selectedItem != null && selectedItem.CanUpgrade && upgradeFreeTurn > 0)
+        if (selectedItem != null && selectedItem.CanUpgrade && upgradeFreeTurn <= 0)
         {
             upgradeCostText.text = coinUpgrade.ToString();
             upgradeCostText.color = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin >= coinUpgrade ? Color.white : Color.red;

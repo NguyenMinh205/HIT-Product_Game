@@ -62,6 +62,7 @@ public class PlayerMapController : Singleton<PlayerMapController>
         posInGrid = spawnPosGrid;
         rb.velocity = Vector2.zero;
         isMoving = false;
+        GameData.Instance.mainGameData.playerNodePosition = posInMap;
     }
 
     private void Update()

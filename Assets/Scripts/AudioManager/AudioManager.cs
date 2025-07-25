@@ -44,6 +44,10 @@ public class AudioManager : Singleton<AudioManager>
     {
         base.KeepActive(true);
         base.Awake();
+        if (musicSource == null || soundSource == null)
+        {
+            Debug.LogError("AudioSource not assigned in AudioManager!");
+        }
     }
 
     void Start()
@@ -86,8 +90,9 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayMusicInGame()
     {
-        if (musicSource != null && !musicSource.isPlaying && musicInGame != null)
+        if (musicSource != null && musicInGame != null)
         {
+            musicSource.loop = true;
             musicSource.clip = musicInGame;
             musicSource.volume = 0f;
             musicSource.Play();
@@ -97,8 +102,9 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayMusicStartGame()
     {
-        if (musicSource != null && !musicSource.isPlaying && musicStartGame != null)
+        if (musicSource != null && musicStartGame != null)
         {
+            musicSource.loop = true;
             musicSource.clip = musicStartGame;
             musicSource.volume = 0f;
             musicSource.Play();
@@ -108,8 +114,9 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayMusicSelectRoom()
     {
-        if (musicSource != null && !musicSource.isPlaying && musicSelectRoom != null)
+        if (musicSource != null && musicSelectRoom != null)
         {
+            musicSource.loop = true;
             musicSource.clip = musicSelectRoom;
             musicSource.volume = 0f;
             musicSource.Play();
@@ -124,7 +131,7 @@ public class AudioManager : Singleton<AudioManager>
             musicSource.DOFade(0f, 0.5f).OnComplete(() =>
             {
                 musicSource.Stop();
-                musicSource.clip = null;
+                //musicSource.clip = null;
             }).SetUpdate(true);
         }
     }
@@ -176,9 +183,4 @@ public class AudioManager : Singleton<AudioManager>
     public void PlayEnemyAttack() { PlaySFX(enemyAttack); }
     public void PlayEnemyHit() { PlaySFX(enemyHit); }
     public void PlayEnemyBuff() { PlaySFX(enemyBuff); }
-
-    private void OnDestroy()
-    {
-        // Cleanup if needed in future
-    }
 }
