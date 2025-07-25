@@ -85,7 +85,7 @@ MonoBehaviour:
     - actionEnemy: 01000000
   - idEnemy: enemy07
     nameEnemy: KillerLizard
-    hpEnemy: 100
+    hpEnemy: 5
     damageEnemy: 15
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -938404122, guid: 1022e3d323b44df49b318437daf54080, type: 3}
@@ -96,7 +96,7 @@ MonoBehaviour:
     - actionEnemy: 00000000
   - idEnemy: enemy08
     nameEnemy: PosionBaby
-    hpEnemy: 100
+    hpEnemy: 5
     damageEnemy: 12
     armorIncreased: 12
     spriteEnemyIdle: {fileID: 1636345924, guid: 945a400ba39539a409b9800c6fc4a8ea, type: 3}
@@ -264,7 +264,7 @@ MonoBehaviour:
   dataBoss:
   - idEnemy: boss02
     nameEnemy: 
-    hpEnemy: 155
+    hpEnemy: 15
     damageEnemy: 6
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1074711646, guid: ffe401bd7e581eb4e8902bbe42a2bde9, type: 3}

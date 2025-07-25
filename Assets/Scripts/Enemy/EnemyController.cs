@@ -115,7 +115,7 @@ public class EnemyController : MonoBehaviour
             }
             enemy.UIAction.UnShowActionEnemy();
             enemy.Health.UnShowHealthBarEnemy();
-            PoolingManager.Despawn(enemy.gameObject);
+            enemy.DesTroy();
         }
     }
 
