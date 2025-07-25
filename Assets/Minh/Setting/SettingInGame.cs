@@ -8,22 +8,9 @@ public class SettingInGame : Singleton<SettingInGame>
     [SerializeField] private GameObject dime;
     [SerializeField] private GameObject settingUI;
     [SerializeField] private GameObject optionUI;
-
-    [SerializeField] private Button pauseButton;
-    [SerializeField] private Button continueButton;
-    [SerializeField] private Button optionButton;
-    [SerializeField] private Button backToSettingButton;
     public bool isPause = false;
 
-    private void Start()
-    {
-        pauseButton.onClick.AddListener(Pause);
-        continueButton.onClick.AddListener(Continue);
-        optionButton.onClick.AddListener(ShowOption);
-        backToSettingButton.onClick.AddListener(BackToSettingUI);
-    }
-
-    public void Pause ()
+    public void PauseAndShowSetting()
     {
         AudioManager.Instance.PlaySoundClickButton();
         dime.SetActive(true);

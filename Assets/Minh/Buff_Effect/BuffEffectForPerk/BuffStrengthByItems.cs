@@ -42,7 +42,7 @@ public class BuffStrengthByItems : IBuffEffect
     {
         if (GamePlayController.Instance.ItemController.IsPickupItemSuccess == false)
         {
-            player.Stats.ChangeStrength(Value);
+            player.Stats.ChangeStrength((int)Value);
         }
     }
 

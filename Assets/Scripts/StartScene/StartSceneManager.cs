@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class StartSceneManager : Singleton<StartSceneManager>
 {
@@ -38,6 +39,14 @@ public class StartSceneManager : Singleton<StartSceneManager>
         base.Awake();
         characterDatabaseSO.SetupStartData();
         GameData.Instance.LoadStartGameData();
+    }
+
+    private void Start()
+    {
+        DOVirtual.DelayedCall(0.2f, () =>
+        {
+            AudioManager.Instance.PlayMusicStartGame();
+        });
     }
 
     public void OnStartButton()

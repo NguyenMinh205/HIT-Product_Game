@@ -41,15 +41,15 @@ public class ExitTrigger : MonoBehaviour
 
         if (SubsequentMap == null || SubsequentMap.MoveTiles == null)
         {
-            Debug.LogWarning("SubsequentMap hoặc MoveTiles không được thiết lập!");
             return;
         }
 
         if (iconPrefab == null)
         {
-            Debug.LogWarning("IconPrefab không được gán trong Inspector!");
             return;
         }
+
+        Dictionary<EMapTileType, Sprite> uniqueTileTypes = new Dictionary<EMapTileType, Sprite>();
 
         foreach (var tileData in SubsequentMap.MoveTiles)
         {
@@ -63,28 +63,31 @@ public class ExitTrigger : MonoBehaviour
                 SpriteRenderer spriteRenderer = tileData.tileIcon.GetComponent<SpriteRenderer>();
                 if (spriteRenderer != null && spriteRenderer.sprite != null)
                 {
-                    iconMaps.Add(spriteRenderer.sprite);
-                    Debug.Log($"Đã thêm sprite của tile {tileData.tileType} vào iconMaps tại vị trí ({tileData.position.x}, {tileData.position.y})");
+                    if (!uniqueTileTypes.ContainsKey(tileData.tileType))
+                    {
+                        uniqueTileTypes.Add(tileData.tileType, spriteRenderer.sprite);
+                    }
                 }
-                else
-                {
-                    Debug.LogWarning($"TileIcon tại vị trí ({tileData.position.x}, {tileData.position.y}) không có SpriteRenderer hoặc sprite!");
-                }
-            }
-            else
-            {
-                Debug.LogWarning($"TileIcon tại vị trí ({tileData.position.x}, {tileData.position.y}) là null!");
             }
         }
+
+        iconMaps.AddRange(uniqueTileTypes.Values);
 
         foreach (var sprite in iconMaps)
         {
             Image imageInstance = Instantiate(iconPrefab, listIconMapStore);
             imageInstance.sprite = sprite;
             imageInstance.gameObject.SetActive(true);
-            Debug.Log($"Đã spawn Image UI từ iconPrefab với sprite {sprite.name} trong listIconMapStore");
-        }
 
-        Debug.Log($"Tổng số sprite trong iconMaps: {iconMaps.Count}");
+            if (sprite != null && imageInstance != null)
+            {
+                imageInstance.SetNativeSize();
+                RectTransform rectTransform = imageInstance.GetComponent<RectTransform>();
+                if (rectTransform != null)
+                {
+                    rectTransform.sizeDelta *= 0.75f;
+                }
+            }
+        }
     }
 }

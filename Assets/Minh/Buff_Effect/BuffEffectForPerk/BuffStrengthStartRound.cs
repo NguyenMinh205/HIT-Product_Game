@@ -52,7 +52,7 @@ public class BuffStrengthStartRound : IBuffEffect
     {
         if (player != null)
         {
-            player.Stats.ChangeStrength(Value);
+            player.Stats.ChangeStrength((int)Value);
         }
     }
 }

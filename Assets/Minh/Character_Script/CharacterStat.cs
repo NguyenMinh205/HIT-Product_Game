@@ -13,8 +13,8 @@ public class CharacterStat
     public float MaxHP => maxHP;
     [SerializeField] private int coin = 0;
     public int Coin => coin;
-    [SerializeField] private float strength;
-    public float Strength => strength;
+    [SerializeField] private int strength;
+    public int Strength => strength;
     [SerializeField] private float criticalChance = 0.05f;
     public float CriticalChance => criticalChance;
     [SerializeField] private float criticalDamage = 1.8f;
@@ -109,7 +109,7 @@ public class CharacterStat
         GamePlayController.Instance.PlayerController.CurrentPlayer.UpdateArmorUI();
     }
 
-    public void ChangeStrength(float value)
+    public void ChangeStrength(int value)
     {
         this.strength += value;
     }
