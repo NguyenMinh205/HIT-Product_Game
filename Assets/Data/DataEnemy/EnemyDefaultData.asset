@@ -48,7 +48,7 @@ MonoBehaviour:
     - actionEnemy: 01000000
   - idEnemy: enemy04
     nameEnemy: HiveRide
-    hpEnemy: 35
+    hpEnemy: 5
     damageEnemy: 3
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -783777960, guid: ef9edf03a9471db4393f4a4e52c51df5, type: 3}
@@ -59,7 +59,7 @@ MonoBehaviour:
     - actionEnemy: 000000000000000000000000
   - idEnemy: enemy05
     nameEnemy: MushroomHead
-    hpEnemy: 36
+    hpEnemy: 5
     damageEnemy: 5
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1430185463, guid: 0e816514cd42aec48afa8c80d96680f9, type: 3}
@@ -71,7 +71,7 @@ MonoBehaviour:
     - actionEnemy: 00000000
   - idEnemy: enemy06
     nameEnemy: KnightInk
-    hpEnemy: 100
+    hpEnemy: 5
     damageEnemy: 7
     armorIncreased: 7
     spriteEnemyIdle: {fileID: -903061839, guid: 1db21c890022a3a4d8da82431637dd16, type: 3}

@@ -147,6 +147,7 @@ public class ItemMoveController : MonoBehaviour
 
     public void EffectItem(Item item)
     {
+        Debug.Log("Effect Item");
         PauseMovement();
         Player player = GamePlayController.Instance.PlayerController.CurrentPlayer;
         List<Enemy> enemyList = GamePlayController.Instance.EnemyController.ListEnemy;
@@ -158,10 +159,16 @@ public class ItemMoveController : MonoBehaviour
 
         itemUsage.UseItem(item.ID, player, enemyList[0], enemyList);
 
+
+        Debug.Log("Item Usage Effect");
         var sr = item.SR;
         fx.Join(sr.DOFade(0f, 1f));
+
+        Debug.Log("Test Item Fade");
+
         fx.OnComplete(() =>
         {
+            Debug.Log("Item Destroy");
             Destroy(item.gameObject);
             ResumeMovement();
             ObserverManager<IDItem>.PostEven(IDItem.ItemPlayer, item);
