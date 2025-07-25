@@ -64,7 +64,8 @@ public class UpCoinWhenKill : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        
+        enemy.actions.RemoveAt(0);
+        enemy.AddBuffEffect("kill_receiver_coin", 30, -1);
     }
 }
 public class SetPoisonWithAttack : IEnemyAction
@@ -92,4 +93,14 @@ public class SetDodgeOrCounterAttack : IEnemyAction
         }
     }
 }   
+
+public class ThiefEffectMan : IEnemyAction
+{
+    public void Execute(Enemy enemy)
+    {
+        enemy.actions.RemoveAt(0);
+        enemy.AddBuffEffect("thief_effect", 1, -1);
+        enemy.AddBuffEffect("vanish", 1, -1);
+    }
+}
 

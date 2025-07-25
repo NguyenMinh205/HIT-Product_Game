@@ -10,7 +10,7 @@ public class EnemySpawController : MonoBehaviour
     private List<string> listIDEnemyApt = new List<string>();
     private int currentIndexFloor = 0;
 
-    private List<string> listIDBoss = new List<string> { "boss01", "boss02", "boss03", "boss04", "boss05","boss06","boss07" };    
+    private List<string> listIDBoss = new List<string> {"boss02","boss06" };    
     private int currentIndexBoss = 0;
 
     public void SetIDEnemyApt(int indexFloor)
@@ -45,7 +45,7 @@ public class EnemySpawController : MonoBehaviour
             listEnemySpawn.Add(listIDEnemyApt[randomIndex]);
         }
         //test enemy
-        //return new List<string> { "enemy22" };
+        //return new List<string> { "enemy20" };
         return listEnemySpawn;
     }
 
@@ -57,7 +57,7 @@ public class EnemySpawController : MonoBehaviour
         }
         string idBoss = listIDBoss[currentIndexBoss];
         currentIndexBoss++;
-        //return idBoss;
-        return "boss06";
+        return idBoss;
+        //return "boss06";
     }
 }

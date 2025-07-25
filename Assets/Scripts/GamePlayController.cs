@@ -20,6 +20,7 @@ public enum EventID
     OnClawsEmpty,
     OnEndRound,
     OnEndEnemyTurn,
+    OnEnemyDead,
 }
 
 public enum TurnPlay

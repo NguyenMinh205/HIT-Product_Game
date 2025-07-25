@@ -108,6 +108,7 @@ public class RewardManager : Singleton<RewardManager>
             if (GameManager.Instance.CurrentRoom == GameManager.Instance.PerkRewardRoom)
             {
                 selectedReward.Perk.Execute();
+                ObserverManager<IDPerkUI>.PostEven(IDPerkUI.AddPerk, selectedReward.Perk);
                 rollBtn.gameObject.SetActive(true);
                 rewardUI.SetActive(false);
                 GameManager.Instance.OutRoom();

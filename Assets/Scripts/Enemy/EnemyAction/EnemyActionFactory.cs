@@ -76,6 +76,15 @@ public static class EnemyActionFactory
             case "enemy15":
                 enemyAction = new DodgeAttackByPlayer();
                 break;
+            case "enemy19":
+                Debug.Log("Receiver Coin when kill enemy");
+                enemyAction = new UpCoinWhenKill();
+                break;
+            case "enemy20":
+                Debug.Log("Thief Action");
+                enemyAction = new ThiefEffectMan();
+                break;
+
             case "enemy22":
                 Debug.Log("Enemy Set Posion With Action Attack");
                 enemyAction = new SetPoisonWithAttack();

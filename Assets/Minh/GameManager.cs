@@ -92,6 +92,7 @@ public class GameManager : Singleton<GameManager>
         MapManager.Instance.SetActiveRoomVisual(false);
         uiMap.SetActive(false);
         uiInRoom.SetActive(true);
+        ObserverManager<UIMahcine>.PostEven(UIMahcine.OnUI, true);
     }
 
     public IEnumerator OpenRoomFight()
@@ -199,6 +200,7 @@ public class GameManager : Singleton<GameManager>
                 intoRoomTrigger.gameObject.SetActive(false);
             }
             currentRoom = null;
+            ObserverManager<UIMahcine>.PostEven(UIMahcine.OnUI, false);
             MapController.Instance.SetRoomVisited(PlayerMapController.Instance.PosInMap);
             ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar,GamePlayController.Instance.PlayerController.CurrentPlayer);
         }
