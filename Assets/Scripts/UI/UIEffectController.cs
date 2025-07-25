@@ -17,14 +17,28 @@ public class UIEffectController : MonoBehaviour
             if (effectUI.effect.Name == effect.Name)
             {
                 effectUI.effect.Duration += effect.Duration;
-                effectUI.InitEffectUI(effect.Icon, effectUI.effect.Duration);
+                if (effectUI.effect.Duration == -1)
+                {
+                    effectUI.InitEffectUI(effect.Icon, effect.Value);
+                }
+                else
+                {
+                    effectUI.InitEffectUI(effect.Icon, effectUI.effect.Duration);
+                }
                 return;
             }
         }
         EffectUI newEffectUI = PoolingManager.Spawn(effectUIPrefab, transform.position, Quaternion.identity, effectGood);
         newEffectUI.effect = effect;
         effectUIs.Add(newEffectUI);
-        newEffectUI.InitEffectUI(effect.Icon, effect.Duration);
+        if (newEffectUI.effect.Duration == -1)
+        {
+            newEffectUI.InitEffectUI(effect.Icon, effect.Value);
+        }
+        else
+        {
+            newEffectUI.InitEffectUI(effect.Icon, newEffectUI.effect.Duration);
+        }
 
         RectTransform rect = newEffectUI.GetComponent<RectTransform>();
         rect.localPosition = new Vector3((index -2) * 37f,effectGood.position.y,0f);
@@ -42,7 +56,16 @@ public class UIEffectController : MonoBehaviour
                     RemoveEffect(effect);
                     return;
                 }
-                effectUI.InitEffectUI(effect.Icon, effectUI.effect.Duration);
+                if(effectUI.effect.Duration == -1)
+                {
+                    effectUI.InitEffectUI(effect.Icon, effect.Value);
+                    CheckEffect();
+                }
+                else
+                {
+                    effectUI.InitEffectUI(effect.Icon, effectUI.effect.Duration);
+                    CheckEffect();
+                }
                 return;
             }
         }
@@ -50,7 +73,8 @@ public class UIEffectController : MonoBehaviour
 
     public void RemoveEffect(IBuffEffect effect)
     {
-        foreach(EffectUI effectUI in effectUIs)
+        Debug.Log($"Remove Effect: {effect.Name}");
+        foreach (EffectUI effectUI in effectUIs)
         {
             if (effectUI.effect.Name == effect.Name)
             {
@@ -60,7 +84,30 @@ public class UIEffectController : MonoBehaviour
             }
         }
     }
-
+    public void CheckEffect()
+    {
+        Debug.Log("Check Effect");
+        foreach (EffectUI effectUI in effectUIs)
+        {
+            if(effectUI.effect.Duration == -1)
+            {
+                if(effectUI.effect.Value <= 0)
+                {
+                    RemoveEffect(effectUI.effect);
+                    return;
+                }
+            }
+            else
+            {
+                if (effectUI.effect.Duration <= 0)
+                {
+                    RemoveEffect(effectUI.effect);
+                    return;
+                }
+            }
+        }
+    }
+    
     public void ClearAllEffectUI()
     {
         foreach (EffectUI effectUI in effectUIs)
@@ -68,4 +115,5 @@ public class UIEffectController : MonoBehaviour
             PoolingManager.Despawn(effectUI.gameObject);
         }
     }
+
 }

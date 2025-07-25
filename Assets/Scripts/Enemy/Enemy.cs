@@ -40,6 +40,8 @@ public class Enemy : MonoBehaviour
     private int indexAction;
     private float height;
     public int IndexAction => indexAction;
+    public bool IsDodge = false;
+    public bool IsCounterAttack = false;
 
     public string ID
     {
@@ -154,31 +156,54 @@ public class Enemy : MonoBehaviour
 
     public bool ReceiverDamage(int damage)
     {
-        int finalDamage = Mathf.Max(damage - armor, 0);
-        armor = Mathf.Max(0, armor - damage);
-
-        HP -= finalDamage;
-
-        if (HP < 0)
-            HP = 0;
-
-        ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Hit, this);
-
-        health.UpdateArmor(this);
-        health.UpdateHp(this);
-
-        if (HP < 0)
+        ObserverManager<EventID>.PostEven(EventID.OnReceiverDamage, this);
+       
+        if (IsDodge)
         {
-            uiActionEnemy.UnShowActionEnemy();
-            return true;
+            Debug.Log("Enemy dodged the attack!");
+            IsDodge = false;
+            SetEffectUI("dodge");
+            CheckEffectEnemy();
+            return false;
         }
+        else if (IsCounterAttack)
+        {
+            Debug.Log("Enemy countered the attack!");
+            GamePlayController.Instance.PlayerController.CurrentPlayer.ReceiveDamage(damage);
+            IsCounterAttack = false;
+            SetEffectUI("counter_attack");
+            CheckEffectEnemy();
+            return false;
+        }
+        else
+        {
+            Debug.LogError("Enemy Receiver Damage : " + damage);
+            int finalDamage = Mathf.Max(damage - armor, 0);
+            armor = Mathf.Max(0, armor - damage);
 
+            HP -= finalDamage;
+
+            if (HP < 0)
+                HP = 0;
+
+            ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Hit, this);
+
+            health.UpdateArmor(this);
+            health.UpdateHp(this);
+            UIDamageController.Instance.ShowDamageText(finalDamage, this);
+            if (HP < 0)
+            {
+                uiActionEnemy.UnShowActionEnemy();
+                return true;
+            }
+        }
         return false;
     }
     public void CheckDieEnemy()
     {
         if (HP <= 0)
         {
+            ObserverManager<EventID>.PostEven(EventID.OnEnemyDead);
             ObserverManager<IDEnemyState>.PostEven(IDEnemyState.EnemyDied, this);
             effectController.ClearAllEffectUI();
         }
@@ -189,19 +214,24 @@ public class Enemy : MonoBehaviour
         ExecuteEffect();
         for (int i = 0; i < actions[indexAction].actionEnemy.Count; i++)
         {
+            Debug.Log("Execute Action Enemy: " + actions[indexAction].actionEnemy[i]);
             EnemyActionFactory.GetActionEnemy(actions[indexAction].actionEnemy[i], this);
+            Debug.Log("Check Observer Enemy");
             ObserverManager<EventID>.PostEven(EventID.OnDealDamage, this);
             uiActionEnemy.UnActionIndexEnemy(i);
-
+            Debug.Log("Test Check ");
             yield return new WaitForSeconds(1f);
         }
         uiActionEnemy.ClearAllActionList();
+        Debug.Log("Next Action Enemy Check");
         indexAction++;
         if (indexAction >= actions.Count)
         {
             indexAction = 0;
         }
-        //UIActionEnemyController.Instance.InitUIAction(this, indexAction);
+        ObserverManager<EventID>.PostEven(EventID.OnEndEnemyTurn, this);
+        effectController.CheckEffect();
+        CheckEffectEnemy();
     }
     public void AddBuffEffect(string effectName, float value, float duration)
     {
@@ -249,6 +279,37 @@ public class Enemy : MonoBehaviour
         foreach (IBuffEffect effect in activeEffects)
         {
             effectController.SetEffect(effect);
+        }
+        CheckEffectEnemy();
+    }
+    public void CheckEffectEnemy()
+    {
+        foreach (IBuffEffect effect in activeEffects)
+        {
+            if (effect.Duration > 0)
+            {
+                effect.Duration--;
+                if (effect.Duration == 0)
+                {
+                    RemoveEffect(effect);
+                }
+            }
+            else if (effect.Duration == -1)
+            {
+                if(effect.Value <= 0)
+                {
+                    RemoveEffect(effect);
+                }
+            }
+        }
+    }
+
+    public void SetEffectUI(string effectID)
+    {
+        foreach (IBuffEffect effect in activeEffects)
+        {
+            if(effect.Name.ToLower() == effectID.ToLower())
+                effectController.SetEffect(effect);
         }
     }
     public void NextAction()

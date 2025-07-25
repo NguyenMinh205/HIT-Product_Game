@@ -38,43 +38,53 @@ public class Dodge : IBuffEffect
 
     public void RegisterEvents()
     {
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnTakeDamage, OnTakeDamage);
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnReceiverDamage, OnReceiverDamage);
     }
 
     public void UnregisterEvents()
     {
-        ObserverManager<EventID>.RemoveAddListener(EventID.OnTakeDamage, OnTakeDamage);
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnReceiverDamage, OnReceiverDamage);
     }
 
-    private void OnTakeDamage(object param)
+    private void OnReceiverDamage(object param)
     {
-        if (Duration <= 0)
+        if(param is Player player)
         {
-            Remove(player);
-            return;
-        }
-
-        if (player != null)
-        {
+            if (Value <= 0)
+            {
+                Remove(player);
+                return;
+            }
             player.IsDodge = true;
-            Debug.Log("Player dodged attack! No damage taken.");
         }
-        else if (enemy != null)
+        else if(param is Enemy enemy)
         {
-            // Log cho Enemy (giả sử Enemy không dùng IsDodge)
-            Debug.Log($"Enemy {enemy.name} dodged attack! No damage taken.");
+            if (Value <= 0)
+            {
+                RemoveEnemy(enemy);
+                return;
+            }
+            enemy.IsDodge = true;
         }
 
-        Duration--;
+        if(Duration == -1)
+        {
+            Value--;
+        }
+        else
+        {
+            Duration--;
+        }
     }
 
     public void ApplyEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        this.enemy = enemy;
+        RegisterEvents();
     }
 
     public void RemoveEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        UnregisterEvents();
     }
 }

@@ -11,8 +11,6 @@ public class DropThreeFruitPoison : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        //Tha 3 qua doc vao trong box;
-
         GamePlayController.Instance.ItemController.DropInBox(enemy.ItemEffect, 3);
     }
 }
