@@ -164,9 +164,4 @@ public class SmithRoomManager : MonoBehaviour
             upgradeCostText.text = "0";
         }
     }
-
-    private void OnDisable()
-    {
-        DeleteInventoryList();
-    }
 }

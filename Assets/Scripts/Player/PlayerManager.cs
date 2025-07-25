@@ -100,6 +100,7 @@ public class PlayerManager : MonoBehaviour
         if (currentPlayer == null)
         {
             numOfCoinInRoom.text = curPlayerStat.Coin.ToString();
+            return;
         }
         numOfCoinInRoom.text = currentPlayer.Stats.Coin.ToString();
     }
