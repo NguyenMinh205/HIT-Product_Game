@@ -85,7 +85,7 @@ MonoBehaviour:
     - actionEnemy: 01000000
   - idEnemy: enemy07
     nameEnemy: KillerLizard
-    hpEnemy: 100
+    hpEnemy: 5
     damageEnemy: 15
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -938404122, guid: 1022e3d323b44df49b318437daf54080, type: 3}
@@ -96,7 +96,7 @@ MonoBehaviour:
     - actionEnemy: 00000000
   - idEnemy: enemy08
     nameEnemy: PosionBaby
-    hpEnemy: 100
+    hpEnemy: 5
     damageEnemy: 12
     armorIncreased: 12
     spriteEnemyIdle: {fileID: 1636345924, guid: 945a400ba39539a409b9800c6fc4a8ea, type: 3}
@@ -262,21 +262,9 @@ MonoBehaviour:
     actions:
     - actionEnemy: 0400000000000000
   dataBoss:
-  - idEnemy: boss01
-    nameEnemy: 
-    hpEnemy: 55
-    damageEnemy: 6
-    armorIncreased: 0
-    spriteEnemyIdle: {fileID: -1182551776, guid: a798d4dca3c882f468c8c27af068fb82, type: 3}
-    controller: {fileID: 0}
-    itemEffect: {fileID: 0}
-    actions:
-    - actionEnemy: 04000000
-    - actionEnemy: 04000000
-    - actionEnemy: 04000000
   - idEnemy: boss02
     nameEnemy: 
-    hpEnemy: 155
+    hpEnemy: 15
     damageEnemy: 6
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1074711646, guid: ffe401bd7e581eb4e8902bbe42a2bde9, type: 3}
@@ -284,43 +272,6 @@ MonoBehaviour:
     itemEffect: {fileID: 0}
     actions:
     - actionEnemy: 04000000
-    - actionEnemy: 00000000
-  - idEnemy: boss03
-    nameEnemy: 
-    hpEnemy: 55
-    damageEnemy: 17
-    armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
-    controller: {fileID: 0}
-    itemEffect: {fileID: 0}
-    actions:
-    - actionEnemy: 04000000
-    - actionEnemy: 0000000001000000
-    - actionEnemy: 00000000
-  - idEnemy: boss04
-    nameEnemy: 
-    hpEnemy: 0
-    damageEnemy: 0
-    armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
-    controller: {fileID: 0}
-    itemEffect: {fileID: 0}
-    actions:
-    - actionEnemy: 04000000
-    - actionEnemy: 0000000000000000
-  - idEnemy: boss05
-    nameEnemy: 
-    hpEnemy: 0
-    damageEnemy: 0
-    armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
-    controller: {fileID: 0}
-    itemEffect: {fileID: 0}
-    actions:
-    - actionEnemy: 04000000
-    - actionEnemy: 00000000
-    - actionEnemy: 00000000
-    - actionEnemy: 00000000
     - actionEnemy: 00000000
   - idEnemy: boss06
     nameEnemy: 
@@ -334,16 +285,15 @@ MonoBehaviour:
     - actionEnemy: 04000000
     - actionEnemy: 00000000
     - actionEnemy: 00000000
-  - idEnemy: boss07
+  - idEnemy: finalBoss
     nameEnemy: 
-    hpEnemy: 0
-    damageEnemy: 0
+    hpEnemy: 900
+    damageEnemy: 6
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 0}
+    spriteEnemyIdle: {fileID: 1513823624, guid: c5e5a640ffbc89642a1e08e36f25e65c, type: 3}
     controller: {fileID: 0}
     itemEffect: {fileID: 0}
     actions:
-    - actionEnemy: 00000000
     - actionEnemy: 04000000
-    - actionEnemy: 0000000000000000
-    - actionEnemy: 00000000
+    - actionEnemy: 04000000
+    - actionEnemy: 04000000

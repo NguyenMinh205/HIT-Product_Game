@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public enum EnemyEffect
 {
@@ -329,6 +330,12 @@ public class Enemy : MonoBehaviour
             Debug.Log($"Removed effect {effect.Name} from enemy.");
         }
     }   
+    
+    public void DesTroy()
+    {
+        PoolingManager.Despawn(this.gameObject);
+        Destroy(transform.parent.gameObject);
+    }
 
 }
 

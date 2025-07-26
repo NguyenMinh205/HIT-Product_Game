@@ -208,5 +208,6 @@ public class Player : MonoBehaviour
         });
         this.Health.UnShowHealthBarEnemy();
         PoolingManager.Despawn(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }
