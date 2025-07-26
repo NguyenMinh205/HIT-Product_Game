@@ -8,7 +8,7 @@ public class PoisonGrenade : EffectItem
     public int EffectVal { get { return effectVal; } set { effectVal = value; } }
     public override void Effect(Enemy enemy)
     {
-        //Set hiệu ứng độc
+        enemy.AddBuffEffect("poison_effect", 3, effectVal);
     }
 
     public override void Execute(Player player, Enemy enemy)

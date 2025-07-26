@@ -17,7 +17,7 @@ public class PoisonDagger : AttackWithEffect
 
     public override void Effect(Enemy enemy)
     {
-        //Gây effectVal stack độc lên kẻ địch nhân đòn đánh
+        enemy.AddBuffEffect("poison_effect", 3, effectVal);
     }
 
     public override void Execute(Player player, Enemy enemy)

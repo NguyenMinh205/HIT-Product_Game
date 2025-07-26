@@ -17,7 +17,7 @@ public class Shuriken : AttackWithEffect
 
     public override void Effect(Enemy enemy)
     {
-        //Add hiệu ứng độc cho enemy
+        enemy.AddBuffEffect("poison_effect", 3, effectVal);
     }
 
     public override void Execute(Player player, Enemy enemy)
