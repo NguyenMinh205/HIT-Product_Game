@@ -21,5 +21,6 @@ public class UIEffectIcon : Singleton<UIEffectIcon>
 	[SerializeField] public Sprite EnemyRun;
 	[SerializeField] public Sprite ThiefEffect;
 	[SerializeField] public Sprite GetPoison;
+	[SerializeField] public Sprite IncreaseDamageByCoin;
 
 }

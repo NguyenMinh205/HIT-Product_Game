@@ -39,7 +39,7 @@ public class UIActionEnemyController : Singleton<UIActionEnemyController>
             switch(type)
             {
                 case TypeEnemyAction.Attack:
-                    enemy.UIAction.SetAction(spriteAttack, posXActionUI, enemy.Damage, enemy);
+                    enemy.UIAction.SetAction(spriteAttack, posXActionUI, enemy.Damage[enemy.IndexDamage], enemy);
                     break;
 
                 case TypeEnemyAction.Defend:

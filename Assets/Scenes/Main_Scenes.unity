@@ -8844,6 +8844,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1516508436}
     - target: {fileID: 2676145791475241921, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+      propertyPath: thorn
+      value: 
+      objectReference: {fileID: 11400000, guid: b9b846970aaaa0542ada03ea5f49d661, type: 2}
+    - target: {fileID: 2676145791475241921, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
       propertyPath: listPosSpawnItem.Array.data[0]
       value: 
       objectReference: {fileID: 1499210923}
@@ -8927,6 +8931,10 @@ PrefabInstance:
       propertyPath: BuffSheildTurn
       value: 
       objectReference: {fileID: -810198731, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
+    - target: {fileID: 2999707689595744662, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
+      propertyPath: IncreaseDamageByCoin
+      value: 
+      objectReference: {fileID: 1908035112, guid: 1fd102ef91bd9ae42ad1d59aa1c37df6, type: 3}
     - target: {fileID: 5729061167104631044, guid: e26d05f87f0ec7044bc108e2ac8fda7a, type: 3}
       propertyPath: items.Array.size
       value: 44

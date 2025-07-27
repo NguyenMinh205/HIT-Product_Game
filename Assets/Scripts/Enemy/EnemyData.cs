@@ -16,7 +16,7 @@ public class DataEnemy
     public string idEnemy;
     public string nameEnemy;
     public int hpEnemy;
-    public int damageEnemy;
+    public List<int> damageEnemy;
     public int armorIncreased;
 
     public Sprite spriteEnemyIdle;

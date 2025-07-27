@@ -57,7 +57,10 @@ public class DoubleDamageEachTurn : IBuffEffect
         //player._CharacterStatModifier.ChangeDamage(player._CharacterStatModifier.Stats.damage * (Value > 0 ? Value : 2f));
         //Debug.Log($"Damage doubled to {player._CharacterStatModifier.Stats.damage}. Duration: {(Duration == -1 ? "Permanent" : Duration.ToString())}");
 
-        enemy.Damage *= 2; // Giả sử Enemy có thuộc tính Damage để điều chỉnh sát thương
+        for(int i = 0; i < enemy.Damage.Count; i++)
+        {
+            enemy.Damage[i] *= 2; // Giả sử Enemy có thuộc tính Damage là List<int> để điều chỉnh sát thương
+        }
 
         if (Duration != -1)
         {

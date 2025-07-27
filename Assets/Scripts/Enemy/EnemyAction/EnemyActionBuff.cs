@@ -12,7 +12,7 @@ public class IncreaseDamage : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        enemy.Damage += 5;
+        enemy.DamageIncreased += 5;
     }
 }
 public class GetGasPoison : IEnemyAction
@@ -104,3 +104,10 @@ public class ThiefEffectMan : IEnemyAction
     }
 }
 
+public class InscreaseDamageCoin : IEnemyAction
+{
+    public void Execute(Enemy enemy)
+    {
+        enemy.AddBuffEffect("increase_damage_by_coin", 1, -1);
+    }
+}

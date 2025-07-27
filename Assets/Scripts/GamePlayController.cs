@@ -10,6 +10,7 @@ public enum EventID
     OnStartRound,
     OnStartPlayerTurn,
     OnTakeDamage,
+    OnTakeCoin,
     OnReceiverDamage,
     OnDealDamage,
     OnGoldChanged,
@@ -21,6 +22,7 @@ public enum EventID
     OnEndRound,
     OnEndEnemyTurn,
     OnEnemyDead,
+
 }
 
 public enum TurnPlay
