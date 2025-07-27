@@ -57,6 +57,8 @@ public static class ItemActionFactory
                 return new PlasticShield();
             case "Def11":
                 return new MetalShield();
+            case "Buf01":
+                return new Magnet();
             case "Buf03":
                 return new Eyepatch();
             case "Buf04":
@@ -81,6 +83,8 @@ public static class ItemActionFactory
                 return new VitaminPill();
             case "Buf21":
                 return new EnergyDrink();
+            case "Buf23":
+                return new HoneyBall();
             case "Buf24":
                 return new HandMirror();
 

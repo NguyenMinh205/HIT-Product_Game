@@ -157,6 +157,7 @@ public class Enemy : MonoBehaviour
 
     public bool ReceiverDamage(int damage)
     {
+        AudioManager.Instance.PlayEnemyHit();
         ObserverManager<EventID>.PostEven(EventID.OnReceiverDamage, this);
        
         if (IsDodge)

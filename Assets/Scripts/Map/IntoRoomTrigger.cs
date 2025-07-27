@@ -12,6 +12,7 @@ public class IntoRoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            AudioManager.Instance.PlayEnterRoomSound();
             CheckIDRoom(idNameRoom);
             GameManager.Instance.IntoRoom = this;
         }

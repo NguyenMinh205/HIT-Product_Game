@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -54,6 +54,12 @@ public class Item : MonoBehaviour
         maxStackSize = itemBase.maxStackSize;
 
         _itemBase = itemBase;
+
+        if (idItem == "Buf01" || idItem == "Buf23")
+        {
+            _itemBase.Action = ItemActionFactory.CreateItemAction(idItem);
+            _itemBase.Action.Execute(null, null);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

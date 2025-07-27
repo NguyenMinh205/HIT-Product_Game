@@ -146,6 +146,7 @@ public class Player : MonoBehaviour
 
     public void ReceiveDamage(int damage)
     {
+        AudioManager.Instance.PlayPlayerHit();
         ObserverManager<EventID>.PostEven(EventID.OnTakeDamage, this);
         if (IsDodge)
         {

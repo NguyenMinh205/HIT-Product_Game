@@ -24,7 +24,7 @@ public class ItemBase : ScriptableObject
     public ItemBase upgradedItem;
 
     [SerializeField] private IItemAction action;
-    public IItemAction Action => action;
+    public IItemAction Action { get; set; }
 
     public void ExecuteAction(Player player = null, Enemy target = null, List<Enemy> targets = null)
     {

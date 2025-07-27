@@ -11,10 +11,12 @@ public class ItemUsage : MonoBehaviour
             item.ExecuteAction(player, target, targets);
             if (item.Action is AttackItem or AttackWithBuff or AttackWithEffect)
             {
+                AudioManager.Instance.PlayPlayerAttack();
                 ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Attack, null);
             }
             else
             {
+                AudioManager.Instance.PlayPlayerBuff();
                 ObserverManager<IDStateAnimationPlayer>.PostEven(IDStateAnimationPlayer.Buff, null);
             }
         }

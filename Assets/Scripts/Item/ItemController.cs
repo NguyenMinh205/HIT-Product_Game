@@ -17,6 +17,7 @@ public class ItemController : MonoBehaviour
     [Space]
     [Header("Item Lists")]
     [SerializeField] private List<Item> listItemInBox;
+    public List<Item> ListItemInBox => listItemInBox;
     [SerializeField] private List<Item> listItemInBasket;
     public bool IsPickupItemSuccess { get; set; }
 

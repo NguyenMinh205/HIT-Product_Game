@@ -43,6 +43,12 @@ MonoBehaviour:
     - itemId: Atk02
       quantity: 1
       isUpgraded: 0
+    - itemId: Buf23
+      quantity: 1
+      isUpgraded: 0
+    - itemId: Buf01
+      quantity: 1
+      isUpgraded: 0
   - id: Cha02
     name: Liam
     isUnlocked: 0

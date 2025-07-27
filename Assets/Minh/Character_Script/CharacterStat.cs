@@ -36,7 +36,7 @@ public class CharacterStat
     [SerializeField] private float priceReduction = 0;
     public float PriceReduction => priceReduction;
     [SerializeField] private int clawPerTurn = 2;
-    public float ClawPerTurn => clawPerTurn;
+    public int ClawPerTurn => clawPerTurn;
     [SerializeField] private int clawInGrannyRoom = 1;
     public int ClawInGrannyRoom => clawInGrannyRoom;
     [SerializeField] private int upgradeFreeTurn = 0;

@@ -123,10 +123,12 @@ public class GamePlayController : Singleton<GamePlayController>
         switch (newTurn)
         {
             case TurnPlay.Enemy:
+                if (IsEndGame) return;
                 TurnEnemy();
                 break;
 
             case TurnPlay.Player:
+                if (IsEndGame) return;
                 playerController.ResetShield();
                 clawController.ResetMachineClaw();
                 StartPlayerTurn();
@@ -195,6 +197,8 @@ public class GamePlayController : Singleton<GamePlayController>
 
     public void LoseGame()
     {
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayDefeatSound();
         isEndGame = true;
         clawController.EndGame();
         clawController.IsStart = false;
@@ -212,6 +216,8 @@ public class GamePlayController : Singleton<GamePlayController>
 
     public void WinGame()
     {
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayVictorySound();
         isEndGame = true;
         clawController.EndGame();
         clawController.IsStart = false;
