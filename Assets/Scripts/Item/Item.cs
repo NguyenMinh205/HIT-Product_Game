@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -82,10 +82,20 @@ public class Item : MonoBehaviour
         int shapeCount = sr.sprite.GetPhysicsShapeCount();
         poly.pathCount = shapeCount;
 
+        Vector2 spritePivot = sr.sprite.pivot / sr.sprite.pixelsPerUnit; // pivot tính theo đơn vị thế giới
+        float scale = 0.85f; // scale collider 85%
+
         for (int i = 0; i < shapeCount; i++)
         {
             var shape = new List<Vector2>();
             sr.sprite.GetPhysicsShape(i, shape);
+
+            for (int j = 0; j < shape.Count; j++)
+            {
+                Vector2 dir = shape[j] - spritePivot;
+                shape[j] = spritePivot + dir * scale;
+            }
+
             poly.SetPath(i, shape);
         }
     }

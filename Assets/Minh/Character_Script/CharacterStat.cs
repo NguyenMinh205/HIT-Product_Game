@@ -101,6 +101,7 @@ public class CharacterStat
     {
         this.coin += value;
         GamePlayController.Instance.PlayerController.UpdateCoinText();
+        ObserverManager<EventID>.PostEven(EventID.OnTakeCoin, value);
     }
 
     public void MultipleShield(int val)

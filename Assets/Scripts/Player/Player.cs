@@ -89,7 +89,9 @@ public class Player : MonoBehaviour
 
         effect.Apply(this);
         activeEffects.Add(effect);
-        effectController.InitEffect(activeEffects.Count, effect);
+        if(effect.Icon != null)
+            effectController.InitEffect(activeEffects.Count, effect);
+
         Debug.Log($"Applied new effect {effectName} with value {value} and duration {duration}.");
     }
 

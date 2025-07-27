@@ -45,6 +45,8 @@ public static class BuffEffectFactory
                 return new CreateWater();
             case "kill_receiver_coin":
                 return new KillReceiverCoin(value, duration);
+            case "increase_damage_by_coin":
+                return new InscreaseDamageByCoin(value, duration);
 
             //Buff/Effect for perk
             case "buff_shield_start_round":

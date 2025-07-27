@@ -8,8 +8,8 @@ public class EnemySpawController : MonoBehaviour
         "enemy12", "enemy13", "enemy15", "enemy16", "enemy17", "enemy18", "enemy21", "enemy22" };
 
     private const int numOfEnemyInFloor = 5;
-    private List<string> listIDBoss = new List<string> { "boss01", "boss02", "boss03", "boss04", "boss05", "boss06", "boss07" };
-
+    private List<string> listIDBoss = new List<string> {"boss02","boss06", "finalBoss" };
+    private int indexBos = 0;
     private List<string> availableBossIDs;
 
     private void Start()
@@ -111,6 +111,7 @@ public class EnemySpawController : MonoBehaviour
         //GameData.Instance.SaveMainGameData();
 
         //return idBoss;
-        return "boss02";
+        indexBos++;
+        return listIDBoss[indexBos -1];
     }
 }

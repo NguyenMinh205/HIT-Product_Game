@@ -99,6 +99,11 @@ public static class EnemyActionFactory
                 Debug.Log("Boss Get Dodge Attack By Player Or Counter Attack by Player");
                 enemyAction = new SetDodgeOrCounterAttack();
                 break;
+
+            case "finalBoss":
+                Debug.Log("Final Boss Get Increase Damage By Coin Player");
+                enemyAction = new InscreaseDamageCoin();
+                break;
         }
 
         ExecuteAction(enemyAction, enemy);
@@ -112,6 +117,10 @@ public static class EnemyActionFactory
         {
             case "enemy06":
                 enemyAction = new CreateWaterInBoxEffect();
+                break;
+
+            case "finalBoss":
+                enemyAction = new ChangeToThornsEffect();
                 break;
         }
 
@@ -161,6 +170,11 @@ public static class EnemyActionFactory
             case "enemy12":
                 Debug.Log("Enemy Drop Three Fruit Poison");
                 enemyAction = new DropThreeFruitPosionThorn();
+                break;
+
+            case "finalBoss":
+                Debug.Log("Final Boss Drop Piggy Bank");
+                enemyAction = new DropPiggyBank();
                 break;
         }
         ExecuteAction(enemyAction, enemy);

@@ -16,7 +16,7 @@ MonoBehaviour:
   - idEnemy: enemy01
     nameEnemy: GreenSlime
     hpEnemy: 5
-    damageEnemy: 9
+    damageEnemy: 09000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1270891317, guid: 6bce7071b00f308438d96b4c54407650, type: 3}
     controller: {fileID: 9100000, guid: 2531a500c7c8b2e4f8f875780992c9a1, type: 2}
@@ -27,7 +27,7 @@ MonoBehaviour:
   - idEnemy: enemy02
     nameEnemy: FireSlime
     hpEnemy: 5
-    damageEnemy: 3
+    damageEnemy: 03000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1214416665, guid: 0a19935fd40f3ec478b1f332b34fa255, type: 3}
     controller: {fileID: 9100000, guid: 30b9ab7898af1404797f0d35a619c64e, type: 2}
@@ -38,7 +38,7 @@ MonoBehaviour:
   - idEnemy: enemy03
     nameEnemy: IceSlime
     hpEnemy: 5
-    damageEnemy: 6
+    damageEnemy: 06000000
     armorIncreased: 6
     spriteEnemyIdle: {fileID: 59322720, guid: 4a28702e3377b9744b8a8cfba4dc2cc9, type: 3}
     controller: {fileID: 9100000, guid: e84e499bcafcf3041bfd594158b76cb4, type: 2}
@@ -49,7 +49,7 @@ MonoBehaviour:
   - idEnemy: enemy04
     nameEnemy: HiveRide
     hpEnemy: 5
-    damageEnemy: 3
+    damageEnemy: 03000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -783777960, guid: ef9edf03a9471db4393f4a4e52c51df5, type: 3}
     controller: {fileID: 9100000, guid: 3f7cd421fdb2e2b49b118820dbc38d33, type: 2}
@@ -60,7 +60,7 @@ MonoBehaviour:
   - idEnemy: enemy05
     nameEnemy: MushroomHead
     hpEnemy: 5
-    damageEnemy: 5
+    damageEnemy: 05000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1430185463, guid: 0e816514cd42aec48afa8c80d96680f9, type: 3}
     controller: {fileID: 9100000, guid: 46e52a19b6a0284469d79e4e40899210, type: 2}
@@ -72,7 +72,7 @@ MonoBehaviour:
   - idEnemy: enemy06
     nameEnemy: KnightInk
     hpEnemy: 5
-    damageEnemy: 7
+    damageEnemy: 07000000
     armorIncreased: 7
     spriteEnemyIdle: {fileID: -903061839, guid: 1db21c890022a3a4d8da82431637dd16, type: 3}
     controller: {fileID: 9100000, guid: a8b3fd62732c9b142898893b998273eb, type: 2}
@@ -86,7 +86,7 @@ MonoBehaviour:
   - idEnemy: enemy07
     nameEnemy: KillerLizard
     hpEnemy: 5
-    damageEnemy: 15
+    damageEnemy: 0f000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -938404122, guid: 1022e3d323b44df49b318437daf54080, type: 3}
     controller: {fileID: 9100000, guid: 3f942e859a225f040a2c7017e0da9d00, type: 2}
@@ -97,7 +97,7 @@ MonoBehaviour:
   - idEnemy: enemy08
     nameEnemy: PosionBaby
     hpEnemy: 5
-    damageEnemy: 12
+    damageEnemy: 0c000000
     armorIncreased: 12
     spriteEnemyIdle: {fileID: 1636345924, guid: 945a400ba39539a409b9800c6fc4a8ea, type: 3}
     controller: {fileID: 9100000, guid: 61fefd24d1f9cb5419f6d897ef5a6d02, type: 2}
@@ -109,7 +109,7 @@ MonoBehaviour:
   - idEnemy: enemy09
     nameEnemy: SwordAndShield
     hpEnemy: 100
-    damageEnemy: 12
+    damageEnemy: 0c000000
     armorIncreased: 24
     spriteEnemyIdle: {fileID: -1731744006, guid: 17183bdd70dab3142b55e81e30ced9d3, type: 3}
     controller: {fileID: 9100000, guid: a0f5f0b537b4da64f8ac46492c7006f8, type: 2}
@@ -120,7 +120,7 @@ MonoBehaviour:
   - idEnemy: enemy10
     nameEnemy: BabyShark
     hpEnemy: 100
-    damageEnemy: 13
+    damageEnemy: 0d000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1336480041, guid: 361cb9fb92fac0e4abf80400af632d46, type: 3}
     controller: {fileID: 9100000, guid: 83f8b33cb0f66f0428d39d15b02dff84, type: 2}
@@ -131,7 +131,7 @@ MonoBehaviour:
   - idEnemy: enemy11
     nameEnemy: 
     hpEnemy: 100
-    damageEnemy: 10
+    damageEnemy: 0f000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 126299030, guid: f4455d5d949a0454aa5c38bf02ec107b, type: 3}
     controller: {fileID: 0}
@@ -142,7 +142,7 @@ MonoBehaviour:
   - idEnemy: enemy12
     nameEnemy: 
     hpEnemy: 100
-    damageEnemy: 2
+    damageEnemy: 02000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -990542152, guid: 5f0dca1bed81f0c478c1b2e09a3f943a, type: 3}
     controller: {fileID: 0}
@@ -153,7 +153,7 @@ MonoBehaviour:
   - idEnemy: enemy13
     nameEnemy: 
     hpEnemy: 100
-    damageEnemy: 15
+    damageEnemy: 0f000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 134605525, guid: e9a743dfb4e18d449a009b816aaa3229, type: 3}
     controller: {fileID: 0}
@@ -165,7 +165,7 @@ MonoBehaviour:
   - idEnemy: enemy14
     nameEnemy: 
     hpEnemy: 100
-    damageEnemy: 0
+    damageEnemy: 00000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1475919414, guid: 1a65d1d7e47e8c14c86894c691936789, type: 3}
     controller: {fileID: 0}
@@ -177,7 +177,7 @@ MonoBehaviour:
   - idEnemy: enemy15
     nameEnemy: 100
     hpEnemy: 100
-    damageEnemy: 8
+    damageEnemy: 08000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -913989469, guid: afe4b0c79719a294f8cb7552a8ca9921, type: 3}
     controller: {fileID: 0}
@@ -188,7 +188,7 @@ MonoBehaviour:
   - idEnemy: enemy16
     nameEnemy: 100
     hpEnemy: 100
-    damageEnemy: 3
+    damageEnemy: 03000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -970121392, guid: 1872f9b30c1cef24cba9b386f8b5d23e, type: 3}
     controller: {fileID: 0}
@@ -199,7 +199,7 @@ MonoBehaviour:
   - idEnemy: enemy17
     nameEnemy: 100
     hpEnemy: 0
-    damageEnemy: 9
+    damageEnemy: 09000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1455894691, guid: aaf2661d48b298b43813774efeb76154, type: 3}
     controller: {fileID: 0}
@@ -210,7 +210,7 @@ MonoBehaviour:
   - idEnemy: enemy18
     nameEnemy: 100
     hpEnemy: 100
-    damageEnemy: 20
+    damageEnemy: 14000000
     armorIncreased: 30
     spriteEnemyIdle: {fileID: 251771158, guid: 0e09ee99986c769469980947843bf0fa, type: 3}
     controller: {fileID: 0}
@@ -221,7 +221,7 @@ MonoBehaviour:
   - idEnemy: enemy19
     nameEnemy: 100
     hpEnemy: 20
-    damageEnemy: 15
+    damageEnemy: 0f000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 419740717, guid: 23153bf85235a0e45b38c1fcc1539185, type: 3}
     controller: {fileID: 0}
@@ -233,7 +233,7 @@ MonoBehaviour:
   - idEnemy: enemy20
     nameEnemy: 100
     hpEnemy: 100
-    damageEnemy: 0
+    damageEnemy: 00000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 827423073, guid: b0e16c680b1767d409e85f580754962f, type: 3}
     controller: {fileID: 0}
@@ -244,7 +244,7 @@ MonoBehaviour:
   - idEnemy: enemy21
     nameEnemy: 100
     hpEnemy: 100
-    damageEnemy: 0
+    damageEnemy: 09000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1154898096, guid: 0437ccdd3bb60b34c9822f51bbd4fd5a, type: 3}
     controller: {fileID: 0}
@@ -254,7 +254,7 @@ MonoBehaviour:
   - idEnemy: enemy22
     nameEnemy: 
     hpEnemy: 100
-    damageEnemy: 3
+    damageEnemy: 03000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 308893455, guid: f5f3d887469c6a9408656b4781975ddf, type: 3}
     controller: {fileID: 0}
@@ -265,7 +265,7 @@ MonoBehaviour:
   - idEnemy: boss02
     nameEnemy: 
     hpEnemy: 15
-    damageEnemy: 6
+    damageEnemy: 06000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1074711646, guid: ffe401bd7e581eb4e8902bbe42a2bde9, type: 3}
     controller: {fileID: 9100000, guid: 360d7d1dd92c8bf43b7982574a972d2d, type: 2}
@@ -276,7 +276,7 @@ MonoBehaviour:
   - idEnemy: boss06
     nameEnemy: 
     hpEnemy: 500
-    damageEnemy: 30
+    damageEnemy: 0d0000001e000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1657666854, guid: 794dba34f04bda34b9738a368c1b7b69, type: 3}
     controller: {fileID: 9100000, guid: 7ca3be72e0f29e34fb91a0380109a769, type: 2}
@@ -288,12 +288,13 @@ MonoBehaviour:
   - idEnemy: finalBoss
     nameEnemy: 
     hpEnemy: 900
-    damageEnemy: 6
+    damageEnemy: 0d00000032000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1513823624, guid: c5e5a640ffbc89642a1e08e36f25e65c, type: 3}
     controller: {fileID: 0}
-    itemEffect: {fileID: 0}
+    itemEffect: {fileID: 11400000, guid: a118456c5e9804842bafb5b530dd6ce1, type: 2}
     actions:
-    - actionEnemy: 04000000
-    - actionEnemy: 04000000
-    - actionEnemy: 04000000
+    - actionEnemy: 0400000006000000
+    - actionEnemy: 000000000000000000000000
+    - actionEnemy: 00000000
+    - actionEnemy: 0300000006000000

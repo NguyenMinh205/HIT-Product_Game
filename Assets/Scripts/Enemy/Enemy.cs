@@ -13,10 +13,13 @@ public class Enemy : MonoBehaviour
 {
     private string idEnemy;
     private string nameEnemy;
-    private int damage;
+    private List<int> damage;
+    private int damageIncreased = 0;
+    private int indexDmage = 0;
+    private bool isBoss = false;
 
     [SerializeField] private Animator animator;
-    public Animator Ani => animator;    
+    public Animator Ani => animator;
     [SerializeField] private Sprite spriteIdle;
 
     [SerializeField] private int maxHp;
@@ -40,6 +43,7 @@ public class Enemy : MonoBehaviour
     public List<ProcedureActionEnemy> actions;
     private int indexAction;
     private float height;
+    private bool isAttacked = false;
     public int IndexAction => indexAction;
     public bool IsDodge = false;
     public bool IsCounterAttack = false;
@@ -48,10 +52,29 @@ public class Enemy : MonoBehaviour
     {
         get => this.idEnemy;
     }
-    public int Damage
+    public List<int> Damage
     {
         get => this.damage;
         set => this.damage = value;
+    }
+    public int DamageIncreased
+    {
+        get => this.damageIncreased;
+        set
+        {
+            ObserverManager<UIInscreaseType>.PostEven(UIInscreaseType.SetText, value);
+            this.damageIncreased = value;
+        }
+    }
+    public int IndexDamage
+    {
+        get => this.indexDmage;
+        set => this.indexDmage = value;
+    }
+    public bool IsAttacked
+    {
+        get => this.isAttacked;
+        set => this.isAttacked = value;
     }
     public int Armor
     {
@@ -110,6 +133,7 @@ public class Enemy : MonoBehaviour
     public void InitBoss(EnemyData data, string id)
     {
         Debug.Log("Init Boss");
+
         foreach (DataEnemy enemy in data.dataBoss)
         {
             if (enemy.idEnemy == id)
@@ -229,7 +253,19 @@ public class Enemy : MonoBehaviour
         indexAction++;
         if (indexAction >= actions.Count)
         {
-            indexAction = 0;
+            if (idEnemy == "boss02" || idEnemy == "finalBoss")
+                indexAction = 1;
+            else
+                indexAction = 0;
+        }
+        if (damage.Count > 1 && isAttacked)
+        {
+            indexDmage++;
+            isAttacked = false;
+            if (indexDmage >= damage.Count)
+            {
+                indexDmage = 0;
+            }
         }
         ObserverManager<EventID>.PostEven(EventID.OnEndEnemyTurn, this);
         effectController.CheckEffect();

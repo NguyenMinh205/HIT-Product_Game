@@ -44,3 +44,12 @@ public class DropThreeFruitPosionThorn : IEnemyAction
         GamePlayController.Instance.ItemController.DropInBox(enemy.ItemEffect, 3);
     }
 }
+
+public class DropPiggyBank : IEnemyAction
+{
+    public void Execute(Enemy enemy)
+    {
+        Debug.Log("Enemy Boss Drop Six Piggy Bank In Box");
+        GamePlayController.Instance.ItemController.DropInBox(enemy.ItemEffect, 6);
+    }
+}

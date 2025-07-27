@@ -16,3 +16,12 @@ public class CreateWaterInBoxEffect : IEnemyAction
     }
 }
 
+public class ChangeToThornsEffect : IEnemyAction
+{
+    public void Execute(Enemy enemy)
+    {
+        Debug.Log("Change To Thorns Effect");
+        GamePlayController.Instance.ItemController.ChangeToThorn(7);
+    }
+}
+

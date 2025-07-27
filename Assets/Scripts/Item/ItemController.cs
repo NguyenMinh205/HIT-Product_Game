@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum IDItem
@@ -18,7 +19,12 @@ public class ItemController : MonoBehaviour
     [Header("Item Lists")]
     [SerializeField] private List<Item> listItemInBox;
     [SerializeField] private List<Item> listItemInBasket;
+    [SerializeField] private List<int> listIndexUsed = new List<int>();
     public bool IsPickupItemSuccess { get; set; }
+
+    [Space]
+    [Header("Item Effect")]
+    [SerializeField] private ItemBase thorn;
 
     private void Awake()
     {
@@ -37,30 +43,61 @@ public class ItemController : MonoBehaviour
         {
             return;
         }
+
+        listIndexUsed.Clear();
+
         foreach (ItemInventory item in items)
         {
             for (int i = 0; i < item.quantity; i++)
             {
                 int randomIndex = Random.Range(0, listPosSpawnItem.Count);
+
+                while (listIndexUsed.Contains(randomIndex))
+                {
+                    randomIndex = Random.Range(0, listPosSpawnItem.Count);
+                }
+
+                AddListCheck(randomIndex);
+
                 Vector3 spawnPos = listPosSpawnItem[randomIndex].transform.position;
                 Item newItem = PoolingManager.Spawn(currentObjectPrefab, spawnPos, Quaternion.identity, itemParent);
                 ItemBase itemBase = item.GetItemBase();
+
                 if (itemBase != null)
                 {
                     newItem.Init(itemBase);
                     listItemInBox.Add(newItem);
                     newItem.gameObject.SetActive(true);
                 }
+
             }
         }
     }
+    public void AddListCheck(int index)
+    {
+        listIndexUsed.Add(index);
+        if(listIndexUsed.Count >= listPosSpawnItem.Count)
+        {
+            listIndexUsed.Clear();
+        }
+    }
+
     public void DropInBox(ItemBase item, int val)
     {
         Debug.Log("Enemy Drop Item Effect In Box"); 
         int value = val;
+
+        listIndexUsed.Clear();
         while (value > 0)
         {
             int posSpawn = Random.Range(0, listPosSpawnItem.Count);
+
+            while (listIndexUsed.Contains(posSpawn))
+            {
+                posSpawn = Random.Range(0, listPosSpawnItem.Count);
+            }
+
+            AddListCheck(posSpawn);
             Vector3 spawnPos = listPosSpawnItem[posSpawn].transform.position;
             Item newItem = PoolingManager.Spawn(currentObjectPrefab, spawnPos, Quaternion.identity, itemParent);
             if (newItem != null)
@@ -133,6 +170,23 @@ public class ItemController : MonoBehaviour
         else
         {
             Debug.Log("No items in addedItems to spawn");
+        }
+    }
+    public void ChangeToThorn(int val)
+    {
+        int check = 0;
+        foreach (Item item in listItemInBox)
+        {
+            if(check < val)
+            {
+                item.Init(thorn);
+                check++;
+            }
+            else
+            {
+                return;
+            }
+
         }
     }
 }

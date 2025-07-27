@@ -6919,6 +6919,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 908cd9f6a86e5124a8332ed1f9ce43f7, type: 2}
   - {fileID: 11400000, guid: 3c5b21b774ac9c74ba7fefc1e4a65158, type: 2}
   - {fileID: 11400000, guid: dc4402146fadcf144ab2b12ccbf6f3da, type: 2}
+  itemsByEnemy: []
   commonItems: []
   rareItems: []
   epicItems: []

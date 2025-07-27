@@ -28,6 +28,7 @@ public class IntoRoomTrigger : MonoBehaviour
             case "fight":
                 Debug.Log("Fight");
                 StartCoroutine(GameManager.Instance.OpenRoomFight());
+                //StartCoroutine(GameManager.Instance.OpenRoomBossFight());
                 break;
             case "gambling":
                 Debug.Log("Gambling");
