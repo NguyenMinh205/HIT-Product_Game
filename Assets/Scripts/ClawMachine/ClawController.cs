@@ -87,13 +87,21 @@ public class ClawController : MonoBehaviour
         ChangeClaw();
         StartClaw();
     }
-    public void Spawn()
+    public void Spawn(int quality = 0)
     {
         if (GamePlayController.Instance.IsEndGame)
         {
             return;
         }
-        quantityClaws = GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ClawPerTurn;
+        if(quality > 0)
+        {
+            quantityClaws = quality;
+        }
+        else
+        {
+            quantityClaws = GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ClawPerTurn;
+        }
+        
         for (int i = 0; i < quantityClaws ; i++)
         {
             ClawMachine newClaw = Instantiate(clawPrefabs, posSpawnClaws[i].position, Quaternion.identity, ClawParent);

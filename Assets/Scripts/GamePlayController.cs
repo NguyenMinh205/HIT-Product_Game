@@ -46,6 +46,8 @@ public class GamePlayController : Singleton<GamePlayController>
     [SerializeField] private ItemController itemController;
     public ItemController ItemController => itemController;
 
+    [SerializeField] private NPCController npcController;   
+    public NPCController NpcController => npcController;
     private IntoRoomTrigger intoRoomTrigger;
 
     [Space]
@@ -58,11 +60,14 @@ public class GamePlayController : Singleton<GamePlayController>
     public bool isCheckTurnByClaw;
     public bool isCheckTurnByItem;
     private bool isEndGame = false;
+    private bool isNotFight = false;
     public bool IsEndGame => isEndGame;
     public bool isLoseGame = false;
     public bool IsLoseGame { get; set; }
 
     private Vector2Int directionPlayer;
+    [SerializeField] private Inventory inventoryInHealingRoom;
+    [SerializeField] private Inventory inventoryInMysteryRoom;
 
     public Vector2Int Dir
     {
@@ -92,6 +97,12 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         if (isCheckTurnByClaw && (isCheckTurnByItem || !itemController.IsPickupItemSuccess) && turnGame == TurnPlay.Player)
         {
+            if(isNotFight)
+            {
+                isNotFight = false;
+                EndGame();
+                return;
+            }
             Turn = TurnPlay.Enemy;
             Debug.Log("Both claws and basket are empty, switching to Enemy turn.");
         }
@@ -197,6 +208,39 @@ public class GamePlayController : Singleton<GamePlayController>
         itemController.IsPickupItemSuccess = false;
     }
 
+    public void StartFunctionRoom(string typeRoom)
+    {
+        if(typeRoom =="HealingRoom")
+        {
+            itemController.Spawn(inventoryInHealingRoom);
+            npcController.SpawnNPC("healingRoom");
+        }
+        else if(typeRoom == "MysteryRoom")
+        {
+            itemController.Spawn(inventoryInMysteryRoom);
+            npcController.SpawnNPC("mysteryRoom");
+        }
+        isNotFight = true;
+        playerController.SpawnPlayer();
+        clawController.Spawn(1);
+
+        DOVirtual.DelayedCall(0.5f, () =>
+        {
+            clawController.IsStart = true;
+            clawController.StartClaw();
+        });
+
+        clawController.IsStart = true;
+        clawController.StartClaw();
+        turnGame = TurnPlay.Player;
+        isCheckTurnByClaw = false;
+        isCheckTurnByItem = false;
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnBasketEmpty, HandleBasketEmpty);
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnClawsEmpty, HandleClawsEmpty);
+        ShowChangeTurn();
+        itemController.IsPickupItemSuccess = false;
+    }
+
     public void LoseGame()
     {
         AudioManager.Instance.StopMusic();
@@ -235,5 +279,27 @@ public class GamePlayController : Singleton<GamePlayController>
         ObserverManager<EventID>.RemoveAddListener(EventID.OnClawsEmpty, HandleClawsEmpty);
         GameManager.Instance.RewardUI.SetActive(true);
         RewardManager.Instance.InitReward();
+    }
+
+    public void EndGame()
+    {
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayVictorySound();
+        isEndGame = true;
+        clawController.EndGame();
+        clawController.IsStart = false;
+        npcController.EndGame();
+        playerController.EndGame();
+        itemController.EndGame();
+
+        int bonusGold = 3 + MapManager.Instance.MapIndex;
+        //playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
+        playerController.SavePlayerData();
+
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnBasketEmpty, HandleBasketEmpty);
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnClawsEmpty, HandleClawsEmpty);
+        //GameManager.Instance.RewardUI.SetActive(true);
+        //RewardManager.Instance.InitReward();
+        GameManager.Instance.OutRoom();
     }
 }
