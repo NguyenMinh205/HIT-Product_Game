@@ -215,6 +215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 23946166}
+  - component: {fileID: 23946167}
   m_Layer: 0
   m_Name: MysteryRoom
   m_TagString: Untagged
@@ -244,6 +245,19 @@ Transform:
   - {fileID: 310938479}
   m_Father: {fileID: 1516727940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &23946167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23946165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0f28e17b70add4c97f742f51f68f6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listChest: 
 --- !u!1 &28210596
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,6 +1882,7 @@ MonoBehaviour:
   rewardUI: {fileID: 377703624}
   finishUI: {fileID: 1642656584}
   numOfCoinTxt: {fileID: 4599680308661713210}
+  btnRoll: {fileID: 1476799141}
 --- !u!4 &332173900
 Transform:
   m_ObjectHideFlags: 0
@@ -7666,7 +7681,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 511.7366, y: -49.457397}
+  m_AnchoredPosition: {x: 511.73663, y: -49.45224}
   m_SizeDelta: {x: 200, y: 80.87833}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1476799141
@@ -8164,7 +8179,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 187.52225, y: -49.457397}
+  m_AnchoredPosition: {x: 187.52225, y: -49.45224}
   m_SizeDelta: {x: 301.66028, y: 80.87833}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1533344756

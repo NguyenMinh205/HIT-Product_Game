@@ -43,6 +43,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject finishUI;
     [SerializeField] private TextMeshProUGUI numOfCoinTxt;
 
+    [Space]
+    [Header("Button")] // 
+    [SerializeField] private Button btnRoll;
+
     private bool isFinishGame = false;
     public bool IsFinishGame
     {
@@ -54,7 +58,7 @@ public class GameManager : Singleton<GameManager>
     }
     public GameObject RewardUI => rewardUI;
     public GameObject FinishUI => finishUI;
-
+    public GameObject BtnRoll => btnRoll.gameObject;
     public IntoRoomTrigger IntoRoom
     {
         get => intoRoomTrigger;

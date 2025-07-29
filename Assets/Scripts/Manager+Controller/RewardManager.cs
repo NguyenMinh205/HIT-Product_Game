@@ -96,6 +96,48 @@ public class RewardManager : Singleton<RewardManager>
         lastRolledItems.AddRange(selectedItems);
         UpdateUI();
     }
+    public void InitReward(List<Rarity> rarities)
+    {
+        foreach (Transform child in content)
+        {
+            PoolingManager.Despawn(child.gameObject);
+        }
+
+        List<ItemBase> selectedItems = new List<ItemBase>();
+
+        for (int i = 0; i < rarities.Count; i++)
+        {
+            ItemBase randomItem = null;
+            int attempts = 0;
+            const int maxAttempts = 10;
+
+            while (attempts < maxAttempts)
+            {
+                Rarity rarity = rarities[i];
+                randomItem = itemDatabase.GetRandomItem(rarity);
+
+                if (randomItem != null &&
+                    !selectedItems.Contains(randomItem) &&
+                    !lastRolledItems.Contains(randomItem))
+                {
+                    selectedItems.Add(randomItem);
+                    break;
+                }
+                attempts++;
+            }
+
+            if (randomItem != null)
+            {
+                RewardDetailUI reward = PoolingManager.Spawn(rewardDetailPrefab, this.transform.position, Quaternion.identity, content);
+                reward.Init(randomItem);
+            }
+        }
+
+        rerollFreeTurn = GamePlayController.Instance.PlayerController.CurPlayerStat.RerollFreeTurn;
+        lastRolledItems.Clear();
+        lastRolledItems.AddRange(selectedItems);
+        UpdateUI();
+    }
 
     private Rarity GetRandomRarity()
     {
