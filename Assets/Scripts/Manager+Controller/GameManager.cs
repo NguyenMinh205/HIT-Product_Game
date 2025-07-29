@@ -144,7 +144,13 @@ public class GameManager : Singleton<GameManager>
         OpenRoom();
         healingRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
+        ObserverManager<IDBackGroundBoxMachine>.PostEven(IDBackGroundBoxMachine.Healing);
+        ObserverManager<IDBasketBackGround>.PostEven(IDBasketBackGround.Healing);
+        ObserverManager<IDMoveBackGround>.PostEven(IDMoveBackGround.Healing);
         currentRoom = healingRoom;
+        GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
+        GamePlayController.Instance.NpcController.SetPosSpawnNPC(currentRoom);
+        GamePlayController.Instance.StartFunctionRoom("HealingRoom");
     }
 
     public IEnumerator OpenRoomMystery()
@@ -153,7 +159,13 @@ public class GameManager : Singleton<GameManager>
         OpenRoom();
         mysteryRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
+        ObserverManager<IDBackGroundBoxMachine>.PostEven(IDBackGroundBoxMachine.Mystery);
+        ObserverManager<IDBasketBackGround>.PostEven(IDBasketBackGround.Mystery);
+        ObserverManager<IDMoveBackGround>.PostEven(IDMoveBackGround.Mystery);
         currentRoom = mysteryRoom;
+        GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
+        GamePlayController.Instance.NpcController.SetPosSpawnNPC(currentRoom);
+        GamePlayController.Instance.StartFunctionRoom("MysteryRoom");
     }
 
     public IEnumerator OpenRoomPerkReward()

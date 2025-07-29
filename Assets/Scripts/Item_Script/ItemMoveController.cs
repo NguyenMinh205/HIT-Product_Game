@@ -156,8 +156,10 @@ public class ItemMoveController : MonoBehaviour
         fx.Join(item.transform.DOScale(item.transform.localScale * 1.7f, 1f)
                  .SetEase(Ease.OutBack));
 
-
-        itemUsage.UseItem(item.ID, player, enemyList[0], enemyList);
+        if(enemyList.Count > 0)
+            itemUsage.UseItem(item.ID, player, enemyList[0], enemyList);
+        else
+            itemUsage.UseItem(item.ID, player);
 
 
         Debug.Log("Item Usage Effect");

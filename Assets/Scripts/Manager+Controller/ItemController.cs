@@ -59,8 +59,10 @@ public class ItemController : MonoBehaviour
                 }
 
                 AddListCheck(randomIndex);
+                float randomY = Random.Range(-0.5f, 1f);
 
                 Vector3 spawnPos = listPosSpawnItem[randomIndex].transform.position;
+                spawnPos.y += randomY; 
                 Item newItem = PoolingManager.Spawn(currentObjectPrefab, spawnPos, Quaternion.identity, itemParent);
                 ItemBase itemBase = item.GetItemBase();
 

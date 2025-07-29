@@ -96,6 +96,18 @@ public static class ItemActionFactory
             case "ei04":
                 return new ThornFruit();
 
+            case "coin":
+                return new Coin();
+
+            case "chestCommon":
+                return new ChestCommon();
+
+            case "chestRare":
+                return new ChestRare();
+
+            case "chestEpic":
+                return new ChestEpic();
+
             default:
                 Debug.LogWarning($"Không tìm thấy hành động cho ID: {id}");
                 return null;

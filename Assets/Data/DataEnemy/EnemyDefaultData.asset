@@ -53,7 +53,7 @@ MonoBehaviour:
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -783777960, guid: ef9edf03a9471db4393f4a4e52c51df5, type: 3}
     controller: {fileID: 9100000, guid: 3f7cd421fdb2e2b49b118820dbc38d33, type: 2}
-    itemEffect: {fileID: 11400000, guid: 495fb5a24454d1748bf65ad3cb01cd20, type: 2}
+    itemEffect: {fileID: 11400000, guid: a8b6b29856c9c7d40830330aa2823eaa, type: 2}
     actions:
     - actionEnemy: 06000000
     - actionEnemy: 000000000000000000000000

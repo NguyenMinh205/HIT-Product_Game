@@ -39,6 +39,10 @@ public class ItemInventory
     public ItemBase GetItemBase()
     {
         ItemBase itemBase = ItemDatabase.Instance.GetItemById(itemId);
+        if(itemBase == null)
+        {
+            itemBase = ItemDatabase.Instance.GetItemEnemyById(itemId);
+        }
         if (itemBase != null && isUpgraded && itemBase.upgradedItem != null)
         {
             return itemBase.upgradedItem;
