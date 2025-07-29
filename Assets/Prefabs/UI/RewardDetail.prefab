@@ -132,9 +132,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   markChoice: {fileID: 1285314616585586093}
   itemIcon: {fileID: 6667042866419798702}
+  cardBG: {fileID: 7281053489952162387}
   itemName: {fileID: 7371451878386682795}
   itemDescription: {fileID: 1785688974599985085}
   colorDefault: {r: 0.2, g: 0.15294118, b: 0.37254903, a: 0}
+  commonColor: {r: 1, g: 1, b: 1, a: 1}
+  rareColor: {r: 0.43529412, g: 0.6313726, b: 1, a: 1}
+  epicColor: {r: 0.85882354, g: 0, b: 1, a: 1}
 --- !u!222 &729028958104682955
 CanvasRenderer:
   m_ObjectHideFlags: 0

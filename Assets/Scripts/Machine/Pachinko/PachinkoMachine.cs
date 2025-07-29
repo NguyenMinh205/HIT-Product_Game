@@ -33,9 +33,13 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
     [Space]
     [Header("Item Detail")]
     [SerializeField] private GameObject itemDetail;
+    [SerializeField] private Image itemDetailBG;
     [SerializeField] private Image detailIcon;
     [SerializeField] private TextMeshProUGUI detailName;
     [SerializeField] private TextMeshProUGUI detailDescription;
+    [SerializeField] private Color commonColor;
+    [SerializeField] private Color rareColor;
+    [SerializeField] private Color epicColor;
 
 
     private PachinkoState _state = PachinkoState.Waiting;
@@ -85,6 +89,13 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
             detailIcon.rectTransform.sizeDelta *= 0.7f;
             detailName.text = _lastRolledItem.itemName;
             detailDescription.text = _lastRolledItem.description;
+            itemDetailBG.color = _lastRolledItem.itemRarity switch
+            {
+                Rarity.Common => commonColor,
+                Rarity.Rare => rareColor,
+                Rarity.Epic => epicColor,
+                _ => Color.white
+            };
 
             canvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
         }

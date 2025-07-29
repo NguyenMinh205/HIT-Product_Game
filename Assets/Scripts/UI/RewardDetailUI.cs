@@ -6,9 +6,13 @@ public class RewardDetailUI : MonoBehaviour
 {
     [SerializeField] private Image markChoice;
     [SerializeField] private Image itemIcon;
+    [SerializeField] private Image cardBG;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemDescription;
     [SerializeField] private Color colorDefault;
+    [SerializeField] private Color commonColor;
+    [SerializeField] private Color rareColor;
+    [SerializeField] private Color epicColor;
     private ItemBase item;
     private PerkBase perk;
 
@@ -26,6 +30,13 @@ public class RewardDetailUI : MonoBehaviour
         itemName.text = item.itemName;
         itemDescription.text = item.description;
         markChoice.color = colorDefault;
+        cardBG.color = item.itemRarity switch
+        {
+            Rarity.Common => commonColor,
+            Rarity.Rare => rareColor,
+            Rarity.Epic => epicColor,
+            _ => Color.white
+        };
         GetComponent<Button>().onClick.AddListener(() => RewardManager.Instance.SelectReward(this));
     }
 

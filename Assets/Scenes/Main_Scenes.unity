@@ -438,7 +438,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 504.6353, y: -211.20538}
+  m_AnchoredPosition: {x: 504.6353, y: -211.22743}
   m_SizeDelta: {x: 300, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &56054446
@@ -1654,16 +1654,21 @@ MonoBehaviour:
   itemInvenPrefab: {fileID: 8675067341014752667, guid: 03b3b1a6c7e4da1419edeb4534b02b3a, type: 3}
   listItemStore: {fileID: 1107870030}
   itemDetailBeforeUpgrade: {fileID: 8128310819760900513}
+  itemDetailBeforeUpgradeBG: {fileID: 872107685831244323}
   detailIconBefore: {fileID: 8099141211861908305}
   detailNameBefore: {fileID: 4624545942657963541}
   detailDescriptionBefore: {fileID: 9071991408783561199}
   itemDetailAfterUpgrade: {fileID: 2582427857714434420}
+  itemDetailAfterUpgradeBG: {fileID: 5677611755816260948}
   detailIconAfter: {fileID: 6986197214369987216}
   detailNameAfter: {fileID: 4748461463648191678}
   detailDescriptionAfter: {fileID: 1311603462092315770}
   upgradeCostText: {fileID: 1750325425}
   upgradeBtn: {fileID: 1653004468}
   coinUpgrade: 10
+  commonColor: {r: 1, g: 1, b: 1, a: 1}
+  rareColor: {r: 0.43529412, g: 0.6313726, b: 1, a: 1}
+  epicColor: {r: 0.85882354, g: 0, b: 1, a: 0}
 --- !u!1 &316391906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1707,9 +1712,13 @@ MonoBehaviour:
   coinToRollTxt: {fileID: 4474185607878298508}
   itemDatabase: {fileID: 543432183}
   itemDetail: {fileID: 2168801119547378105}
+  itemDetailBG: {fileID: 5836427805634345343}
   detailIcon: {fileID: 7318164591205812213}
   detailName: {fileID: 1501982808758595339}
   detailDescription: {fileID: 8867409917025964570}
+  commonColor: {r: 1, g: 1, b: 1, a: 1}
+  rareColor: {r: 0.43529412, g: 0.6313726, b: 1, a: 1}
+  epicColor: {r: 0.85882354, g: 0, b: 1, a: 1}
 --- !u!4 &316391908
 Transform:
   m_ObjectHideFlags: 0
@@ -2980,9 +2989,13 @@ MonoBehaviour:
   listItemStore: {fileID: 1216690998}
   shredArea: {fileID: 4635431713390841914}
   itemDetail: {fileID: 3226373962680037214}
+  itemDetailBG: {fileID: 3123464821290762118}
   detailIcon: {fileID: 6816891179968037527}
   detailName: {fileID: 8014295824626257995}
   detailDescription: {fileID: 1053538120909119413}
+  commonColor: {r: 1, g: 1, b: 1, a: 1}
+  rareColor: {r: 0.43529412, g: 0.6313726, b: 1, a: 1}
+  epicColor: {r: 0.85882354, g: 0, b: 1, a: 1}
   shredCostText: {fileID: 1269411801}
   shredCostPerItem: 10
   shredBtn: {fileID: 650367517}
@@ -6131,7 +6144,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100.49381, y: -24.21408}
+  m_AnchoredPosition: {x: 100.49381, y: -24.21817}
   m_SizeDelta: {x: 80, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1159944785
@@ -7604,7 +7617,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 511.7366, y: -49.41014}
+  m_AnchoredPosition: {x: 511.7366, y: -49.457397}
   m_SizeDelta: {x: 200, y: 80.87833}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1476799141
@@ -8102,7 +8115,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 187.52225, y: -49.41014}
+  m_AnchoredPosition: {x: 187.52225, y: -49.457397}
   m_SizeDelta: {x: 301.66028, y: 80.87833}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1533344756
@@ -11508,7 +11521,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100.49381, y: -56.71408}
+  m_AnchoredPosition: {x: 100.49381, y: -56.71817}
   m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2084607892
@@ -14550,9 +14563,13 @@ MonoBehaviour:
   itemInvenPrefab: {fileID: 8675067341014752667, guid: 03b3b1a6c7e4da1419edeb4534b02b3a, type: 3}
   invenItemStore: {fileID: 1639360766}
   itemDetail: {fileID: 8339426994251399211}
+  itemDetailBG: {fileID: 141970536793453426}
   detailIcon: {fileID: 3926990463968399869}
   detailName: {fileID: 8922882093873872248}
   detailDescription: {fileID: 7287722581165376181}
+  commonColor: {r: 1, g: 1, b: 1, a: 1}
+  rareColor: {r: 0.43529412, g: 0.6313726, b: 1, a: 1}
+  epicColor: {r: 0.85882354, g: 0, b: 1, a: 1}
 --- !u!114 &2141079168131559244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16609,7 +16626,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 848.87463, y: -211.20538}
+  m_AnchoredPosition: {x: 848.87463, y: -211.22743}
   m_SizeDelta: {x: 324.4787, y: 424.00836}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &4079020587831300762
@@ -19768,6 +19785,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dff8c1eca76ff8c48a433bc926d190ba, type: 3}
+--- !u!114 &5836427805634345343 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3081488420347566896, guid: dff8c1eca76ff8c48a433bc926d190ba, type: 3}
+  m_PrefabInstance: {fileID: 5836427805634345342}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5838511217741480827
 GameObject:
   m_ObjectHideFlags: 0
@@ -20026,7 +20054,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 161.31766, y: -211.20538}
+  m_AnchoredPosition: {x: 161.31766, y: -211.22743}
   m_SizeDelta: {x: 322.6353, y: 424.00836}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &5932801265884552147

@@ -30,6 +30,9 @@ public class CompendiumManager : Singleton<CompendiumManager>
     [SerializeField] private Image detailIcon;
     [SerializeField] private TextMeshProUGUI detailName;
     [SerializeField] private TextMeshProUGUI detailDescription;
+    [SerializeField] private Color commonColor;
+    [SerializeField] private Color rareColor;
+    [SerializeField] private Color epicColor;
 
     [Space]
     [Header("Control")]
@@ -91,6 +94,13 @@ public class CompendiumManager : Singleton<CompendiumManager>
             detailIcon.rectTransform.sizeDelta *= 0.7f;
             detailName.text = item.itemName;
             detailDescription.text = item.description;
+            detailBG.color = item.itemRarity switch
+            {
+                Rarity.Common => commonColor,
+                Rarity.Rare => rareColor,
+                Rarity.Epic => epicColor,
+                _ => Color.white
+            };
         }
         else if (data is PerkBase perk)
         {

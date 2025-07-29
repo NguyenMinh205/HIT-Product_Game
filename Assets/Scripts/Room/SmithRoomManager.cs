@@ -13,6 +13,7 @@ public class SmithRoomManager : MonoBehaviour
     [Space]
     [Header("Detail Before Upgrade")]
     [SerializeField] private GameObject itemDetailBeforeUpgrade;
+    [SerializeField] private Image itemDetailBeforeUpgradeBG;
     [SerializeField] private Image detailIconBefore;
     [SerializeField] private TextMeshProUGUI detailNameBefore;
     [SerializeField] private TextMeshProUGUI detailDescriptionBefore;
@@ -20,6 +21,7 @@ public class SmithRoomManager : MonoBehaviour
     [Space]
     [Header("Detail After Upgrade")]
     [SerializeField] private GameObject itemDetailAfterUpgrade;
+    [SerializeField] private Image itemDetailAfterUpgradeBG;
     [SerializeField] private Image detailIconAfter;
     [SerializeField] private TextMeshProUGUI detailNameAfter;
     [SerializeField] private TextMeshProUGUI detailDescriptionAfter;
@@ -29,6 +31,9 @@ public class SmithRoomManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeCostText;
     [SerializeField] private Button upgradeBtn;
     [SerializeField] private int coinUpgrade = 10;
+    [SerializeField] private Color commonColor;
+    [SerializeField] private Color rareColor;
+    [SerializeField] private Color epicColor;
 
     private Inventory inventory;
     private ItemInventory selectedItem;
@@ -90,6 +95,13 @@ public class SmithRoomManager : MonoBehaviour
             detailIconBefore.rectTransform.sizeDelta *= 0.85f;
             detailNameBefore.text = itemBase.itemName;
             detailDescriptionBefore.text = itemBase.description;
+            itemDetailBeforeUpgradeBG.color = itemBase.itemRarity switch
+            {
+                Rarity.Common => commonColor,
+                Rarity.Rare => rareColor,
+                Rarity.Epic => epicColor,
+                _ => Color.white
+            };
 
             canvasGroupBefore.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
 
@@ -107,6 +119,13 @@ public class SmithRoomManager : MonoBehaviour
             detailIconAfter.rectTransform.sizeDelta *= 0.85f;
             detailNameAfter.text = itemBase.upgradedItem.itemName;
             detailDescriptionAfter.text = itemBase.upgradedItem.description;
+            itemDetailAfterUpgradeBG.color = itemBase.itemRarity switch
+            {
+                Rarity.Common => commonColor,
+                Rarity.Rare => rareColor,
+                Rarity.Epic => epicColor,
+                _ => Color.white
+            };
 
             canvasGroupAfter.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
         }

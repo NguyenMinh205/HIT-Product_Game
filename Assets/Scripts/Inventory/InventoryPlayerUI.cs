@@ -15,9 +15,13 @@ public class InventoryPlayerUI : MonoBehaviour
     [Space]
     [Header("Item Detail")]
     [SerializeField] private GameObject itemDetail;
+    [SerializeField] private Image itemDetailBG;
     [SerializeField] private Image detailIcon;
     [SerializeField] private TextMeshProUGUI detailName;
     [SerializeField] private TextMeshProUGUI detailDescription;
+    [SerializeField] private Color commonColor;
+    [SerializeField] private Color rareColor;
+    [SerializeField] private Color epicColor;
 
 
     private Inventory inventory;
@@ -91,6 +95,13 @@ public class InventoryPlayerUI : MonoBehaviour
         detailIcon.rectTransform.sizeDelta *= 0.85f;
         detailName.text = itemBase.itemName;
         detailDescription.text = itemBase.description;
+        itemDetailBG.color = itemBase.itemRarity switch
+        {
+            Rarity.Common => commonColor,
+            Rarity.Rare => rareColor,
+            Rarity.Epic => epicColor,
+            _ => Color.white
+        };
 
         canvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
     }

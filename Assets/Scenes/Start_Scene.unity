@@ -17319,6 +17319,9 @@ MonoBehaviour:
   detailIcon: {fileID: 7679618450829545582}
   detailName: {fileID: 8781860641437323951}
   detailDescription: {fileID: 6599216932395655360}
+  commonColor: {r: 1, g: 1, b: 1, a: 1}
+  rareColor: {r: 0.435849, g: 0.6319013, b: 1, a: 1}
+  epicColor: {r: 0.85882354, g: 0, b: 1, a: 1}
   leftButton: {fileID: 734045836}
   rightButton: {fileID: 1516041339}
   currentTypeTxt: {fileID: 783284088}
