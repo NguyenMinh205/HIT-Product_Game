@@ -16,10 +16,9 @@ MonoBehaviour:
   itemName: Dark Sword
   icon: {fileID: -1721731882, guid: 3d69594dab9cb7d4781e38e63be8c6a4, type: 3}
   itemRarity: 1
-  description: Deals 25 damage to the nearest enemy, lose 2 Health for each Item
-    that gets picked up in the same turn.
+  description: Deals 25 damage to the nearest enemy
   isStackable: 0
   maxStackSize: 99
   isMetal: 1
+  isUpgraded: 0
   upgradedItem: {fileID: 11400000, guid: 57992980ccee61e498833ed1c088add6, type: 2}
-  isUpgrade: 0

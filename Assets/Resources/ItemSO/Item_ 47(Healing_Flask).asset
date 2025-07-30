@@ -16,9 +16,9 @@ MonoBehaviour:
   itemName: Healing Flask
   icon: {fileID: 1830213804, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
   itemRarity: 1
-  description: 'Heals you for 10 Health when collected '
+  description: 'Heals you for 5 - 10 Health when collected '
   isStackable: 0
   maxStackSize: 99
   isMetal: 0
+  isUpgraded: 0
   upgradedItem: {fileID: 11400000, guid: a7f43bc799b22db49880e6cb71aed93e, type: 2}
-  isUpgrade: 0

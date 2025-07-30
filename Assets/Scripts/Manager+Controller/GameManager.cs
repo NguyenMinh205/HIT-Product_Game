@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-
 public class GameManager : Singleton<GameManager>
 {
     [Space]
@@ -33,7 +32,7 @@ public class GameManager : Singleton<GameManager>
 
     [Space]
     [Header("UI")]
-    [SerializeField] private GameObject uiInRoom; 
+    [SerializeField] private GameObject uiInRoom;
     [SerializeField] private GameObject uiMap;
     [SerializeField] private GameObject uiPachinkoRoom;
     [SerializeField] private GameObject uiTumblerRoom;
@@ -42,6 +41,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject rewardUI;
     [SerializeField] private GameObject finishUI;
     [SerializeField] private TextMeshProUGUI numOfCoinTxt;
+    [SerializeField] private CanvasGroup fadeCanvasGroup;
 
     [Space]
     [Header("Button")] // 
@@ -77,6 +77,11 @@ public class GameManager : Singleton<GameManager>
         {
             GameData.Instance.LoadMainGameData();
         }
+        if (fadeCanvasGroup != null)
+        {
+            fadeCanvasGroup.alpha = 0f;
+            fadeCanvasGroup.gameObject.SetActive(true);
+        }
     }
 
     private void CloseAllRoomsAndUIs()
@@ -102,6 +107,12 @@ public class GameManager : Singleton<GameManager>
 
     private void OpenRoom()
     {
+        if (fadeCanvasGroup != null)
+        {
+            fadeCanvasGroup.gameObject.SetActive(true);
+            fadeCanvasGroup.alpha = 1f;
+        }
+
         CloseAllRoomsAndUIs();
         AudioManager.Instance.PlayMusicInGame();
         PlayerMapController.Instance.IsIntoRoom = true;
@@ -110,11 +121,27 @@ public class GameManager : Singleton<GameManager>
         uiMap.SetActive(false);
         uiInRoom.SetActive(true);
         GamePlayController.Instance.PlayerController.NumOfCoinInRoom.text = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin.ToString();
+
+        if (fadeCanvasGroup != null && Camera.main != null)
+        {
+            Camera.main.orthographicSize = 8f;
+
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(fadeCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.InOutQuad)); 
+            sequence.Join(DOVirtual.Float(8f, 6f, 0.5f, value =>
+            {
+                Camera.main.orthographicSize = value;
+            }).SetEase(Ease.InOutQuad));
+            sequence.OnComplete(() =>
+            {
+                fadeCanvasGroup.gameObject.SetActive(false);
+            });
+        }
     }
 
     public IEnumerator OpenRoomFight()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         OpenRoom();
         defaultRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
@@ -129,7 +156,7 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomBossFight()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         OpenRoom();
         bossRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
@@ -144,7 +171,7 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomHealing()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         OpenRoom();
         healingRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
@@ -159,7 +186,7 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomMystery()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         OpenRoom();
         mysteryRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
@@ -174,7 +201,7 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomPerkReward()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         OpenRoom();
         tumblerMachineBox.SetActive(true);
         uiTumblerRoom.SetActive(true);
@@ -185,7 +212,7 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomPachinko()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         OpenRoom();
         pachinkoRoom.SetActive(true);
         uiPachinkoRoom.SetActive(true);
@@ -195,17 +222,17 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomSmith()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         OpenRoom();
-        SmithRoom.SetActive(true);
+        smithRoom.SetActive(true);
         uiSmithRoom.SetActive(true);
-        currentRoom = SmithRoom;
+        currentRoom = smithRoom;
         currentRoom.GetComponent<SmithRoomManager>().Init();
     }
 
     public IEnumerator OpenRoomShredder()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         OpenRoom();
         shredderRoom.SetActive(true);
         uiShredderRoom.SetActive(true);
@@ -233,7 +260,7 @@ public class GameManager : Singleton<GameManager>
             currentRoom = null;
             AudioManager.Instance.PlayMusicSelectRoom();
             MapController.Instance.SetRoomVisited(PlayerMapController.Instance.PosInMap);
-            ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar,GamePlayController.Instance.PlayerController.CurrentPlayer);
+            ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar, GamePlayController.Instance.PlayerController.CurrentPlayer);
             DOVirtual.DelayedCall(0.2f, () =>
             {
                 numOfCoinTxt.text = GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin.ToString();
@@ -252,7 +279,7 @@ public class GameManager : Singleton<GameManager>
             GamePlayController.Instance.IsLoseGame = false;
             SceneManager.LoadScene(0);
             return;
-        }    
+        }
         if (!isFinishGame)
         {
             AudioManager.Instance.PlaySoundClickButton();

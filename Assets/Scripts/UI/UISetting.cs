@@ -73,6 +73,7 @@ public class UISetting : MonoBehaviour
 
     private void ResetToDefault()
     {
+        AudioManager.Instance.PlaySoundClickButton();
         if (musicSlider != null) musicSlider.value = 0.5f;
         if (sfxSlider != null) sfxSlider.value = 0.5f;
         tempMusicVolume = 0.5f;
@@ -86,6 +87,7 @@ public class UISetting : MonoBehaviour
     {
         if (audioManager != null)
         {
+            AudioManager.Instance.PlaySoundClickButton();
             audioManager.SetMusicVolume(tempMusicVolume);
             audioManager.SetSoundVolume(tempSfxVolume);
             originalMusicVolume = tempMusicVolume;

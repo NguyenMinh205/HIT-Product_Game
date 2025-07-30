@@ -90,7 +90,7 @@ public class Item : MonoBehaviour
         poly.pathCount = shapeCount;
 
         Vector2 spritePivot = sr.sprite.pivot / sr.sprite.pixelsPerUnit;
-        float scale = 0.85f;
+        float scale = 0.9f;
 
         for (int i = 0; i < shapeCount; i++)
         {

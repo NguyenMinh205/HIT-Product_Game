@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Item_ 32(Toxic_Bulwark)
   m_EditorClassIdentifier: 
   id: Def10
-  itemName: Toxic Bulwark
+  itemName: Detox Shield
   icon: {fileID: -896628270, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
   itemRarity: 2
-  description: Increases Block by 15. Permanently increases amount by 3 if an enemy
-    dies from Poison while the item is inside the machine
+  description: Increases Block by 20. Each time an instance of Poison is removed
+    by this shield, your Block increases by 1.
   isStackable: 0
   maxStackSize: 99
   isMetal: 1
+  isUpgraded: 0
   upgradedItem: {fileID: 11400000, guid: b1b69d86b2dcbc14db2b8eb064f45afd, type: 2}
-  isUpgrade: 0
