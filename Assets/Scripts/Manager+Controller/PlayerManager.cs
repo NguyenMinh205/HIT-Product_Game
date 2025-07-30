@@ -72,14 +72,17 @@ public class PlayerManager : MonoBehaviour
         GameObject newObject = PoolingManager.Spawn(playerPrefab, posSpawnPlayer.position, Quaternion.identity, playerParent);
         currentPlayer = newObject.transform.Find("PlayerPrefab").GetComponent<Player>();
         currentPlayer.Initialize(curCharacter, curPlayerStat.Clone(), GameData.Instance.startData.selectedSkinIndex);
-        ability.StartSetupEffect(currentPlayer);
-        if (startRoundBuffs.Count > 0)
+        DOVirtual.DelayedCall(0.25f, () =>
         {
-            foreach (var buff in startRoundBuffs)
+            ability.StartSetupEffect(currentPlayer);
+            if (startRoundBuffs.Count > 0)
             {
-                currentPlayer.AddBuffEffect(buff.name, buff.value, buff.duration);
+                foreach (var buff in startRoundBuffs)
+                {
+                    currentPlayer.AddBuffEffect(buff.name, buff.value, buff.duration);
+                }
             }
-        }
+        });
         ObserverManager<EventID>.PostEven(EventID.OnStartRound);
     }
 

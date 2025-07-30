@@ -49,6 +49,7 @@ public class RewardDetailUI : MonoBehaviour
         itemName.text = perk.perkName;
         itemDescription.text = perk.description;
         markChoice.color = colorDefault;
+        cardBG.color = Color.white;
         GetComponent<Button>().onClick.AddListener(() => RewardManager.Instance.SelectReward(this));
     }
 }

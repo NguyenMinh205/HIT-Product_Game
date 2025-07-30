@@ -440,21 +440,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &213527705475356455
-Transform:
+--- !u!224 &213527705475356455
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227765979417683285}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.96, y: -1.592, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4582163910737804148}
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.96, y: -1.592}
+  m_SizeDelta: {x: 2.18, y: 1.3866667}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &4968303872413522250
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -521,6 +525,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backGroundFightNormal: {fileID: -1658454634, guid: 39e5d30573c55ad48b8e33eacc47b00a, type: 3}
   backGroundFightBoss: {fileID: 2023107312, guid: cbb24aa47ef4c894795094dfadf844d9, type: 3}
+  backGroundHealingRoom: {fileID: 0}
+  backGroundMysteryRoom: {fileID: 0}
 --- !u!1 &1385661423598142122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1587,6 +1593,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backGroundFightNormal: {fileID: -236832420, guid: 599e95306ebb6fb4dacece371a199a22, type: 3}
   backGroundFightBoss: {fileID: 539330309, guid: a90989494893eeb41bf8aeb0f0e6ab3d, type: 3}
+  backGroundHealingRoom: {fileID: 0}
+  backGroundMysteryRoom: {fileID: 0}
 --- !u!331 &1942757070769698220
 SpriteMask:
   m_ObjectHideFlags: 0
@@ -2586,6 +2594,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backGroundFightNormal: {fileID: -1841611340, guid: 39e5d30573c55ad48b8e33eacc47b00a, type: 3}
   backGroundFightBoss: {fileID: 1068064826, guid: cbb24aa47ef4c894795094dfadf844d9, type: 3}
+  backGroundHealingRoom: {fileID: 0}
+  backGroundMysteryRoom: {fileID: 0}
 --- !u!331 &7199869500541135654
 SpriteMask:
   m_ObjectHideFlags: 0
@@ -4201,7 +4211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4582163910737804148
 Transform:
   m_ObjectHideFlags: 0

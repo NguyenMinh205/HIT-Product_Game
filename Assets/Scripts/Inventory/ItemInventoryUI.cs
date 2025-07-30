@@ -8,6 +8,7 @@ public class ItemInventoryUI : MonoBehaviour
     [SerializeField] private Image iconImage;
     [SerializeField] private ItemBase data;
     [SerializeField] private TextMeshProUGUI numOfItem;
+    [SerializeField] private Image starUpgrade;
     private ItemInventory inventoryItem;
     public ItemBase Data => data;
     public TextMeshProUGUI NumOfItem => numOfItem;
@@ -39,6 +40,15 @@ public class ItemInventoryUI : MonoBehaviour
                 iconImage.color = color;
                 button.interactable = true;
             }
+        }
+
+        if (!itemBase.upgradedItem)
+        {
+            starUpgrade.gameObject.SetActive(true);
+        }
+        else
+        {
+            starUpgrade.gameObject.SetActive(false);
         }
 
         button.onClick.RemoveAllListeners();

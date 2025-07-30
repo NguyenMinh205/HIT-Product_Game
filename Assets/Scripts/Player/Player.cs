@@ -211,7 +211,9 @@ public class Player : MonoBehaviour
             GamePlayController.Instance.PlayerController.CurPlayerStat = stats;
         });
         this.Health.UnShowHealthBarEnemy();
-        PoolingManager.Despawn(gameObject);
-        Destroy(transform.parent.gameObject);
+        DOVirtual.DelayedCall(0.5f, () => {
+            PoolingManager.Despawn(gameObject);
+            Destroy(transform.parent.gameObject);
+        });
     }
 }

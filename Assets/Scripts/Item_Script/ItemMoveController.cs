@@ -13,17 +13,14 @@ public class ItemMoveController : MonoBehaviour
     [SerializeField] private Transform posStart;
     [SerializeField] private Transform posEnd;
     [SerializeField] private ItemUsage itemUsage;
-    private Transform playerTarget;
-    [SerializeField] private List<Item> listItemMove = new List<Item>();
-    [SerializeField] private List<Item> listItemMoving = new List<Item>();
-    private bool isRunningCoroutine = false;
-    private bool isPaused = false;
-
-    private List<Tween> activeTweens = new List<Tween>();
     [SerializeField] private float delayBetweenItems = 0.2f;
     [SerializeField] private float pauseAfterAnyFinish = 4f;
 
-    private bool isTemporarilyPaused = false;
+    private Queue<Item> itemQueue = new Queue<Item>();
+    private List<Tween> activeTweens = new List<Tween>();
+    private List<Item> movingItems = new List<Item>();
+    private bool isRunningCoroutine = false;
+    private bool isPaused = false;
 
     private void Awake()
     {
@@ -34,33 +31,23 @@ public class ItemMoveController : MonoBehaviour
     {
         if (obj is Item item)
         {
-            listItemMove.Add(item);
+            itemQueue.Enqueue(item);
             item.gameObject.SetActive(false);
 
             if (!isRunningCoroutine && !isPaused)
-                StartCoroutine(StartMovingItems());
+                StartCoroutine(ProcessItemQueue());
         }
     }
 
-    private IEnumerator StartMovingItems()
+    private IEnumerator ProcessItemQueue()
     {
         isRunningCoroutine = true;
 
-        /*playerTarget = GamePlayController.Instance.PlayerController.CurrentPlayer?.transform;
-        if (playerTarget == null)
+        while (itemQueue.Count > 0)
         {
-            isRunningCoroutine = false;
-            yield break;
-        }
-*/
-        while (listItemMove.Count > 0)
-        {
-            //if (isPaused) yield break;
-            Debug.Log("Check Item Count");
-            Item item = listItemMove[0];
-            listItemMoving.Add(item);
-            listItemMove.RemoveAt(0);
-            Debug.Log("Set True Item");
+            if (isPaused) yield return null;
+
+            Item item = itemQueue.Dequeue();
             item.gameObject.SetActive(true);
             item.SetBalloon(true);
             MoveItem(item);
@@ -73,19 +60,12 @@ public class ItemMoveController : MonoBehaviour
 
     private void MoveItem(Item item)
     {
-        Debug.Log("Move Item");
-        //item.gameObject.SetActive(true);
-        //item.GetComponent<Collider2D>().enabled = false;
-        //item.GetComponent<PolygonCollider2D>().isTrigger = true;
-
         Vector3 start = posStart.position;
         item.transform.position = start;
         Vector3 end = posEnd.position;
 
-
         Vector3 dropPoint = start + Vector3.down * 1.39f + Vector3.left * 0.37f;
         Vector3 midCurve = dropPoint + Vector3.left * 6.4f;
-
 
         Vector3[] path = new Vector3[] { start, dropPoint, midCurve, end };
 
@@ -107,8 +87,6 @@ public class ItemMoveController : MonoBehaviour
 
         seq.OnComplete(() =>
         {
-            Debug.Log("Item Complete Player");
-
             HandleItemArrived(item);
         });
 
@@ -118,12 +96,11 @@ public class ItemMoveController : MonoBehaviour
         }
 
         activeTweens.Add(seq);
+        movingItems.Add(item); 
     }
 
     private void HandleItemArrived(Item item)
     {
-        listItemMoving.Remove(item);
-
         EffectItem(item);
     }
 
@@ -143,11 +120,13 @@ public class ItemMoveController : MonoBehaviour
 
         foreach (var seq in activeTweens)
             if (seq.IsActive()) seq.Play();
+
+        if (!isRunningCoroutine && itemQueue.Count > 0)
+            StartCoroutine(ProcessItemQueue());
     }
 
     public void EffectItem(Item item)
     {
-        Debug.Log("Effect Item");
         PauseMovement();
         Player player = GamePlayController.Instance.PlayerController.CurrentPlayer;
         List<Enemy> enemyList = GamePlayController.Instance.EnemyController.ListEnemy;
@@ -156,19 +135,17 @@ public class ItemMoveController : MonoBehaviour
         fx.Join(item.transform.DOScale(item.transform.localScale * 1.7f, 1f)
                  .SetEase(Ease.OutBack));
 
-        if(enemyList.Count > 0)
+        if (enemyList.Count > 0)
             itemUsage.UseItem(item.ID, player, enemyList[0], enemyList);
         else
             itemUsage.UseItem(item.ID, player);
 
-
-        Debug.Log("Item Usage Effect");
         var sr = item.SR;
         fx.Join(sr.DOFade(0f, 1f));
         fx.OnComplete(() =>
         {
-            Debug.Log("Item Destroy");
             Destroy(item.gameObject);
+            movingItems.Remove(item);
             ResumeMovement();
             ObserverManager<IDItem>.PostEven(IDItem.ItemPlayer, item);
         });
@@ -180,8 +157,15 @@ public class ItemMoveController : MonoBehaviour
         {
             seq.Kill();
         }
-        foreach(Item item in listItemMoving)
+        foreach (var item in movingItems)
         {
+            if (item != null)
+                Destroy(item.gameObject);
+        }
+        movingItems.Clear();
+        while (itemQueue.Count > 0)
+        {
+            Item item = itemQueue.Dequeue();
             if (item != null)
                 Destroy(item.gameObject);
         }

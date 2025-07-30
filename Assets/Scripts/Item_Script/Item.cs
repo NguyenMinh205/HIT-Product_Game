@@ -36,6 +36,8 @@ public class Item : MonoBehaviour
         get => this.spriteRenderer;
         set => this.spriteRenderer = value;
     }
+    public Sprite Sprite => spriteRenderer.sprite;
+
     private void OnEnable()
     {
         //isPickUp = false;
@@ -88,8 +90,8 @@ public class Item : MonoBehaviour
         int shapeCount = sr.sprite.GetPhysicsShapeCount();
         poly.pathCount = shapeCount;
 
-        Vector2 spritePivot = sr.sprite.pivot / sr.sprite.pixelsPerUnit; // pivot tính theo đơn vị thế giới
-        float scale = 0.85f; // scale collider 85%
+        Vector2 spritePivot = sr.sprite.pivot / sr.sprite.pixelsPerUnit;
+        float scale = 0.85f;
 
         for (int i = 0; i < shapeCount; i++)
         {

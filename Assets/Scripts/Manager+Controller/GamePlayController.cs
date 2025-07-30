@@ -131,6 +131,7 @@ public class GamePlayController : Singleton<GamePlayController>
 
     private void HandleTurnChange(TurnPlay newTurn)
     {
+        if (isEndGame) return;
         turnGame = newTurn;
         ShowChangeTurn();
 
