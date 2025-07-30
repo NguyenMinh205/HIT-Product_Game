@@ -18,6 +18,7 @@ public class ItemMoveController : MonoBehaviour
 
     private Queue<Item> itemQueue = new Queue<Item>();
     private List<Tween> activeTweens = new List<Tween>();
+    private List<Item> movingItems = new List<Item>();
     private bool isRunningCoroutine = false;
     private bool isPaused = false;
 
@@ -95,6 +96,7 @@ public class ItemMoveController : MonoBehaviour
         }
 
         activeTweens.Add(seq);
+        movingItems.Add(item); 
     }
 
     private void HandleItemArrived(Item item)
@@ -119,7 +121,6 @@ public class ItemMoveController : MonoBehaviour
         foreach (var seq in activeTweens)
             if (seq.IsActive()) seq.Play();
 
-        // Kiểm tra và khởi động lại coroutine nếu có item trong hàng đợi
         if (!isRunningCoroutine && itemQueue.Count > 0)
             StartCoroutine(ProcessItemQueue());
     }
@@ -144,6 +145,7 @@ public class ItemMoveController : MonoBehaviour
         fx.OnComplete(() =>
         {
             Destroy(item.gameObject);
+            movingItems.Remove(item);
             ResumeMovement();
             ObserverManager<IDItem>.PostEven(IDItem.ItemPlayer, item);
         });
@@ -155,6 +157,12 @@ public class ItemMoveController : MonoBehaviour
         {
             seq.Kill();
         }
+        foreach (var item in movingItems)
+        {
+            if (item != null)
+                Destroy(item.gameObject);
+        }
+        movingItems.Clear();
         while (itemQueue.Count > 0)
         {
             Item item = itemQueue.Dequeue();
