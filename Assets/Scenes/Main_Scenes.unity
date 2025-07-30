@@ -10115,6 +10115,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -7.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7895301544923025251, guid: ccc7be1f9860acc47ae5f9516e8a620d, type: 3}
+      propertyPath: distanceWater
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 8368211303079234626, guid: ccc7be1f9860acc47ae5f9516e8a620d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.25
