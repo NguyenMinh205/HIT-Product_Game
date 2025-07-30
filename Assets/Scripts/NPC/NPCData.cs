@@ -12,7 +12,6 @@ public class NPCData : ScriptableObject
 public class NPC_data
 {
     public string id;
-    public string name;
     public Sprite sprite;
     public RuntimeAnimatorController animatorController;
 }
