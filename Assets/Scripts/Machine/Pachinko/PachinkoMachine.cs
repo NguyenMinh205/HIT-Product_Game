@@ -119,8 +119,8 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
     {
         if (_state != PachinkoState.Waiting || _item == null) return;
         int reduceCoin = (int)Math.Floor(coinToStart * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
-        if (GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin < (coinToStart - reduceCoin))
-        {
+        if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin < (coinToStart - reduceCoin))
+        { 
             return;
         }
         GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-(coinToStart - reduceCoin));

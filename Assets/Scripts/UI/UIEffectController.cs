@@ -110,10 +110,14 @@ public class UIEffectController : MonoBehaviour
     
     public void ClearAllEffectUI()
     {
-        foreach (EffectUI effectUI in effectUIs)
+        for (int i = effectUIs.Count - 1; i >= 0; i--)
         {
-            PoolingManager.Despawn(effectUI.gameObject);
+            if (effectUIs[i] != null)
+            {
+                PoolingManager.Despawn(effectUIs[i].gameObject);
+            }
         }
+        effectUIs.Clear();
     }
 
 }

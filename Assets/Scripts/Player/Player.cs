@@ -203,6 +203,7 @@ public class Player : MonoBehaviour
         ObserverManager<EventID>.PostEven(EventID.OnEndRound);
         DOVirtual.DelayedCall(0.5f, () => {
             ClearAllEffects();
+            //if (effectController != null) // check nếu controller đã bị huỷ
             effectController.ClearAllEffectUI();
             addedItems.Clear();
             inventory.ClearInventory();

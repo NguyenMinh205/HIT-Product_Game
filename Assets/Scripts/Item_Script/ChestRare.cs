@@ -6,8 +6,7 @@ public class ChestRare : IItemAction
 {
     public void Execute(Player player, Enemy target)
     {
-        GameManager.Instance.RewardUI.SetActive(true);
-        RewardManager.Instance.InitReward();
+        ObserverManager<IDMysteryRoom>.PostEven(IDMysteryRoom.AddChest, Rarity.Rare);
     }
 
     public void Upgrade()

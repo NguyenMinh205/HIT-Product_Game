@@ -61,6 +61,7 @@ public class GamePlayController : Singleton<GamePlayController>
     public bool isCheckTurnByItem;
     private bool isEndGame = false;
     private bool isNotFight = false;
+    private bool isMysteryRoom = false;
     public bool IsEndGame => isEndGame;
     public bool isLoseGame = false;
     public bool IsLoseGame { get; set; }
@@ -196,8 +197,12 @@ public class GamePlayController : Singleton<GamePlayController>
 
         DOVirtual.DelayedCall(0.5f, () =>
         {
-            clawController.IsStart = true;
-            clawController.StartClaw();
+            if(clawController != null)
+            {
+                clawController.IsStart = true;
+                clawController.StartClaw();
+            }
+            
         });
 
         turnGame = TurnPlay.Player;
@@ -211,7 +216,8 @@ public class GamePlayController : Singleton<GamePlayController>
 
     public void StartFunctionRoom(string typeRoom)
     {
-        if(typeRoom =="HealingRoom")
+        isEndGame = false;
+        if (typeRoom =="HealingRoom")
         {
             itemController.Spawn(inventoryInHealingRoom);
             npcController.SpawnNPC("healingRoom");
@@ -220,9 +226,11 @@ public class GamePlayController : Singleton<GamePlayController>
         {
             itemController.Spawn(inventoryInMysteryRoom);
             npcController.SpawnNPC("mysteryRoom");
+            isMysteryRoom = true;
         }
         isNotFight = true;
         playerController.SpawnPlayer();
+
         clawController.Spawn(1);
 
         DOVirtual.DelayedCall(0.5f, () =>
@@ -299,8 +307,15 @@ public class GamePlayController : Singleton<GamePlayController>
 
         ObserverManager<EventID>.RemoveAddListener(EventID.OnBasketEmpty, HandleBasketEmpty);
         ObserverManager<EventID>.RemoveAddListener(EventID.OnClawsEmpty, HandleClawsEmpty);
-        //GameManager.Instance.RewardUI.SetActive(true);
-        //RewardManager.Instance.InitReward();
-        GameManager.Instance.OutRoom();
+
+        if(isMysteryRoom)
+        {
+            isMysteryRoom = false;
+            ObserverManager<IDMysteryRoom>.PostEven(IDMysteryRoom.CallReward);
+        }
+        else
+        {
+            GameManager.Instance.OutRoom();
+        }
     }
 }
