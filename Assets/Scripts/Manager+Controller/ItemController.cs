@@ -36,6 +36,7 @@ public class ItemController : MonoBehaviour
     public void Spawn(Inventory inven)
     {
         SpawnItem(inven.Items);
+        listItemInBasket.Clear();
     }
 
     public void SpawnItem(List<ItemInventory> items)

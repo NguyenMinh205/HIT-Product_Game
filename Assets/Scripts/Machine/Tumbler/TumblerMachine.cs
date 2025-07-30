@@ -190,4 +190,19 @@ public class TumblerMachine : Singleton<TumblerMachine>
             perkMachineTumbler.rotation = Quaternion.Euler(0, 0, _currentRotation);
         }
     }
+
+    public void SkipSpinAndGetReward()
+    {
+        if (_state == TumblerState.Tumblering) return;
+        _droppedItems.Clear();
+        StopCoroutine(TumblerLoop());
+        while (_droppedItems.Count < maxItemsToCollect)
+        {
+            int index = Random.Range(0, _spawnedItems.Count);
+            _droppedItems.Add(_spawnedItems[index]);
+            _spawnedItems.RemoveAt(index);
+        }
+        _state = TumblerState.Selecting;
+        ShowSelectItemUI();
+    }    
 }
