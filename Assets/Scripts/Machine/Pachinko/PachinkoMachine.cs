@@ -132,11 +132,11 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
     {
         if (_state != PachinkoState.Waiting || _item == null) return;
         int reduceCoin = (int)Math.Floor(coinToRoll * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);
-        if (GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Coin < (coinToRoll - reduceCoin))
+        if (GamePlayController.Instance.PlayerController.CurPlayerStat.Coin < (coinToRoll - reduceCoin))
         {
             return;
         }
-        GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(-(coinToRoll - reduceCoin));
+        GamePlayController.Instance.PlayerController.CurPlayerStat.ChangeCoin(-(coinToRoll - reduceCoin));
 
         ItemBase newItem = itemDatabase.GetRandomItem();
         while (newItem == _lastRolledItem && itemDatabase.GetItems().Count > 1)
