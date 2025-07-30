@@ -11,6 +11,8 @@ public static class ItemActionFactory
                 return new Dagger();
             case "Atk02":
                 return new SmallSword();
+            case "Atk03":
+                return new DarkSword();
             case "Atk06":
                 return new Sickle();
             case "Atk07":
@@ -79,6 +81,8 @@ public static class ItemActionFactory
                 return new WoodenBracelet();
             case "Buf17":
                 return new PoisonGrenade();
+            case "Buf18":
+                return new CreditCard();
             case "Buf19":
                 return new VitaminPill();
             case "Buf21":

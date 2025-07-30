@@ -41,7 +41,7 @@ public class Normal_Claw : ClawMachine
 
     protected override IEnumerator DelayOpen(float time)
     {
-        yield return new WaitForSeconds(time/2);
+        yield return new WaitForSeconds(time);
         OpenClaw();
         yield return new WaitForSeconds(time);
 

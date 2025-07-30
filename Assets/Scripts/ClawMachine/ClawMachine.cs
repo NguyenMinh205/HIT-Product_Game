@@ -163,7 +163,7 @@ public class ClawMachine : MonoBehaviour
         else if (chain.transform.position.y < posStopClaw.position.y)
         {
             rb.velocity = Vector2.zero * moveForce;
-            StartCoroutine(DelayOpen(1.5f));
+            StartCoroutine(DelayOpen(1f));
         }
     }
     public void Despawn()
