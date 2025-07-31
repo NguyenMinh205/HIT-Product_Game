@@ -44,7 +44,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private CanvasGroup fadeCanvasGroup;
 
     [Space]
-    [Header("Button")] // 
+    [Header("Button")] 
     [SerializeField] private Button btnRoll;
 
     private bool isFinishGame = false;
@@ -141,13 +141,16 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomFight()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         OpenRoom();
         defaultRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
-        ObserverManager<IDBackGroundBoxMachine>.PostEven(IDBackGroundBoxMachine.FightNormal);
-        ObserverManager<IDBasketBackGround>.PostEven(IDBasketBackGround.FightNormal);
-        ObserverManager<IDMoveBackGround>.PostEven(IDMoveBackGround.FightNormal);
+        DOVirtual.DelayedCall(0.2f, () =>
+        {
+            ObserverManager<IDBackGroundBoxMachine>.PostEven(IDBackGroundBoxMachine.FightNormal);
+            ObserverManager<IDBasketBackGround>.PostEven(IDBasketBackGround.FightNormal);
+            ObserverManager<IDMoveBackGround>.PostEven(IDMoveBackGround.FightNormal);
+        });
         currentRoom = defaultRoom;
         GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
         GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "FightRoom");
@@ -156,13 +159,16 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomBossFight()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         OpenRoom();
         bossRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
-        ObserverManager<IDBackGroundBoxMachine>.PostEven(IDBackGroundBoxMachine.FightBoss);
-        ObserverManager<IDBasketBackGround>.PostEven(IDBasketBackGround.FightBoss);
-        ObserverManager<IDMoveBackGround>.PostEven(IDMoveBackGround.FightBoss);
+        DOVirtual.DelayedCall(0.2f, () =>
+        {
+            ObserverManager<IDBackGroundBoxMachine>.PostEven(IDBackGroundBoxMachine.FightBoss);
+            ObserverManager<IDBasketBackGround>.PostEven(IDBasketBackGround.FightBoss);
+            ObserverManager<IDMoveBackGround>.PostEven(IDMoveBackGround.FightBoss);
+        });
         currentRoom = bossRoom;
         GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
         GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "BossRoom");
@@ -171,7 +177,7 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomHealing()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         OpenRoom();
         healingRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
@@ -186,7 +192,7 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomMystery()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         OpenRoom();
         mysteryRoom.SetActive(true);
         defaultClawMachineBox.SetActive(true);
@@ -201,7 +207,7 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomPerkReward()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         OpenRoom();
         tumblerMachineBox.SetActive(true);
         uiTumblerRoom.SetActive(true);
@@ -212,7 +218,7 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomPachinko()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         OpenRoom();
         pachinkoRoom.SetActive(true);
         uiPachinkoRoom.SetActive(true);
@@ -222,7 +228,7 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomSmith()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         OpenRoom();
         smithRoom.SetActive(true);
         uiSmithRoom.SetActive(true);
@@ -232,7 +238,7 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OpenRoomShredder()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         OpenRoom();
         shredderRoom.SetActive(true);
         uiShredderRoom.SetActive(true);
@@ -277,19 +283,19 @@ public class GameManager : Singleton<GameManager>
             GameData.Instance.SaveStartGameData();
             GameData.Instance.ClearMainGameData();
             GamePlayController.Instance.IsLoseGame = false;
-            SceneManager.LoadScene(0);
             return;
         }
         if (!isFinishGame)
         {
             AudioManager.Instance.PlaySoundClickButton();
             GameData.Instance.startData.isKeepingPlayGame = true;
+            GameData.Instance.SaveStartGameData();
             GameData.Instance.SaveMainGameData();
         }
         else
         {
             AudioManager.Instance.PlaySoundClickButton();
-            GameData.Instance.startData.coin += GameData.Instance.mainGameData.playerData.stats.Coin;
+            GameData.Instance.startData.coin += GamePlayController.Instance.PlayerController.CurPlayerStat.Coin;
             GameData.Instance.SaveStartGameData();
             GameData.Instance.ClearMainGameData();
         }

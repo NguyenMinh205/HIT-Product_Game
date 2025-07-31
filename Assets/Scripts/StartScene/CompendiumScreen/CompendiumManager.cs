@@ -68,13 +68,15 @@ public class CompendiumManager : Singleton<CompendiumManager>
         if (currentType == CompendiumType.Item)
         {
             detailBG.sprite = itemBG;
+            detailBG.color = Color.white;
             scroll.content = itemList.GetComponent<RectTransform>();
             itemList.gameObject.SetActive(true);
-            perkList.gameObject.SetActive(false);  
+            perkList.gameObject.SetActive(false);
         }
         else if (currentType == CompendiumType.Perk)
         {
             detailBG.sprite = perkBG;
+            detailBG.color = Color.white;
             scroll.content = perkList.GetComponent<RectTransform>();
             itemList.gameObject.SetActive(false);
             perkList.gameObject.SetActive(true);
@@ -86,7 +88,8 @@ public class CompendiumManager : Singleton<CompendiumManager>
         detailIcon.gameObject.SetActive(true);
         CanvasGroup canvasGroup = detailObj.GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0.25f;
-        canvasGroup.DOFade(1f, 0.25f).SetEase(Ease.OutQuad);
+        canvasGroup.DOFade(1f, 0.25f).SetEase(Ease.OutQuad).OnComplete(() => Canvas.ForceUpdateCanvases());
+
         if (data is ItemBase item)
         {
             detailIcon.sprite = item.icon;
@@ -114,15 +117,13 @@ public class CompendiumManager : Singleton<CompendiumManager>
 
     public void PreviousType()
     {
-        currentIndex--;
-        if (currentIndex < 0) currentIndex = compendiumTypes.Count - 1;
+        currentIndex = (currentIndex - 1 + compendiumTypes.Count) % compendiumTypes.Count;
         LoadCompendium();
     }
 
     public void NextType()
     {
-        currentIndex++;
-        if (currentIndex >= compendiumTypes.Count) currentIndex = 0;
+        currentIndex = (currentIndex + 1) % compendiumTypes.Count;
         LoadCompendium();
     }
 }

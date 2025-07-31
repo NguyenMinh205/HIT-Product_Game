@@ -14,7 +14,6 @@ public class GachaManager : Singleton<GachaManager>
 
     private void OnEnable()
     {
-        GameData.Instance.LoadStartGameData();
         numOfCoinTxt.SetText(GameData.Instance.startData.coin.ToString());
     }
 
@@ -47,10 +46,5 @@ public class GachaManager : Singleton<GachaManager>
         {
             numOfCoinTxt.SetText(value.ToString());
         }).SetTarget(numOfCoinTxt).SetEase(Ease.OutQuad);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        coinPerSpinTxt.SetText(numCoinPerSpin.ToString());
     }
 }

@@ -17,6 +17,7 @@ public class GachaMachine : Singleton<GachaMachine>
     public float spinDuration = 2f;
     public float spinSpeed = 0.1f;
     [SerializeField] private CharacterDatabaseSO characterDatabaseSO;
+    [SerializeField] private RewardGachaUI rewardGachaUI;
 
     private GachaState state;
     private Image sr1, sr2, sr3;
@@ -33,7 +34,8 @@ public class GachaMachine : Singleton<GachaMachine>
         Debug.Log("GachaMachine State: " + state);
         if (sr1 == null || sr2 == null || sr3 == null) Debug.LogError("One or more slots not assigned with Image component!");
         if (characterDatabaseSO == null) Debug.LogError("CharacterDatabaseSO not assigned!");
-        else characterDatabaseSO.LoadUnlockedStates(); // Tải trạng thái mở khóa từ PlayerPrefs
+        else characterDatabaseSO.LoadUnlockedStates();
+        if (rewardGachaUI == null) Debug.LogError("RewardGachaUI not assigned!");
     }
 
     public void PullGacha()
@@ -195,7 +197,6 @@ public class GachaMachine : Singleton<GachaMachine>
             return;
         }
 
-        // Tìm danh sách nhân vật chưa mở khóa
         List<Character> lockedCharacters = characterDatabaseSO.characters.FindAll(c => !c.isUnlocked);
         if (lockedCharacters.Count == 0)
         {
@@ -203,9 +204,10 @@ public class GachaMachine : Singleton<GachaMachine>
             return;
         }
 
-        // Chọn ngẫu nhiên một nhân vật chưa mở khóa
         Character characterToUnlock = lockedCharacters[Random.Range(0, lockedCharacters.Count)];
         characterDatabaseSO.UnlockCharacter(characterToUnlock.id);
+        Sprite characterSprite = characterToUnlock.skins[0].skin;
+        rewardGachaUI.ShowCharacterReward(characterSprite);
     }
 
     private void RewardSkin()
@@ -217,7 +219,6 @@ public class GachaMachine : Singleton<GachaMachine>
             return;
         }
 
-        // Chọn ngẫu nhiên một nhân vật
         Character randomCharacter = characterDatabaseSO.characters[Random.Range(0, characterDatabaseSO.characters.Count)];
         if (randomCharacter.skins == null || randomCharacter.skins.Count == 0)
         {
@@ -225,7 +226,6 @@ public class GachaMachine : Singleton<GachaMachine>
             return;
         }
 
-        // Tìm danh sách skin chưa mở khóa của nhân vật
         List<int> lockedSkinIndices = new List<int>();
         for (int i = 0; i < randomCharacter.skins.Count; i++)
         {
@@ -241,9 +241,10 @@ public class GachaMachine : Singleton<GachaMachine>
             return;
         }
 
-        // Chọn ngẫu nhiên một skin chưa mở khóa
-        int skinIndexToUnlock = lockedSkinIndices[Random.Range(1, lockedSkinIndices.Count)];
+        int skinIndexToUnlock = lockedSkinIndices[Random.Range(0, lockedSkinIndices.Count)];
         characterDatabaseSO.UnlockSkin(randomCharacter.id, skinIndexToUnlock);
+        Sprite skinSprite = randomCharacter.skins[skinIndexToUnlock].skin;
+        rewardGachaUI.ShowSkinReward(skinSprite);
     }
 
     private void RewardCoins(int count)
@@ -253,13 +254,13 @@ public class GachaMachine : Singleton<GachaMachine>
         switch (count)
         {
             case 3:
-                multiplier = Random.Range(2f, 3f); // x2 đến x3
+                multiplier = Random.Range(2f, 3f);
                 break;
             case 2:
-                multiplier = Random.Range(1f, 2f); // x1 đến x2
+                multiplier = Random.Range(1f, 2f);
                 break;
             case 1:
-                multiplier = Random.Range(0.25f, 0.75f); // x0.25 đến x0.75
+                multiplier = Random.Range(0.25f, 0.75f);
                 break;
             default:
                 multiplier = 0f;
@@ -269,10 +270,12 @@ public class GachaMachine : Singleton<GachaMachine>
         int rewardCoins = Mathf.CeilToInt(multiplier * GachaManager.Instance.NumCoinPerSpin);
         GachaManager.Instance.IncreaseCoin(rewardCoins);
         Debug.Log($"Rewarded {rewardCoins} coins (multiplier: {multiplier}x)");
+        rewardGachaUI.ShowCoinReward(rewardCoins);
     }
 
     private void RewardNothing()
     {
         Debug.Log("No special reward given.");
+        rewardGachaUI.ShowNoReward();
     }
 }
