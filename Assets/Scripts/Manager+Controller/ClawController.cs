@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ClawController : MonoBehaviour
@@ -24,7 +25,8 @@ public class ClawController : MonoBehaviour
     [SerializeField] private GameObject lowClawLimit;
     [SerializeField] private GameObject lowClawMagnetLimit;
 
-
+    private bool isListClawNull;
+    public bool IsListClawNull => isListClawNull;
     private ClawMachine currentClaw;
     private ClawMachine endClaw;
     private bool isCurrent;
@@ -41,32 +43,23 @@ public class ClawController : MonoBehaviour
     }
     public void ChangeClaw()
     {
-        if (claws.Count == 0)
-        {
-            Debug.Log("Claws have 0 claw -> next turn ");
-            Debug.Log("Next Turn By Claw");
-            ObserverManager<EventID>.PostEven(EventID.OnClawsEmpty);
-        }
-        else
-        {
-            currentClaw = claws[0];
-            StartClaw();
-            claws.Remove(currentClaw);
-            SetPosClaw();
-        }
+
     }
-    public void StartClaw()
+    public void RemoveCurClaw()
     {
-        if (currentClaw == null) 
+        currentClaw = null;
+    }
+    public void SetCurrentClaw()
+    {
+        if (currentClaw == null && claws.Count > 0) 
         {
-            Debug.Log("Current Claw is null");
             currentClaw = claws[0];
             claws.Remove(currentClaw);
-            Debug.Log("Curren Claw is not null");
+            currentClaw.Mode = ModeClaw.Start;
             SetPosClaw();
+            ObserverManager<EventID>.PostEven(EventID.OnUseClaw);
         }
-        currentClaw.Mode = ModeClaw.Start;
-        ObserverManager<EventID>.PostEven(EventID.OnUseClaw);
+        checkListClaw();
     }
     public void SetPosClaw()
     {
@@ -85,14 +78,12 @@ public class ClawController : MonoBehaviour
         Debug.Log("Reset -> Spawn");
         Spawn();
         ChangeClaw();
-        StartClaw();
+        SetCurrentClaw();
     }
     public void Spawn(int quality = 0)
     {
-        if (GamePlayController.Instance.IsEndGame)
-        {
-            return;
-        }
+        if (GamePlayController.Instance.IsEndGame)  return;
+ 
         if(quality > 0)
         {
             quantityClaws = quality;
@@ -101,16 +92,23 @@ public class ClawController : MonoBehaviour
         {
             quantityClaws = GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ClawPerTurn;
         }
-        
-        for (int i = 0; i < quantityClaws ; i++)
+
+        SpawnClaw(quantityClaws);
+    }
+    public void SpawnClaw(int val)
+    {
+        if (val <= 0) return;
+
+        for (int i = 0; i < val; i++)
         {
+            if (clawPrefabs == null) return;
             ClawMachine newClaw = Instantiate(clawPrefabs, posSpawnClaws[i].position, Quaternion.identity, ClawParent);
             newClaw.ClawController = this;
             newClaw.leftLimit = leftClawLimit;
             newClaw.rightLimit = rightClawLimit;
             newClaw.posStartClaw = posStartClaw;
 
-            if(newClaw is Magnet_Claw magnetClaw)
+            if (newClaw is Magnet_Claw magnetClaw)
             {
                 magnetClaw.lowLimit = lowClawMagnetLimit;
             }
@@ -119,6 +117,15 @@ public class ClawController : MonoBehaviour
             newClaw.posStopClaw = posEndClaw;
             claws.Add(newClaw);
         }
+        checkListClaw();
+    }
+    public void checkListClaw()
+    {
+        if (claws.Count <= 0 && currentClaw == null)
+            isListClawNull = true;
+        else
+            isListClawNull = false;
+        GamePlayController.Instance.CheckTurnPlayer();
     }
 
     public void EndGame()

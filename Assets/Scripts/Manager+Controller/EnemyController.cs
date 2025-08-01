@@ -78,10 +78,11 @@ public class EnemyController : MonoBehaviour
         newEnemy.InitBoss(enemyData, boosID);
         listEnemy.Add(newEnemy);
     }
-    public IEnumerator CheckEnemyToNextTurn()
+    public IEnumerator EnemyAction()
     {
         for (int i = 0; i < listEnemy.Count; i++)
         {
+
             StartCoroutine(listEnemy[i].ExecuteAction());
             float time = listEnemy[i].actions[listEnemy[i].IndexAction].actionEnemy.Count;
 
@@ -91,14 +92,20 @@ public class EnemyController : MonoBehaviour
             }
 
             Debug.Log("Time Enemy: " + time);
+
             yield return new WaitForSeconds(time);
         }
-        yield return new WaitForSeconds(0.5f);
+
         GamePlayController.Instance.Turn = TurnPlay.Player;
-        for (int i = 0; i < listEnemy.Count; i++)
+    }
+    public void SetActionEnemyNext()
+    {
+        foreach(Enemy enemy in listEnemy)
         {
-            Debug.Log("Next Action Enemy:  " + listEnemy[i].IndexAction);
-            listEnemy[i].NextAction();
+            if(enemy != null)
+            {
+                enemy.SetAction();
+            }
         }
     }
 
@@ -126,15 +133,6 @@ public class EnemyController : MonoBehaviour
             GamePlayController.Instance.WinGame();
     }
 
-    public void ResetShield()
-    {
-        for (int i = 0; i < listEnemy.Count; i++)
-        {
-            Debug.Log("Reset Shield Enemy" + i);
-            listEnemy[i].Armor = 0;
-            listEnemy[i].Health.UpdateArmor(listEnemy[i]);
-        }
-    }
 
     public void EndGame()
     {

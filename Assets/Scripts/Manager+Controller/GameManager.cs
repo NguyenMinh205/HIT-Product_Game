@@ -29,6 +29,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject defaultClawMachineBox;
     [SerializeField] private GameObject pachinkoMachineBox;
     [SerializeField] private GameObject tumblerMachineBox;
+    private GameObject currentMachine;
 
     [Space]
     [Header("UI")]
@@ -42,10 +43,13 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject finishUI;
     [SerializeField] private TextMeshProUGUI numOfCoinTxt;
     [SerializeField] private CanvasGroup fadeCanvasGroup;
+    private GameObject currentUI;
 
     [Space]
     [Header("Button")] // 
     [SerializeField] private Button btnRoll;
+
+
 
     private bool isFinishGame = false;
     public bool IsFinishGame
@@ -105,7 +109,7 @@ public class GameManager : Singleton<GameManager>
         tumblerMachineBox.SetActive(false);
     }
 
-    private void OpenRoom()
+    private void OpenRoom(string typeRoom = null)
     {
         if (fadeCanvasGroup != null)
         {
@@ -113,13 +117,21 @@ public class GameManager : Singleton<GameManager>
             fadeCanvasGroup.alpha = 1f;
         }
 
-        CloseAllRoomsAndUIs();
-        AudioManager.Instance.PlayMusicInGame();
+        //AudioManager.Instance.PlayMusicInGame();
         PlayerMapController.Instance.IsIntoRoom = true;
+
         MapController.Instance.SetActiveMapStore(false);
         MapManager.Instance.SetActiveRoomVisual(false);
+
         uiMap.SetActive(false);
         uiInRoom.SetActive(true);
+
+        if (currentRoom != null) currentRoom.SetActive(true); // Open Room
+        if (currentMachine != null) currentMachine.SetActive(true); //Open Machine
+        if (currentUI != null) currentUI.SetActive(true);
+
+        if (currentMachine == defaultClawMachineBox) ItemTube.Instance.SetActionBG(true);
+
         GamePlayController.Instance.PlayerController.NumOfCoinInRoom.text = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin.ToString();
 
         if (fadeCanvasGroup != null && Camera.main != null)
@@ -127,81 +139,100 @@ public class GameManager : Singleton<GameManager>
             Camera.main.orthographicSize = 8f;
 
             Sequence sequence = DOTween.Sequence();
-            sequence.Append(fadeCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.InOutQuad)); 
-            sequence.Join(DOVirtual.Float(8f, 6f, 0.5f, value =>
+            sequence.Append(fadeCanvasGroup.DOFade(0f, 0.2f).SetEase(Ease.InOutQuad)); 
+            sequence.Join(DOVirtual.Float(8f, 6f, 0.2f, value =>
             {
                 Camera.main.orthographicSize = value;
             }).SetEase(Ease.InOutQuad));
             sequence.OnComplete(() =>
             {
                 fadeCanvasGroup.gameObject.SetActive(false);
+                CheckTypeRoom(typeRoom);
             });
         }
     }
-
-    public IEnumerator OpenRoomFight()
+    public void CheckTypeRoom(string typeRoom)
     {
-        yield return new WaitForSeconds(0.25f);
-        OpenRoom();
-        defaultRoom.SetActive(true);
-        defaultClawMachineBox.SetActive(true);
-        ObserverManager<IDBackGroundBoxMachine>.PostEven(IDBackGroundBoxMachine.FightNormal);
-        ObserverManager<IDBasketBackGround>.PostEven(IDBasketBackGround.FightNormal);
-        ObserverManager<IDMoveBackGround>.PostEven(IDMoveBackGround.FightNormal);
+        switch(typeRoom)
+        {
+            case "BossRoom":
+                Debug.Log("Start Boss Room");
+                GamePlayController.Instance.StartFightRoom(typeRoom);
+                break;
+            case "FightRoom":
+                Debug.Log("Start Fight Room");
+                GamePlayController.Instance.StartFightRoom(typeRoom);
+                break;
+            case "HealingRoom":
+                Debug.Log("Start Healing Room");
+                GamePlayController.Instance.StartFightRoom(typeRoom);
+                break;
+            case "MysteryRoom":
+                Debug.Log("Start Mystery Room");
+                GamePlayController.Instance.StartFightRoom(typeRoom);
+                break;
+
+            default:
+                break;
+        }
+    }
+    public void OpenRoomFight()
+    {
         currentRoom = defaultRoom;
+        currentMachine = defaultClawMachineBox;
+        currentUI = uiInRoom;
+
+        if(currentMachine != null) BoxBackGroundManager.Instance.SetFightRoom();
+
         GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
-        GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "FightRoom");
-        GamePlayController.Instance.StartFightRoom("FightRoom");
+        GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "Fight");
+
+        OpenRoom("FightRoom");
     }
 
-    public IEnumerator OpenRoomBossFight()
+    public void OpenRoomBossFight()
     {
-        yield return new WaitForSeconds(0.25f);
-        OpenRoom();
-        bossRoom.SetActive(true);
-        defaultClawMachineBox.SetActive(true);
-        ObserverManager<IDBackGroundBoxMachine>.PostEven(IDBackGroundBoxMachine.FightBoss);
-        ObserverManager<IDBasketBackGround>.PostEven(IDBasketBackGround.FightBoss);
-        ObserverManager<IDMoveBackGround>.PostEven(IDMoveBackGround.FightBoss);
         currentRoom = bossRoom;
+        currentMachine = defaultClawMachineBox;
+        currentUI = uiInRoom;
+        OpenRoom("BossRoom");
+        if (currentMachine != null) BoxBackGroundManager.Instance.SetBossRoom();
+
         GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
         GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "BossRoom");
-        GamePlayController.Instance.StartFightRoom("BossRoom");
+
     }
 
-    public IEnumerator OpenRoomHealing()
+    public void OpenRoomHealing()
     {
-        yield return new WaitForSeconds(0.25f);
-        OpenRoom();
-        healingRoom.SetActive(true);
-        defaultClawMachineBox.SetActive(true);
-        ObserverManager<IDBackGroundBoxMachine>.PostEven(IDBackGroundBoxMachine.Healing);
-        ObserverManager<IDBasketBackGround>.PostEven(IDBasketBackGround.Healing);
-        ObserverManager<IDMoveBackGround>.PostEven(IDMoveBackGround.Healing);
         currentRoom = healingRoom;
+        currentMachine = defaultClawMachineBox;
+        currentUI = uiInRoom;
+        OpenRoom("HealingRoom");
+        if (currentMachine != null) BoxBackGroundManager.Instance.SetHealingRoom();
+        
+
+
         GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
         GamePlayController.Instance.NpcController.SetPosSpawnNPC(currentRoom);
-        GamePlayController.Instance.StartFunctionRoom("HealingRoom");
+
     }
 
-    public IEnumerator OpenRoomMystery()
+    public void OpenRoomMystery()
     {
-        yield return new WaitForSeconds(0.25f);
-        OpenRoom();
-        mysteryRoom.SetActive(true);
-        defaultClawMachineBox.SetActive(true);
-        ObserverManager<IDBackGroundBoxMachine>.PostEven(IDBackGroundBoxMachine.Mystery);
-        ObserverManager<IDBasketBackGround>.PostEven(IDBasketBackGround.Mystery);
-        ObserverManager<IDMoveBackGround>.PostEven(IDMoveBackGround.Mystery);
         currentRoom = mysteryRoom;
+        currentMachine = defaultClawMachineBox;
+        currentUI = uiInRoom;
+        if (currentMachine != null) BoxBackGroundManager.Instance.SetMysteryRoom();
+        
         GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
         GamePlayController.Instance.NpcController.SetPosSpawnNPC(currentRoom);
-        GamePlayController.Instance.StartFunctionRoom("MysteryRoom");
+
+        OpenRoom("MysteruRoom");
     }
 
-    public IEnumerator OpenRoomPerkReward()
+    public void OpenRoomPerkReward()
     {
-        yield return new WaitForSeconds(0.25f);
         OpenRoom();
         tumblerMachineBox.SetActive(true);
         uiTumblerRoom.SetActive(true);
@@ -210,9 +241,8 @@ public class GameManager : Singleton<GameManager>
         currentRoom = perkRewardRoom;
     }
 
-    public IEnumerator OpenRoomPachinko()
+    public void OpenRoomPachinko()
     {
-        yield return new WaitForSeconds(0.25f);
         OpenRoom();
         pachinkoRoom.SetActive(true);
         uiPachinkoRoom.SetActive(true);
@@ -220,9 +250,8 @@ public class GameManager : Singleton<GameManager>
         currentRoom = pachinkoRoom;
     }
 
-    public IEnumerator OpenRoomSmith()
+    public void OpenRoomSmith()
     {
-        yield return new WaitForSeconds(0.25f);
         OpenRoom();
         smithRoom.SetActive(true);
         uiSmithRoom.SetActive(true);
@@ -230,9 +259,10 @@ public class GameManager : Singleton<GameManager>
         currentRoom.GetComponent<SmithRoomManager>().Init();
     }
 
-    public IEnumerator OpenRoomShredder()
+    public void OpenRoomShredder()
     {
-        yield return new WaitForSeconds(0.25f);
+
+
         OpenRoom();
         shredderRoom.SetActive(true);
         uiShredderRoom.SetActive(true);
@@ -245,8 +275,10 @@ public class GameManager : Singleton<GameManager>
         if (currentRoom != null)
         {
             currentRoom.SetActive(false);
-            uiInRoom.SetActive(false);
-            CloseAllRoomsAndUIs();
+            currentUI.SetActive(false);
+            currentMachine.SetActive(false);
+            if (currentMachine == defaultClawMachineBox) ItemTube.Instance.SetActionBG(false);
+
             MapController.Instance.SetActiveMapStore(true);
             MapManager.Instance.SetActiveRoomVisual(true);
             uiMap.SetActive(true);
@@ -270,6 +302,7 @@ public class GameManager : Singleton<GameManager>
 
     public void BackHome()
     {
+        Time.timeScale = 1;
         if (GamePlayController.Instance.IsLoseGame)
         {
             isFinishGame = true;

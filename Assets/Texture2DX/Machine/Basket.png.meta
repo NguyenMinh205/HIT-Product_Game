@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2b4ae9720a7aa094db85621ff1b4346d
+guid: fa68aab1f9476c94bb654587db8d0f71
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 155
+  spritePixelsToUnits: 150
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -119,39 +119,89 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: anh (118)_0
+      name: Basket_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 1906
-        width: 1223
-        height: 134
+        x: 1301
+        y: 105
+        width: 323
+        height: 189
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 962541978c27a5045b0c35971f468b2d
-      internalID: 504118061
+      spriteID: 3c1d26fe6c847ff4495b04a360d63e07
+      internalID: 80381027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basket_1
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 103
+        width: 324
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0f892c505c96de4a84d53a37b3a3d9f
+      internalID: 141717603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basket_2
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 96
+        width: 325
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e0bdb8ea888b154b8afb2c5a93e9f89
+      internalID: -712026908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basket_3
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 96
+        width: 325
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a36c0653c412bb4cb9e0274327ff405
+      internalID: 933638098
       vertices: []
       indices: 
       edges: []
@@ -167,7 +217,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      anh (118)_0: 504118061
+      Basket_0: 80381027
+      Basket_1: 141717603
+      Basket_2: -712026908
+      Basket_3: 933638098
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
