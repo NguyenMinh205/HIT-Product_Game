@@ -32,10 +32,10 @@ public class UIChoicePlayer : MonoBehaviour
             _characterDatabaseSO.LoadUnlockedStates();
         }
 
-        if (_characterDatabaseSO.CharacterCount() > 0)
+        if (_characterDatabaseSO != null && _characterDatabaseSO.CharacterCount() > 0)
         {
-            string savedCharacterId = GameData.Instance.startData.selectedCharacterId;
-            int savedSkinIndex = GameData.Instance.startData.selectedSkinIndex;
+            string savedCharacterId = GameData.Instance != null ? GameData.Instance.startData.selectedCharacterId : string.Empty;
+            int savedSkinIndex = GameData.Instance != null ? GameData.Instance.startData.selectedSkinIndex : 0;
 
             if (!string.IsNullOrEmpty(savedCharacterId))
             {
@@ -62,74 +62,53 @@ public class UIChoicePlayer : MonoBehaviour
 
     public void NextOption()
     {
-        AudioManager.Instance.PlaySelectCharacter();
-        selectedOption++;
-        if (selectedOption >= _characterDatabaseSO.CharacterCount())
-        {
-            selectedOption = 0;
-        }
+        AudioManager.Instance?.PlaySelectCharacter();
+        selectedOption = (selectedOption + 1) % _characterDatabaseSO.CharacterCount();
         UpdateCharacter();
     }
 
     public void PrevOption()
     {
-        AudioManager.Instance.PlaySelectCharacter();
-        selectedOption--;
-        if (selectedOption < 0)
-        {
-            selectedOption = _characterDatabaseSO.CharacterCount() - 1;
-        }
+        AudioManager.Instance?.PlaySelectCharacter();
+        selectedOption = (selectedOption - 1 + _characterDatabaseSO.CharacterCount()) % _characterDatabaseSO.CharacterCount();
         UpdateCharacter();
     }
 
     public void ChangeSkin()
     {
-        AudioManager.Instance.PlaySelectCharacter();
-        skinSelectOption++;
-        if (skinSelectOption >= curCharacter.skins.Count)
-        {
-            skinSelectOption = 0;
-        }
+        AudioManager.Instance?.PlaySelectCharacter();
+        skinSelectOption = (skinSelectOption + 1) % curCharacter.skins.Count;
         UpdateCharacterAnimator();
     }
 
     private void UpdateCharacterAnimator()
     {
-        if (characterSpriteRenderer != null && characterAnimator != null)
+        if (characterSpriteRenderer == null || characterAnimator == null || curCharacter == null) return;
+
+        Skin skin = curCharacter.skins[skinSelectOption];
+        if (skin.skin != null)
         {
-            if (curCharacter.skins[skinSelectOption].skin != null)
-            {
-                characterSpriteRenderer.sprite = curCharacter.skins[skinSelectOption].skin;
-                Color color = characterSpriteRenderer.color;
-                color.a = curCharacter.skins[skinSelectOption].isUnlocked && curCharacter.isUnlocked ? unlockedSpriteAlpha : lockedSpriteAlpha;
-                characterSpriteRenderer.color = color;
-            }
-            else
-            {
-                Debug.LogWarning($"Skin sprite is null for skin {skinSelectOption} of character {curCharacter.name}");
-            }
-            if (curCharacter.skins[skinSelectOption].anim != null)
-            {
-                characterAnimator.runtimeAnimatorController = curCharacter.skins[skinSelectOption].anim;
-                characterAnimator.SetTrigger("IsBuffing");
-                Debug.Log($"Triggering 'IsBuffing' for skin {skinSelectOption} of character {curCharacter.name}");
-            }
-            else
-            {
-                Debug.LogWarning($"No animator controller assigned for skin {skinSelectOption} of character {curCharacter.name}");
-            }
+            characterSpriteRenderer.sprite = skin.skin;
+            Color color = characterSpriteRenderer.color;
+            color.a = (skin.isUnlocked && curCharacter.isUnlocked) ? unlockedSpriteAlpha : lockedSpriteAlpha;
+            characterSpriteRenderer.color = color;
+        }
+
+        if (skin.anim != null && !characterAnimator.GetCurrentAnimatorStateInfo(0).IsName("Buffing"))
+        {
+            characterAnimator.runtimeAnimatorController = skin.anim;
+            characterAnimator.SetTrigger("IsBuffing");
         }
 
         if (lockIcon != null)
         {
-            bool isSkinUnlocked = curCharacter.skins[skinSelectOption].isUnlocked;
-            bool isCharacterUnlocked = curCharacter.isUnlocked;
-            lockIcon.SetActive(!isSkinUnlocked || !isCharacterUnlocked);
+            bool isLocked = !(skin.isUnlocked && curCharacter.isUnlocked);
+            lockIcon.SetActive(isLocked);
             Image lockImage = lockIcon.GetComponent<Image>();
             if (lockImage != null)
             {
                 Color lockColor = lockImage.color;
-                lockColor.a = (!isSkinUnlocked || !isCharacterUnlocked) ? 1.0f : 0.0f;
+                lockColor.a = isLocked ? 1.0f : 0.0f;
                 lockImage.color = lockColor;
             }
         }
@@ -137,11 +116,7 @@ public class UIChoicePlayer : MonoBehaviour
 
     public void UpdateCharacter()
     {
-        if (_characterDatabaseSO == null || _characterDatabaseSO.CharacterCount() == 0)
-        {
-            Debug.LogError("CharacterDatabaseSO is null or empty!");
-            return;
-        }
+        if (_characterDatabaseSO == null || _characterDatabaseSO.CharacterCount() == 0) return;
 
         curCharacter = _characterDatabaseSO.GetCharacter(selectedOption);
         skinSelectOption = 0;
@@ -153,36 +128,46 @@ public class UIChoicePlayer : MonoBehaviour
 
         foreach (Transform child in listStartItem)
         {
-            Destroy(child.gameObject);
+            PoolingManager.Despawn(child.gameObject);
         }
 
-        foreach (ItemInventory item in curCharacter.initialItems)
+        if (curCharacter.initialItems != null)
         {
-            GameObject newItemInventoryPrefab = Instantiate(itemInventoryPrefab, listStartItem);
-            Image icon = newItemInventoryPrefab.GetComponent<Image>();
-            ItemBase itemBase = item.GetItemBase();
-            if (itemBase != null)
+            List<(ItemInventory item, GameObject obj)> itemOrder = new List<(ItemInventory, GameObject)>();
+            foreach (ItemInventory item in curCharacter.initialItems)
             {
-                icon.sprite = itemBase.icon;
-                icon.SetNativeSize();
-                icon.rectTransform.sizeDelta *= 0.75f;
-                newItemInventoryPrefab.GetComponentInChildren<TextMeshProUGUI>().SetText(item.quantity.ToString());
+                GameObject newItem = PoolingManager.Spawn(itemInventoryPrefab, Vector3.zero, Quaternion.identity, listStartItem);
+                Image icon = newItem.GetComponent<Image>();
+                ItemBase itemBase = item.GetItemBase();
+                if (itemBase != null)
+                {
+                    icon.sprite = itemBase.icon;
+                    icon.SetNativeSize();
+                    icon.rectTransform.sizeDelta *= 0.75f;
+                    newItem.GetComponentInChildren<TextMeshProUGUI>().text = item.quantity.ToString();
+                }
+                itemOrder.Add((item, newItem));
             }
+
+            for (int i = 0; i < itemOrder.Count; i++)
+            {
+                itemOrder[i].obj.transform.SetSiblingIndex(i);
+            }
+            Canvas.ForceUpdateCanvases();
         }
     }
 
     public void ConfirmSelection()
     {
-        if (curCharacter.isUnlocked && curCharacter.skins[skinSelectOption].isUnlocked)
+        if (curCharacter != null && curCharacter.isUnlocked && curCharacter.skins[skinSelectOption].isUnlocked)
         {
-            GameData.Instance.startData.selectedCharacterId = curCharacter.id;
-            GameData.Instance.startData.selectedSkinIndex = skinSelectOption;
-            GameData.Instance.SaveStartGameData();
+            if (GameData.Instance != null)
+            {
+                GameData.Instance.startData.selectedCharacterId = curCharacter.id;
+                GameData.Instance.startData.selectedSkinIndex = skinSelectOption;
+                GameData.Instance.SaveStartGameData();
+            }
             StartSceneManager.Instance.OnDifficultyButton();
-        }
-        else
-        {
-            Debug.LogWarning("Cannot confirm selection: Character or skin is locked.");
         }
     }
 }

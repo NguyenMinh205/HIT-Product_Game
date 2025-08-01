@@ -28,7 +28,7 @@ MonoBehaviour:
       anim: {fileID: 9100000, guid: 543a7ff3b44a515468e8fe96090ef92b, type: 2}
       isUnlocked: 0
     - skin: {fileID: 2060198056, guid: 7c42b33d3ccda2b47b432ab366abd2fc, type: 3}
-      anim: {fileID: 0}
+      anim: {fileID: 9100000, guid: d7bfdd1c2b2b5d846bd5ab88a33ee013, type: 2}
       isUnlocked: 0
     initialItems:
     - itemId: Atk01

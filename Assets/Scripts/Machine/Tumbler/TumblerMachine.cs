@@ -191,7 +191,7 @@ public class TumblerMachine : Singleton<TumblerMachine>
 
     public void SkipSpinAndGetReward()
     {
-        if (_state == TumblerState.Tumblering) return;
+        if (_state != TumblerState.Waiting) return;
         _droppedItems.Clear();
         StopCoroutine(TumblerLoop());
         while (_droppedItems.Count < maxItemsToCollect)

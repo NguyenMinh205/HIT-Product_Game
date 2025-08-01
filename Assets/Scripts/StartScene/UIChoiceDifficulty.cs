@@ -13,37 +13,28 @@ public class UIChoiceDifficulty : MonoBehaviour
 
     private float extraDamagePercent;
     private float extraHealthPercent;
-
     private int selectIndex = 0;
 
-    void Start()
+    void OnEnable()
     {
-        GameData.Instance.LoadStartGameData();
-        selectIndex = GameData.Instance.startData.selectedDifficultyIndex;
-        extraDamagePercent = GameData.Instance.startData.extraDamagePercent;
-        extraHealthPercent = GameData.Instance.startData.extraHealthPercent;
+        if (GameData.Instance != null) GameData.Instance.LoadStartGameData();
+        selectIndex = GameData.Instance?.startData.selectedDifficultyIndex ?? 0;
+        extraDamagePercent = GameData.Instance?.startData.extraDamagePercent ?? 0f;
+        extraHealthPercent = GameData.Instance?.startData.extraHealthPercent ?? 0f;
         UpdateChange();
     }
 
     public void NextOption()
     {
-        AudioManager.Instance.PlaySoundClickButton();
-        selectIndex++;
-        if (selectIndex >= difficultyList.Count)
-        {
-            selectIndex = 0;
-        }
+        AudioManager.Instance?.PlaySoundClickButton();
+        selectIndex = (selectIndex + 1) % difficultyList.Count;
         UpdateChange();
     }
 
     public void PrevOption()
     {
-        AudioManager.Instance.PlaySoundClickButton();
-        selectIndex--;
-        if (selectIndex < 0)
-        {
-            selectIndex = difficultyList.Count - 1;
-        }
+        AudioManager.Instance?.PlaySoundClickButton();
+        selectIndex = (selectIndex - 1 + difficultyList.Count) % difficultyList.Count;
         UpdateChange();
     }
 

@@ -50,7 +50,9 @@ public class Inventory
                 {
                     items.Remove(item);
                 }
-                AddItem(currentItem.id, 1, 99, true);
+                ItemBase upgradedItem = currentItem.upgradedItem;
+                upgradedItem.Action = currentItem.Action;
+                AddItem(upgradedItem.id, 1, 99, true);
                 UpdateInventoryUI();
                 GamePlayController.Instance.PlayerController.SavePlayerData();
             }
