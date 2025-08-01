@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public enum ModeClaw
 {
@@ -163,6 +161,7 @@ public class ClawMachine : MonoBehaviour
         else if (chain.transform.position.y < posStopClaw.position.y)
         {
             rb.velocity = Vector2.zero * moveForce;
+            clawController.RemoveCurClaw();
             StartCoroutine(DelayOpen(1f));
         }
     }
@@ -216,7 +215,6 @@ public class ClawMachine : MonoBehaviour
     }
     protected virtual IEnumerator DelayOpen(float time)
     {
-        //OpenClaw();
         yield return new WaitForSeconds(time);
 
         if (this == null || gameObject == null || clawController == null)
@@ -225,7 +223,7 @@ public class ClawMachine : MonoBehaviour
         if (mode != ModeClaw.DeSpawn)
         {
             mode = ModeClaw.DeSpawn;
-            clawController.ChangeClaw();
+            clawController.SetCurrentClaw();
         }
     }
 }

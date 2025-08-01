@@ -18,12 +18,6 @@ public class UIActionEnemyController : Singleton<UIActionEnemyController>
     [Header("Action Enemy")]
     [SerializeField] private float distanceEnemyAndActionUI = 0.4f;
 
-    public void InitActionToEnemy(Enemy enemy)
-    {
-        Debug.Log("Init Action To Enemy");
-
-    }
-
     public void InitUIAction(Enemy enemy, int indexAction)  // 
     {
         Debug.Log("Init UI Action Enem : Index Action Enemy : " + indexAction);
@@ -77,9 +71,5 @@ public class UIActionEnemyController : Singleton<UIActionEnemyController>
         Vector3 pos = posEnemy + Vector3.up * height + Vector3.up * distanceEnemyAndActionUI;
 
         enemy.UIAction.gameObject.transform.position = pos;
-    }
-    public void Execute(int index)
-    {
-       // _uiActionEnemy[index].UnShow();
     }
 }

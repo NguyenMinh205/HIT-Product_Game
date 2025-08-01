@@ -176,7 +176,7 @@ public class Enemy : MonoBehaviour
         RectTransform rectUIAction = uiActionEnemy.GetComponent<RectTransform>();
         rectUIAction.position = this.transform.position + Vector3.up * height + Vector3.up * offsetHealthBar;
 
-        UIActionEnemyController.Instance.InitUIAction(this, indexAction);
+        SetAction();
     }
 
     public bool ReceiverDamage(int damage)
@@ -238,19 +238,24 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator ExecuteAction()
     {
-        ExecuteEffect();
+        ResetShield();
+        CheckEffectOnStartTurnEnemy();
+
         for (int i = 0; i < actions[indexAction].actionEnemy.Count; i++)
         {
-            Debug.Log("Execute Action Enemy: " + actions[indexAction].actionEnemy[i]);
             EnemyActionFactory.GetActionEnemy(actions[indexAction].actionEnemy[i], this);
-            Debug.Log("Check Observer Enemy");
-            ObserverManager<EventID>.PostEven(EventID.OnDealDamage, this);
             uiActionEnemy.UnActionIndexEnemy(i);
-            Debug.Log("Test Check ");
+
             yield return new WaitForSeconds(1f);
         }
         uiActionEnemy.ClearAllActionList();
-        Debug.Log("Next Action Enemy Check");
+
+        CheckIndexAxtionNext();
+
+        CheckEffectOnEndTurnEnemy();
+    }
+    public void CheckIndexAxtionNext()
+    {
         indexAction++;
         if (indexAction >= actions.Count)
         {
@@ -268,9 +273,6 @@ public class Enemy : MonoBehaviour
                 indexDmage = 0;
             }
         }
-        ObserverManager<EventID>.PostEven(EventID.OnEndEnemyTurn, this);
-        effectController.CheckEffect();
-        CheckEffectEnemy();
     }
     public void AddBuffEffect(string effectName, float value, float duration)
     {
@@ -312,9 +314,18 @@ public class Enemy : MonoBehaviour
             activeEffects.Remove(effect);
         }
     }
-    public void ExecuteEffect()
+    public void CheckEffectOnStartTurnEnemy()
     {
         ObserverManager<EventID>.PostEven(EventID.OnStartEnemyTurn, this);
+        EffectUICheck();
+    }
+    public void CheckEffectOnEndTurnEnemy()
+    {
+        ObserverManager<EventID>.PostEven(EventID.OnEndEnemyTurn, this);
+        EffectUICheck();
+    }
+    public void EffectUICheck()
+    {
         foreach (IBuffEffect effect in activeEffects)
         {
             effectController.SetEffect(effect);
@@ -351,7 +362,7 @@ public class Enemy : MonoBehaviour
                 effectController.SetEffect(effect);
         }
     }
-    public void NextAction()
+    public void SetAction()
     {
         UIActionEnemyController.Instance.InitUIAction(this, indexAction);
     }
@@ -367,6 +378,12 @@ public class Enemy : MonoBehaviour
             Debug.Log($"Removed effect {effect.Name} from enemy.");
         }
     }   
+
+    public void ResetShield()
+    {
+        armor = 0;
+        health.UpdateArmor(this);
+    }
     
     public void DesTroy()
     {

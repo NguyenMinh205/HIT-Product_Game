@@ -49,7 +49,7 @@ public class Normal_Claw : ClawMachine
         {
             mode = ModeClaw.DeSpawn;
             if (clawController != null)
-                clawController.ChangeClaw();
+                clawController.SetCurrentClaw();
         }
     }
 

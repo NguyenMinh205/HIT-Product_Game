@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class Item : MonoBehaviour
 {
     [Header("Data")]
     [SerializeField] private string idItem;
     [SerializeField] private string nameItem;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer sr;
     [SerializeField] public Rarity itemRarity;
     [SerializeField] public string description;
     [SerializeField] public bool isStackable;
     [SerializeField] public int maxStackSize = 99;
 
-    [SerializeField] private GameObject balloon;
     [SerializeField] private float moveForce;
+
+    [SerializeField] private PolygonCollider2D poly;
+    [SerializeField] private Rigidbody2D rb;
 
     private ItemBase _itemBase;
 
@@ -33,22 +34,20 @@ public class Item : MonoBehaviour
     }
     public SpriteRenderer SR
     {
-        get => this.spriteRenderer;
-        set => this.spriteRenderer = value;
+        get => this.sr;
+        set => this.sr = value;
     }
-    public Sprite Sprite => spriteRenderer.sprite;
+    public Sprite Sprite => sr.sprite;
 
     private void OnEnable()
     {
-        //isPickUp = false;
         isMove = false;
-        //balloon.SetActive(false);
     }
     public void Init(ItemBase itemBase)
     {
         idItem = itemBase.id;
         nameItem = itemBase.itemName;
-        spriteRenderer.sprite = itemBase.icon;
+        sr.sprite = itemBase.icon;
         ResetCollider2D();
         itemRarity = itemBase.itemRarity;
         description = itemBase.description;
@@ -65,50 +64,32 @@ public class Item : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Basket") && !isPickUp)
+        if(collision.CompareTag("Basket"))
         {
-            Debug.Log("Item in Basket");
-            isPickUp = true;
-
-            this.GetComponent<PolygonCollider2D>().isTrigger = true;
-            this.GetComponent<Rigidbody2D>().simulated = false;
-            ObserverManager<ItemMove>.PostEven(ItemMove.AddItemToMove, this);
-
             ObserverManager<IDItem>.PostEven(IDItem.ItemChange, this);
         }
     }
 
     private void ResetCollider2D()
     {
-        PolygonCollider2D poly = GetComponent<PolygonCollider2D>();
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-
         if (poly == null || sr.sprite == null) return;
 
-        poly.pathCount = 0;
+        poly.pathCount = sr.sprite.GetPhysicsShapeCount();
 
-        int shapeCount = sr.sprite.GetPhysicsShapeCount();
-        poly.pathCount = shapeCount;
+        // new paths variable
+        List<Vector2> path = new List<Vector2>();
 
-        Vector2 spritePivot = sr.sprite.pivot / sr.sprite.pixelsPerUnit;
-        float scale = 0.9f;
 
-        for (int i = 0; i < shapeCount; i++)
+        // loop path count
+        for (int i = 0; i < poly.pathCount; i++)
         {
-            var shape = new List<Vector2>();
-            sr.sprite.GetPhysicsShape(i, shape);
-
-            for (int j = 0; j < shape.Count; j++)
-            {
-                Vector2 dir = shape[j] - spritePivot;
-                shape[j] = spritePivot + dir * scale;
-            }
-
-            poly.SetPath(i, shape);
+            // clear
+            path.Clear();
+            // get shape
+            sr.sprite.GetPhysicsShape(i, path);
+            // set path
+            poly.SetPath(i, path.ToArray());
         }
     }
-    public void SetBalloon(bool val)
-    {
-        balloon.SetActive(val);
-    }
+
 }

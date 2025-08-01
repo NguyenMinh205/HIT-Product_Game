@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class EnemyActionBuff : MonoBehaviour
 {
@@ -27,7 +26,6 @@ public class DoubleDamage : IEnemyAction
 {
     public void Execute(Enemy enemy)
     {
-        enemy.actions.RemoveAt(0);
         enemy.AddBuffEffect("double_damage_each_turn", 2, -1);
     }
 }

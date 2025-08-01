@@ -16,10 +16,12 @@ public class SettingInGame : Singleton<SettingInGame>
         dime.SetActive(true);
         settingUI.SetActive(true);
         isPause = true;
+        Time.timeScale = 0;
     }
 
     public void Continue()
     {
+        Time.timeScale = 1;
         AudioManager.Instance.PlaySoundClickButton();
         dime.SetActive(false);
         settingUI.SetActive(false);
