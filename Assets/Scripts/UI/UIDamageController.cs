@@ -32,7 +32,7 @@ public class UIDamageController : Singleton<UIDamageController>
             pos = enemy.transform.position;
         }
 
-        TextMeshProUGUI textDamage = PoolingManager.Spawn(damageTextPrefab, pos, Quaternion.identity, textParentDamage);
+        TextMeshProUGUI textDamage = Instantiate(damageTextPrefab, pos, Quaternion.identity, textParentDamage);
 
         textDamage.text = damage.ToString(); // Gán giá trị sát thương
 
@@ -44,7 +44,7 @@ public class UIDamageController : Singleton<UIDamageController>
            .AppendInterval(0.2f)
            .OnComplete(() =>
            {
-               PoolingManager.Despawn(textDamage.gameObject);
+               Destroy(textDamage.gameObject);
            });
     }
 }

@@ -32,11 +32,10 @@ public class ItemController : MonoBehaviour
     {
         ObserverManager<IDItem>.AddDesgisterEvent(IDItem.ItemChange, RemoveItemBox);
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
         ObserverManager<IDItem>.RemoveAddListener(IDItem.ItemChange, RemoveItemBox);
     }
-
     public void Spawn(Inventory inven)
     {
         SpawnItem(inven.Items);
@@ -64,6 +63,10 @@ public class ItemController : MonoBehaviour
 
                 AddListCheck(randomIndex);
                 float randomY = Random.Range(-0.5f, 1f);
+
+                if (listPosSpawnItem[randomIndex] == null) continue; 
+
+                if (currentObjectPrefab == null) return;
 
                 Vector3 spawnPos = listPosSpawnItem[randomIndex].transform.position;
                 spawnPos.y += randomY; 
@@ -129,9 +132,10 @@ public class ItemController : MonoBehaviour
             if (listItemInBox.Contains(item))
             {
                 listItemInBox.Remove(item);
-                ItemTube.Instance.AddItem(item);
+                ItemTube.Instance.AddItem(item.ItemBase);
                 GamePlayController.Instance.PlayerController.CurrentPlayer.RemoveItem(item.ItemBase.id, isUpgraded: item.ItemBase.isUpgraded);
-                PoolingManager.Despawn(item.gameObject);
+                //PoolingManager.Despawn(item.gameObject);
+                Destroy(item.gameObject);
             }
         }
     }
@@ -146,7 +150,7 @@ public class ItemController : MonoBehaviour
         listItemInBox.Clear();
 
         Debug.Log("Cleared all items from machine");
-    }
+    } 
 
     public void ChangeToThorn(int val)
     {

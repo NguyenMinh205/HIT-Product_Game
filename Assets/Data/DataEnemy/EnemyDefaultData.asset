@@ -15,7 +15,7 @@ MonoBehaviour:
   dataEnemy:
   - idEnemy: enemy01
     nameEnemy: GreenSlime
-    hpEnemy: 15
+    hpEnemy: 5
     damageEnemy: 09000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1270891317, guid: 6bce7071b00f308438d96b4c54407650, type: 3}
@@ -26,7 +26,7 @@ MonoBehaviour:
     - actionEnemy: 00000000
   - idEnemy: enemy02
     nameEnemy: FireSlime
-    hpEnemy: 18
+    hpEnemy: 5
     damageEnemy: 03000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1214416665, guid: 0a19935fd40f3ec478b1f332b34fa255, type: 3}
@@ -37,7 +37,7 @@ MonoBehaviour:
     - actionEnemy: 000000000000000000000000
   - idEnemy: enemy03
     nameEnemy: IceSlime
-    hpEnemy: 12
+    hpEnemy: 5
     damageEnemy: 06000000
     armorIncreased: 6
     spriteEnemyIdle: {fileID: 59322720, guid: 4a28702e3377b9744b8a8cfba4dc2cc9, type: 3}
@@ -48,7 +48,7 @@ MonoBehaviour:
     - actionEnemy: 01000000
   - idEnemy: enemy04
     nameEnemy: HiveRide
-    hpEnemy: 35
+    hpEnemy: 5
     damageEnemy: 03000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -783777960, guid: ef9edf03a9471db4393f4a4e52c51df5, type: 3}
@@ -59,7 +59,7 @@ MonoBehaviour:
     - actionEnemy: 000000000000000000000000
   - idEnemy: enemy05
     nameEnemy: MushroomHead
-    hpEnemy: 36
+    hpEnemy: 5
     damageEnemy: 05000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1430185463, guid: 0e816514cd42aec48afa8c80d96680f9, type: 3}
@@ -71,7 +71,7 @@ MonoBehaviour:
     - actionEnemy: 00000000
   - idEnemy: enemy06
     nameEnemy: KnightInk
-    hpEnemy: 32
+    hpEnemy: 5
     damageEnemy: 07000000
     armorIncreased: 7
     spriteEnemyIdle: {fileID: -903061839, guid: 1db21c890022a3a4d8da82431637dd16, type: 3}
@@ -85,7 +85,7 @@ MonoBehaviour:
     - actionEnemy: 01000000
   - idEnemy: enemy07
     nameEnemy: KillerLizard
-    hpEnemy: 30
+    hpEnemy: 5
     damageEnemy: 0f000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -938404122, guid: 1022e3d323b44df49b318437daf54080, type: 3}
@@ -96,7 +96,7 @@ MonoBehaviour:
     - actionEnemy: 00000000
   - idEnemy: enemy08
     nameEnemy: PosionBaby
-    hpEnemy: 43
+    hpEnemy: 5
     damageEnemy: 0c000000
     armorIncreased: 12
     spriteEnemyIdle: {fileID: 1636345924, guid: 945a400ba39539a409b9800c6fc4a8ea, type: 3}
@@ -108,7 +108,7 @@ MonoBehaviour:
     - actionEnemy: 00000000
   - idEnemy: enemy09
     nameEnemy: SwordAndShield
-    hpEnemy: 58
+    hpEnemy: 5
     damageEnemy: 0c000000
     armorIncreased: 24
     spriteEnemyIdle: {fileID: -1731744006, guid: 17183bdd70dab3142b55e81e30ced9d3, type: 3}
@@ -119,7 +119,7 @@ MonoBehaviour:
     - actionEnemy: 0000000001000000
   - idEnemy: enemy10
     nameEnemy: BabyShark
-    hpEnemy: 50
+    hpEnemy: 5
     damageEnemy: 0d000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1336480041, guid: 361cb9fb92fac0e4abf80400af632d46, type: 3}
@@ -130,7 +130,7 @@ MonoBehaviour:
     - actionEnemy: 06000000
   - idEnemy: enemy11
     nameEnemy: 
-    hpEnemy: 55
+    hpEnemy: 5
     damageEnemy: 0f000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 126299030, guid: f4455d5d949a0454aa5c38bf02ec107b, type: 3}

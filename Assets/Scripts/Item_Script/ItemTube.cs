@@ -6,10 +6,11 @@ using UnityEngine.Rendering.Universal;
 public class ItemTube : Singleton<ItemTube>
 {
     [SerializeField] public ItemUsage itemUsage;
-    [SerializeField] private List<Item> itemIDs;
+    [SerializeField] private List<ItemBase> itemIDs;
     [SerializeField] private GameObject backGround;
     [SerializeField] private GameObject foreGround;
     [SerializeField] private RectTransform list;
+    [SerializeField] private List<ItemDisplay> itemDisplays;
     private bool isItemNull = false;
     public bool IsItemNull => isItemNull;
 
@@ -51,10 +52,6 @@ public class ItemTube : Singleton<ItemTube>
         set
         {
             isRollPoint = value;
-            if (!value) 
-            {
-                
-            }
         }
     }
     public bool IsFallPoint
@@ -63,10 +60,6 @@ public class ItemTube : Singleton<ItemTube>
         set
         {
             isFallPoint = value;
-            if (!value) // Fall Point rong
-            {
-               
-            }
         }
     }
     public bool IsConsumePoint
@@ -75,14 +68,9 @@ public class ItemTube : Singleton<ItemTube>
         set
         {
             isConsumePoint = value;
-            if (!value) // Consume Point rong
-            {
-
-            }
         }
     }
-
-    public void AddItem(Item item)
+    public void AddItem(ItemBase item)
     {
         if (item == null) return;
         itemIDs.Add(item);
@@ -103,13 +91,37 @@ public class ItemTube : Singleton<ItemTube>
         ItemDisplay newItemDisplay = Instantiate(itemDisplay, enTryPoint.position, Quaternion.identity, list);
         newItemDisplay.SetItemDisplay(itemIDs[0]);
         itemIDs.RemoveAt(0);
+        itemDisplays.Add(newItemDisplay);
+        CheckItemNull();
         isEntryPoint = true;
     }
 
     public void CheckItemNull()
     {
-        if (itemIDs.Count <= 0) isItemNull = true;
+        if (itemDisplays.Count <= 0) isItemNull = true;
         else isItemNull = false;
         GamePlayController.Instance.CheckTurnPlayer();
+    }
+
+    public void UseItem(ItemDisplay itemDisplay)
+    {
+        if (itemDisplay == null) return;
+        itemDisplays.Remove(itemDisplay);
+        PauseItemDisplay();
+
+    }
+    public void PauseItemDisplay()
+    {
+        foreach(ItemDisplay item in itemDisplays)
+        {
+            item.PauseDotween();
+        }
+    }
+    public void ContinueItemDisplay()
+    {
+        foreach (ItemDisplay item in itemDisplays)
+        {
+            item.ContinueTween();
+        }
     }
 }

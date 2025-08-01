@@ -20,17 +20,16 @@ public class ItemDisplay : MonoBehaviour
     [SerializeField] private StateItemDisplay state;
 
     private Tween rotateTween;
-    Sequence moveSeq = DOTween.Sequence();
+    Sequence moveSeq;
     private RectTransform startPos;
     private RectTransform endPos;
     private bool isMove = false;
+    private bool isBusy = false;
     private bool isUse = false;
-    private float speed = 250f;
+    private float speed = 300f;
 
     private void Update()
     {
-
-
         if (isMove)
         {
             CheckDistance();
@@ -55,6 +54,13 @@ public class ItemDisplay : MonoBehaviour
 
 
     }
+    private void OnDestroy()
+    {
+        if (rotateTween != null && rotateTween.IsActive())
+            rotateTween.Kill();
+        if (moveSeq != null && moveSeq.IsActive())
+            moveSeq.Kill();
+    }
     public void RotateItemDisplay()
     {
         if (rect == null) return;
@@ -66,40 +72,28 @@ public class ItemDisplay : MonoBehaviour
     {
         if(rect == null || newTarget == null) return;
 
-        Debug.Log("Add Move Item");
+        Debug.Log("Add Move Item" + newTarget.anchoredPosition);
         isMove = true;
 
         float distance = Vector2.Distance(rect.anchoredPosition, newTarget.anchoredPosition);
         float duration = distance / speed;
 
+        if (moveSeq != null && moveSeq.IsActive())
+            moveSeq.Kill();
+
+        moveSeq = DOTween.Sequence().SetAutoKill(false);
+
         moveSeq.Append(rect.DOAnchorPos(newTarget.anchoredPosition, duration)
                      .SetEase(Ease.Linear)
                      .OnComplete(() =>
                      {
-                         switch(state)
-                         {
-                             case StateItemDisplay.Entry:
-                                 ItemTube.Instance.IsRollPoint = true;
-                                 state = StateItemDisplay.Roll;
-                                 isMove = false;
-                                 break;
-                             case StateItemDisplay.Roll:
-                                 ItemTube.Instance.IsFallPoint = true;
-                                 state = StateItemDisplay.Fall;
-                                 isMove = false;
-                                 break;
-                             case StateItemDisplay.Fall:
-                                 ItemTube.Instance.IsConsumePoint = true;
-                                 state = StateItemDisplay.Consume;
-                                 isMove = false;
-                                 break;
-                         }
+                         OnMoveComplete();
                      }));
     }
-    public void SetItemDisplay(Item item)
+    public void SetItemDisplay(ItemBase item)
     {
-        idItem = item.ID;
-        icon.sprite = item.SR.sprite;
+        idItem = item.id;
+        icon.sprite = item.icon;
         RotateItemDisplay();
         state = StateItemDisplay.Entry;
     }
@@ -125,6 +119,7 @@ public class ItemDisplay : MonoBehaviour
     {
         if (ItemTube.Instance.IsConsumePoint == false)
         {
+            Debug.Log("Check Consume Point");
             startPos = ItemTube.Instance.FallPoint;
             ItemTube.Instance.IsConsumePoint = true;
             AddMoveItem(ItemTube.Instance.ConsumePoint);
@@ -133,22 +128,44 @@ public class ItemDisplay : MonoBehaviour
 
     public void PlayerUseItem()
     {
-        if (!isUse) return;
+        if (isUse) return;
+
+        ItemTube.Instance.UseItem(this);
 
         isUse = true;
-        rotateTween.Kill();
+        if (rotateTween != null && rotateTween.IsActive()) rotateTween.Kill();
         ItemTube.Instance.itemUsage.UseItem(idItem, GamePlayController.Instance.PlayerController.CurrentPlayer, GamePlayController.Instance.EnemyController.ListEnemy[0]);
-        Sequence seq = DOTween.Sequence();
-
-        seq.Join(rect.DOScale(1.5f, 1f).SetEase(Ease.OutQuad));
-        seq.Join(icon.DOFade(0f, 1f).SetEase(Ease.OutQuad));
-        seq.OnComplete(() =>
-        {
-            Destroy(gameObject);
+        Sequence useSeq = DOTween.Sequence();
+        useSeq.Join(rect.DOScale(1.6f, 1f).SetEase(Ease.OutBack));
+        useSeq.Join(rect.DOScale(0f, 1f).SetEase(Ease.InBack));
+        useSeq.Join(icon.DOFade(0f, 1f));
+        useSeq.OnComplete(() => {
             ItemTube.Instance.IsConsumePoint = false;
+            ItemTube.Instance.ContinueItemDisplay();
+            Destroy(gameObject);
+            ItemTube.Instance.CheckItemNull();
         });
     }
-
+    public void OnMoveComplete()
+    {
+        isMove = false;
+        Debug.Log("On Move Complete");
+        switch (state)
+        {
+            case StateItemDisplay.Entry:
+                ItemTube.Instance.IsRollPoint = true;
+                state = StateItemDisplay.Roll;
+                break;
+            case StateItemDisplay.Roll:
+                ItemTube.Instance.IsFallPoint = true;
+                state = StateItemDisplay.Fall;
+                break;
+            case StateItemDisplay.Fall:
+                ItemTube.Instance.IsConsumePoint = true;
+                state = StateItemDisplay.Consume;
+                break;
+        }
+    }
     public void CheckDistance()
     {
         switch (state)
@@ -157,7 +174,7 @@ public class ItemDisplay : MonoBehaviour
                 if(ItemTube.Instance.IsEntryPoint)
                 {
                     float distence = Vector2.Distance(startPos.anchoredPosition, rect.anchoredPosition);
-                    if(distence >= 60)
+                    if(distence >= 65)
                         ItemTube.Instance.IsEntryPoint = false;
                 }
                 break;
@@ -165,7 +182,7 @@ public class ItemDisplay : MonoBehaviour
                 if (ItemTube.Instance.IsRollPoint)
                 {
                     float distence = Vector2.Distance(startPos.anchoredPosition, rect.anchoredPosition);
-                    if (distence >= 60)
+                    if (distence >= 65)
                         ItemTube.Instance.IsRollPoint = false;
                 }
                 break;
@@ -173,10 +190,33 @@ public class ItemDisplay : MonoBehaviour
                 if (ItemTube.Instance.IsFallPoint)
                 {
                     float distence = Vector2.Distance(startPos.anchoredPosition, rect.anchoredPosition);
-                    if (distence >= 60)
+                    if (distence >= 65)
                         ItemTube.Instance.IsFallPoint = false;
                 }
                 break;
+        }
+    }
+    public void PauseDotween()
+    {
+        if (rotateTween != null && rotateTween.IsActive())
+        {
+            rotateTween.Pause();
+        }
+        if (moveSeq != null && moveSeq.IsActive())
+        {
+            moveSeq.Pause();
+        }
+    }
+    public void ContinueTween()
+    {
+        if (rotateTween != null && rotateTween.IsActive())
+        {
+            rotateTween.Play();
+        }
+
+        if (moveSeq != null && moveSeq.IsActive())
+        {
+            moveSeq.Play();
         }
     }
 }
