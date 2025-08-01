@@ -98,9 +98,15 @@ public class ItemTube : Singleton<ItemTube>
 
     public void CheckItemNull()
     {
-        if (itemDisplays.Count <= 0) isItemNull = true;
-        else isItemNull = false;
-        GamePlayController.Instance.CheckTurnPlayer();
+        if (itemDisplays.Count <= 0)
+        {
+            isItemNull = true;
+            GamePlayController.Instance.CheckTurnPlayer();
+        }
+        else
+        {
+            isItemNull = false;
+        }
     }
 
     public void UseItem(ItemDisplay itemDisplay)
