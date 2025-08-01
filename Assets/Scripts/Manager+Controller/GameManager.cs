@@ -130,7 +130,11 @@ public class GameManager : Singleton<GameManager>
         if (currentMachine != null) currentMachine.SetActive(true); //Open Machine
         if (currentUI != null) currentUI.SetActive(true);
 
-        if (currentMachine == defaultClawMachineBox) ItemTube.Instance.SetActionBG(true);
+        if (currentMachine == defaultClawMachineBox)
+        {
+            UiPerksList.Instance.SetActivePerk(true);
+            ItemTube.Instance.SetActionBG(true);
+        }
 
         GamePlayController.Instance.PlayerController.NumOfCoinInRoom.text = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin.ToString();
 
@@ -277,7 +281,11 @@ public class GameManager : Singleton<GameManager>
             currentRoom.SetActive(false);
             currentUI.SetActive(false);
             currentMachine.SetActive(false);
-            if (currentMachine == defaultClawMachineBox) ItemTube.Instance.SetActionBG(false);
+            if (currentMachine == defaultClawMachineBox)
+            {
+                UiPerksList.Instance.SetActivePerk(false);
+                ItemTube.Instance.SetActionBG(false);
+            }
 
             MapController.Instance.SetActiveMapStore(true);
             MapManager.Instance.SetActiveRoomVisual(true);

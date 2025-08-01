@@ -1,62 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum IDPerkUI
-{
-    AddPerk,
-    RemovePerk,
-}
-public class UiPerksList : MonoBehaviour
-{
-    [SerializeField] private List<UiPerk> perks;
-    [SerializeField] private List<PerkBase> perkBases;
-    private void Awake()
-    {
-        ObserverManager<IDPerkUI>.AddDesgisterEvent(IDPerkUI.AddPerk, AddPerks);
-    }
-    private void OnDisable()
-    {
-        ObserverManager<IDPerkUI>.RemoveAddListener(IDPerkUI.AddPerk, AddPerks);
-    }
 
-    public void AddPerks(object obj)
+public class UiPerksList : Singleton<UiPerksList>
+{
+    [Header("Perk")]
+    [SerializeField] private List<UiPerk> perks;
+    [SerializeField] private RectTransform perkParent;
+    [SerializeField] private UiPerk perkPrefabs;
+
+    [Space]
+    [Header("GameObject")]
+    [SerializeField] private GameObject background;
+    [SerializeField] private GameObject title;
+    [SerializeField] private GameObject listPerk;
+
+    public void SetActivePerk(bool val)
     {
-        Debug.Log("Add Perk");
-        if (obj is PerkBase perk)
-        {
-            if(perkBases.Contains(perk))
-            {
-                SetUIPerkText(perk);
-                return;
-            }
-            else
-            {
-                Debug.Log("Add Perk to UI");
-                perkBases.Add(perk);
-                SetUIPerk(perk);
-            }
-        }
+        background.SetActive(val);
+        title.SetActive(val);
+        listPerk.SetActive(val);
     }
-    public void SetUIPerk(PerkBase perk)
+    public void DisplayPerk(Sprite icon)
     {
-        foreach (UiPerk uiPerk in perks)
-        {
-            if (uiPerk.Perk == null)
-            {
-                uiPerk.SetPerk(perk);
-                return;
-            }
-        }
+        if (perkPrefabs == null) return;
+        if (perkParent == null) return;
+
+        if (perks.Count > 10) return;
+
+        int index = perks.Count + 1;
+        UiPerk newPerk = Instantiate(perkPrefabs, Vector2.one, Quaternion.identity, perkParent);
+        newPerk.SetPos(index);
+        newPerk.SetPerk(icon);
+        perks.Add(newPerk);
     }
-    public void SetUIPerkText(PerkBase perk)
+    public void AddPerks(Sprite icon)
     {
-        foreach (UiPerk uiPerk in perks)
-        {
-            if (uiPerk.Perk == perk)
-            {
-                uiPerk.SetTextPerk();
-                return;
-            }
-        }
+        DisplayPerk(icon);
     }
 }

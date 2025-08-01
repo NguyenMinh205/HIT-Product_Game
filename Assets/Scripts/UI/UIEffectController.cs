@@ -41,7 +41,7 @@ public class UIEffectController : MonoBehaviour
         }
 
         RectTransform rect = newEffectUI.GetComponent<RectTransform>();
-        rect.localPosition = new Vector3((index -2) * 37f,effectGood.position.y,0f);
+        rect.localPosition = new Vector3((index - 4) * 25f,0f,0f);
     }
 
     public void SetEffect(IBuffEffect effect)

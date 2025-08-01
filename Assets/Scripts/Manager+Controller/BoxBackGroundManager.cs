@@ -26,9 +26,17 @@ public class BoxBackGroundManager : Singleton<BoxBackGroundManager>
     [SerializeField] private Sprite backGroundBasketMysteryRoom;
 
     [Space]
+    [Header("Perk")]
+    [SerializeField] private Sprite perkFightNormal;
+    [SerializeField] private Sprite perkFightBoss;
+    [SerializeField] private Sprite perkHealing;
+    [SerializeField] private Sprite perkMystery;
+
+    [Space]
     [Header("Machine")]
     [SerializeField] private SpriteRenderer box;
     [SerializeField] private Image move;
+    [SerializeField] private Image perkList;
     [SerializeField] private SpriteRenderer basket;
 
     public void SetBossRoom()
@@ -36,6 +44,7 @@ public class BoxBackGroundManager : Singleton<BoxBackGroundManager>
         box.sprite = backGroundFightBoss;
         move.sprite = backGroundMoveFightBoss;
         basket.sprite = backGroundBasketFightBoss;
+        perkList.sprite = perkFightBoss;
     }
 
     public void SetFightRoom()
@@ -43,6 +52,7 @@ public class BoxBackGroundManager : Singleton<BoxBackGroundManager>
         box.sprite = backGroundFightNormal;
         move.sprite = backGroundMoveFightNormal;
         basket.sprite = backGroundBasketFightNormal;
+        perkList.sprite = perkFightNormal;
     }
 
     public void SetHealingRoom()
@@ -50,11 +60,13 @@ public class BoxBackGroundManager : Singleton<BoxBackGroundManager>
         box.sprite = backGroundHealingRoom;
         move.sprite = backGroundMoveHealingRoom;
         basket.sprite = backGroundBasketHealingRoom;
+        perkList.sprite = perkHealing;
     }
     public void SetMysteryRoom()
     {
         box.sprite = backGroundFightBoss;
         move.sprite = backGroundMoveMysteryRoom;
         basket.sprite = backGroundBasketMysteryRoom;
+        perkList.sprite = perkMystery;
     }
 }

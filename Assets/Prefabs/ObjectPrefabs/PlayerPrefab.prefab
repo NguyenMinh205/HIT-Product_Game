@@ -961,41 +961,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 30, y: 15.12}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &6846291856726498948
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2475412827527414097}
-  m_Layer: 0
-  m_Name: EffectUIBad
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2475412827527414097
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6846291856726498948}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 211502916443935001}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -30.032}
-  m_SizeDelta: {x: 111.01, y: 37.265}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7014486900928085564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,8 +1127,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 30.165}
-  m_SizeDelta: {x: 111.01, y: 37}
+  m_AnchoredPosition: {x: 32, y: 25}
+  m_SizeDelta: {x: 175, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8333857262795762914
 GameObject:
@@ -1195,7 +1160,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 243402371799381254}
-  - {fileID: 2475412827527414097}
   - {fileID: 3568415015590376950}
   m_Father: {fileID: 6303136236189285788}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1219,7 +1183,7 @@ MonoBehaviour:
   effectUIs: []
   effectUIPrefab: {fileID: 3347225113561234422, guid: 29953d9109e8ab540a986a0c13f91ae7, type: 3}
   effectGood: {fileID: 243402371799381254}
-  effectBad: {fileID: 2475412827527414097}
+  effectBad: {fileID: 0}
 --- !u!1 &9200536814425658871
 GameObject:
   m_ObjectHideFlags: 0

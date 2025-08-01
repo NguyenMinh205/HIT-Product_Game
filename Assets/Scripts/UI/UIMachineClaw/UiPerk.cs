@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,27 +7,25 @@ using UnityEngine.UI;
 
 public class UiPerk : MonoBehaviour
 {
+    [SerializeField] private RectTransform rect;
     [SerializeField] private Image icon;
-    [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private int quality = 0;
-    [SerializeField] private PerkBase perk;
-    public PerkBase Perk => perk;
 
-    public void SetPerk(PerkBase perk)
+    public void SetPerk(Sprite sprite)
     {
-        this.perk = perk;
-        icon.sprite = perk.icon;
-        icon.gameObject.SetActive(true);
+        icon.sprite = sprite;
     }
-
-    public void SetTextPerk()
+    
+    public void SetPos(int index)
     {
-        quality++;
-        if(quality > 1)
+        if(index % 2 == 1)
         {
-            text.gameObject.SetActive(true);
-            text.text = quality.ToString();
+            float y = (3-(index / 2 + 1)) * 60f;
+            rect.anchoredPosition = new Vector2(-33.5f, y);
         }
-    }    
-
+        else
+        {
+            float y = (3-(index / 2)) * 60f;
+            rect.anchoredPosition = new Vector2(33.5f, y);
+        }
+    }
 }

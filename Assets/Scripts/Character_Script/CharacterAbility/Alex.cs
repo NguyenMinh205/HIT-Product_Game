@@ -7,6 +7,7 @@ public class Alex : ICharacterAbility
     public void StartSetupEffect(Player player)
     {
         player.AddBuffEffect("buff_shield_start_turn", 5, -1);
+        UiPerksList.Instance.AddPerks(PerkIconManager.Instance.Alex);
         ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
     }
 
