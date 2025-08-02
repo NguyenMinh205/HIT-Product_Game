@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using TranDuc;
 
 [CreateAssetMenu(fileName = "CharacterDatabase", menuName = "Character/CharacterDatabase")]
 public class CharacterDatabaseSO : ScriptableObject
@@ -8,14 +9,12 @@ public class CharacterDatabaseSO : ScriptableObject
 
     public void SetupStartData()
     {
-        GameData.Instance.LoadStartGameData();
-        if (GameData.Instance.startData.characterStates.Count > 0)
+        if (DataManager.Instance.GameData.CharacterStates.Count > 0)
         {
             Debug.Log("Character states already initialized, skipping default save.");
             return;
         }
-
-        GameData.Instance.startData.characterStates.Clear();
+        List<CharacterState> lstCharacter = new List<CharacterState>();
         foreach (Character character in characters)
         {
             CharacterState state = new CharacterState
@@ -31,23 +30,22 @@ public class CharacterDatabaseSO : ScriptableObject
                     state.skinUnlocks.Add(skin.isUnlocked);
                 }
             }
-            GameData.Instance.startData.characterStates.Add(state);
+            lstCharacter.Add(state);
         }
-        GameData.Instance.SaveStartGameData();
+        if(lstCharacter.Count > 0) DataManager.Instance.GameData.SetCharacterStates(lstCharacter);
         Debug.Log("Initialized character and skin states.");
     }
 
     public void LoadUnlockedStates()
     {
-        GameData.Instance.LoadStartGameData();
-        if (GameData.Instance.startData.characterStates == null || GameData.Instance.startData.characterStates.Count == 0)
+        if (DataManager.Instance.GameData.CharacterStates.Count == 0)
         {
             Debug.LogWarning("No character states found, initializing default.");
             SetupStartData();
             return;
         }
 
-        foreach (var state in GameData.Instance.startData.characterStates)
+        foreach (var state in DataManager.Instance.GameData.CharacterStates)
         {
             Character character = characters.Find(c => c.id == state.id);
             if (character != null)
@@ -79,27 +77,25 @@ public class CharacterDatabaseSO : ScriptableObject
 
     public void UnlockCharacter(string id)
     {
-        CharacterState state = GameData.Instance.startData.characterStates.Find(s => s.id == id);
+        var list = new List<CharacterState>(DataManager.Instance.GameData.CharacterStates);
+        var state = list.Find(s => s.id == id);
         if (state != null)
         {
             state.isUnlocked = true;
+            DataManager.Instance.GameData.SetCharacterStates(list);
+            DataManager.Instance.GameData.Save();
         }
-        if (state != null)
-        {
-            state.skinUnlocks[0] = true;
-        }
-
-        GameData.Instance.SaveStartGameData();
     }
 
     public void UnlockSkin(string characterId, int skinIndex)
     {
-        CharacterState state = GameData.Instance.startData.characterStates.Find(s => s.id == characterId);
+        var list = new List<CharacterState>(DataManager.Instance.GameData.CharacterStates);
+        var state = list.Find(s => s.id == characterId);
         if (state != null)
         {
-            state.skinUnlocks[skinIndex] = true;
+            state.isUnlocked = true;
+            DataManager.Instance.GameData.SetCharacterStates(list);
+            DataManager.Instance.GameData.Save();
         }
-
-        GameData.Instance.SaveStartGameData();
     }
 }

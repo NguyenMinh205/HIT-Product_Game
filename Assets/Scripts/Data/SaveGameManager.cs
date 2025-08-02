@@ -10,7 +10,6 @@ public class SaveUtility<T>
         value = vl;
         string path = Application.persistentDataPath + "/" + ByteString(ToByte(filename.ToString())) + ".dat";
         string json = JsonUtility.ToJson(this);
-        Debug.Log($"Saving data to {path} with content: {json}");
         File.WriteAllBytes(path, ToByte(json));
     }
 

@@ -1,30 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class UIActionEnemy : MonoBehaviour
 {
-    [SerializeField] private ActionEnemy actionEnemyPrefab; 
-    [SerializeField] private List<ActionEnemy> listAciton; // 2-1-3
+    [SerializeField] private List<ActionEnemy> listAciton; 
 
     public void SetAction(Sprite icon, int posX, int damage, Enemy enemy)
     {
-        ActionEnemy actionEnemy = PoolingManager.Spawn(actionEnemyPrefab, new Vector3(posX, transform.position.y, 0f), Quaternion.identity, transform);
-        RectTransform rectTransform = actionEnemy.GetComponent<RectTransform>();
+        ActionEnemy actionEnemy = null;
 
+        for (int i = 0; i < listAciton.Count; i++)
+        {
+            if (!listAciton[i].gameObject.activeSelf)
+            {
+                actionEnemy = listAciton[i];
+                actionEnemy.gameObject.SetActive(true);
+                break;
+            }
+        }
+
+        if (actionEnemy == null)
+        {
+            Debug.LogWarning("No available ActionEnemy in list to reuse.");
+            return;
+        }
+
+        RectTransform rectTransform = actionEnemy.GetComponent<RectTransform>();
         rectTransform.localPosition = new Vector3(posX, 0f, rectTransform.localPosition.z);
         actionEnemy.SetUIAction(icon, damage);
-        listAciton.Add(actionEnemy);
     }
+
     public void UnActionIndexEnemy(int index)
     {
-        listAciton[index].UnShow();
+        if (index >= 0 && index < listAciton.Count)
+            listAciton[index].UnShow();
     }
+
     public void ClearAllActionList()
     {
-        listAciton.Clear();
+        foreach (var action in listAciton)
+        {
+            action.UnShow(); 
+        }
     }
+
     public void UnShowActionEnemy()
     {
         gameObject.SetActive(false);
@@ -32,7 +52,7 @@ public class UIActionEnemy : MonoBehaviour
 
     public void Execute(int index)
     {
-        listAciton[index].UnShow();
+        if (index >= 0 && index < listAciton.Count)
+            listAciton[index].UnShow();
     }
 }
-

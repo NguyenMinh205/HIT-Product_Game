@@ -38,13 +38,15 @@ public class Item : MonoBehaviour
     }
     public Sprite Sprite => spriteRenderer.sprite;
 
+    private ItemMoveController _itemMoveController;
+
     private void OnEnable()
     {
         //isPickUp = false;
         isMove = false;
         //balloon.SetActive(false);
     }
-    public void Init(ItemBase itemBase)
+    public void Init(ItemBase itemBase, ItemMoveController itemMove)
     {
         idItem = itemBase.id;
         nameItem = itemBase.itemName;
@@ -62,6 +64,7 @@ public class Item : MonoBehaviour
             _itemBase.Action = ItemActionFactory.CreateItemAction(idItem);
             _itemBase.Action.Execute(null, null);
         }
+        _itemMoveController = itemMove;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -72,7 +75,7 @@ public class Item : MonoBehaviour
 
             this.GetComponent<PolygonCollider2D>().isTrigger = true;
             this.GetComponent<Rigidbody2D>().simulated = false;
-            ObserverManager<ItemMove>.PostEven(ItemMove.AddItemToMove, this);
+            _itemMoveController.EnqueueItem(this);
 
             ObserverManager<IDItem>.PostEven(IDItem.ItemChange, this);
         }

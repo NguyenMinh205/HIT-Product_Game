@@ -6,5 +6,6 @@ public enum eData
 {
     None,
     StartGameData,
-    MainGameData
+    MainGameData,
+    SecureGameData
 }

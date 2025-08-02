@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,24 @@ public class Normal_Claw : ClawMachine
 
     [SerializeField] private float closeAngle = 45f;
     [SerializeField] private float clawStrength = 25f;
+    private Collider2D leftCol;
+    private Collider2D rightCol;
+
+    private void Start()
+    {
+        leftCol = leftClaw.GetComponent<Collider2D>();
+        rightCol = rightClaw.GetComponent<Collider2D>();
+        leftCol.enabled = true;
+        rightCol.enabled = true;
+    }
+    private void OnEnable()
+    {
+        if(leftCol != null && rightCol != null)
+        {
+            leftCol.enabled = true;
+            rightCol.enabled = true;
+        }
+    }
 
     public override void StartClaw()
     {
@@ -86,5 +105,14 @@ public class Normal_Claw : ClawMachine
 
         leftClaw.motor = leftMotor;
         rightClaw.motor = rightMotor;
+    }
+    protected override void OtherAction()
+    {
+        base.OtherAction();
+        DOVirtual.DelayedCall(1.1f, delegate
+        {
+            leftClaw.GetComponent<Collider2D>().enabled = false;
+            rightClaw.GetComponent<Collider2D>().enabled = false;
+        });
     }
 }

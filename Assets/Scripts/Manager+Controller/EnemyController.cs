@@ -28,15 +28,9 @@ public class EnemyController : MonoBehaviour
     {
         get => listEnemy;
     }
-
-    private void Awake()
-    {
-        ObserverManager<IDEnemyState>.AddDesgisterEvent(IDEnemyState.EnemyDied, DieEnemy);
-    }
-
     public void Spawn()
     {
-        SpawnEnemy(enemySpawController.GetListEnemyToSpawn(MapManager.Instance.MapIndex));
+        SpawnEnemy(enemySpawController.GetListEnemyToSpawn(MapSystem.Instance.MapIndex));
     }
     public void SetPosEnemy(GameObject currentRoom, string checkRoom)
     {
@@ -61,7 +55,7 @@ public class EnemyController : MonoBehaviour
         for (int i = 0; i < dataEnemySetUp.Count; i++)
         {
             GameObject newObject = PoolingManager.Spawn(enemyPrefab, listPosSpawnEnemy[i].position, Quaternion.identity, enemyParent);
-            Enemy newEnemy = newObject.transform.Find("EnemyPrefab").GetComponent<Enemy>();
+            Enemy newEnemy = newObject.GetComponentInChildren<Enemy>();
             newEnemy.InitEnemy(enemyData, dataEnemySetUp[i]);
             listEnemy.Add(newEnemy);
         }
@@ -102,20 +96,16 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void DieEnemy(object obj)
+    public void DieEnemy(Enemy enemy)
     {
-        if (obj is Enemy enemy)
+        Debug.Log("Die Enemy");
+        if (listEnemy.Contains(enemy))
         {
-            Debug.Log("Die Enemy");
-            if (listEnemy.Contains(enemy))
-            {
-                listEnemy.Remove(enemy);
-                GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(1);
-                CheckEnemyCountZero();
-            }
+            listEnemy.Remove(enemy);
+            GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(1);
+            CheckEnemyCountZero();
             enemy.UIAction.UnShowActionEnemy();
             enemy.Health.UnShowHealthBarEnemy();
-            enemy.DesTroy();
         }
     }
 

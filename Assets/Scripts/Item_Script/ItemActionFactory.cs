@@ -60,7 +60,9 @@ public static class ItemActionFactory
             case "Def11":
                 return new MetalShield();
             case "Buf01":
-                return new Magnet();
+                GameObject obj = new GameObject("Magnet");
+                Magnet magnet = obj.AddComponent<Magnet>();
+                return magnet;
             case "Buf03":
                 return new Eyepatch();
             case "Buf04":
@@ -88,7 +90,9 @@ public static class ItemActionFactory
             case "Buf21":
                 return new EnergyDrink();
             case "Buf23":
-                return new HoneyBall();
+                GameObject objHoneyBall = new GameObject("HoneyBall");
+                HoneyBall HoneyBall = objHoneyBall.AddComponent<HoneyBall>();
+                return HoneyBall;
             case "Buf24":
                 return new HandMirror();
 

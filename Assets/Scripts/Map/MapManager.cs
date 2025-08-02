@@ -1,7 +1,8 @@
-﻿using DG.Tweening;
+﻿/*using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using TranDuc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,9 +30,9 @@ public class MapManager : Singleton<MapManager>
         fightMaps = Resources.LoadAll<MapData>("SO/Fight").ToList();
         bossMaps = Resources.LoadAll<MapData>("SO/Boss").ToList();
         restMaps = Resources.LoadAll<MapData>("SO/Rest").ToList();
-        if (GameData.Instance.startData.isKeepingPlayGame)
+        if (DataManager.Instance.GameData.IsKeepingPlayGame)
         {
-            currentMapIndex = GameData.Instance.mainGameData.curFloor;
+            currentMapIndex = DataManager.Instance.GameData.CurrentFloor;
             LoadSaveMap();
         }
         else
@@ -58,34 +59,32 @@ public class MapManager : Singleton<MapManager>
             return;
         }
         currentMapIndex++;
-        GameData.Instance.mainGameData.curFloor = currentMapIndex;
         curMap = fightMaps[0];
-        GameData.Instance.mainGameData.curMapData = curMap;
-        //GameData.Instance.SaveMainGameData();
-        curMap.UpdateMapLayout();
-        MapController.Instance.LoadMap(curMap);
-        DOVirtual.DelayedCall(0.2f, () =>
-        {
-            GenerateSequenceMap();
-            UpdateFloorText();
-        });
-        Debug.Log($"Initial map loaded: {curMap.MapType} at index {currentMapIndex}");
-    }
-
-    private void LoadSaveMap()
-    {
-        currentMapIndex = GameData.Instance.mainGameData.curFloor;
-        curMap = GameData.Instance.mainGameData.curMapData;
-        if (curMap == null)
-        {
-            Debug.LogError("Current map data is null! Cannot load saved map.");
-            return;
-        }
         curMap.UpdateMapLayout();
         MapController.Instance.LoadMap(curMap);
         GenerateSequenceMap();
         UpdateFloorText();
-    }    
+        DataManager.Instance.GameData.CurrentFloor = currentMapIndex;
+        DataManager.Instance.GameData.CurrentMapData = curMap;
+    }
+
+    private void LoadSaveMap()
+    {
+        if (DataManager.Instance.GameData.CurrentMapData == null)
+        {
+            Debug.LogError("Current map data is null! Cannot load saved map.");
+            return;
+        }
+        else
+        {
+            currentMapIndex = DataManager.Instance.GameData.CurrentFloor;
+            curMap = DataManager.Instance.GameData.CurrentMapData;
+            curMap.UpdateMapLayout();
+            MapController.Instance.LoadMap(curMap);
+            GenerateSequenceMap();
+            UpdateFloorText();
+        }
+    }
 
     private void GenerateSequenceMap()
     {
@@ -158,7 +157,7 @@ public class MapManager : Singleton<MapManager>
                     // Gán cửa thoát còn lại (nếu có)
                     if (curMap.ExitDoors.Count > 1)
                     {
-                        int fightExitIndex = (restExitIndex + 1) % curMap.ExitDoors.Count; 
+                        int fightExitIndex = (restExitIndex + 1) % curMap.ExitDoors.Count;
                         curMap.ExitDoors[fightExitIndex].SubsequentMap = fightMap;
                     }
                     else
@@ -251,7 +250,7 @@ public class MapManager : Singleton<MapManager>
         {
             curMap = subsequentMap;
             curMap.UpdateMapLayout();
-            MapController.Instance.LoadMap(curMap); 
+            MapController.Instance.LoadMap(curMap);
             GenerateSequenceMap();
             UpdateFloorText();
         }
@@ -264,4 +263,4 @@ public class MapManager : Singleton<MapManager>
             GameData.Instance.SaveStartGameData();
         }
     }
-}
+}*/

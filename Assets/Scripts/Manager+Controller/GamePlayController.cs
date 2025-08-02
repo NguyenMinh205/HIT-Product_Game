@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using TranDuc;
 
 public enum EventID
 {
@@ -54,6 +55,7 @@ public class GamePlayController : Singleton<GamePlayController>
     [Header("TurnDisplay")]
     [SerializeField] private GameObject uiTurnChange;
     [SerializeField] private TextMeshProUGUI textTurn;
+    private CanvasGroup uiTurnCanvasGroup;
 
     [Space]
     [Header("CheckTurn")]
@@ -79,7 +81,13 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         set => intoRoomTrigger = value;
     }
-
+    private void Start()
+    {
+        if (uiTurnChange != null)
+        {
+            uiTurnCanvasGroup = uiTurnChange.GetComponent<CanvasGroup>();
+        }
+    }
     private void HandleBasketEmpty(object obj)
     {
         isCheckTurnByItem = true;
@@ -133,8 +141,10 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         if (isEndGame) return;
         turnGame = newTurn;
-        ShowChangeTurn();
-
+        ShowChangeTurn(newTurn);
+    }
+    private void SwitchTurn(TurnPlay newTurn)
+    {
         switch (newTurn)
         {
             case TurnPlay.Enemy:
@@ -151,15 +161,19 @@ public class GamePlayController : Singleton<GamePlayController>
         }
     }
 
-    private void ShowChangeTurn()
+    private void ShowChangeTurn(TurnPlay turn)
     {
+        if (uiTurnCanvasGroup == null || textTurn == null) return;
         textTurn.text = turnGame == TurnPlay.Player ? "Your Turn" : "Enemy Turn";
-        CanvasGroup turnCanvasGroup = uiTurnChange.GetComponent<CanvasGroup>();
-        turnCanvasGroup.alpha = 0f;
-        turnCanvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
-            turnCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.InQuad).SetDelay(1f)
-            );
+        uiTurnCanvasGroup.alpha = 0f;
+        uiTurnCanvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
+            uiTurnCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.InQuad).OnComplete(delegate
+            {
+                DOVirtual.DelayedCall(0.25f, () => SwitchTurn(turn));
+            }).SetDelay(1f)
+        );
     }
+
 
     public void StartPlayerTurn()
     {
@@ -205,12 +219,11 @@ public class GamePlayController : Singleton<GamePlayController>
             
         });
 
-        turnGame = TurnPlay.Player;
+        Turn = TurnPlay.Player;
         isCheckTurnByClaw = false;
         isCheckTurnByItem = false;
         ObserverManager<EventID>.AddDesgisterEvent(EventID.OnBasketEmpty, HandleBasketEmpty);
         ObserverManager<EventID>.AddDesgisterEvent(EventID.OnClawsEmpty, HandleClawsEmpty);
-        ShowChangeTurn();
         itemController.IsPickupItemSuccess = false;
     }
 
@@ -241,12 +254,11 @@ public class GamePlayController : Singleton<GamePlayController>
 
         clawController.IsStart = true;
         clawController.StartClaw();
-        turnGame = TurnPlay.Player;
+        Turn = TurnPlay.Player;
         isCheckTurnByClaw = false;
         isCheckTurnByItem = false;
         ObserverManager<EventID>.AddDesgisterEvent(EventID.OnBasketEmpty, HandleBasketEmpty);
         ObserverManager<EventID>.AddDesgisterEvent(EventID.OnClawsEmpty, HandleClawsEmpty);
-        ShowChangeTurn();
         itemController.IsPickupItemSuccess = false;
     }
 
@@ -264,9 +276,7 @@ public class GamePlayController : Singleton<GamePlayController>
 
         ObserverManager<EventID>.RemoveAddListener(EventID.OnBasketEmpty, HandleBasketEmpty);
         ObserverManager<EventID>.RemoveAddListener(EventID.OnClawsEmpty, HandleClawsEmpty);
-        GameData.Instance.startData.isKeepingPlayGame = false;
-        GameData.Instance.SaveStartGameData();
-        GameManager.Instance.BackHome();
+        RoomInGameManager.Instance.BackHome();
     }
 
     public void WinGame()
@@ -280,13 +290,13 @@ public class GamePlayController : Singleton<GamePlayController>
         playerController.EndGame();
         itemController.EndGame();
 
-        int bonusGold = 3 + MapManager.Instance.MapIndex;
+        int bonusGold = 3 + MapSystem.Instance.MapIndex;
         playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
         playerController.SavePlayerData();
 
         ObserverManager<EventID>.RemoveAddListener(EventID.OnBasketEmpty, HandleBasketEmpty);
         ObserverManager<EventID>.RemoveAddListener(EventID.OnClawsEmpty, HandleClawsEmpty);
-        GameManager.Instance.RewardUI.SetActive(true);
+        ControlerUIInGame.Instance.RewardUI.SetActive(true);
         RewardManager.Instance.InitReward();
     }
 
@@ -301,7 +311,7 @@ public class GamePlayController : Singleton<GamePlayController>
         playerController.EndGame();
         itemController.EndGame();
 
-        int bonusGold = 3 + MapManager.Instance.MapIndex;
+        int bonusGold = 3 + MapSystem.Instance.MapIndex;
         //playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
         playerController.SavePlayerData();
 
@@ -315,7 +325,7 @@ public class GamePlayController : Singleton<GamePlayController>
         }
         else
         {
-            GameManager.Instance.OutRoom();
+            RoomInGameManager.Instance.OutRoom();
         }
     }
 }

@@ -26,7 +26,7 @@ public class ExitTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PoolingManager.Despawn(other.gameObject);
-            MapManager.Instance.ProceedToNextMap(SubsequentMap);
+            MapSystem.Instance.ProceedToNextMap(SubsequentMap);
         }
     }
 

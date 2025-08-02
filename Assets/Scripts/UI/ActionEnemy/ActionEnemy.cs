@@ -12,7 +12,7 @@ public class ActionEnemy : MonoBehaviour
 
     public void UnShow()
     {
-        PoolingManager.Despawn(gameObject);
+        this.gameObject.SetActive(false);
     }
     
     public void SetUIAction(Sprite sprite, int damage)

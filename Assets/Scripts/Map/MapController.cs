@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -110,7 +110,7 @@ public class MapController : Singleton<MapController>
                         else
                         {
                             PlayerMapController newPlayer = PoolingManager.Spawn<PlayerMapController>(playerPrefab, adjustedPos, Quaternion.identity, mapStore);
-                            newPlayer.Initialize(tilemap, currentMapData, new Vector2Int(gridX, gridY), new Vector2Int(x,y), characterDatabase.GetCharacterById(GameData.Instance.startData.selectedCharacterId).skins[GameData.Instance.startData.selectedSkinIndex].skin);
+                            newPlayer.Initialize(tilemap, currentMapData, new Vector2Int(gridX, gridY), new Vector2Int(x, y), characterDatabase.GetCharacterById(GameData.Instance.startData.selectedCharacterId).skins[GameData.Instance.startData.selectedSkinIndex].skin);
                         }
                         break;
                     case EMapTileType.Exit:
@@ -183,10 +183,4 @@ public class MapController : Singleton<MapController>
         //GameData.Instance.SaveMainGameData();
     }
 }
-
-[Serializable]
-public class SpecialTile
-{
-    public TileData tileData;
-    public bool isInto;
-}
+*/

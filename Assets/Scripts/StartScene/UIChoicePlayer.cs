@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TranDuc;
 
 public class UIChoicePlayer : MonoBehaviour
 {
@@ -112,7 +113,6 @@ public class UIChoicePlayer : MonoBehaviour
             {
                 characterAnimator.runtimeAnimatorController = curCharacter.skins[skinSelectOption].anim;
                 characterAnimator.SetTrigger("IsBuffing");
-                Debug.Log($"Triggering 'IsBuffing' for skin {skinSelectOption} of character {curCharacter.name}");
             }
             else
             {

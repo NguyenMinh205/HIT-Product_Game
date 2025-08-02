@@ -49,6 +49,7 @@ public class ClawMachine : MonoBehaviour
     {
         set => this.clawController = value;
     }
+    private bool flag;
     private void Update()
     {
         UpdateRope();
@@ -79,6 +80,7 @@ public class ClawMachine : MonoBehaviour
                 break;
 
             case ModeClaw.End:
+                if (flag) return;
                 EndClaw();
                 break;
 
@@ -164,6 +166,7 @@ public class ClawMachine : MonoBehaviour
         {
             rb.velocity = Vector2.zero * moveForce;
             StartCoroutine(DelayOpen(1f));
+            OtherAction();
         }
     }
     public void Despawn()
@@ -227,5 +230,9 @@ public class ClawMachine : MonoBehaviour
             mode = ModeClaw.DeSpawn;
             clawController.ChangeClaw();
         }
+    }
+    protected virtual void OtherAction()
+    {
+        flag = true;
     }
 }

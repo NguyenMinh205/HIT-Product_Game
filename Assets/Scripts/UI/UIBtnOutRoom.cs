@@ -19,13 +19,7 @@ public class UIBtnOutRoom : MonoBehaviour
     public void OutRoom()
     {
         btnOutRoom.gameObject.SetActive(true);
-
-        MapController.Instance.SetActiveMapStore(true);
-        MapManager.Instance.SetActiveRoomVisual(true);
-
-        PlayerMapController.Instance.IsIntoRoom = false;
-        PlayerMapController.Instance.IsMoving = false;
-
+        MapSystem.Instance.SetActiveRoomVisual(true);
         intoRoomTrigger.gameObject.SetActive(false);
     }
 }

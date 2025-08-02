@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TranDuc;
 
 public class GachaManager : Singleton<GachaManager>
 {
@@ -14,29 +15,28 @@ public class GachaManager : Singleton<GachaManager>
 
     private void OnEnable()
     {
-        GameData.Instance.LoadStartGameData();
-        numOfCoinTxt.SetText(GameData.Instance.startData.coin.ToString());
+        numOfCoinTxt.SetText(DataManager.Instance.GameData.Coin.ToString());
     }
 
     public bool CanSpin()
     {
-        return GameData.Instance.startData.coin >= numCoinPerSpin;
+        return DataManager.Instance.GameData.Coin >= numCoinPerSpin;
     }
 
     public void IncreaseCoin(int val)
     {
-        int oldCoin = GameData.Instance.startData.coin;
-        GameData.Instance.startData.coin += val;
-        GameData.Instance.SaveStartGameData();
-        AnimateCoinText(oldCoin, GameData.Instance.startData.coin);
+        int oldCoin = DataManager.Instance.GameData.Coin;
+        DataManager.Instance.GameData.Coin += val;
+        DataManager.Instance.GameData.Save();
+        AnimateCoinText(oldCoin, DataManager.Instance.GameData.Coin);
     }
 
     public void CoinAfterSpin()
     {
-        int oldCoin = GameData.Instance.startData.coin;
-        GameData.Instance.startData.coin -= numCoinPerSpin;
-        GameData.Instance.SaveStartGameData();
-        AnimateCoinText(oldCoin, GameData.Instance.startData.coin);
+        int oldCoin = DataManager.Instance.GameData.Coin;
+        DataManager.Instance.GameData.Coin -= numCoinPerSpin;
+        DataManager.Instance.GameData.Save();
+        AnimateCoinText(oldCoin, DataManager.Instance.GameData.Coin);
     }
 
     private void AnimateCoinText(int fromValue, int toValue)

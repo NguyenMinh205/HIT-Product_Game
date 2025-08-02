@@ -22,21 +22,14 @@ public class ItemMoveController : MonoBehaviour
     private bool isRunningCoroutine = false;
     private bool isPaused = false;
 
-    private void Awake()
+ 
+    public void EnqueueItem(Item item)
     {
-        ObserverManager<ItemMove>.AddDesgisterEvent(ItemMove.AddItemToMove, EnqueueItem);
-    }
+        itemQueue.Enqueue(item);
+        item.gameObject.SetActive(false);
 
-    public void EnqueueItem(object obj)
-    {
-        if (obj is Item item)
-        {
-            itemQueue.Enqueue(item);
-            item.gameObject.SetActive(false);
-
-            if (!isRunningCoroutine && !isPaused)
-                StartCoroutine(ProcessItemQueue());
-        }
+        if (!isRunningCoroutine && !isPaused)
+            StartCoroutine(ProcessItemQueue());
     }
 
     private IEnumerator ProcessItemQueue()

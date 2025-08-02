@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using TranDuc;
 
 public class StartSceneManager : Singleton<StartSceneManager>
 {
@@ -37,8 +38,6 @@ public class StartSceneManager : Singleton<StartSceneManager>
     protected override void Awake()
     {
         base.Awake();
-        characterDatabaseSO.SetupStartData();
-        GameData.Instance.LoadStartGameData();
     }
 
     private void Start()
@@ -47,13 +46,14 @@ public class StartSceneManager : Singleton<StartSceneManager>
         {
             AudioManager.Instance.PlayMusicStartGame();
         });
+        characterDatabaseSO.SetupStartData();
     }
 
     public void OnStartButton()
     {
         AudioManager.Instance.PlaySoundClickButton();
 
-        if (GameData.Instance.startData.isKeepingPlayGame)
+        if (DataManager.Instance.GameData.IsKeepingPlayGame)
         {
             choiceKeepPlayingUI.SetActive(true);
             return;
@@ -71,9 +71,8 @@ public class StartSceneManager : Singleton<StartSceneManager>
     public void OnChoiceNewGameButton()
     {
         AudioManager.Instance.PlaySoundClickButton();
-        GameData.Instance.ClearMainGameData();
-        GameData.Instance.startData.isKeepingPlayGame = false;
-        GameData.Instance.SaveStartGameData();
+        DataManager.Instance.GameData.ClearGameplayData();
+        DataManager.Instance.GameData.SetKeepPlayState(false);
         characterSelectionScreen.SetActive(true);
         startScreen.gameObject.SetActive(false);
         choiceKeepPlayingUI.SetActive(false);
@@ -132,8 +131,7 @@ public class StartSceneManager : Singleton<StartSceneManager>
 
     public void PlayGame()
     {
-        GameData.Instance.startData.isKeepingPlayGame = false;
-        GameData.Instance.SaveStartGameData();
+        DataManager.Instance.GameData.SetKeepPlayState(false);
         SceneManager.LoadScene(1);
     }
 

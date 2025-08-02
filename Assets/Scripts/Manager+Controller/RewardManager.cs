@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using TranDuc;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using DG.Tweening;
-using System;
 
 public class RewardManager : Singleton<RewardManager>
 {
@@ -42,7 +43,7 @@ public class RewardManager : Singleton<RewardManager>
             PoolingManager.Despawn(child.gameObject);
         }
 
-        if (GameManager.Instance.CurrentRoom == GameManager.Instance.PerkRewardRoom)
+        if (RoomInGameManager.Instance.CurrentRoom == RoomInGameManager.Instance.PerkRewardRoom)
         {
             perkRewards.Clear();
             foreach (TumblerItem item in TumblerMachine.Instance.DroppedItems)
@@ -151,19 +152,18 @@ public class RewardManager : Singleton<RewardManager>
     {
         if (selectedReward != null)
         {
-            if (GameManager.Instance.CurrentRoom == GameManager.Instance.PerkRewardRoom)
+            if (RoomInGameManager.Instance.CurrentRoom == RoomInGameManager.Instance.PerkRewardRoom)
             {
                 selectedReward.Perk.Execute();
                 Debug.LogError($"Đã chọn perk: {selectedReward.Perk.perkName}");
                 GamePlayController.Instance.PlayerController.SavePlayerData();
                 rollBtn.gameObject.SetActive(true);
                 rewardUI.SetActive(false);
-                GameManager.Instance.OutRoom();
+                RoomInGameManager.Instance.OutRoom();
                 Debug.LogError("Đã chọn perk, trở về phòng chính.");
                 return;
             }
             GamePlayController.Instance.PlayerController.TotalInventory.AddItem(selectedReward.Item.id, 1);
-            Debug.LogError($"Đã chọn vật phẩm: {selectedReward.Item.itemName}");
             foreach (Transform child in content)
             {
                 PoolingManager.Despawn(child.gameObject);
@@ -172,7 +172,7 @@ public class RewardManager : Singleton<RewardManager>
             selectedReward = null;
             rewardUI.SetActive(false);
             lastRolledItems.Clear();
-            GameManager.Instance.OutRoom();
+            RoomInGameManager.Instance.OutRoom();
         }
     }
 
