@@ -17,9 +17,9 @@ public class ExitTrigger : MonoBehaviour
             }
         }
     }
+
     [SerializeField] private Transform listIconMapStore;
     [SerializeField] private Image iconPrefab;
-    private List<Sprite> iconMaps = new List<Sprite>();
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -27,66 +27,47 @@ public class ExitTrigger : MonoBehaviour
         {
             PoolingManager.Despawn(other.gameObject);
             MapSystem.Instance.ProceedToNextMap(SubsequentMap);
+            gameObject.SetActive(false);
         }
     }
-
     public void UpdateIconMaps()
     {
-        iconMaps.Clear();
-
         foreach (Transform child in listIconMapStore)
         {
             Destroy(child.gameObject);
         }
 
-        if (SubsequentMap == null || SubsequentMap.MoveTiles == null)
-        {
-            return;
-        }
+        if (SubsequentMap == null || iconPrefab == null) return;
 
-        if (iconPrefab == null)
-        {
-            return;
-        }
+        MapRuntimeInstance runtime = SubsequentMap.CreateRuntimeInstance();
+        Dictionary<EMapTileType, Sprite> uniqueTileSprites = new();
 
-        Dictionary<EMapTileType, Sprite> uniqueTileTypes = new Dictionary<EMapTileType, Sprite>();
-
-        foreach (var tileData in SubsequentMap.MoveTiles)
-        {
-            if (tileData == null || tileData.tileType == EMapTileType.Entrance || tileData.tileType == EMapTileType.Exit)
-            {
+        foreach (var tile in runtime.tileGrid.Values)
+        {     
+            EMapTileType typex = tile.tileTypes;
+            if (typex == EMapTileType.Entrance || typex == EMapTileType.Exit || uniqueTileSprites.ContainsKey(typex))
                 continue;
-            }
-
-            if (tileData.tileIcon != null)
+            if (tile.iconPrefab != null)
             {
-                SpriteRenderer spriteRenderer = tileData.tileIcon.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null && spriteRenderer.sprite != null)
+                SpriteRenderer renderer = tile.iconPrefab.GetComponent<SpriteRenderer>();
+                if (renderer != null && renderer.sprite != null)
                 {
-                    if (!uniqueTileTypes.ContainsKey(tileData.tileType))
-                    {
-                        uniqueTileTypes.Add(tileData.tileType, spriteRenderer.sprite);
-                    }
+                    uniqueTileSprites[typex] = renderer.sprite;
                 }
             }
         }
 
-        iconMaps.AddRange(uniqueTileTypes.Values);
-
-        foreach (var sprite in iconMaps)
+        foreach (var sprite in uniqueTileSprites.Values)
         {
-            Image imageInstance = Instantiate(iconPrefab, listIconMapStore);
-            imageInstance.sprite = sprite;
-            imageInstance.gameObject.SetActive(true);
+            var icon = Instantiate(iconPrefab, listIconMapStore);
+            icon.sprite = sprite;
+            icon.gameObject.SetActive(true);
+            icon.SetNativeSize();
 
-            if (sprite != null && imageInstance != null)
+            var rect = icon.GetComponent<RectTransform>();
+            if (rect != null)
             {
-                imageInstance.SetNativeSize();
-                RectTransform rectTransform = imageInstance.GetComponent<RectTransform>();
-                if (rectTransform != null)
-                {
-                    rectTransform.sizeDelta *= 0.75f;
-                }
+                rect.sizeDelta *= 0.75f;
             }
         }
     }

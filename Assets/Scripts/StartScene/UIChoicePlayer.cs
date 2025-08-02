@@ -35,8 +35,8 @@ public class UIChoicePlayer : MonoBehaviour
 
         if (_characterDatabaseSO.CharacterCount() > 0)
         {
-            string savedCharacterId = GameData.Instance.startData.selectedCharacterId;
-            int savedSkinIndex = GameData.Instance.startData.selectedSkinIndex;
+            string savedCharacterId = DataManager.Instance.GameData.SelectedCharacterId;
+            int savedSkinIndex = DataManager.Instance.GameData.SelectedSkinIndex;
 
             if (!string.IsNullOrEmpty(savedCharacterId))
             {
@@ -175,9 +175,8 @@ public class UIChoicePlayer : MonoBehaviour
     {
         if (curCharacter.isUnlocked && curCharacter.skins[skinSelectOption].isUnlocked)
         {
-            GameData.Instance.startData.selectedCharacterId = curCharacter.id;
-            GameData.Instance.startData.selectedSkinIndex = skinSelectOption;
-            GameData.Instance.SaveStartGameData();
+            DataManager.Instance.GameData.SelectedCharacterId = curCharacter.id;
+            DataManager.Instance.GameData.SelectedSkinIndex = skinSelectOption;
             StartSceneManager.Instance.OnDifficultyButton();
         }
         else

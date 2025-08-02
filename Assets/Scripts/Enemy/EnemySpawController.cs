@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TranDuc;
 using UnityEngine;
 
 public class EnemySpawController : MonoBehaviour
@@ -15,7 +16,7 @@ public class EnemySpawController : MonoBehaviour
     private void Start()
     {
         availableBossIDs = new List<string>(listIDBoss);
-        foreach (string usedBoss in GameData.Instance.mainGameData.usedBossIDs)
+        foreach (string usedBoss in DataManager.Instance.GameData.UsedBossIDs)
         {
             availableBossIDs.Remove(usedBoss);
         }

@@ -19,10 +19,9 @@ public class UIChoiceDifficulty : MonoBehaviour
 
     void Start()
     {
-        GameData.Instance.LoadStartGameData();
-        selectIndex = GameData.Instance.startData.selectedDifficultyIndex;
-        extraDamagePercent = GameData.Instance.startData.extraDamagePercent;
-        extraHealthPercent = GameData.Instance.startData.extraHealthPercent;
+        selectIndex = DataManager.Instance.GameData.SelectedDifficultyIndex;
+        extraDamagePercent = DataManager.Instance.GameData.ExtraDamagePercent;
+        extraHealthPercent = DataManager.Instance.GameData.ExtraHealthPercent;
         UpdateChange();
     }
 
@@ -62,10 +61,8 @@ public class UIChoiceDifficulty : MonoBehaviour
 
     public void SaveDifficulty()
     {
-        GameData.Instance.startData.selectedDifficultyIndex = selectIndex;
-        GameData.Instance.startData.extraDamagePercent = extraDamagePercent;
-        GameData.Instance.startData.extraHealthPercent = extraHealthPercent;
-        GameData.Instance.SaveStartGameData();
+        DataManager.Instance.GameData.SelectedDifficultyIndex = selectIndex;
+        DataManager.Instance.GameData.SetExtraStats(extraDamagePercent, extraHealthPercent);
     }
 
     void OnDisable()

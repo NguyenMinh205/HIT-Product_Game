@@ -1,153 +1,122 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using System;
 
-[CreateAssetMenu(fileName = "New Map Data", menuName = "Map Data")]
+[Serializable]
+public class MapGridTile
+{
+    public Vector2Int position;
+    public EMapTileType tileTypes;
+    public GameObject iconPrefab;
+    public bool visited = false;
+}
+
+[CreateAssetMenu(fileName = "New Map Data", menuName = "Map/StaticMapData")]
 public class MapData : ScriptableObject
 {
     [SerializeField] private EMapType mapType;
     [SerializeField] private GameObject mapPrefab;
-    [SerializeField] private List<List<EMapTileType>> mapLayout = new List<List<EMapTileType>>();
-    [SerializeField] private List<TileData> moveTiles;
-    private int numOfExitDoor = 0;
-    private List<ExitTrigger> exitDoors = new List<ExitTrigger>();
+    [SerializeField] private List<MapGridTile> tileDefinitions = new();
 
     public EMapType MapType => mapType;
     public GameObject MapPrefab => mapPrefab;
-    public List<List<EMapTileType>> MapLayout => mapLayout;
-    public List<TileData> MoveTiles => moveTiles;
-    public BoundsInt TilemapBounds { get; private set; }
-    public int NumOfExitDoor => numOfExitDoor;
-    public List<ExitTrigger> ExitDoors => exitDoors;
+    public List<MapGridTile> TileDefinitions => tileDefinitions;
 
-    public void UpdateMapLayout()
+    public MapRuntimeInstance CreateRuntimeInstance()
     {
-        if (mapPrefab == null)
+        var instance = new MapRuntimeInstance
         {
-            Debug.LogError("Map Prefab is not assigned!");
-            return;
-        }
+            sourceData = this,
+            tileGrid = new Dictionary<Vector2Int, MapGridTile>()
+        };
 
-        Tilemap tilemap = null;
-        foreach (var t in mapPrefab.GetComponentsInChildren<Tilemap>())
+        HashSet<Vector2Int> defined = new();
+
+        foreach (var tile in tileDefinitions)
         {
-            if (t.CompareTag("MapFloor"))
+            instance.tileGrid[tile.position] = new MapGridTile
             {
-                tilemap = t;
-                break;
-            }
+                position = tile.position,
+                tileTypes = tile.tileTypes,
+                iconPrefab = tile.iconPrefab,
+                visited = tile.visited
+            };
+            defined.Add(tile.position);
         }
-
-        if (tilemap == null)
+        var positions = new List<Vector2Int>(defined);
+        for (int i = 0; i < positions.Count; i++)
         {
-            Debug.LogError("No Tilemap found in map prefab!");
-            return;
-        }
-
-        BoundsInt bounds = tilemap.cellBounds;
-        TilemapBounds = bounds;
-        Debug.Log($"Tilemap bounds: {bounds}");
-        mapLayout.Clear();
-        ClearExitDoors(); // Xóa danh sách cửa thoát cũ và reset số lượng
-
-        for (int x = bounds.xMin; x < bounds.xMax; x++)
-        {
-            mapLayout.Add(new List<EMapTileType>());
-            for (int y = bounds.yMin; y < bounds.yMax; y++)
+            for (int j = i + 1; j < positions.Count; j++)
             {
-                Vector3Int cellPos = new Vector3Int(x, y, 0);
-                TileBase tile = tilemap.GetTile(cellPos);
-
-                if (tile != null)
+                Vector2Int from = positions[i];
+                Vector2Int to = positions[j];
+                if (from.x == to.x)
                 {
-                    mapLayout[x - bounds.xMin].Add(EMapTileType.Empty);
-                    Debug.Log($"Position ({x}, {y}) -> MapLayout Index ({x - bounds.xMin}, {y - bounds.yMin}) - Tile: Empty");
+                    int minY = Mathf.Min(from.y, to.y);
+                    int maxY = Mathf.Max(from.y, to.y);
+                    for (int y = minY + 1; y < maxY; y++)
+                    {
+                        Vector2Int pos = new Vector2Int(from.x, y);
+                        if (!defined.Contains(pos))
+                        {
+                            instance.tileGrid[pos] = new MapGridTile
+                            {
+                                position = pos,
+                                tileTypes = EMapTileType.Empty,
+                                iconPrefab = null,
+                                visited = false
+                            };
+                            defined.Add(pos);
+                        }
+                    }
                 }
-                else
+                else if (from.y == to.y)
                 {
-                    mapLayout[x - bounds.xMin].Add(EMapTileType.Nothing);
+                    int minX = Mathf.Min(from.x, to.x);
+                    int maxX = Mathf.Max(from.x, to.x);
+                    for (int x = minX + 1; x < maxX; x++)
+                    {
+                        Vector2Int pos = new Vector2Int(x, from.y);
+                        if (!defined.Contains(pos))
+                        {
+                            instance.tileGrid[pos] = new MapGridTile
+                            {
+                                position = pos,
+                                tileTypes = EMapTileType.Empty,
+                                iconPrefab = null,
+                                visited = false
+                            };
+                            defined.Add(pos);
+                        }
+                    }
                 }
             }
         }
 
-        Debug.Log("Map Layout before setting special tiles:");
-        for (int x = 0; x < mapLayout.Count; x++)
-        {
-            string row = $"Row {x}: ";
-            for (int y = 0; y < mapLayout[x].Count; y++)
-            {
-                row += mapLayout[x][y].ToString() + " ";
-            }
-            Debug.Log(row);
-        }
-
-        SetUpSpecialTiles(bounds);
+        return instance;
     }
 
-    public void SetUpSpecialTiles(BoundsInt bounds)
+}
+
+public class MapRuntimeInstance
+{
+    public MapData sourceData;
+    public Dictionary<Vector2Int, MapGridTile> tileGrid;
+    public List<ExitTrigger> spawnedExitTriggers = new();
+    public BoundsInt tilemapBounds;
+
+    public void AddExitTrigger(ExitTrigger trigger)
     {
-        if (moveTiles == null || moveTiles.Count == 0)
+        if (!spawnedExitTriggers.Contains(trigger))
         {
-            Debug.LogError("Không có tile đặc biệt nào trong moveTiles");
-            return;
-        }
-
-        foreach (var tile in moveTiles)
-        {
-            if (tile == null)
-            {
-                Debug.LogWarning("TileData là null trong moveTiles entry!");
-                continue;
-            }
-
-            int layoutX = tile.position.x - bounds.xMin;
-            int layoutY = tile.position.y - bounds.yMin;
-
-            Debug.Log($"Vị trí Tilemap ({tile.position.x}, {tile.position.y}) -> Chỉ số MapLayout ({layoutX}, {layoutY})");
-
-            if (layoutX >= 0 && layoutX < mapLayout.Count && layoutY >= 0 && layoutY < mapLayout[layoutX].Count)
-            {
-                if (mapLayout[layoutX][layoutY] == EMapTileType.Empty)
-                {
-                    mapLayout[layoutX][layoutY] = tile.tileType;
-                    Debug.Log($"Đặt tile đặc biệt tại Vị trí Tilemap ({tile.position.x}, {tile.position.y}) -> Chỉ số MapLayout ({layoutX}, {layoutY}) thành {tile.tileType}");
-                }
-                else
-                {
-                    Debug.LogWarning($"Không thể đặt tile đặc biệt tại Vị trí Tilemap ({tile.position.x}, {tile.position.y}) -> Chỉ số MapLayout ({layoutX}, {layoutY}) vì nó là {mapLayout[layoutX][layoutY]} (không phải Empty)");
-                }
-            }
-            else
-            {
-                Debug.LogWarning($"Vị trí Tilemap ({tile.position.x}, {tile.position.y}) -> Chỉ số MapLayout ({layoutX}, {layoutY}) vượt ra ngoài giới hạn map!");
-            }
-        }
-
-        Debug.Log("Map Layout sau khi đặt tile đặc biệt:");
-        for (int x = 0; x < mapLayout.Count; x++)
-        {
-            string row = $"Hàng {x}: ";
-            for (int y = 0; y < mapLayout[x].Count; y++)
-            {
-                row += mapLayout[x][y].ToString() + " ";
-            }
-            Debug.Log(row);
+            spawnedExitTriggers.Add(trigger);
         }
     }
 
-    public void AddSpawnedExitTrigger(ExitTrigger exitTrigger)
+    public void ClearExitTriggers()
     {
-        if (exitTrigger != null && !exitDoors.Contains(exitTrigger))
-        {
-            exitDoors.Add(exitTrigger);
-            numOfExitDoor++; 
-        }
+        spawnedExitTriggers.Clear();
     }
 
-    public void ClearExitDoors()
-    {
-        exitDoors.Clear();
-        numOfExitDoor = 0;
-    }
+    public int ExitCount => spawnedExitTriggers.Count;
 }

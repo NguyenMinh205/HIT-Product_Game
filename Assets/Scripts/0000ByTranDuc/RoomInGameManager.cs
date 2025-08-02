@@ -187,6 +187,7 @@ namespace TranDuc
                 AudioManager.Instance.PlayMusicSelectRoom();
                 MapSystem.Instance.SetRoomVisited();
                 ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar, GamePlayController.Instance.PlayerController.CurrentPlayer);
+                MapSystem.Instance.SetRoomWhenWin();
             }
         }
 

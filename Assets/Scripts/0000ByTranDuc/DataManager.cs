@@ -42,7 +42,7 @@ namespace TranDuc
         [SerializeField] private Vector2Int playerNodePosition;
         [SerializeField] private int curFloor = 0;
         [SerializeField] private MapData curMapData;
-        [SerializeField] private List<SpecialTile> specialTiles = new();
+        [SerializeField] private List<Vector2Int> visitedTilePositions = new();
         [SerializeField] private List<string> usedBossIDs = new();
 
         #region PROPERTIES - START
@@ -122,12 +122,10 @@ namespace TranDuc
             set => curMapData = value;
         }
 
-        public List<SpecialTile> SpecialTiles
+        public List<Vector2Int> VisitedTilePositions
         {
-            get => specialTiles;
-            set{
-                if (value != null) specialTiles = value;
-            }
+            get => visitedTilePositions;
+            set => visitedTilePositions = value ?? new List<Vector2Int>();
         }
         public List<string> UsedBossIDs => usedBossIDs;
         #endregion
@@ -167,7 +165,7 @@ namespace TranDuc
                 playerNodePosition = other.playerNodePosition;
                 curFloor = other.curFloor;
                 curMapData = other.curMapData;
-                specialTiles = new List<SpecialTile>(other.specialTiles);
+                visitedTilePositions = new List<Vector2Int>(other.visitedTilePositions);
                 usedBossIDs = new List<string>(other.usedBossIDs);
             }
             else
@@ -210,7 +208,7 @@ namespace TranDuc
             playerNodePosition = Vector2Int.zero;
             curFloor = 0;
             curMapData = null;
-            specialTiles = new List<SpecialTile>();
+            visitedTilePositions = new List<Vector2Int>();
             usedBossIDs = new List<string>();
         }
 

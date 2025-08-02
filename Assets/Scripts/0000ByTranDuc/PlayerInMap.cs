@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
 using TranDuc;
 using UnityEngine;
@@ -9,53 +8,50 @@ public class PlayerInMap : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Vector2Int posInMap;
-    [SerializeField] private Vector2Int posInGrid;
     [SerializeField] private float moveDelay = 0.25f;
 
+    private bool isMoving = false;
     private bool isIntoRoom;
+
+    private Vector2Int posInMap;
+    private Vector2Int posInGrid;
+
+    private Tilemap tilemap;
+    private MapRuntimeInstance mapInstance;
+
     public bool IsIntoRoom
     {
         get => isIntoRoom;
-        set
-        {
-            isIntoRoom = value;
-        }
-    }
-    public Vector2Int PosInGrid
-    {
-        get => posInGrid;
-        set
-        {
-            posInGrid = value;
-        }
+        set => isIntoRoom = value;
     }
 
     public Vector2Int PosInMap
     {
         get => posInMap;
-        set
-        {
-            posInMap = value;
-        }
+        set => posInMap = value;
     }
-    private Tilemap tilemap;
-    private MapData currentMapData;
-    private bool isMoving = false;
+
+    public Vector2Int PosInGrid
+    {
+        get => posInGrid;
+        set => posInGrid = value;
+    }
+
     public bool IsMoving
     {
         set => isMoving = value;
     }
-    protected void Start()
+
+    private void Start()
     {
         isIntoRoom = false;
     }
 
-    public void Initialize(Tilemap mapTilemap, MapData mapData, Vector2Int spawnPosMap, Vector2Int spawnPosGrid, Sprite sprite)
+    public void Initialize(Tilemap mapTilemap, MapRuntimeInstance mapData, Vector2Int spawnPosMap, Vector2Int spawnPosGrid, Sprite sprite)
     {
         spriteRenderer.sprite = sprite;
         tilemap = mapTilemap;
-        currentMapData = mapData;
+        mapInstance = mapData;  
         posInMap = spawnPosMap;
         posInGrid = spawnPosGrid;
         rb.velocity = Vector2.zero;
@@ -64,51 +60,41 @@ public class PlayerInMap : MonoBehaviour
 
     private void Update()
     {
-        if (isMoving || tilemap == null || currentMapData == null || IsIntoRoom)
-        {
+        if (isMoving || tilemap == null || mapInstance == null || IsIntoRoom)
             return;
-        }
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            TryMove(new Vector2Int(0, 1));
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            TryMove(new Vector2Int(0, -1));
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            TryMove(new Vector2Int(-1, 0));
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            TryMove(new Vector2Int(1, 0));
-        }
+        if (Input.GetKeyDown(KeyCode.W)) TryMove(Vector2Int.up);
+        else if (Input.GetKeyDown(KeyCode.S)) TryMove(Vector2Int.down);
+        else if (Input.GetKeyDown(KeyCode.A)) TryMove(Vector2Int.left);
+        else if (Input.GetKeyDown(KeyCode.D)) TryMove(Vector2Int.right);
     }
 
     private void TryMove(Vector2Int direction)
     {
-        Vector2Int newPos = posInGrid + direction;
-        if (IsValidMove(newPos))
+        Vector2Int newGridPos = posInGrid + direction;
+        if (IsValidMove(newGridPos))
         {
+            Debug.Log("OK1");
             GamePlayController.Instance.Dir = direction;
-            MoveToPosition(direction);        }
+            MoveToPosition(direction);
+        }
     }
 
-    private bool IsValidMove(Vector2Int newPos)
+    private bool IsValidMove(Vector2Int newGridPos)
     {
-        if (newPos.x < 0 || newPos.x >= currentMapData.MapLayout.Count || newPos.y < 0 || newPos.y >= currentMapData.MapLayout[newPos.x].Count)
+        foreach (var entry in mapInstance.tileGrid)
         {
-            return false;
+            var pos = entry.Key;
+            var x = entry.Value;
+            Debug.Log($"GridPos: {pos}, TileType(s): {string.Join(", ", x.tileTypes)}");
         }
-
-        EMapTileType tileType = currentMapData.MapLayout[newPos.x][newPos.y];
-        if (tileType == EMapTileType.Nothing)
+        if (mapInstance.tileGrid.TryGetValue(newGridPos, out var tile))
         {
-            return false;
+            Debug.Log("OK2");
+            if (tile.tileTypes != EMapTileType.Nothing)
+                return true;
         }
-        return true;
+        return false;
     }
 
     private void MoveToPosition(Vector2Int direction)
@@ -137,8 +123,9 @@ public class PlayerInMap : MonoBehaviour
                 posInGrid += direction;
                 rb.velocity = Vector2.zero;
                 DataManager.Instance.GameData.PlayerNodePosition = posInMap;
+
+                MapSystem.Instance.SetRoomVisited(); 
                 DOVirtual.DelayedCall(moveDelay, () => isMoving = false);
             });
     }
-
 }
