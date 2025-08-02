@@ -18,7 +18,7 @@ public class UIActionEnemyController : Singleton<UIActionEnemyController>
     [Header("Action Enemy")]
     [SerializeField] private float distanceEnemyAndActionUI = 0.4f;
 
-    public void InitUIAction(Enemy enemy, int indexAction)  // 
+    public void InitUIAction(Enemy enemy, int indexAction)
     {
         Debug.Log("Init UI Action Enem : Index Action Enemy : " + indexAction);
         ProcedureActionEnemy procedure = enemy.actions[indexAction];

@@ -80,7 +80,7 @@ public class MapController : Singleton<MapController>
                 int gridY = y + bounds.yMin;
                 Vector3Int gridPos = new Vector3Int(gridX, gridY, 0);
                 Vector3 worldPos = tilemap.CellToWorld(gridPos);
-                Vector3 adjustedPos = new Vector3(worldPos.x + offsetX, worldPos.y + offsetY / 2, worldPos.z);
+                Vector3 adjustedPos = new Vector3(worldPos.x + offsetX, worldPos.y + 0.5f, worldPos.z);
 
                 switch (currentMapData.MapLayout[x][y])
                 {

@@ -88,26 +88,6 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void CloseAllRoomsAndUIs()
-    {
-        healingRoom.SetActive(false);
-        mysteryRoom.SetActive(false);
-        pachinkoRoom.SetActive(false);
-        smithRoom.SetActive(false);
-        shredderRoom.SetActive(false);
-        bossRoom.SetActive(false);
-        defaultRoom.SetActive(false);
-
-        uiInRoom.SetActive(false);
-        uiPachinkoRoom.SetActive(false);
-        uiTumblerRoom.SetActive(false);
-        uiSmithRoom.SetActive(false);
-        uiShredderRoom.SetActive(false);
-
-        defaultClawMachineBox.SetActive(false);
-        pachinkoMachineBox.SetActive(false);
-        tumblerMachineBox.SetActive(false);
-    }
 
     private void OpenRoom(string typeRoom = null)
     {
@@ -117,7 +97,7 @@ public class GameManager : Singleton<GameManager>
             fadeCanvasGroup.alpha = 1f;
         }
 
-        //AudioManager.Instance.PlayMusicInGame();
+        AudioManager.Instance.PlayMusicInGame();
         PlayerMapController.Instance.IsIntoRoom = true;
 
         MapController.Instance.SetActiveMapStore(false);
@@ -126,8 +106,8 @@ public class GameManager : Singleton<GameManager>
         uiMap.SetActive(false);
         uiInRoom.SetActive(true);
 
-        if (currentRoom != null) currentRoom.SetActive(true); // Open Room
-        if (currentMachine != null) currentMachine.SetActive(true); //Open Machine
+        if (currentRoom != null) currentRoom.SetActive(true);
+        if (currentMachine != null) currentMachine.SetActive(true);
         if (currentUI != null) currentUI.SetActive(true);
 
         if (currentMachine == defaultClawMachineBox)
@@ -143,7 +123,7 @@ public class GameManager : Singleton<GameManager>
             Camera.main.orthographicSize = 8f;
 
             Sequence sequence = DOTween.Sequence();
-            sequence.Append(fadeCanvasGroup.DOFade(0f, 0.2f).SetEase(Ease.InOutQuad)); 
+            sequence.Append(fadeCanvasGroup.DOFade(0f, 0.2f).SetEase(Ease.InOutQuad));
             sequence.Join(DOVirtual.Float(8f, 6f, 0.2f, value =>
             {
                 Camera.main.orthographicSize = value;
@@ -191,7 +171,10 @@ public class GameManager : Singleton<GameManager>
         GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
         GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "Fight");
 
-        OpenRoom("FightRoom");
+        DOVirtual.DelayedCall(0.25f, () =>
+        {
+            OpenRoom("FightRoom");
+        });
     }
 
     public void OpenRoomBossFight()
@@ -204,7 +187,10 @@ public class GameManager : Singleton<GameManager>
         GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
         GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "BossRoom");
 
-        OpenRoom("BossRoom");
+        DOVirtual.DelayedCall(0.25f, () =>
+        {
+            OpenRoom("BossRoom");
+        });
     }
 
     public void OpenRoomHealing()
@@ -217,7 +203,10 @@ public class GameManager : Singleton<GameManager>
         GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
         GamePlayController.Instance.NpcController.SetPosSpawnNPC(currentRoom);
 
-        OpenRoom("HealingRoom");
+        DOVirtual.DelayedCall(0.25f, () =>
+        {
+            OpenRoom("HealingRoom");
+        });
     }
 
     public void OpenRoomMystery()
@@ -230,7 +219,10 @@ public class GameManager : Singleton<GameManager>
         GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
         GamePlayController.Instance.NpcController.SetPosSpawnNPC(currentRoom);
 
-        OpenRoom("MysteruRoom");
+        DOVirtual.DelayedCall(0.25f, () =>
+        {
+            OpenRoom("MysteryRoom");
+        });
     }
 
     public void OpenRoomPerkReward()
@@ -239,9 +231,11 @@ public class GameManager : Singleton<GameManager>
         currentMachine = tumblerMachineBox;
         currentUI = uiTumblerRoom;
 
-        OpenRoom();
-        
-        TumblerMachine.Instance.Init();
+        DOVirtual.DelayedCall(0.25f, () =>
+        {
+            OpenRoom();
+            TumblerMachine.Instance.Init();
+        });
     }
 
     public void OpenRoomPachinko()
@@ -250,8 +244,10 @@ public class GameManager : Singleton<GameManager>
         currentMachine = pachinkoMachineBox;
         currentUI = uiPachinkoRoom;
 
-        OpenRoom();
-
+        DOVirtual.DelayedCall(0.25f, () =>
+        {
+            OpenRoom();
+        });
     }
 
     public void OpenRoomSmith()
@@ -259,11 +255,14 @@ public class GameManager : Singleton<GameManager>
         currentRoom = smithRoom;
         currentUI = uiSmithRoom;
 
-        OpenRoom();
-        smithRoom.SetActive(true);
-        uiSmithRoom.SetActive(true);
-        currentRoom = smithRoom;
-        currentRoom.GetComponent<SmithRoomManager>().Init();
+        DOVirtual.DelayedCall(0.25f, () =>
+        {
+            OpenRoom();
+            smithRoom.SetActive(true);
+            uiSmithRoom.SetActive(true);
+            currentRoom = smithRoom;
+            currentRoom.GetComponent<SmithRoomManager>().Init();
+        });
     }
 
     public void OpenRoomShredder()
@@ -271,9 +270,11 @@ public class GameManager : Singleton<GameManager>
         currentRoom = shredderRoom;
         currentUI = uiShredderRoom;
 
-        OpenRoom();
-
-        currentRoom.GetComponent<ShredderRoomManager>().Init();
+        DOVirtual.DelayedCall(0.25f, () =>
+        {
+            OpenRoom();
+            currentRoom.GetComponent<ShredderRoomManager>().Init();
+        });
     }
 
     public void OutRoom()
@@ -283,6 +284,7 @@ public class GameManager : Singleton<GameManager>
             currentRoom.SetActive(false);
             currentUI.SetActive(false);
             currentMachine.SetActive(false);
+            uiInRoom.SetActive(false);
             if (currentMachine == defaultClawMachineBox)
             {
                 UiPerksList.Instance.SetActivePerk(false);

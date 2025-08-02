@@ -1040,7 +1040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionEnemyPrefab: {fileID: 6565588563491447537, guid: ff4a850a909bb244582354ac1519c2e4, type: 3}
-  listAciton: []
+  listAction: []
 --- !u!1 &6892967363330853370
 GameObject:
   m_ObjectHideFlags: 0
