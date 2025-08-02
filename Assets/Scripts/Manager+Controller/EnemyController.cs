@@ -82,7 +82,7 @@ public class EnemyController : MonoBehaviour
     {
         for (int i = 0; i < listEnemy.Count; i++)
         {
-
+            Debug.Log("Enemy Count : "+listEnemy.Count);
             StartCoroutine(listEnemy[i].ExecuteAction());
             float time = listEnemy[i].actions[listEnemy[i].IndexAction].actionEnemy.Count;
 
@@ -95,7 +95,7 @@ public class EnemyController : MonoBehaviour
 
             yield return new WaitForSeconds(time);
         }
-
+        Debug.Log("Change Turn ");
         GamePlayController.Instance.Turn = TurnPlay.Player;
     }
     public void SetActionEnemyNext()

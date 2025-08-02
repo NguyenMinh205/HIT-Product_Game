@@ -88,21 +88,8 @@ public class GamePlayController : Singleton<GamePlayController>
     private void HandleTurnChange(TurnPlay newTurn)
     {
         if (isEndGame) return;
-
         ChangeTurn(newTurn);
 
-        switch (newTurn)
-        {
-            case TurnPlay.Enemy:
-                if (IsEndGame) return;
-                TurnEnemy();
-                break;
-
-            case TurnPlay.Player:
-                if (IsEndGame) return;
-                TurnPlayer();
-                break;
-        }
     }
 
     private void ChangeTurn(TurnPlay turn)
@@ -118,6 +105,18 @@ public class GamePlayController : Singleton<GamePlayController>
         seq.OnComplete(() =>
         {
             turnGame = turn;
+            switch (turnGame)
+            {
+                case TurnPlay.Enemy:
+                    if (IsEndGame) return;
+                    TurnEnemy();
+                    break;
+
+                case TurnPlay.Player:
+                    if (IsEndGame) return;
+                    TurnPlayer();
+                    break;
+            }
         });
     }
     public void CheckTurnPlayer()
@@ -195,7 +194,7 @@ public class GamePlayController : Singleton<GamePlayController>
             clawController.IsStart = true;
             clawController.SetCurrentClaw();
         }
-        ChangeTurn(TurnPlay.Player);
+        
     }
 
 
@@ -212,11 +211,6 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         StartCoroutine(enemyController.EnemyAction());
     }
-
-
-
-
-
 
 
     public void LoseGame()
@@ -236,19 +230,22 @@ public class GamePlayController : Singleton<GamePlayController>
         GameManager.Instance.BackHome();
     }
 
-
-
-
     public void WinGame()
     {
         AudioManager.Instance.StopMusic();
         AudioManager.Instance.PlayVictorySound();
+
         isEndGame = true;
+
         clawController.EndGame();
         clawController.IsStart = false;
-        enemyController.EndGame();
-        playerController.EndGame();
+
         itemController.EndGame();
+
+        playerController.EndGame();
+
+        enemyController.EndGame();
+
 
         int bonusGold = 3 + MapManager.Instance.MapIndex;
         playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);

@@ -20,5 +20,6 @@ public class PerkBase : ScriptableObject
             action = PerkActionFactory.CreatePerkAction(id);
         }
         action.Execute();
+        UiPerksList.Instance.AddPerks(icon);
     }
 }

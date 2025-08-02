@@ -199,12 +199,12 @@ public class GameManager : Singleton<GameManager>
         currentRoom = bossRoom;
         currentMachine = defaultClawMachineBox;
         currentUI = uiInRoom;
-        OpenRoom("BossRoom");
         if (currentMachine != null) BoxBackGroundManager.Instance.SetBossRoom();
 
         GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
         GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "BossRoom");
 
+        OpenRoom("BossRoom");
     }
 
     public void OpenRoomHealing()
@@ -212,14 +212,12 @@ public class GameManager : Singleton<GameManager>
         currentRoom = healingRoom;
         currentMachine = defaultClawMachineBox;
         currentUI = uiInRoom;
-        OpenRoom("HealingRoom");
         if (currentMachine != null) BoxBackGroundManager.Instance.SetHealingRoom();
         
-
-
         GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
         GamePlayController.Instance.NpcController.SetPosSpawnNPC(currentRoom);
 
+        OpenRoom("HealingRoom");
     }
 
     public void OpenRoomMystery()
@@ -237,25 +235,30 @@ public class GameManager : Singleton<GameManager>
 
     public void OpenRoomPerkReward()
     {
-        OpenRoom();
-        tumblerMachineBox.SetActive(true);
-        uiTumblerRoom.SetActive(true);
-        perkRewardRoom.SetActive(true);
-        TumblerMachine.Instance.Init();
         currentRoom = perkRewardRoom;
+        currentMachine = tumblerMachineBox;
+        currentUI = uiTumblerRoom;
+
+        OpenRoom();
+        
+        TumblerMachine.Instance.Init();
     }
 
     public void OpenRoomPachinko()
     {
-        OpenRoom();
-        pachinkoRoom.SetActive(true);
-        uiPachinkoRoom.SetActive(true);
-        pachinkoMachineBox.SetActive(true);
         currentRoom = pachinkoRoom;
+        currentMachine = pachinkoMachineBox;
+        currentUI = uiPachinkoRoom;
+
+        OpenRoom();
+
     }
 
     public void OpenRoomSmith()
     {
+        currentRoom = smithRoom;
+        currentUI = uiSmithRoom;
+
         OpenRoom();
         smithRoom.SetActive(true);
         uiSmithRoom.SetActive(true);
@@ -265,12 +268,11 @@ public class GameManager : Singleton<GameManager>
 
     public void OpenRoomShredder()
     {
-
+        currentRoom = shredderRoom;
+        currentUI = uiShredderRoom;
 
         OpenRoom();
-        shredderRoom.SetActive(true);
-        uiShredderRoom.SetActive(true);
-        currentRoom = shredderRoom;
+
         currentRoom.GetComponent<ShredderRoomManager>().Init();
     }
 

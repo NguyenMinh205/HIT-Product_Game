@@ -32,31 +32,31 @@ public class IntoRoomTrigger : MonoBehaviour
                 break;
             case "gambling":
                 Debug.Log("Gambling");
-
+                GameManager.Instance.OpenRoomPachinko();
                 break;
             case "hard_fight":
                 Debug.Log("Hard FIght");
-
+                GameManager.Instance.OpenRoomFight();
                 break;
             case "healing":
                 Debug.Log("Healing");
-
+                GameManager.Instance.OpenRoomHealing();
                 break;
             case "mystery_machine":
                 Debug.Log("Mystery Claw Machine");
-
+                GameManager.Instance.OpenRoomMystery();
                 break;
             case "perk":
                 Debug.Log("Perk Reward");
-
+                GameManager.Instance.OpenRoomPerkReward();
                 break;
             case "shredder":
                 Debug.Log("Shredder");
-
+                GameManager.Instance.OpenRoomShredder();
                 break;
             case "upgrade":
                 Debug.Log("Upgrade Smith");
-
+                GameManager.Instance.OpenRoomSmith();
                 break;
         }
     }

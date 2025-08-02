@@ -23461,7 +23461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &4448959421604856276
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27931,7 +27931,7 @@ AreaEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 245760
+    m_Bits: 245768
   m_UseGlobalAngle: 1
   m_ForceAngle: -90
   m_ForceMagnitude: 0.5
@@ -33857,11 +33857,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Alex: {fileID: 1372764284, guid: 622c19d79a0b621458b3e53d3df2a482, type: 3}
-  Coby: {fileID: 0}
-  Damian: {fileID: 0}
-  Liam: {fileID: 0}
-  Violet: {fileID: 0}
-  perks: {fileID: 0}
+  Coby: {fileID: -961200109, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  Damian: {fileID: 1778377054, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  Liam: {fileID: 740304452, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  Violet: {fileID: 514031216, guid: 622c19d79a0b621458b3e53d3df2a482, type: 3}
+  Bargain: {fileID: -483965544, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  Berserker: {fileID: 1871816831, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  BlacksmithCoupon: {fileID: 641139323, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  Blockmaster: {fileID: 1083077854, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  Bulwark: {fileID: -1855809554, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  DeepCuts: {fileID: -846145694, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  Enraged: {fileID: 1452638217, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  Giantism: {fileID: 449315144, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
+  GoldenArmor: {fileID: 1603944164, guid: 622c19d79a0b621458b3e53d3df2a482, type: 3}
+  HealingClaw: {fileID: 2009811086, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  Hedgehog: {fileID: -646008798, guid: 622c19d79a0b621458b3e53d3df2a482, type: 3}
+  Minimalist: {fileID: -1145663239, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  NaturalStrength: {fileID: 1441864580, guid: 622c19d79a0b621458b3e53d3df2a482, type: 3}
+  PoisonWeapons: {fileID: 445549820, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  RerollCoupon: {fileID: -757407760, guid: 622c19d79a0b621458b3e53d3df2a482, type: 3}
+  Resilent: {fileID: -1826619054, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  SavingAccount: {fileID: -1956616426, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  Spikes: {fileID: -150629109, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  SuspiciousGreenRod: {fileID: -1130180868, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  Thief: {fileID: 696124990, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  ShredderCoupon: {fileID: 2014933339, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  VampireFangs: {fileID: 319907181, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
+  HardHits: {fileID: -1483359672, guid: a36c978e8047c1c45923312fa1812b07, type: 3}
 --- !u!1 &7926321566977902119
 GameObject:
   m_ObjectHideFlags: 0

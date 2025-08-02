@@ -13,5 +13,27 @@ public class PerkIconManager : Singleton<PerkIconManager>
 
     [Space]
     [Header("Perks Icon")]
-    [SerializeField] public Sprite perks;
+    [SerializeField] public Sprite Bargain;
+    [SerializeField] public Sprite Berserker;
+    [SerializeField] public Sprite BlacksmithCoupon;
+    [SerializeField] public Sprite Blockmaster;
+    [SerializeField] public Sprite Bulwark;
+    [SerializeField] public Sprite DeepCuts;
+    [SerializeField] public Sprite Enraged;
+    [SerializeField] public Sprite Giantism;
+    [SerializeField] public Sprite GoldenArmor;
+    [SerializeField] public Sprite HealingClaw;
+    [SerializeField] public Sprite Hedgehog;
+    [SerializeField] public Sprite Minimalist;
+    [SerializeField] public Sprite NaturalStrength;
+    [SerializeField] public Sprite PoisonWeapons;
+    [SerializeField] public Sprite RerollCoupon;
+    [SerializeField] public Sprite Resilent;
+    [SerializeField] public Sprite SavingAccount;
+    [SerializeField] public Sprite Spikes;
+    [SerializeField] public Sprite SuspiciousGreenRod;
+    [SerializeField] public Sprite Thief;
+    [SerializeField] public Sprite ShredderCoupon;
+    [SerializeField] public Sprite VampireFangs;
+    [SerializeField] public Sprite HardHits;
 }

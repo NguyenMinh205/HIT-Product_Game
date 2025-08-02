@@ -6,7 +6,7 @@ public class Damian : ICharacterAbility
 {
     public void StartSetupEffect(Player player)
     {
-
+        UiPerksList.Instance.AddPerks(PerkIconManager.Instance.Damian);
     }
 
     public void StartSetupStat()
