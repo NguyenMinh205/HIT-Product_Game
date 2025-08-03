@@ -74,9 +74,12 @@ public class PlayerInMap : MonoBehaviour
         Vector2Int newGridPos = posInGrid + direction;
         if (IsValidMove(newGridPos))
         {
-            Debug.Log("OK1");
             GamePlayController.Instance.Dir = direction;
             MoveToPosition(direction);
+        }
+        else
+        {
+            Debug.Log("Invalid move: " + newGridPos);
         }
     }
 
@@ -86,7 +89,7 @@ public class PlayerInMap : MonoBehaviour
         {
             var pos = entry.Key;
             var x = entry.Value;
-            Debug.Log($"GridPos: {pos}, TileType(s): {string.Join(", ", x.tileTypes)}");
+            Debug.LogError($"GridPos: {pos}, TileType(s): {string.Join(", ", x.tileTypes)}");
         }
         if (mapInstance.tileGrid.TryGetValue(newGridPos, out var tile))
         {

@@ -1,4 +1,5 @@
 ﻿
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -39,6 +40,10 @@ public class MapSystem : Singleton<MapSystem>
         {
             currentMapIndex = DataManager.Instance.GameData.CurrentFloor;
             LoadMap(DataManager.Instance.GameData.CurrentMapData);
+            DOVirtual.DelayedCall(0.25f, () =>
+            {
+                DataManager.Instance.GameData.SetKeepPlayState(false);
+            });
         }
         else
         {
@@ -125,7 +130,7 @@ public class MapSystem : Singleton<MapSystem>
                 tile.visited = true;
             }
             Vector3 worldPos = tilemap.CellToWorld(new Vector3Int(gridPos.x, gridPos.y, 0));
-            Vector3 adjustedPos = new Vector3(worldPos.x + offsetX, worldPos.y + offsetY / 2, worldPos.z);
+            Vector3 adjustedPos = new Vector3(worldPos.x + offsetX, worldPos.y + 0.5f, worldPos.z);
 
 /*
             if (DataManager.Instance.GameData.IsKeepingPlayGame)
@@ -170,13 +175,34 @@ public class MapSystem : Singleton<MapSystem>
                  {
                  }*/
                     if(newPlayer != null) Destroy(newPlayer);
-                    newPlayer = PoolingManager.Spawn(playerPrefab, adjustedPos, Quaternion.identity, mapStore);
-                    newPlayer.Initialize(tilemap, currentMapInstanceData, gridPos, gridPos,
-                        characterDatabase.GetCharacterById(DataManager.Instance.GameData.SelectedCharacterId)
-                            .skins[DataManager.Instance.GameData.SelectedSkinIndex].skin);
+                    if (DataManager.Instance.GameData.IsKeepingPlayGame)
+                    {
+                        var posData = DataManager.Instance.GameData.PlayerNodePosition;
+                        int posX = posData.x - gridPos.x;
+                        int posY = posData.y - gridPos.y;
+                        Debug.LogError("SetupPlayerSpawn");
+                        newPlayer = Instantiate(playerPrefab, adjustedPos + new Vector3(posX, posY, 0), Quaternion.identity, mapStore);
+                        newPlayer.Initialize(tilemap, currentMapInstanceData, posData, posData,
+                            characterDatabase.GetCharacterById(DataManager.Instance.GameData.SelectedCharacterId)
+                                .skins[DataManager.Instance.GameData.SelectedSkinIndex].skin);
+                        Debug.LogError("Player Spawned at: " + (adjustedPos + new Vector3(posX, posY, 0)));
+                    }
+                    else
+                    {
+                        Debug.LogError("SetupPlayerSpawn");
+                        newPlayer = Instantiate(playerPrefab, adjustedPos, Quaternion.identity, mapStore);
+                        newPlayer.Initialize(tilemap, currentMapInstanceData, gridPos, gridPos,
+                            characterDatabase.GetCharacterById(DataManager.Instance.GameData.SelectedCharacterId)
+                                .skins[DataManager.Instance.GameData.SelectedSkinIndex].skin);
+                        Debug.LogError("Player Spawned at: " + adjustedPos);
+                    }
                     break;
                 case EMapTileType.Exit:
                     GameObject exitObj = PoolingManager.Spawn(tile.iconPrefab, adjustedPos, Quaternion.identity, mapStore);
+                    if (!exitObj.activeSelf)
+                    {
+                        exitObj.SetActive(true);
+                    }
                     var trigger = exitObj.GetComponent<ExitTrigger>();
                     if (trigger != null)
                     {
@@ -238,7 +264,7 @@ public class MapSystem : Singleton<MapSystem>
         {
             if (bossMaps.Count > 0)
             {
-                var finalBossMap = bossMaps[^1];
+                var finalBossMap = bossMaps[bossMaps.Count - 1];
                 foreach (var exit in currentMapInstanceData.spawnedExitTriggers)
                 {
                     exit.SubsequentMap = finalBossMap;
@@ -251,7 +277,7 @@ public class MapSystem : Singleton<MapSystem>
 
         if (isBossFloor && bossMaps.Count > 1)
         {
-            var nextBoss = bossMaps[2];
+            var nextBoss = bossMaps[UnityEngine.Random.Range(0, bossMaps.Count - 1)];
             foreach (var exit in currentMapInstanceData.spawnedExitTriggers)
             {
                 exit.SubsequentMap = nextBoss;
@@ -274,20 +300,34 @@ public class MapSystem : Singleton<MapSystem>
             return;
         }
 
-        currentMapIndex++;
-        DataManager.Instance.GameData.CurrentFloor = currentMapIndex;
-        DataManager.Instance.GameData.CurrentMapData = mapData;
-        DataManager.Instance.GameData.VisitedTilePositions.Clear();
+        if (mapStore != null)
+        {
+            foreach (Transform child in mapStore)
+            {
+                if (child.gameObject.activeSelf)
+                {
+                    PoolingManager.Despawn(child.gameObject);
+                }
+            }
+        }
 
-        if (currentMapIndex <= numFloor)
+        DOVirtual.DelayedCall(0.2f, () =>
         {
-            LoadMap(mapData);
-        }
-        else
-        {
-            ControlerUIInGame.Instance.FinishUI.SetActive(true);
-            RoomInGameManager.Instance.IsFinishGame = true;
-            DataManager.Instance.GameData.SetKeepPlayState(false);
-        }
+            currentMapIndex++;
+            DataManager.Instance.GameData.CurrentFloor = currentMapIndex;
+            DataManager.Instance.GameData.CurrentMapData = mapData;
+            DataManager.Instance.GameData.VisitedTilePositions.Clear();
+
+            if (currentMapIndex <= numFloor)
+            {
+                LoadMap(mapData);
+            }
+            else
+            {
+                ControlerUIInGame.Instance.FinishUI.SetActive(true);
+                RoomInGameManager.Instance.IsFinishGame = true;
+                DataManager.Instance.GameData.SetKeepPlayState(false);
+            }
+        });
     }
 }

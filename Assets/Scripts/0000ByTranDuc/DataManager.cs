@@ -17,6 +17,14 @@ namespace TranDuc
 
         private void OnApplicationQuit()
         {
+            if (!RoomInGameManager.Instance.IsFinishGame)
+            {
+                DataManager.Instance.GameData.SetKeepPlayState(true);
+            }
+            else
+            {
+                DataManager.Instance.GameData.SetKeepPlayState(false);
+            }
             GameData.Save();
             Debug.LogWarning("OK");
         }

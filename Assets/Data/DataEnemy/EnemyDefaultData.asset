@@ -264,7 +264,7 @@ MonoBehaviour:
   dataBoss:
   - idEnemy: boss02
     nameEnemy: 
-    hpEnemy: 155
+    hpEnemy: 5
     damageEnemy: 30000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1074711646, guid: ffe401bd7e581eb4e8902bbe42a2bde9, type: 3}

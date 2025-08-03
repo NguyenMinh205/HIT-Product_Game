@@ -80,7 +80,7 @@ namespace TranDuc
             CloseAllRoomsAndUIs();
             AudioManager.Instance.PlayMusicInGame();
             MapSystem.Instance.SetActiveRoomVisual(false);
-            DataManager.Instance.GameData.SetKeepPlayState(true);
+            //DataManager.Instance.GameData.SetKeepPlayState(true);
             GamePlayController.Instance.PlayerController.NumOfCoinInRoom.text = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin.ToString();
         }
 
@@ -211,11 +211,11 @@ namespace TranDuc
             {
                 AudioManager.Instance.PlaySoundClickButton();
                 DataManager.Instance.GameData.Coin += DataManager.Instance.GameData.Player.stats.Coin;
+                DataManager.Instance.GameData.SetKeepPlayState(false);
                 DataManager.Instance.GameData.ClearGameplayData();
             }
             PoolingManager.ClearAll();
             SceneManager.LoadScene(0);
         }
     }
-
 }
