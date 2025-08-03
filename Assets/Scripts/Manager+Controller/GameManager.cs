@@ -283,8 +283,8 @@ public class GameManager : Singleton<GameManager>
             {
                 Debug.LogError("Out Room: " + intoRoomTrigger.IdNameRoom);
                 Vector3 posNew = intoRoomTrigger.gameObject.transform.position;
-                PlayerMapController.Instance.gameObject.transform.position = posNew;
-                PlayerMapController.Instance.PosInMap = new Vector2Int((int)posNew.x, (int)posNew.y);
+                //PlayerMapController.Instance.gameObject.transform.position = posNew;
+                //PlayerMapController.Instance.PosInGrid = new Vector2Int((int)posNew.x, (int)posNew.y);
                 intoRoomTrigger.gameObject.SetActive(false);
             }
 

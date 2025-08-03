@@ -220,7 +220,7 @@ TextureImporter:
         width: 239
         height: 342
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -228,6 +228,27 @@ TextureImporter:
       bones: []
       spriteID: f9a428c2eb2544c45935946ac83ca8d6
       internalID: -1182551776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anh (86)_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1599
+        width: 228
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99157f924a610e349968be40dad54be0
+      internalID: 926118985
       vertices: []
       indices: 
       edges: []
@@ -247,6 +268,7 @@ TextureImporter:
       anh (86)_1: -1820108580
       anh (86)_2: -554361053
       anh (86)_3: -1182551776
+      anh (86)_4: 926118985
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

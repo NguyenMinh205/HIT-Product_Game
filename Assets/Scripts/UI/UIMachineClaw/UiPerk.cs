@@ -9,6 +9,7 @@ public class UiPerk : MonoBehaviour
 {
     [SerializeField] private RectTransform rect;
     [SerializeField] private Image icon;
+    public Image Icon => icon;
 
     public void SetPerk(Sprite sprite)
     {

@@ -214,7 +214,7 @@ public class Enemy : MonoBehaviour
             health.UpdateArmor(this);
             health.UpdateHp(this);
             UIDamageController.Instance.ShowDamageText(finalDamage, this);
-            if (HP < 0)
+            if (HP <= 0)
             {
                 uiActionEnemy.UnShowActionEnemy();
                 return true;

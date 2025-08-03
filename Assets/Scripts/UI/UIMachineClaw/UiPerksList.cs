@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UiPerksList : Singleton<UiPerksList>
@@ -29,6 +30,14 @@ public class UiPerksList : Singleton<UiPerksList>
         if (perks.Count > 10) return;
 
         int index = perks.Count + 1;
+
+        foreach(UiPerk perk in perks)
+        {
+            if (perk.Icon.sprite == icon)
+                return;
+        }
+
+
         UiPerk newPerk = Instantiate(perkPrefabs, Vector2.one, Quaternion.identity, perkParent);
         newPerk.SetPos(index);
         newPerk.SetPerk(icon);

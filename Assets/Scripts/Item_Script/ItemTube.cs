@@ -11,7 +11,7 @@ public class ItemTube : Singleton<ItemTube>
     [SerializeField] private GameObject foreGround;
     [SerializeField] private RectTransform list;
     [SerializeField] private List<ItemDisplay> itemDisplays;
-    private bool isItemNull = false;
+    private bool isItemNull = true;
     public bool IsItemNull => isItemNull;
 
     [Space]
