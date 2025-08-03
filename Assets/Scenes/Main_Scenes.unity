@@ -3437,7 +3437,7 @@ MonoBehaviour:
   characterDatabase: {fileID: 11400000, guid: 84e61f188e25ed14ba33f8bf64dd67c5, type: 2}
   mapStore: {fileID: 1587283518}
   offsetX: 0.5
-  offsetY: 1
+  offsetY: 2
 --- !u!4 &678894081
 Transform:
   m_ObjectHideFlags: 0

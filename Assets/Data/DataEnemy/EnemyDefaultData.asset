@@ -264,8 +264,8 @@ MonoBehaviour:
   dataBoss:
   - idEnemy: boss02
     nameEnemy: 
-    hpEnemy: 155
-    damageEnemy: 06000000
+    hpEnemy: 15
+    damageEnemy: 60000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1074711646, guid: ffe401bd7e581eb4e8902bbe42a2bde9, type: 3}
     controller: {fileID: 9100000, guid: 360d7d1dd92c8bf43b7982574a972d2d, type: 2}
@@ -275,7 +275,7 @@ MonoBehaviour:
     - actionEnemy: 00000000
   - idEnemy: boss06
     nameEnemy: 
-    hpEnemy: 265
+    hpEnemy: 15
     damageEnemy: 0d0000001e000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1657666854, guid: 794dba34f04bda34b9738a368c1b7b69, type: 3}
@@ -287,7 +287,7 @@ MonoBehaviour:
     - actionEnemy: 00000000
   - idEnemy: finalBoss
     nameEnemy: 
-    hpEnemy: 999
+    hpEnemy: 15
     damageEnemy: 0d00000032000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1513823624, guid: c5e5a640ffbc89642a1e08e36f25e65c, type: 3}

@@ -34,6 +34,8 @@ public class ItemTube : Singleton<ItemTube>
     private bool isFallPoint = false;
     private bool isConsumePoint = false;
 
+    private bool isSpawn = false;
+
     public bool IsEntryPoint
     {
         get => isEntryPoint;
@@ -74,7 +76,9 @@ public class ItemTube : Singleton<ItemTube>
     {
         if (item == null) return;
         itemIDs.Add(item);
-        SpawnItemDisplay();
+
+        if (!isSpawn)
+            SpawnItemDisplay();
     }
     public void SetActionBG(bool val)
     {
@@ -87,6 +91,8 @@ public class ItemTube : Singleton<ItemTube>
     {
         if (itemIDs.Count <= 0) return;
         if (isEntryPoint) return;
+        if (isSpawn) return;
+        isSpawn = true;
 
         ItemDisplay newItemDisplay = Instantiate(itemDisplay, enTryPoint.position, Quaternion.identity, list);
         newItemDisplay.SetItemDisplay(itemIDs[0]);
@@ -94,6 +100,7 @@ public class ItemTube : Singleton<ItemTube>
         itemDisplays.Add(newItemDisplay);
         CheckItemNull();
         isEntryPoint = true;
+        isSpawn = false;
     }
 
     public void CheckItemNull()

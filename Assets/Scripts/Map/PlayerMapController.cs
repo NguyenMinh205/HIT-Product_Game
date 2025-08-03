@@ -139,7 +139,7 @@ public class PlayerMapController : Singleton<PlayerMapController>
             yield return null;
         }
 
-        yield return new WaitForSeconds(moveDelay);
+        yield return new WaitForSeconds(moveDelay/2);
 
         transform.position = targetPosition;
         posInMap = posInMap + direction;

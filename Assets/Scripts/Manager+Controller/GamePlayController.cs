@@ -56,10 +56,10 @@ public class GamePlayController : Singleton<GamePlayController>
 
     [Space]
     [Header("CheckTurn")]
+    private string typeRoom;
 
     private bool isEndGame = false;
     private bool isNotFight = false;
-    private bool isMysteryRoom = false;
     public bool IsEndGame => isEndGame;
     public bool isLoseGame = false;
     public bool IsLoseGame { get; set; }
@@ -94,7 +94,7 @@ public class GamePlayController : Singleton<GamePlayController>
 
     private void ChangeTurn(TurnPlay turn)
     {
-        textTurn.text = turnGame == TurnPlay.Player ? "Your Turn" : "Enemy Turn";
+        textTurn.text = turnGame == TurnPlay.Player ? "Enemy Turn" : "Your Turn";
 
         canvasGroup.alpha = 0f;
 
@@ -121,8 +121,15 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     public void CheckTurnPlayer()
     {
+
         if(clawController.IsListClawNull && ItemTube.Instance.IsItemNull)
         {
+            if (typeRoom == "HealingRoom" || typeRoom == "MysteryRoom")
+            {
+                EndGame();
+                return;
+            }
+
             Turn = TurnPlay.Enemy;
         }
     }
@@ -182,7 +189,8 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     public void StartFightRoom(string typeRoom)
     {
-        isEndGame = false;                          //Tat Check End Game
+        isEndGame = false;           //Tat Check End Game
+        this.typeRoom = typeRoom;
 
         SpawnEnemyOrNPC(typeRoom);                  //Set Enemy
         playerController.SpawnPlayer();             //Set Player
@@ -190,7 +198,10 @@ public class GamePlayController : Singleton<GamePlayController>
 
         if(clawController != null)                  //Set Claw
         {
-            clawController.Spawn();
+            if(typeRoom == "HealingRoom" || typeRoom =="MysteryRoom")
+                clawController.Spawn(1);
+            else clawController.Spawn();
+
             clawController.IsStart = true;
             clawController.SetCurrentClaw();
         }
@@ -260,19 +271,20 @@ public class GamePlayController : Singleton<GamePlayController>
         AudioManager.Instance.StopMusic();
         AudioManager.Instance.PlayVictorySound();
         isEndGame = true;
+
+
         clawController.EndGame();
         clawController.IsStart = false;
-        npcController.EndGame();
-        playerController.EndGame();
-        itemController.EndGame();
 
-        int bonusGold = 3 + MapManager.Instance.MapIndex;
-        //playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
+        itemController.EndGame();
+        playerController.EndGame();
+
+        npcController.EndGame();
+
         playerController.SavePlayerData();
 
-        if(isMysteryRoom)
+        if(typeRoom == "MysteryRoom")
         {
-            isMysteryRoom = false;
             ObserverManager<IDMysteryRoom>.PostEven(IDMysteryRoom.CallReward);
         }
         else

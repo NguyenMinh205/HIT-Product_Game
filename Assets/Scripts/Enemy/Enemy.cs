@@ -162,11 +162,8 @@ public class Enemy : MonoBehaviour
         actions = new List<ProcedureActionEnemy>(data.actions);
         indexAction = 0;
 
-        //UIActionEnemyController.Instance.InitActionToEnemy(this);
-        //UIActionEnemyController.Instance.InitUIAction(this, indexAction);
         health.InitHealthBar(this);
 
-        //UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
         enemySprite = gameObject.GetComponent<SpriteRenderer>();
         enemySprite.sprite = spriteIdle;
         height = enemySprite.bounds.size.y / 2;
