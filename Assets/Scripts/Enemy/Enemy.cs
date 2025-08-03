@@ -201,7 +201,6 @@ public class Enemy : MonoBehaviour
         else
         {
             damage += GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.Strength;
-            Debug.LogError("Enemy Receiver Damage : " + damage);
             int finalDamage = Mathf.Max(damage - armor, 0);
             armor = Mathf.Max(0, armor - damage);
 
@@ -247,11 +246,11 @@ public class Enemy : MonoBehaviour
         }
         uiActionEnemy.ClearAllActionList();
 
-        CheckIndexAxtionNext();
+        CheckIndexActionNext();
 
         CheckEffectOnEndTurnEnemy();
     }
-    public void CheckIndexAxtionNext()
+    public void CheckIndexActionNext()
     {
         indexAction++;
         if (indexAction >= actions.Count)

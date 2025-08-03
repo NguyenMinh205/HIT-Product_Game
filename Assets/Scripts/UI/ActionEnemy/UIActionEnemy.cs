@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 public class UIActionEnemy : MonoBehaviour
 {
     [SerializeField] private ActionEnemy actionEnemyPrefab; 
-    [SerializeField] private List<ActionEnemy> listAciton; 
+    [SerializeField] private List<ActionEnemy> listAction; 
 
     public void SetAction(Sprite icon, int posX, int damage, Enemy enemy)
     {
@@ -15,15 +15,15 @@ public class UIActionEnemy : MonoBehaviour
 
         rectTransform.localPosition = new Vector3(posX, 0f, rectTransform.localPosition.z);
         actionEnemy.SetUIAction(icon, damage);
-        listAciton.Add(actionEnemy);
+        listAction.Add(actionEnemy);
     }
     public void UnActionIndexEnemy(int index)
     {
-        listAciton[index].UnShow();
+        listAction[index].UnShow();
     }
     public void ClearAllActionList()
     {
-        listAciton.Clear();
+        listAction.Clear();
     }
     public void UnShowActionEnemy()
     {
@@ -32,7 +32,7 @@ public class UIActionEnemy : MonoBehaviour
 
     public void Execute(int index)
     {
-        listAciton[index].UnShow();
+        listAction[index].UnShow();
     }
 }
 

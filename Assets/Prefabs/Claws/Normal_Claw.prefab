@@ -517,7 +517,7 @@ MonoBehaviour:
   leftClaw: {fileID: 3083241599730975898}
   rightClaw: {fileID: 6198034291828331679}
   closeAngle: 45
-  clawStrength: 35
+  clawStrength: 30
 --- !u!1 &2501649019306243746
 GameObject:
   m_ObjectHideFlags: 0
