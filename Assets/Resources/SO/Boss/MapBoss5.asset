@@ -14,22 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapType: 3
   mapPrefab: {fileID: 5140474879671107601, guid: bbe0f9214135504448f81a5a84b7fa7e, type: 3}
-  moveTiles:
+  tileDefinitions:
   - position: {x: -4, y: 0}
-    tileType: 2
-    tileIcon: {fileID: 2396522597000271342, guid: cee718bd7c5fc26469a25becab3ddc9a, type: 3}
+    tileTypes: 2
+    iconPrefab: {fileID: 2396522597000271342, guid: cee718bd7c5fc26469a25becab3ddc9a, type: 3}
+    visited: 0
   - position: {x: -2, y: -1}
-    tileType: 7
-    tileIcon: {fileID: 4780075200033134402, guid: d37189b61f4f4b746ad3c6c3c9200929, type: 3}
+    tileTypes: 7
+    iconPrefab: {fileID: 4780075200033134402, guid: d37189b61f4f4b746ad3c6c3c9200929, type: 3}
+    visited: 0
   - position: {x: -1, y: 0}
-    tileType: 6
-    tileIcon: {fileID: 3993421305505522250, guid: bade7514dffdaa84d91c3cc4aad62ffd, type: 3}
+    tileTypes: 6
+    iconPrefab: {fileID: 3993421305505522250, guid: bade7514dffdaa84d91c3cc4aad62ffd, type: 3}
+    visited: 0
   - position: {x: 1, y: -2}
-    tileType: 10
-    tileIcon: {fileID: 8023968547645933665, guid: a3f6bf102d749da489c148e63d4b4c69, type: 3}
+    tileTypes: 10
+    iconPrefab: {fileID: 8023968547645933665, guid: a3f6bf102d749da489c148e63d4b4c69, type: 3}
+    visited: 0
   - position: {x: -1, y: 2}
-    tileType: 3
-    tileIcon: {fileID: 1211223219111615406, guid: 39b66db3832de8141ba7c3620fc867f2, type: 3}
+    tileTypes: 3
+    iconPrefab: {fileID: 1211223219111615406, guid: 39b66db3832de8141ba7c3620fc867f2, type: 3}
+    visited: 0
   - position: {x: 3, y: 2}
-    tileType: 3
-    tileIcon: {fileID: 1211223219111615406, guid: 39b66db3832de8141ba7c3620fc867f2, type: 3}
+    tileTypes: 3
+    iconPrefab: {fileID: 1211223219111615406, guid: 39b66db3832de8141ba7c3620fc867f2, type: 3}
+    visited: 0

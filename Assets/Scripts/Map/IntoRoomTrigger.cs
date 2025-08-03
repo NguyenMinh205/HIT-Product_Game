@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TranDuc;
 using UnityEngine;
 
 public class IntoRoomTrigger : MonoBehaviour
@@ -14,16 +15,16 @@ public class IntoRoomTrigger : MonoBehaviour
         {
             AudioManager.Instance.PlayEnterRoomSound();
             CheckIDRoom(idNameRoom);
-            GameManager.Instance.IntoRoom = this;
+            RoomInGameManager.Instance.IntoRoom = this;
         }
     }
 
     public void CheckIDRoom(string idRoom)
     {
-        switch(idRoom)
+        switch (idRoom)
         {
             case "boss_fight":
-                Debug.Log("Boss FIght");
+                Debug.Log("Boss Fight");
                 GameManager.Instance.OpenRoomBossFight();
                 break;
             case "fight":
@@ -58,6 +59,43 @@ public class IntoRoomTrigger : MonoBehaviour
                 Debug.Log("Upgrade Smith");
                 GameManager.Instance.OpenRoomSmith();
                 break;
+                //case "boss_fight":
+                //     RoomInGameManager.Instance.OpenRoomBossFight();
+                //     break;
+                // case "fight":
+                //     Debug.Log("Fight");
+                //     RoomInGameManager.Instance.OpenRoomFight();
+                //     //StartCoroutine(GameManager.Instance.OpenRoomBossFight());
+                //     //StartCoroutine(GameManager.Instance.OpenRoomMystery());
+                //     break;
+                // case "gambling":
+                //     Debug.Log("Gambling");
+                //     RoomInGameManager.Instance.OpenRoomPachinko();
+                //     break;
+                // case "hard_fight":
+                //     Debug.Log("Hard FIght");
+                //     RoomInGameManager.Instance.OpenRoomFight();
+                //     break;
+                // case "healing":
+                //     Debug.Log("Healing");
+                //     RoomInGameManager.Instance.OpenRoomHealing();
+                //     break;
+                // case "mystery_machine":
+                //     Debug.Log("Mystery Claw Machine");
+                //     RoomInGameManager.Instance.OpenRoomMystery();
+                //     break;
+                // case "perk":
+                //     Debug.Log("Perk Reward");
+                //     RoomInGameManager.Instance.OpenRoomPerkReward();
+                //     break;
+                // case "shredder":
+                //     Debug.Log("Shredder");
+                //     RoomInGameManager.Instance.OpenRoomShredder();
+                //     break;
+                // case "upgrade":
+                //     Debug.Log("Upgrade Smith");
+                //     RoomInGameManager.Instance.OpenRoomSmith();
+                //break
         }
     }
 }

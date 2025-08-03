@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TranDuc;
 
 public class AudioManager : Singleton<AudioManager>
 {
@@ -52,9 +53,8 @@ public class AudioManager : Singleton<AudioManager>
 
     void Start()
     {
-        GameData.Instance.LoadStartGameData();
-        SetMusicVolume(GameData.Instance.startData.musicVolume);
-        SetSoundVolume(GameData.Instance.startData.soundVolume);
+        SetMusicVolume(DataManager.Instance.GameData.MusicVolume);
+        SetSoundVolume(DataManager.Instance.GameData.SoundVolume);
     }
 
     public void SetMusicVolume(float volume)
@@ -62,8 +62,7 @@ public class AudioManager : Singleton<AudioManager>
         if (musicSource != null)
         {
             musicSource.volume = volume;
-            GameData.Instance.startData.musicVolume = volume;
-            GameData.Instance.SaveStartGameData();
+            DataManager.Instance.GameData.MusicVolume = volume;
         }
     }
 
@@ -72,8 +71,7 @@ public class AudioManager : Singleton<AudioManager>
         if (soundSource != null)
         {
             soundSource.volume = volume;
-            GameData.Instance.startData.soundVolume = volume;
-            GameData.Instance.SaveStartGameData();
+            DataManager.Instance.GameData.SoundVolume = volume;
         }
     }
 
@@ -83,20 +81,15 @@ public class AudioManager : Singleton<AudioManager>
             musicSource.volume = 0.5f;
         if (soundSource != null)
             soundSource.volume = 0.5f;
-        GameData.Instance.startData.musicVolume = 0.5f;
-        GameData.Instance.startData.soundVolume = 0.5f;
-        GameData.Instance.SaveStartGameData();
+        SetMusicVolume(0.5f);
+        SetSoundVolume(0.5f);
     }
 
     public void PlayMusicInGame()
     {
         if (musicSource != null && musicInGame != null)
         {
-            musicSource.loop = true;
-            musicSource.clip = musicInGame;
-            musicSource.volume = 0f;
-            musicSource.Play();
-            musicSource.DOFade(GameData.Instance.startData.musicVolume, 0.5f).SetUpdate(true);
+            PlayMusicGame(musicInGame);
         }
     }
 
@@ -104,11 +97,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (musicSource != null && musicStartGame != null)
         {
-            musicSource.loop = true;
-            musicSource.clip = musicStartGame;
-            musicSource.volume = 0f;
-            musicSource.Play();
-            musicSource.DOFade(GameData.Instance.startData.musicVolume, 0.5f).SetUpdate(true);
+            PlayMusicGame(musicStartGame);
         }
     }
 
@@ -116,12 +105,16 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (musicSource != null && musicSelectRoom != null)
         {
-            musicSource.loop = true;
-            musicSource.clip = musicSelectRoom;
-            musicSource.volume = 0f;
-            musicSource.Play();
-            musicSource.DOFade(GameData.Instance.startData.musicVolume, 0.5f).SetUpdate(true);
+            PlayMusicGame(musicSelectRoom);
         }
+    }
+    private void PlayMusicGame(AudioClip clip)
+    {
+        musicSource.loop = true;
+        musicSource.clip = clip;
+        musicSource.volume = 0f;
+        musicSource.Play();
+        musicSource.DOFade(DataManager.Instance.GameData.MusicVolume, 0.5f).SetUpdate(true);
     }
 
     public void StopMusic()
@@ -131,7 +124,6 @@ public class AudioManager : Singleton<AudioManager>
             musicSource.DOFade(0f, 0.5f).OnComplete(() =>
             {
                 musicSource.Stop();
-                //musicSource.clip = null;
             }).SetUpdate(true);
         }
     }
@@ -149,7 +141,7 @@ public class AudioManager : Singleton<AudioManager>
             else
             {
                 soundSource.loop = false;
-                soundSource.PlayOneShot(sound, GameData.Instance.startData.soundVolume);
+                soundSource.PlayOneShot(sound, soundSource.volume);
             }
         }
     }

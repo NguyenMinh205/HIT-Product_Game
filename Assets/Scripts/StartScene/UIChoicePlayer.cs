@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TranDuc;
 
 public class UIChoicePlayer : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class UIChoicePlayer : MonoBehaviour
         {
             string savedCharacterId = GameData.Instance != null ? GameData.Instance.startData.selectedCharacterId : string.Empty;
             int savedSkinIndex = GameData.Instance != null ? GameData.Instance.startData.selectedSkinIndex : 0;
+            // string savedCharacterId = DataManager.Instance.GameData.SelectedCharacterId;
+            // int savedSkinIndex = DataManager.Instance.GameData.SelectedSkinIndex;
 
             if (!string.IsNullOrEmpty(savedCharacterId))
             {
@@ -98,6 +101,27 @@ public class UIChoicePlayer : MonoBehaviour
         {
             characterAnimator.runtimeAnimatorController = skin.anim;
             characterAnimator.SetTrigger("IsBuffing");
+
+            // if (curCharacter.skins[skinSelectOption].skin != null)
+            // {
+            //     characterSpriteRenderer.sprite = curCharacter.skins[skinSelectOption].skin;
+            //     Color color = characterSpriteRenderer.color;
+            //     color.a = curCharacter.skins[skinSelectOption].isUnlocked && curCharacter.isUnlocked ? unlockedSpriteAlpha : lockedSpriteAlpha;
+            //     characterSpriteRenderer.color = color;
+            // }
+            // else
+            // {
+            //     Debug.LogWarning($"Skin sprite is null for skin {skinSelectOption} of character {curCharacter.name}");
+            // }
+            // if (curCharacter.skins[skinSelectOption].anim != null)
+            // {
+            //     characterAnimator.runtimeAnimatorController = curCharacter.skins[skinSelectOption].anim;
+            //     characterAnimator.SetTrigger("IsBuffing");
+            // }
+            // else
+            // {
+            //     Debug.LogWarning($"No animator controller assigned for skin {skinSelectOption} of character {curCharacter.name}");
+            // }
         }
 
         if (lockIcon != null)
@@ -167,6 +191,8 @@ public class UIChoicePlayer : MonoBehaviour
                 GameData.Instance.startData.selectedSkinIndex = skinSelectOption;
                 GameData.Instance.SaveStartGameData();
             }
+            // DataManager.Instance.GameData.SelectedCharacterId = curCharacter.id;
+            // DataManager.Instance.GameData.SelectedSkinIndex = skinSelectOption;
             StartSceneManager.Instance.OnDifficultyButton();
         }
     }

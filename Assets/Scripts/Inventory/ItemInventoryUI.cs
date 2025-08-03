@@ -1,5 +1,6 @@
 ﻿using System;
 using TMPro;
+using TranDuc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +25,7 @@ public class ItemInventoryUI : MonoBehaviour
 
         Button button = iconImage.GetComponent<Button>();
 
-        if (GameManager.Instance.CurrentRoom == GameManager.Instance.SmithRoom)
+        if (RoomInGameManager.Instance.CurrentRoom == RoomInGameManager.Instance.SmithRoom)
         {
             if (inventoryItem.isUpgraded || data.upgradedItem == null)
             {

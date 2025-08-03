@@ -13,6 +13,7 @@ public class ActionEnemy : MonoBehaviour
     public void UnShow()
     {
         Destroy(gameObject);
+        //this.gameObject.SetActive(false);
     }
     
     public void SetUIAction(Sprite sprite, int damage)

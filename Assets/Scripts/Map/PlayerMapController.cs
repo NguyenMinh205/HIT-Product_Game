@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections;
 
@@ -148,4 +148,4 @@ public class PlayerMapController : Singleton<PlayerMapController>
         isMoving = false;
         GameData.Instance.mainGameData.playerNodePosition = posInMap;
     }
-}
+}*/

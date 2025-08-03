@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TranDuc;
 
 public class UIChoiceDifficulty : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class UIChoiceDifficulty : MonoBehaviour
         selectIndex = GameData.Instance?.startData.selectedDifficultyIndex ?? 0;
         extraDamagePercent = GameData.Instance?.startData.extraDamagePercent ?? 0f;
         extraHealthPercent = GameData.Instance?.startData.extraHealthPercent ?? 0f;
+        // selectIndex = DataManager.Instance.GameData.SelectedDifficultyIndex;
+        // extraDamagePercent = DataManager.Instance.GameData.ExtraDamagePercent;
+        // extraHealthPercent = DataManager.Instance.GameData.ExtraHealthPercent;
         UpdateChange();
     }
 
@@ -52,10 +56,8 @@ public class UIChoiceDifficulty : MonoBehaviour
 
     public void SaveDifficulty()
     {
-        GameData.Instance.startData.selectedDifficultyIndex = selectIndex;
-        GameData.Instance.startData.extraDamagePercent = extraDamagePercent;
-        GameData.Instance.startData.extraHealthPercent = extraHealthPercent;
-        GameData.Instance.SaveStartGameData();
+        DataManager.Instance.GameData.SelectedDifficultyIndex = selectIndex;
+        DataManager.Instance.GameData.SetExtraStats(extraDamagePercent, extraHealthPercent);
     }
 
     void OnDisable()

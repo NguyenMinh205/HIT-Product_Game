@@ -3,6 +3,7 @@ using Gameplay;
 using System;
 using System.Collections;
 using TMPro;
+using TranDuc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -172,6 +173,7 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
             Destroy(curClaw.gameObject);
             _lastRolledItem = null;
             GameManager.Instance.OutRoom();
+            //RoomInGameManager.Instance.OutRoom();
         }
         else
         {
