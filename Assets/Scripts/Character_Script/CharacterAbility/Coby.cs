@@ -14,4 +14,5 @@ public class Coby : ICharacterAbility
     {
         throw new System.NotImplementedException();
     }
+
 }
