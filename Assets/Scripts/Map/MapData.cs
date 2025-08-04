@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [Serializable]
 public class MapGridTile
@@ -30,72 +31,86 @@ public class MapData : ScriptableObject
             tileGrid = new Dictionary<Vector2Int, MapGridTile>()
         };
 
+        Tilemap floorTilemap = null;
+        Tilemap wallTilemap = null;
+        foreach (var t in mapPrefab.GetComponentsInChildren<Tilemap>())
+        {
+            if (t.CompareTag("MapFloor"))
+            {
+                floorTilemap = t;
+            }
+            else if (t.CompareTag("MapWall"))
+            {
+                wallTilemap = t;
+            }
+        }
+
+        if (floorTilemap == null)
+        {
+            Debug.LogError("Không tìm thấy Tilemap với tag 'MapFloor' trong mapPrefab!");
+            return instance;
+        }
+
+        BoundsInt bounds = floorTilemap.cellBounds;
+        instance.tilemapBounds = bounds;
+
         HashSet<Vector2Int> defined = new();
+
+        foreach (var pos in bounds.allPositionsWithin)
+        {
+            Vector2Int gridPos = new Vector2Int(pos.x, pos.y);
+            if (floorTilemap.GetTile(pos) != null && !defined.Contains(gridPos))
+            {
+                instance.tileGrid[gridPos] = new MapGridTile
+                {
+                    position = gridPos,
+                    tileTypes = EMapTileType.Empty,
+                    iconPrefab = null,
+                    visited = false
+                };
+                defined.Add(gridPos);
+            }
+        }
+
+        if (wallTilemap != null)
+        {
+            foreach (var pos in bounds.allPositionsWithin)
+            {
+                Vector2Int gridPos = new Vector2Int(pos.x, pos.y);
+                if (wallTilemap.GetTile(pos) != null && !defined.Contains(gridPos))
+                {
+                    instance.tileGrid[gridPos] = new MapGridTile
+                    {
+                        position = gridPos,
+                        tileTypes = EMapTileType.Nothing,
+                        iconPrefab = null,
+                        visited = false
+                    };
+                    defined.Add(gridPos);
+                }
+            }
+        }
 
         foreach (var tile in tileDefinitions)
         {
-            instance.tileGrid[tile.position] = new MapGridTile
+            if (instance.tileGrid.ContainsKey(tile.position))
             {
-                position = tile.position,
-                tileTypes = tile.tileTypes,
-                iconPrefab = tile.iconPrefab,
-                visited = tile.visited
-            };
-            defined.Add(tile.position);
-        }
-        var positions = new List<Vector2Int>(defined);
-        for (int i = 0; i < positions.Count; i++)
-        {
-            for (int j = i + 1; j < positions.Count; j++)
+                instance.tileGrid[tile.position] = new MapGridTile
+                {
+                    position = tile.position,
+                    tileTypes = tile.tileTypes,
+                    iconPrefab = tile.iconPrefab,
+                    visited = tile.visited
+                };
+            }
+            else
             {
-                Vector2Int from = positions[i];
-                Vector2Int to = positions[j];
-                if (from.x == to.x)
-                {
-                    int minY = Mathf.Min(from.y, to.y);
-                    int maxY = Mathf.Max(from.y, to.y);
-                    for (int y = minY + 1; y < maxY; y++)
-                    {
-                        Vector2Int pos = new Vector2Int(from.x, y);
-                        if (!defined.Contains(pos))
-                        {
-                            instance.tileGrid[pos] = new MapGridTile
-                            {
-                                position = pos,
-                                tileTypes = EMapTileType.Empty,
-                                iconPrefab = null,
-                                visited = false
-                            };
-                            defined.Add(pos);
-                        }
-                    }
-                }
-                else if (from.y == to.y)
-                {
-                    int minX = Mathf.Min(from.x, to.x);
-                    int maxX = Mathf.Max(from.x, to.x);
-                    for (int x = minX + 1; x < maxX; x++)
-                    {
-                        Vector2Int pos = new Vector2Int(x, from.y);
-                        if (!defined.Contains(pos))
-                        {
-                            instance.tileGrid[pos] = new MapGridTile
-                            {
-                                position = pos,
-                                tileTypes = EMapTileType.Empty,
-                                iconPrefab = null,
-                                visited = false
-                            };
-                            defined.Add(pos);
-                        }
-                    }
-                }
+                Debug.LogWarning($"Defined tile at {tile.position} is outside floor bounds.");
             }
         }
 
         return instance;
     }
-
 }
 
 public class MapRuntimeInstance
