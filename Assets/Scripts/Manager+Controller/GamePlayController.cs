@@ -52,13 +52,15 @@ public class GamePlayController : Singleton<GamePlayController>
 
     [Space]
     [Header("TurnDisplay")]
-    [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private CanvasGroup uiTurnChange;
     [SerializeField] private TextMeshProUGUI textTurn;
     private CanvasGroup uiTurnCanvasGroup;
 
     [Space]
     [Header("CheckTurn")]
 
+    public bool isCheckTurnByClaw;
+    public bool isCheckTurnByItem;
     private bool isEndGame = false;
     private bool isNotFight = false;
     private bool isMysteryRoom = false;
@@ -138,42 +140,39 @@ public class GamePlayController : Singleton<GamePlayController>
     private void HandleTurnChange(TurnPlay newTurn)
     {
         if (isEndGame) return;
-        ChangeTurn(newTurn);
+        ShowChangeTurn(newTurn);
 
     }
 
-    private void ChangeTurn(TurnPlay turn)
+    private void SwitchTurn(TurnPlay newTurn)
     {
-        textTurn.text = turnGame == TurnPlay.Player ? "Your Turn" : "Enemy Turn";
-
-        canvasGroup.alpha = 0f;
-
-        Sequence seq = DOTween.Sequence();
-        seq.Append(canvasGroup.DOFade(1f, 0.4f).SetEase(Ease.OutQuad));
-        seq.AppendInterval(0.5f); // chờ 0.5s
-        seq.Append(canvasGroup.DOFade(0f, 0.4f).SetEase(Ease.InQuad));
-        seq.OnComplete(() =>
-    //     turnGame = newTurn;
-    //     ShowChangeTurn(newTurn);
-    // }
-    // private void SwitchTurn(TurnPlay newTurn)
-    // {
-    //     switch (newTurn)
+        switch (newTurn)
         {
-            turnGame = turn;
-            switch (turnGame)
-            {
-                case TurnPlay.Enemy:
-                    if (IsEndGame) return;
-                    TurnEnemy();
-                    break;
+            case TurnPlay.Enemy:
+                if (IsEndGame) return;
+                TurnEnemy();
+                break;
 
-                case TurnPlay.Player:
-                    if (IsEndGame) return;
-                    TurnPlayer();
-                    break;
-            }
-        });
+            case TurnPlay.Player:
+                if (IsEndGame) return;
+                playerController.ResetShield();
+                clawController.ResetMachineClaw();
+                StartPlayerTurn();
+                break;
+        }
+    }
+
+    private void ShowChangeTurn(TurnPlay turn)
+    {
+        if (uiTurnCanvasGroup == null || textTurn == null) return;
+        textTurn.text = turnGame == TurnPlay.Player ? "Your Turn" : "Enemy Turn";
+        uiTurnCanvasGroup.alpha = 0f;
+        uiTurnCanvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
+            uiTurnCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.InQuad).OnComplete(delegate
+            {
+                DOVirtual.DelayedCall(0.25f, () => SwitchTurn(turn));
+            }).SetDelay(1f)
+        );
     }
     public void CheckTurnPlayer()
     {
@@ -251,28 +250,13 @@ public class GamePlayController : Singleton<GamePlayController>
     }
 
 
-    public void TurnPlayer()
-    // private void ShowChangeTurn(TurnPlay turn)
-    // {
-    //     if (uiTurnCanvasGroup == null || textTurn == null) return;
-    //     textTurn.text = turnGame == TurnPlay.Player ? "Your Turn" : "Enemy Turn";
-    //     uiTurnCanvasGroup.alpha = 0f;
-    //     uiTurnCanvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
-    //         uiTurnCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.InQuad).OnComplete(delegate
-    //         {
-    //             DOVirtual.DelayedCall(0.25f, () => SwitchTurn(turn));
-    //         }).SetDelay(1f)
-    //     );
-    // }
-
-
-    // public void StartPlayerTurn()
+    public void StartPlayerTurn()
     {
-        playerController.ResetShield();
-        clawController.ResetMachineClaw();
+        ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
         playerController.CurrentPlayer.AddItem();
-        itemController.SpawnItem(playerController.CurrentPlayer.AddedItems);
-        enemyController.SetActionEnemyNext();
+        itemController.SpawnAdditionalItems();
+        itemController.IsPickupItemSuccess = false;
+        Debug.Log("Player Turn Started");
     }
 
     public void TurnEnemy()
