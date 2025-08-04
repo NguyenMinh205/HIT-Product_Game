@@ -7,7 +7,7 @@ public class Alex : ICharacterAbility
     public void StartSetupEffect(Player player)
     {
         player.AddBuffEffect("buff_shield_start_turn", 5, -1);
-        UiPerksList.Instance.AddPerks(PerkIconManager.Instance.Alex);
+        UiPerksList.Instance.AddPerks(PerkIconManager.Instance.Alex,"Alex Ability", "Yor Health is increased by 10 when start game, Start each turn with 5 Block");
         ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
     }
 

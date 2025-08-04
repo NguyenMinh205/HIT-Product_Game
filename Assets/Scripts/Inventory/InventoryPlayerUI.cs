@@ -11,6 +11,7 @@ public class InventoryPlayerUI : MonoBehaviour
     [SerializeField] private GameObject inventoryView;
     [SerializeField] private GameObject itemInvenPrefab;
     [SerializeField] private Transform invenItemStore;
+    [SerializeField] private Transform listInvenPerk;
 
     [Space]
     [Header("Item Detail")]
@@ -62,11 +63,22 @@ public class InventoryPlayerUI : MonoBehaviour
                 ui.Init(item, itemBase, ShowDetail, item.quantity);
             }
         }
+        foreach (UiPerk perk in UiPerksList.Instance.Perks)
+        {
+            GameObject newItemInventoryPrefab = Instantiate(itemInvenPrefab, listInvenPerk);
+            ItemInventoryUI ui = newItemInventoryPrefab.GetComponent<ItemInventoryUI>();
+            ui.Init(perk, ShowDetail);
+        }
+        listInvenPerk.gameObject.SetActive(false);
     }
 
     private void DeleteInventoryList()
     {
         foreach (Transform child in invenItemStore)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach(Transform child in listInvenPerk)
         {
             Destroy(child.gameObject);
         }
@@ -102,6 +114,33 @@ public class InventoryPlayerUI : MonoBehaviour
             Rarity.Epic => epicColor,
             _ => Color.white
         };
+
+        canvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
+    }
+
+    public void ShowDetail(UiPerk uiPerk)
+    {
+        if (uiPerk == null)
+        {
+            itemDetail.SetActive(false);
+            return;
+        }
+
+        CanvasGroup canvasGroup = itemDetail.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = itemDetail.AddComponent<CanvasGroup>();
+        }
+
+        canvasGroup.alpha = 0f;
+        itemDetail.SetActive(true);
+
+        detailIcon.sprite = uiPerk.Icon.sprite;
+        detailIcon.SetNativeSize();
+        detailIcon.rectTransform.sizeDelta *= 0.85f;
+        detailName.text = uiPerk.perkName;
+        detailDescription.text = uiPerk.description;
+        itemDetailBG.color = Color.white;
 
         canvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
     }

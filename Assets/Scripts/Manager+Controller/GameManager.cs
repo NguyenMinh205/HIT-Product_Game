@@ -318,6 +318,7 @@ public class GameManager : Singleton<GameManager>
         {
             AudioManager.Instance.PlaySoundClickButton();
             GameData.Instance.startData.isKeepingPlayGame = true;
+            GameData.Instance.SaveStartGameData();
             GameData.Instance.SaveMainGameData();
         }
         else

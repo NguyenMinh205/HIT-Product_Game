@@ -9,11 +9,17 @@ public class UiPerk : MonoBehaviour
 {
     [SerializeField] private RectTransform rect;
     [SerializeField] private Image icon;
+
+    [Header("data")]
+    [SerializeField] public string perkName;
+    [SerializeField] public string description;
     public Image Icon => icon;
 
-    public void SetPerk(Sprite sprite)
+    public void SetPerk(Sprite i = null, string pName = null, string des = null)
     {
-        icon.sprite = sprite;
+        if (i != null) icon.sprite = i;
+        if (pName != null) perkName = pName;
+        if (des != null) description = des;
     }
     
     public void SetPos(int index)
