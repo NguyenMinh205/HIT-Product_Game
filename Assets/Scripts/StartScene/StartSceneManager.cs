@@ -32,7 +32,7 @@ public class StartSceneManager : Singleton<StartSceneManager>
     protected override void Awake()
     {
         base.Awake();
-        GameData.Instance.LoadStartGameData();
+        //GameData.Instance.LoadStartGameData();
     }
 
     private void Start()
@@ -41,7 +41,8 @@ public class StartSceneManager : Singleton<StartSceneManager>
         {
             AudioManager.Instance.PlayMusicStartGame();
         });
-        characterDatabaseSO.SetupStartData();
+        //characterDatabaseSO.SetupStartData();
+        //cha
     }
 
     public void OnStartButton()
@@ -135,8 +136,8 @@ public class StartSceneManager : Singleton<StartSceneManager>
         Application.Quit();
     }
 
-    private void OnApplicationQuit()
+/*    private void OnApplicationQuit()
     {
         GameData.Instance.SaveStartGameData();
-    }
+    }*/
 }

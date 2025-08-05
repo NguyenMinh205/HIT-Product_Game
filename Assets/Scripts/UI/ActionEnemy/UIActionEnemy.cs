@@ -18,11 +18,11 @@ public class UIActionEnemy : MonoBehaviour
     // {
     //     ActionEnemy actionEnemy = null;
 
-        for (int i = 0; i < listAciton.Count; i++)
+        for (int i = 0; i < listAction.Count; i++)
         {
-            if (!listAciton[i].gameObject.activeSelf)
+            if (!listAction[i].gameObject.activeSelf)
             {
-                actionEnemy = listAciton[i];
+                actionEnemy = listAction[i];
                 actionEnemy.gameObject.SetActive(true);
                 break;
             }
@@ -34,7 +34,6 @@ public class UIActionEnemy : MonoBehaviour
             return;
         }
 
-        RectTransform rectTransform = actionEnemy.GetComponent<RectTransform>();
         rectTransform.localPosition = new Vector3(posX, 0f, rectTransform.localPosition.z);
         actionEnemy.SetUIAction(icon, damage);
         listAction.Add(actionEnemy);

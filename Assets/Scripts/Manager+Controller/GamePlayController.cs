@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DG.Tweening;
+using DG.Tweening.Core.Easing;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine;
-using DG.Tweening;
 using TranDuc;
+using UnityEngine;
 
 public enum EventID
 {
@@ -52,18 +53,14 @@ public class GamePlayController : Singleton<GamePlayController>
 
     [Space]
     [Header("TurnDisplay")]
-    [SerializeField] private CanvasGroup uiTurnChange;
+    [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private TextMeshProUGUI textTurn;
-    private CanvasGroup uiTurnCanvasGroup;
 
     [Space]
     [Header("CheckTurn")]
-
-    public bool isCheckTurnByClaw;
-    public bool isCheckTurnByItem;
+    private string typeRoom;
     private bool isEndGame = false;
     private bool isNotFight = false;
-    private bool isMysteryRoom = false;
     public bool IsEndGame => isEndGame;
     public bool isLoseGame = false;
     public bool IsLoseGame { get; set; }
@@ -75,54 +72,6 @@ public class GamePlayController : Singleton<GamePlayController>
     public Vector2Int Dir
     {
         set => directionPlayer = value;
-    }
-
-    public IntoRoomTrigger IntoRoom
-    {
-        set => intoRoomTrigger = value;
-    }
-    private void Start()
-    {
-        if (uiTurnChange != null)
-        {
-            uiTurnCanvasGroup = uiTurnChange.GetComponent<CanvasGroup>();
-        }
-    }
-    private void HandleBasketEmpty(object obj)
-    {
-        isCheckTurnByItem = true;
-        CheckTurnConditions();
-        Debug.Log("Basket is empty, checking turn conditions.");
-    }
-
-    private void HandleClawsEmpty(object obj)
-    {
-        isCheckTurnByClaw = true;
-        CheckTurnConditions();
-        Debug.Log("Claws are empty, checking turn conditions.");
-    }
-
-    private void CheckTurnConditions()
-    {
-        if (isCheckTurnByClaw && (isCheckTurnByItem || !itemController.IsPickupItemSuccess) && turnGame == TurnPlay.Player)
-        {
-            if(isNotFight)
-            {
-                isNotFight = false;
-                EndGame();
-                return;
-            }
-            Turn = TurnPlay.Enemy;
-            Debug.Log("Both claws and basket are empty, switching to Enemy turn.");
-        }
-        else
-        {
-            if (isCheckTurnByItem)
-            {
-                isCheckTurnByItem = false;
-                itemController.IsPickupItemSuccess = false;
-            }
-        } 
     }
 
     public TurnPlay Turn
@@ -140,51 +89,52 @@ public class GamePlayController : Singleton<GamePlayController>
     private void HandleTurnChange(TurnPlay newTurn)
     {
         if (isEndGame) return;
-        ShowChangeTurn(newTurn);
-
+        ChangeTurn(newTurn);
     }
-
-    private void SwitchTurn(TurnPlay newTurn)
+    private void ChangeTurn(TurnPlay turn)
     {
-        switch (newTurn)
+        textTurn.text = turnGame == TurnPlay.Player ? "Enemy Turn" : "Your Turn";
+
+        canvasGroup.alpha = 0f;
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(canvasGroup.DOFade(1f, 0.4f).SetEase(Ease.OutQuad));
+        seq.AppendInterval(0.5f); // chờ 0.5s
+        seq.Append(canvasGroup.DOFade(0f, 0.4f).SetEase(Ease.InQuad));
+        seq.OnComplete(() =>
         {
-            case TurnPlay.Enemy:
-                if (IsEndGame) return;
-                TurnEnemy();
-                break;
-
-            case TurnPlay.Player:
-                if (IsEndGame) return;
-                playerController.ResetShield();
-                clawController.ResetMachineClaw();
-                StartPlayerTurn();
-                break;
-        }
-    }
-
-    private void ShowChangeTurn(TurnPlay turn)
-    {
-        if (uiTurnCanvasGroup == null || textTurn == null) return;
-        textTurn.text = turnGame == TurnPlay.Player ? "Your Turn" : "Enemy Turn";
-        uiTurnCanvasGroup.alpha = 0f;
-        uiTurnCanvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
-            uiTurnCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.InQuad).OnComplete(delegate
+            turnGame = turn;
+            switch (turnGame)
             {
-                DOVirtual.DelayedCall(0.25f, () => SwitchTurn(turn));
-            }).SetDelay(1f)
-        );
+                case TurnPlay.Enemy:
+                    if (IsEndGame) return;
+                    TurnEnemy();
+                    break;
+
+                case TurnPlay.Player:
+                    if (IsEndGame) return;
+                    TurnPlayer();
+                    break;
+            }
+        });
     }
     public void CheckTurnPlayer()
     {
-        if(clawController.IsListClawNull && ItemTube.Instance.IsItemNull)
+        if (clawController.IsListClawNull && ItemTube.Instance.IsItemNull)
         {
+            if (typeRoom == "HealingRoom" || typeRoom == "MysteryRoom")
+            {
+                EndGame();
+                return;
+            }
+
             Turn = TurnPlay.Enemy;
         }
     }
 
     public void SpawnEnemyOrNPC(string typeRoom)
     {
-        switch(typeRoom)
+        switch (typeRoom)
         {
             case "BossRoom":
                 Debug.Log("Start Boss Room");
@@ -232,69 +182,39 @@ public class GamePlayController : Singleton<GamePlayController>
                 break;
         }
     }
+
     public void StartFightRoom(string typeRoom)
     {
-        isEndGame = false;       
+        isEndGame = false;           //Tat Check End Game
+        this.typeRoom = typeRoom;
 
-        SpawnEnemyOrNPC(typeRoom);               
-        playerController.SpawnPlayer();            
-        SpawnItemStartInRoom(typeRoom);           
+        SpawnEnemyOrNPC(typeRoom);                  //Set Enemy
+        playerController.SpawnPlayer();             //Set Player
+        SpawnItemStartInRoom(typeRoom);             // Set Item sau Player
 
-        if(clawController != null)                  
+        if (clawController != null)                  //Set Claw
         {
-            clawController.Spawn();
+            if (typeRoom == "HealingRoom" || typeRoom == "MysteryRoom")
+                clawController.Spawn(1);
+            else clawController.Spawn();
+
             clawController.IsStart = true;
             clawController.SetCurrentClaw();
         }
     }
 
-    public void StartPlayerTurn()
+    public void TurnPlayer()
     {
-        ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
+        playerController.ResetShield();
+        clawController.ResetMachineClaw();
         playerController.CurrentPlayer.AddItem();
         itemController.SpawnItem(playerController.CurrentPlayer.AddedItems);
-        itemController.IsPickupItemSuccess = false;
-        Debug.Log("Player Turn Started");
+        enemyController.SetActionEnemyNext();
     }
 
     public void TurnEnemy()
     {
         StartCoroutine(enemyController.EnemyAction());
-    }
-
-    public void StartFunctionRoom(string typeRoom)
-    {
-        isEndGame = false;
-        if (typeRoom == "HealingRoom")
-        {
-            itemController.Spawn(inventoryInHealingRoom);
-            npcController.SpawnNPC("healingRoom");
-        }
-        else if (typeRoom == "MysteryRoom")
-        {
-            itemController.Spawn(inventoryInMysteryRoom);
-            npcController.SpawnNPC("mysteryRoom");
-            isMysteryRoom = true;
-        }
-        isNotFight = true;
-        playerController.SpawnPlayer();
-
-        clawController.Spawn(1);
-
-        DOVirtual.DelayedCall(0.5f, () =>
-        {
-            clawController.IsStart = true;
-            clawController.StartClaw();
-        });
-
-        clawController.IsStart = true;
-        clawController.StartClaw();
-        Turn = TurnPlay.Player;
-        isCheckTurnByClaw = false;
-        isCheckTurnByItem = false;
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnBasketEmpty, HandleBasketEmpty);
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnClawsEmpty, HandleClawsEmpty);
-        itemController.IsPickupItemSuccess = false;
     }
 
     public void LoseGame()
@@ -310,8 +230,6 @@ public class GamePlayController : Singleton<GamePlayController>
         isLoseGame = true;
 
         DataManager.Instance.GameData.SetKeepPlayState(false);
-        // ObserverManager<EventID>.RemoveAddListener(EventID.OnBasketEmpty, HandleBasketEmpty);
-        // ObserverManager<EventID>.RemoveAddListener(EventID.OnClawsEmpty, HandleClawsEmpty);
         RoomInGameManager.Instance.BackHome();
     }
 
@@ -337,13 +255,6 @@ public class GamePlayController : Singleton<GamePlayController>
         playerController.SavePlayerData();
 
         ControlerUIInGame.Instance.RewardUI.SetActive(true);
-        // int bonusGold = 3 + MapSystem.Instance.MapIndex;
-        // playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
-        // playerController.SavePlayerData();
-
-        // ObserverManager<EventID>.RemoveAddListener(EventID.OnBasketEmpty, HandleBasketEmpty);
-        // ObserverManager<EventID>.RemoveAddListener(EventID.OnClawsEmpty, HandleClawsEmpty);
-        // ControlerUIInGame.Instance.RewardUI.SetActive(true);
         RewardManager.Instance.InitReward();
     }
 
@@ -352,24 +263,24 @@ public class GamePlayController : Singleton<GamePlayController>
         AudioManager.Instance.StopMusic();
         AudioManager.Instance.PlayVictorySound();
         isEndGame = true;
+
         clawController.EndGame();
         clawController.IsStart = false;
-        npcController.EndGame();
-        playerController.EndGame();
-        itemController.EndGame();
 
-        int bonusGold = 3 + MapSystem.Instance.MapIndex;
-        //playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
+        itemController.EndGame();
+        playerController.EndGame();
+
+        npcController.EndGame();
+
         playerController.SavePlayerData();
 
-        if(isMysteryRoom)
+        if (typeRoom == "MysteryRoom")
         {
-            isMysteryRoom = false;
             ObserverManager<IDMysteryRoom>.PostEven(IDMysteryRoom.CallReward);
         }
         else
         {
-            RoomInGameManager.Instance.OutRoom();
+            RoomInGameManager.Instance.BackHome();
         }
     }
 }

@@ -172,8 +172,8 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
             coinToStart += 2;
             Destroy(curClaw.gameObject);
             _lastRolledItem = null;
-            GameManager.Instance.OutRoom();
-            //RoomInGameManager.Instance.OutRoom();
+            //GameManager.Instance.OutRoom();
+            RoomInGameManager.Instance.OutRoom();
         }
         else
         {

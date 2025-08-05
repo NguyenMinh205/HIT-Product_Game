@@ -42,7 +42,7 @@ namespace TranDuc
             uiSmithRoom.SetActive(false);
             uiShredderRoom.SetActive(false);
         }
-        public void OpenRoom()
+        public void OpenRoom(string typeRoom)
         {
             if (fadeCanvasGroup != null)
             {
@@ -65,10 +65,12 @@ namespace TranDuc
                     sequence.OnComplete(() =>
                     {
                         fadeCanvasGroup.gameObject.SetActive(false);
+                        RoomInGameManager.Instance.CheckTypeRoom(typeRoom);
                     });
                 }
             }
         }
+
         public void OpenRoomType(int type)
         {
             switch (type)

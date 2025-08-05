@@ -39,13 +39,12 @@ public class Item : MonoBehaviour
     }
     public Sprite Sprite => sr.sprite;
 
-    private ItemMoveController _itemMoveController;
 
     private void OnEnable()
     {
         isMove = false;
     }
-    public void Init(ItemBase itemBase, ItemMoveController itemMove)
+    public void Init(ItemBase itemBase)
     {
         idItem = itemBase.id;
         nameItem = itemBase.itemName;
@@ -63,7 +62,6 @@ public class Item : MonoBehaviour
             _itemBase.Action = ItemActionFactory.CreateItemAction(idItem);
             _itemBase.Action.Execute(null, null);
         }
-        _itemMoveController = itemMove;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -74,7 +72,6 @@ public class Item : MonoBehaviour
 
             this.GetComponent<PolygonCollider2D>().isTrigger = true;
             this.GetComponent<Rigidbody2D>().simulated = false;
-            _itemMoveController.EnqueueItem(this);
 
             //ObserverManager<IDItem>.PostEven(IDItem.ItemChange, this);
         }
