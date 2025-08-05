@@ -206,6 +206,7 @@ namespace TranDuc
             {
                 AudioManager.Instance.PlaySoundClickButton();
                 DataManager.Instance.GameData.SetKeepPlayState(true);
+                DataManager.Instance.GameData.Save();
             }
             else
             {

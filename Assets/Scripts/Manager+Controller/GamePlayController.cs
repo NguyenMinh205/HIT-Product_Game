@@ -246,15 +246,13 @@ public class GamePlayController : Singleton<GamePlayController>
             clawController.IsStart = true;
             clawController.SetCurrentClaw();
         }
-        
     }
-
 
     public void StartPlayerTurn()
     {
         ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
         playerController.CurrentPlayer.AddItem();
-        itemController.SpawnAdditionalItems();
+        itemController.SpawnItem(playerController.CurrentPlayer.AddedItems);
         itemController.IsPickupItemSuccess = false;
         Debug.Log("Player Turn Started");
     }
@@ -263,51 +261,16 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         StartCoroutine(enemyController.EnemyAction());
     }
-    
-    public void StartFightRoom(string typeFight)
-    {
-        isEndGame = false;
-
-        if (typeFight == "BossRoom")
-        {
-            enemyController.SpawnBoss();
-        }
-        else
-        {
-            enemyController.Spawn();
-        }
-
-        playerController.SpawnPlayer();
-        clawController.Spawn();
-        itemController.Spawn(playerController.CurrentPlayer.Inventory);
-
-        DOVirtual.DelayedCall(0.5f, () =>
-        {
-            if (clawController != null)
-            {
-                clawController.IsStart = true;
-                clawController.StartClaw();
-            }
-
-        });
-
-        Turn = TurnPlay.Player;
-        isCheckTurnByClaw = false;
-        isCheckTurnByItem = false;
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnBasketEmpty, HandleBasketEmpty);
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnClawsEmpty, HandleClawsEmpty);
-        itemController.IsPickupItemSuccess = false;
-    }
 
     public void StartFunctionRoom(string typeRoom)
     {
         isEndGame = false;
-        if (typeRoom =="HealingRoom")
+        if (typeRoom == "HealingRoom")
         {
             itemController.Spawn(inventoryInHealingRoom);
             npcController.SpawnNPC("healingRoom");
         }
-        else if(typeRoom == "MysteryRoom")
+        else if (typeRoom == "MysteryRoom")
         {
             itemController.Spawn(inventoryInMysteryRoom);
             npcController.SpawnNPC("mysteryRoom");
@@ -346,12 +309,10 @@ public class GamePlayController : Singleton<GamePlayController>
         itemController.EndGame();
         isLoseGame = true;
 
-        GameData.Instance.startData.isKeepingPlayGame = false;
-        GameData.Instance.SaveStartGameData();
-        GameManager.Instance.BackHome();
+        DataManager.Instance.GameData.SetKeepPlayState(false);
         // ObserverManager<EventID>.RemoveAddListener(EventID.OnBasketEmpty, HandleBasketEmpty);
         // ObserverManager<EventID>.RemoveAddListener(EventID.OnClawsEmpty, HandleClawsEmpty);
-        // RoomInGameManager.Instance.BackHome();
+        RoomInGameManager.Instance.BackHome();
     }
 
     public void WinGame()
@@ -371,11 +332,11 @@ public class GamePlayController : Singleton<GamePlayController>
         enemyController.EndGame();
 
 
-        int bonusGold = 3 + MapManager.Instance.MapIndex;
+        int bonusGold = 3 + MapSystem.Instance.MapIndex;
         playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
         playerController.SavePlayerData();
 
-        GameManager.Instance.RewardUI.SetActive(true);
+        ControlerUIInGame.Instance.RewardUI.SetActive(true);
         // int bonusGold = 3 + MapSystem.Instance.MapIndex;
         // playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
         // playerController.SavePlayerData();
