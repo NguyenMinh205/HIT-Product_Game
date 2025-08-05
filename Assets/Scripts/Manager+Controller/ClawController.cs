@@ -41,10 +41,7 @@ public class ClawController : MonoBehaviour
     {
         this.isStart = false;
     }
-    public void ChangeClaw()
-    {
 
-    }
     public void RemoveCurClaw()
     {
         currentClaw = null;
@@ -77,7 +74,6 @@ public class ClawController : MonoBehaviour
         claws.Clear();
         Debug.Log("Reset -> Spawn");
         Spawn();
-        ChangeClaw();
         SetCurrentClaw();
     }
     public void Spawn(int quality = 0)

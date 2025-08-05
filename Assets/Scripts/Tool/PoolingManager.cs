@@ -65,6 +65,10 @@ public static class PoolingManager
             Object.Destroy(prefab); // nếu p không tồn tại thì Destroy GameObject
         }
     }
+    public static void ClearAll()
+    {
+        if(_pools.Count > 0) _pools.Clear();
+    }
 
 }
 
@@ -99,7 +103,7 @@ public class Pool // Lớp cơ sở của Pooling
             }
             newObject = listGameObject.Pop(); // Lấy GameObject từ List GameObject 
             newObject.transform.SetPositionAndRotation(position, quaternion); // Set lại vị trí và góc độ đồng thời set lại gameobject chứa newObject
-            newObject.transform.parent = parent;
+            newObject.transform.SetParent(parent);
             newObject.SetActive(true); //Tái kích hoạt nó
             return newObject;
         }

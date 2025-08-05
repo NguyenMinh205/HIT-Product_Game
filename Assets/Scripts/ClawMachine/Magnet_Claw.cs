@@ -28,7 +28,6 @@ public class Magnet_Claw : ClawMachine
         if (mode != ModeClaw.DeSpawn)
         {
             mode = ModeClaw.DeSpawn;
-            clawController.ChangeClaw();
         }
     }
 

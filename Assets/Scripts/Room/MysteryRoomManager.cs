@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TranDuc;
 using UnityEngine;
 
 public enum IDMysteryRoom
@@ -37,11 +38,11 @@ public class MysteryRoomManager : MonoBehaviour
         if(listChest.Count == 0)
         {
             Debug.LogWarning("No chests available to reward.");
-            GameManager.Instance.OutRoom();
+            RoomInGameManager.Instance.OutRoom();
             return;
         }
-        GameManager.Instance.RewardUI.SetActive(true);
-        GameManager.Instance.BtnRoll.SetActive(false);
+        ControlerUIInGame.Instance.RewardUI.SetActive(true);
+        ControlerUIInGame.Instance.BtnRoll.SetActive(false);
         RewardManager.Instance.InitReward(listChest);
     }
 }

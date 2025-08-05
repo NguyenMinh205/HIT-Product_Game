@@ -3,6 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using TranDuc;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -35,15 +36,15 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        curCharacter = characterDatabase.GetCharacterById(GameData.Instance.startData.selectedCharacterId);
+        curCharacter = characterDatabase.GetCharacterById(DataManager.Instance.GameData.SelectedCharacterId);
         ability = CharacterAbilityFactory.CreateAbility(curCharacter.id);
-        if (GameData.Instance.startData.isKeepingPlayGame)
+        if (DataManager.Instance.GameData.IsKeepingPlayGame)
         {
             LoadPlayerData();
+            DataManager.Instance.GameData.SetKeepPlayState(false);
 
             DOVirtual.DelayedCall(0.25f, () =>
             {
-                GameData.Instance.startData.isKeepingPlayGame = false;
                 ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar);
             });
             return;
@@ -71,7 +72,7 @@ public class PlayerManager : MonoBehaviour
     {
         GameObject newObject = PoolingManager.Spawn(playerPrefab, posSpawnPlayer.position, Quaternion.identity, playerParent);
         currentPlayer = newObject.transform.Find("PlayerPrefab").GetComponent<Player>();
-        currentPlayer.Initialize(curCharacter, curPlayerStat.Clone(), GameData.Instance.startData.selectedSkinIndex);
+        currentPlayer.Initialize(curCharacter, curPlayerStat.Clone(), DataManager.Instance.GameData.SelectedSkinIndex);
         DOVirtual.DelayedCall(0.25f, () =>
         {
             ability.StartSetupEffect(currentPlayer);
@@ -110,18 +111,18 @@ public class PlayerManager : MonoBehaviour
 
     public void SavePlayerData()
     {
-        GameData.Instance.mainGameData.playerData.stats = curPlayerStat.Clone();
-        if (GameData.Instance.mainGameData.playerData.stats == null)
+        DataManager.Instance.GameData.Player.stats = curPlayerStat.Clone();
+        if (DataManager.Instance.GameData.Player.stats == null)
         {
             Debug.LogError("Player stats are null, cannot save player data!");
         }
-        GameData.Instance.mainGameData.playerData.inventory = totalInventory;
-        if (GameData.Instance.mainGameData.playerData.inventory == null)
+        DataManager.Instance.GameData.Player.inventory = totalInventory;
+        if (DataManager.Instance.GameData.Player.inventory == null)
         {
             Debug.LogError("Player inventory is null, cannot save player data!");
         }
-        GameData.Instance.mainGameData.playerData.startRoundBuffs = startRoundBuffs;
-        if (GameData.Instance.mainGameData.playerData.startRoundBuffs == null)
+        DataManager.Instance.GameData.Player.startRoundBuffs = startRoundBuffs;
+        if (DataManager.Instance.GameData.Player.startRoundBuffs == null)
         {
             Debug.LogError("Player start round buffs are null, cannot save player data!");
         }
@@ -131,15 +132,15 @@ public class PlayerManager : MonoBehaviour
     {
         DOVirtual.DelayedCall(0.25f, () =>
         {
-            if (GameData.Instance.mainGameData.playerData != null)
+            if (DataManager.Instance.GameData.Player != null)
             {
-                if (GameData.Instance.mainGameData.playerData.stats == null)
+                if (DataManager.Instance.GameData.Player.stats == null)
                 {
                     Debug.LogError("Player stats are null, cannot load player data!");
                 }
-                curPlayerStat = GameData.Instance.mainGameData.playerData.stats.Clone();
-                totalInventory = GameData.Instance.mainGameData.playerData.inventory;
-                startRoundBuffs = GameData.Instance.mainGameData.playerData.startRoundBuffs;
+                curPlayerStat = DataManager.Instance.GameData.Player.stats.Clone();
+                totalInventory = DataManager.Instance.GameData.Player.inventory;
+                startRoundBuffs = DataManager.Instance.GameData.Player.startRoundBuffs;
             }
             else
             {

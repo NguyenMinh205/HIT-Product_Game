@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -100,17 +100,10 @@ public class StartGameDataSave
     public int selectedDifficultyIndex;
     public float extraDamagePercent;
     public float extraHealthPercent;
-    public List<CharacterState> characterStates = new List<CharacterState>();
     public bool isKeepingPlayGame = false;
 }
 
-[Serializable]
-public class CharacterState
-{
-    public string id;
-    public bool isUnlocked;
-    public List<bool> skinUnlocks = new List<bool>();
-}
+
 
 [Serializable]
 public class MainGameDataSave
@@ -129,4 +122,4 @@ public class PlayerData
     public CharacterStat stats;
     public Inventory inventory;
     public List<StartRoundBuffInfo> startRoundBuffs;
-}
+}*/
