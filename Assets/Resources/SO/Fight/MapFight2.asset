@@ -25,7 +25,7 @@ MonoBehaviour:
     visited: 0
   - position: {x: 0, y: -3}
     tileTypes: 4
-    iconPrefab: {fileID: 0}
+    iconPrefab: {fileID: 745892695462038921, guid: 2b33fc86eebb7894aa142ede90f6fe47, type: 3}
     visited: 0
   - position: {x: 1, y: 0}
     tileTypes: 12
