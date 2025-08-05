@@ -89,11 +89,9 @@ public class PlayerInMap : MonoBehaviour
         {
             var pos = entry.Key;
             var x = entry.Value;
-            Debug.LogError($"GridPos: {pos}, TileType(s): {string.Join(", ", x.tileTypes)}");
         }
         if (mapInstance.tileGrid.TryGetValue(newGridPos, out var tile))
         {
-            Debug.Log("OK2");
             if (tile.tileTypes != EMapTileType.Nothing)
                 return true;
         }

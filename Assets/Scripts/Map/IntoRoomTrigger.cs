@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,9 +14,12 @@ public class IntoRoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            AudioManager.Instance.PlayEnterRoomSound();
-            CheckIDRoom(idNameRoom);
-            RoomInGameManager.Instance.IntoRoom = this;
+            DOVirtual.DelayedCall(0.1f, () =>
+            {
+                AudioManager.Instance.PlayEnterRoomSound();
+                CheckIDRoom(idNameRoom);
+                RoomInGameManager.Instance.IntoRoom = this;
+            });
         }
     }
 
