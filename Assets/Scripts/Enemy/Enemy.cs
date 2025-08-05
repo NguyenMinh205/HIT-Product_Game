@@ -161,8 +161,9 @@ public class Enemy : MonoBehaviour
 
         actions = new List<ProcedureActionEnemy>(data.actions);
         indexAction = 0;
+
         health.InitHealthBar(this);
-        //UIHealthBarController.Instance.InitHealthBarToObjectBase(this);
+
         enemySprite = gameObject.GetComponent<SpriteRenderer>();
         enemySprite.sprite = spriteIdle;
         height = enemySprite.bounds.size.y / 2;
@@ -213,7 +214,7 @@ public class Enemy : MonoBehaviour
             health.UpdateArmor(this);
             health.UpdateHp(this);
             UIDamageController.Instance.ShowDamageText(finalDamage, this);
-            if (HP < 0)
+            if (HP <= 0)
             {
                 uiActionEnemy.UnShowActionEnemy();
                 return true;
@@ -226,9 +227,8 @@ public class Enemy : MonoBehaviour
         if (HP <= 0)
         {
             ObserverManager<EventID>.PostEven(EventID.OnEnemyDead);
-            GamePlayController.Instance.EnemyController.DieEnemy(this);
+            ObserverManager<IDEnemyState>.PostEven(IDEnemyState.EnemyDied, this);
             effectController.ClearAllEffectUI();
-            DesTroy();
         }
     }
 
@@ -383,6 +383,7 @@ public class Enemy : MonoBehaviour
     
     public void DesTroy()
     {
+        PoolingManager.Despawn(this.gameObject);
         Destroy(transform.parent.gameObject);
     }
 
