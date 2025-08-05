@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using TranDuc;
 
 public enum EventID
 {
@@ -236,8 +237,11 @@ public class GamePlayController : Singleton<GamePlayController>
         itemController.EndGame();
         isLoseGame = true;
 
-        GameData.Instance.startData.isKeepingPlayGame = false;
-        GameData.Instance.SaveStartGameData();
+        //GameData.Instance.startData.isKeepingPlayGame = false;
+        //GameData.Instance.SaveStartGameData();
+        DataManager.Instance.GameData.isKeepingPlayGame = false;
+        DataManager.Instance.GameData.Save();
+
         GameManager.Instance.BackHome();
     }
 
@@ -258,7 +262,7 @@ public class GamePlayController : Singleton<GamePlayController>
         enemyController.EndGame();
 
 
-        int bonusGold = 3 + MapManager.Instance.MapIndex;
+        int bonusGold = 3 + MapSystem.Instance.MapIndex;
         playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
         playerController.SavePlayerData();
 

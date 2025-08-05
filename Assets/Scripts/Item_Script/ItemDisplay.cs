@@ -26,6 +26,7 @@ public class ItemDisplay : MonoBehaviour
     private bool isMove = false;
     private bool isBusy = false;
     private bool isUse = false;
+    private bool isDestroy = false;
     private float speed = 450f;
 
     private void Update()
@@ -56,6 +57,7 @@ public class ItemDisplay : MonoBehaviour
     }
     private void OnDestroy()
     {
+        isDestroy = true;
         if (rotateTween != null && rotateTween.IsActive())
             rotateTween.Kill();
         if (moveSeq != null && moveSeq.IsActive())
@@ -143,6 +145,12 @@ public class ItemDisplay : MonoBehaviour
         useSeq.OnComplete(() => {
             ItemTube.Instance.IsConsumePoint = false;
             ItemTube.Instance.ContinueItemDisplay();
+            if (isDestroy) return;
+
+            if (rotateTween != null && rotateTween.IsActive()) rotateTween.Kill();
+            if (moveSeq != null && moveSeq.IsActive()) moveSeq.Kill();
+            useSeq.Kill();
+
             Destroy(gameObject);
             ItemTube.Instance.CheckItemNull();
         });

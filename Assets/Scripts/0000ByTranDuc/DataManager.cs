@@ -17,7 +17,7 @@ namespace TranDuc
 
         private void OnApplicationQuit()
         {
-            if (!RoomInGameManager.Instance.IsFinishGame)
+            if (!GameManager.Instance.IsFinishGame)
             {
                 DataManager.Instance.GameData.SetKeepPlayState(true);
             }
@@ -43,7 +43,7 @@ namespace TranDuc
         [SerializeField] private float extraDamagePercent = 0;
         [SerializeField] private float extraHealthPercent = 0;
         [SerializeField] private List<CharacterState> characterStates = new();
-        [SerializeField] private bool isKeepingPlayGame = false;
+        [SerializeField] public bool isKeepingPlayGame = false;
 
         // MAIN GAME DATA
         [SerializeField] private PlayerData playerData = new();
@@ -182,8 +182,6 @@ namespace TranDuc
             }
            
         }
-
-
         public void ClearGameplayData()
         {
             ResetGameplayData();

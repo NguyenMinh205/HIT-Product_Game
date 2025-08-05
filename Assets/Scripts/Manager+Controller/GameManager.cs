@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using TranDuc;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -77,9 +78,9 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
         AudioManager.Instance.PlayMusicSelectRoom();
         isFinishGame = false;
-        if (GameData.Instance.startData.isKeepingPlayGame)
+        if (DataManager.Instance.GameData.isKeepingPlayGame)
         {
-            GameData.Instance.LoadMainGameData();
+            DataManager.Instance.GameData.Save();
         }
         if (fadeCanvasGroup != null)
         {
@@ -95,11 +96,12 @@ public class GameManager : Singleton<GameManager>
             fadeCanvasGroup.alpha = 1f;
         }
 
-        //AudioManager.Instance.PlayMusicInGame();
-        PlayerMapController.Instance.IsIntoRoom = true;
+        AudioManager.Instance.PlayMusicInGame();
+        //PlayerMapController.Instance.IsIntoRoom = true;
 
-        MapController.Instance.SetActiveMapStore(false);
-        MapManager.Instance.SetActiveRoomVisual(false);
+        MapSystem.Instance.SetActiveRoomVisual(false);
+        //MapController.Instance.SetActiveMapStore(false);
+        //MapManager.Instance.SetActiveRoomVisual(false);
 
         uiMap.SetActive(false);
         uiInRoom.SetActive(true);
@@ -273,11 +275,12 @@ public class GameManager : Singleton<GameManager>
             if(currentUI != null) currentUI.SetActive(false);
             if(currentMachine != null) currentMachine.SetActive(false);
 
-            MapController.Instance.SetActiveMapStore(true);
+            /*MapController.Instance.SetActiveMapStore(true);
             MapManager.Instance.SetActiveRoomVisual(true);
             uiMap.SetActive(true);
             PlayerMapController.Instance.IsIntoRoom = false;
-            PlayerMapController.Instance.IsMoving = false;
+            PlayerMapController.Instance.IsMoving = false;*/
+            MapSystem.Instance.SetActiveRoomVisual(true);
 
             if (intoRoomTrigger != null)
             {
@@ -289,7 +292,12 @@ public class GameManager : Singleton<GameManager>
             }
 
             AudioManager.Instance.PlayMusicSelectRoom();
-            MapController.Instance.SetRoomVisited(PlayerMapController.Instance.PosInMap);
+            //MapController.Instance.SetRoomVisited(PlayerMapController.Instance.PosInMap);
+
+            MapSystem.Instance.SetRoomVisited();
+            ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar, GamePlayController.Instance.PlayerController.CurrentPlayer);
+            MapSystem.Instance.SetRoomWhenWin();
+
             ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar, GamePlayController.Instance.PlayerController.CurrentPlayer);
             DOVirtual.DelayedCall(0.2f, () =>
             {
@@ -307,9 +315,13 @@ public class GameManager : Singleton<GameManager>
         if (GamePlayController.Instance.IsLoseGame)
         {
             isFinishGame = true;
-            GameData.Instance.startData.isKeepingPlayGame = false;
+            /*GameData.Instance.startData.isKeepingPlayGame = false;
             GameData.Instance.SaveStartGameData();
-            GameData.Instance.ClearMainGameData();
+            GameData.Instance.ClearMainGameData();*/
+
+            DataManager.Instance.GameData.SetKeepPlayState(false);
+            DataManager.Instance.GameData.ClearGameplayData();
+
             GamePlayController.Instance.IsLoseGame = false;
             SceneManager.LoadScene(0);
             return;
@@ -317,33 +329,22 @@ public class GameManager : Singleton<GameManager>
         if (!isFinishGame)
         {
             AudioManager.Instance.PlaySoundClickButton();
-            GameData.Instance.startData.isKeepingPlayGame = true;
+            /*GameData.Instance.startData.isKeepingPlayGame = true;
             GameData.Instance.SaveStartGameData();
-            GameData.Instance.SaveMainGameData();
+            GameData.Instance.SaveMainGameData();*/
+            DataManager.Instance.GameData.SetKeepPlayState(true);
         }
         else
         {
             AudioManager.Instance.PlaySoundClickButton();
-            GameData.Instance.startData.coin += GameData.Instance.mainGameData.playerData.stats.Coin;
+            /*GameData.Instance.startData.coin += GameData.Instance.mainGameData.playerData.stats.Coin;
             GameData.Instance.SaveStartGameData();
-            GameData.Instance.ClearMainGameData();
+            GameData.Instance.ClearMainGameData();*/
+            DataManager.Instance.GameData.Coin += DataManager.Instance.GameData.Player.stats.Coin;
+            DataManager.Instance.GameData.SetKeepPlayState(false);
+            DataManager.Instance.GameData.ClearGameplayData();
         }
+        PoolingManager.ClearAll();
         SceneManager.LoadScene(0);
-    }
-
-    private void OnApplicationQuit()
-    {
-        if (!isFinishGame)
-        {
-            GameData.Instance.startData.isKeepingPlayGame = true;
-            GameData.Instance.SaveStartGameData();
-            if (intoRoomTrigger != null)
-            {
-                GamePlayController.Instance.PlayerController.CurPlayerStat.ResetStatAfterRound();
-                GameData.Instance.mainGameData.playerData.stats = GamePlayController.Instance.PlayerController.CurPlayerStat;
-            }
-            GameData.Instance.SaveMainGameData();
-            Debug.LogError("Application is quitting, saving game data.");
-        }
     }
 }

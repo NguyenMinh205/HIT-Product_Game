@@ -9267,6 +9267,8 @@ MonoBehaviour:
   difficultySelectionScreen: {fileID: 225577522}
   gachaScreen: {fileID: 525874165}
   gachaMachine: {fileID: 636160747146606559}
+  uiChoicePlayer: {fileID: 645711652}
+  characterDatabaseSO: {fileID: 11400000, guid: 84e61f188e25ed14ba33f8bf64dd67c5, type: 2}
 --- !u!4 &795054344
 Transform:
   m_ObjectHideFlags: 0
@@ -25856,7 +25858,7 @@ GameObject:
   - component: {fileID: 2130101012}
   - component: {fileID: 2130101011}
   m_Layer: 0
-  m_Name: ______________DATA______________________
+  m_Name: Data
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

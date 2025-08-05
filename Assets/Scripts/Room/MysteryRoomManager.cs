@@ -38,11 +38,11 @@ public class MysteryRoomManager : MonoBehaviour
         if(listChest.Count == 0)
         {
             Debug.LogWarning("No chests available to reward.");
-            RoomInGameManager.Instance.OutRoom();
+            GameManager.Instance.OutRoom();
             return;
         }
-        ControlerUIInGame.Instance.RewardUI.SetActive(true);
-        ControlerUIInGame.Instance.BtnRoll.SetActive(false);
+        GameManager.Instance.RewardUI.SetActive(true);
+        GameManager.Instance.BtnRoll.SetActive(false);
         RewardManager.Instance.InitReward(listChest);
     }
 }

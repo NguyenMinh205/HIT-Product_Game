@@ -227,7 +227,7 @@ public class Enemy : MonoBehaviour
         if (HP <= 0)
         {
             ObserverManager<EventID>.PostEven(EventID.OnEnemyDead);
-            ObserverManager<IDEnemyState>.PostEven(IDEnemyState.EnemyDied, this);
+            GamePlayController.Instance.EnemyController.DieEnemy(this);
             effectController.ClearAllEffectUI();
         }
     }

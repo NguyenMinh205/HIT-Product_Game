@@ -3391,7 +3391,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 678894081}
-  - component: {fileID: 678894080}
   m_Layer: 0
   m_Name: MapController
   m_TagString: Untagged
@@ -3399,23 +3398,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &678894080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678894079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b38257276591745ab8ef0a456bba4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 6680030298055429967, guid: 169ae3492d44e634ebe5b27c337cf61b, type: 3}
-  characterDatabase: {fileID: 11400000, guid: 84e61f188e25ed14ba33f8bf64dd67c5, type: 2}
-  mapStore: {fileID: 1587283518}
-  offsetX: 0.5
-  offsetY: 2
 --- !u!4 &678894081
 Transform:
   m_ObjectHideFlags: 0
@@ -4100,7 +4082,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 922280109}
-  - component: {fileID: 922280110}
   m_Layer: 0
   m_Name: MapManager
   m_TagString: Untagged
@@ -4124,25 +4105,6 @@ Transform:
   - {fileID: 1084003249}
   m_Father: {fileID: 1820655456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &922280110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 922280108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e925190f92456a448a47b05292d5a4ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fightMaps: []
-  bossMaps: []
-  restMaps: []
-  floorTxt: {fileID: 733186412185766054}
-  floorInRoomTxt: {fileID: 4251568872783135052}
-  numFloor: 5
-  RoomVisual: {fileID: 1084003248}
 --- !u!1 &927217607
 GameObject:
   m_ObjectHideFlags: 0
@@ -9115,6 +9077,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1820655456}
+  - component: {fileID: 1820655457}
   m_Layer: 0
   m_Name: MainMap
   m_TagString: Untagged
@@ -9139,6 +9102,47 @@ Transform:
   - {fileID: 922280109}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1820655457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820655455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f55cca8a63c7f44b146225bd4bc244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fightMaps:
+  - {fileID: 11400000, guid: 59f4f0842100276488a35b9f84db20fb, type: 2}
+  - {fileID: 11400000, guid: 1a7a7f3291e0746479db14b147df698e, type: 2}
+  - {fileID: 11400000, guid: fae299fd3d284d545870d8cccb890c1f, type: 2}
+  - {fileID: 11400000, guid: fd95e807f3148ed44a16d059f2cc3081, type: 2}
+  - {fileID: 11400000, guid: 5d7ae38194c3ea9439e5d80afd59cfed, type: 2}
+  - {fileID: 11400000, guid: 6495bb4215e5b73478cff7a0b126eba6, type: 2}
+  - {fileID: 11400000, guid: dda360071f8952440ab0a6bb18c2c48c, type: 2}
+  - {fileID: 11400000, guid: 63e7001861259c246b28f378bcdd5950, type: 2}
+  bossMaps:
+  - {fileID: 11400000, guid: 30c431f405adb0541929d569c35769b6, type: 2}
+  - {fileID: 11400000, guid: 1d9d46178a3d11740bf29efc53413c24, type: 2}
+  - {fileID: 11400000, guid: e016d8da4ea19d743bba1cdace26c01e, type: 2}
+  - {fileID: 11400000, guid: 493a7bdcabe42d641b2f2c963f9b4c40, type: 2}
+  - {fileID: 11400000, guid: ba0d8435a7b0e82458fbee6542278abd, type: 2}
+  - {fileID: 11400000, guid: 4faf69a274763f84a9b1929e40918ecf, type: 2}
+  restMaps:
+  - {fileID: 11400000, guid: edc33f98251d1f5459e8aa90d26d14df, type: 2}
+  - {fileID: 11400000, guid: 4929ff3d286465e42a550f8cd95b74ef, type: 2}
+  - {fileID: 11400000, guid: 964051cea30c22e439301993171d53c7, type: 2}
+  floorTxt: {fileID: 733186412185766054}
+  floorInRoomTxt: {fileID: 4251568872783135052}
+  numFloor: 5
+  RoomVisual: {fileID: 1084003248}
+  playerPrefab: {fileID: 2119412928920799980, guid: 7c0743deb0479374b9fcd38e205341d9, type: 3}
+  characterDatabase: {fileID: 11400000, guid: 84e61f188e25ed14ba33f8bf64dd67c5, type: 2}
+  mapStore: {fileID: 1587283518}
+  offsetX: 0.5
+  offsetY: 1
 --- !u!1001 &1879217309
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -113,6 +113,7 @@ public class EnemyController : MonoBehaviour
             CheckEnemyCountZero();
             enemy.UIAction.UnShowActionEnemy();
             enemy.Health.UnShowHealthBarEnemy();
+            enemy.DesTroy();
         }
     }
 

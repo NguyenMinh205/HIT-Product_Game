@@ -73,7 +73,7 @@ public class ItemController : MonoBehaviour
                 ItemBase itemBase = item.GetItemBase();
                 if (itemBase != null)
                 {
-                    newItem.Init(itemBase, move);
+                    newItem.Init(itemBase);
                     listItemInBox.Add(newItem);
                     newItem.gameObject.SetActive(true);
                 }
@@ -110,7 +110,7 @@ public class ItemController : MonoBehaviour
             Item newItem = PoolingManager.Spawn(currentObjectPrefab, spawnPos, Quaternion.identity, itemParent);
             if (newItem != null)
             {
-                newItem.Init(item, move);
+                newItem.Init(item);
                 listItemInBox.Add(newItem);
                 newItem.gameObject.SetActive(true);
                 Debug.Log($"Spawned item {item.id} at position {spawnPos}");
@@ -157,7 +157,7 @@ public class ItemController : MonoBehaviour
         {
             if(check < val)
             {
-                item.Init(thorn, move);
+                item.Init(thorn);
                 check++;
             }
             else

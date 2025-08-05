@@ -140,7 +140,7 @@ public class TumblerMachine : Singleton<TumblerMachine>
 
     public void ShowSelectItemUI()
     {
-        ControlerUIInGame.Instance.RewardUI.SetActive(true);
+        GameManager.Instance.RewardUI.SetActive(true);
         RewardManager.Instance.InitReward();
     }
 

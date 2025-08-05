@@ -324,8 +324,8 @@ public class MapSystem : Singleton<MapSystem>
             }
             else
             {
-                ControlerUIInGame.Instance.FinishUI.SetActive(true);
-                RoomInGameManager.Instance.IsFinishGame = true;
+                GameManager.Instance.FinishUI.SetActive(true);
+                GameManager.Instance.IsFinishGame = true;
                 DataManager.Instance.GameData.SetKeepPlayState(false);
             }
         });
