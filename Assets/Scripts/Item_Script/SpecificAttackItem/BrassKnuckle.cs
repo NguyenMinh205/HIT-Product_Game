@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoubleBladedSword : AttackWithBuff
+public class BrassKnuckle : AttackWithBuff
 {
-    private int damage = 20;
+    private int damage = 5;
     public int Damage { get { return damage; } set { damage = value; } }
-    private int buffVal = -5;
+    private int buffVal = 1;
     public int BuffVal { get { return buffVal; } set { buffVal = value; } }
     private int curDamage = 0;
 
@@ -18,7 +18,7 @@ public class DoubleBladedSword : AttackWithBuff
 
     public override void Buff(Player player)
     {
-        player.ReceiveDamage(buffVal);
+        player.AddBuffEffect("dodge", buffVal, -1);
     }
 
     public override void Execute(Player player, Enemy enemy)
@@ -37,6 +37,7 @@ public class DoubleBladedSword : AttackWithBuff
 
     public override void Upgrade()
     {
-        damage += 10;
+        damage = 10;
+        buffVal = 2;
     }
 }

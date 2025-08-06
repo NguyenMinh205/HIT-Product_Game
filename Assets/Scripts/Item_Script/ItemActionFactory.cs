@@ -13,10 +13,14 @@ public static class ItemActionFactory
                 return new SmallSword();
             case "Atk03":
                 return new DarkSword();
+            case "Atk04":
+                return new BrassKnuckle();
             case "Atk06":
                 return new Sickle();
             case "Atk07":
                 return new MagicWand();
+            case "Atk08":
+                return new GoldDagger();
             case "Atk09":
                 return new SpikedMace();
             case "Atk10":
@@ -57,12 +61,16 @@ public static class ItemActionFactory
                 return new SmallShield();
             case "Def09":
                 return new PlasticShield();
+            case "Def10":
+                return new DetoxShield();
             case "Def11":
                 return new MetalShield();
             case "Buf01":
                 GameObject obj = new GameObject("Magnet");
                 Magnet magnet = obj.AddComponent<Magnet>();
                 return magnet;
+            case "Buf02":
+                return new PoisonFlask();
             case "Buf03":
                 return new Eyepatch();
             case "Buf04":

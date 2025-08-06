@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a20c7cd64e093c4089e0cc1bfc91c56, type: 3}
-  m_Name: Item_ 8
+  m_Name: Item_ 32(Detox_Shield)
   m_EditorClassIdentifier: 
-  id: Atk08+
-  itemName: Gold Dagger+
-  icon: {fileID: -2054839996, guid: 3d69594dab9cb7d4781e38e63be8c6a4, type: 3}
-  itemRarity: 0
-  description: Attacks the nearest enemy, dealing 10 Damage and plus 2 Damage for
-    each 10 Coins you own.
+  id: Def10
+  itemName: Detox Shield
+  icon: {fileID: -896628270, guid: 5a733b2d3a1fbe04eadecfc3ea44f614, type: 3}
+  itemRarity: 2
+  description: Increases Block by 20. Each time an instance of Poison is removed
+    by this shield, your Block increases by 1.
   isStackable: 0
   maxStackSize: 99
   isMetal: 1
-  isUpgraded: 1
-  upgradedItem: {fileID: 0}
+  isUpgraded: 0
+  upgradedItem: {fileID: 11400000, guid: b1b69d86b2dcbc14db2b8eb064f45afd, type: 2}

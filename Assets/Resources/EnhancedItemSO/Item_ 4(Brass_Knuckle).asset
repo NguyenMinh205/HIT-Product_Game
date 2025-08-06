@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Brass Knuckle+
   icon: {fileID: 1713283167, guid: 3d69594dab9cb7d4781e38e63be8c6a4, type: 3}
   itemRarity: 1
-  description: Attacks the first enemy for 6 damage and gives you 2 Dodge.
+  description: Attacks the first enemy for 10 damage and gives you 2 Dodge.
   isStackable: 0
   maxStackSize: 99
   isMetal: 0
