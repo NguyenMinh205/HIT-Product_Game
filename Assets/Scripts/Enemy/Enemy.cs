@@ -9,6 +9,12 @@ public enum EnemyEffect
 {
     Remove,
 }
+
+public enum IDEnemyState
+{
+    EnemyDied
+}
+
 public class Enemy : MonoBehaviour
 {
     private string idEnemy;

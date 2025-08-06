@@ -29,19 +29,12 @@ public class StartSceneManager : Singleton<StartSceneManager>
     [SerializeField] private GameObject gachaScreen;
     [SerializeField] private GameObject gachaMachine;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        GameData.Instance.LoadStartGameData();
-    }
-
     private void Start()
     {
         DOVirtual.DelayedCall(0.2f, () =>
         {
             AudioManager.Instance.PlayMusicStartGame();
         });
-        characterDatabaseSO.SetupStartData();
     }
 
     public void OnStartButton()
@@ -133,10 +126,5 @@ public class StartSceneManager : Singleton<StartSceneManager>
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    private void OnApplicationQuit()
-    {
-        GameData.Instance.SaveStartGameData();
     }
 }

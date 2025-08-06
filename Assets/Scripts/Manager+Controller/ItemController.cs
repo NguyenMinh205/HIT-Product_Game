@@ -47,6 +47,7 @@ public class ItemController : MonoBehaviour
         {
             return;
         }
+
         listIndexUsed.Clear();
 
         foreach (ItemInventory item in items)
@@ -63,17 +64,18 @@ public class ItemController : MonoBehaviour
                 AddListCheck(randomIndex);
                 float randomY = Random.Range(-0.5f, 1f);
 
-                if (listPosSpawnItem[randomIndex] == null) continue; 
+                if (listPosSpawnItem[randomIndex] == null) continue;
 
                 if (currentObjectPrefab == null) return;
 
                 Vector3 spawnPos = listPosSpawnItem[randomIndex].transform.position;
-                spawnPos.y += randomY; 
+                spawnPos.y += randomY;
                 Item newItem = PoolingManager.Spawn(currentObjectPrefab, spawnPos, Quaternion.identity, itemParent);
                 ItemBase itemBase = item.GetItemBase();
+
                 if (itemBase != null)
                 {
-                    newItem.Init(itemBase, move);
+                    newItem.Init(itemBase);
                     listItemInBox.Add(newItem);
                     newItem.gameObject.SetActive(true);
                 }
@@ -84,7 +86,7 @@ public class ItemController : MonoBehaviour
     public void AddListCheck(int index)
     {
         listIndexUsed.Add(index);
-        if(listIndexUsed.Count >= listPosSpawnItem.Count)
+        if (listIndexUsed.Count >= listPosSpawnItem.Count)
         {
             listIndexUsed.Clear();
         }
@@ -92,7 +94,7 @@ public class ItemController : MonoBehaviour
 
     public void DropInBox(ItemBase item, int val)
     {
-        Debug.Log("Enemy Drop Item Effect In Box"); 
+        Debug.Log("Enemy Drop Item Effect In Box");
         int value = val;
 
         listIndexUsed.Clear();
@@ -110,7 +112,7 @@ public class ItemController : MonoBehaviour
             Item newItem = PoolingManager.Spawn(currentObjectPrefab, spawnPos, Quaternion.identity, itemParent);
             if (newItem != null)
             {
-                newItem.Init(item, move);
+                newItem.Init(item);
                 listItemInBox.Add(newItem);
                 newItem.gameObject.SetActive(true);
                 Debug.Log($"Spawned item {item.id} at position {spawnPos}");
@@ -148,16 +150,16 @@ public class ItemController : MonoBehaviour
         listItemInBox.Clear();
 
         Debug.Log("Cleared all items from machine");
-    } 
+    }
 
     public void ChangeToThorn(int val)
     {
         int check = 0;
         foreach (Item item in listItemInBox)
         {
-            if(check < val)
+            if (check < val)
             {
-                item.Init(thorn, move);
+                item.Init(thorn);
                 check++;
             }
             else

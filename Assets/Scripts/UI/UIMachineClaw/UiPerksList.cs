@@ -12,13 +12,11 @@ public class UiPerksList : Singleton<UiPerksList>
     public List<UiPerk> Perks => perks;
     [Space]
     [Header("GameObject")]
-    [SerializeField] private GameObject background;
     [SerializeField] private GameObject title;
     [SerializeField] private GameObject listPerk;
 
     public void SetActivePerk(bool val)
     {
-        background.SetActive(val);
         title.SetActive(val);
         listPerk.SetActive(val);
     }

@@ -30,8 +30,9 @@ namespace TranDuc
         [SerializeField] private BackgroundRoomController defaultClawMachineBox;
         [SerializeField] private GameObject pachinkoMachineBox;
         [SerializeField] private GameObject tumblerMachineBox;
+        private GameObject currentMachine;
 
-       
+
 
         private bool isFinishGame = false;
         public bool IsFinishGame
@@ -68,127 +69,179 @@ namespace TranDuc
             bossRoom.SetActive(false);
             defaultRoom.SetActive(false);
            
-            ControlerUIInGame.Instance.CloseAllUI();
+            ControllerUIInGame.Instance.CloseAllUI();
 
             defaultClawMachineBox.gameObject.SetActive(false);
             pachinkoMachineBox.SetActive(false);
             tumblerMachineBox.SetActive(false);
         }
 
-        private void OpenRoom()
+        private void OpenRoom(string typeRoom = null)
         {
-            CloseAllRoomsAndUIs();
-            AudioManager.Instance.PlayMusicInGame();
-            MapSystem.Instance.SetActiveRoomVisual(false);
-            //DataManager.Instance.GameData.SetKeepPlayState(true);
-            GamePlayController.Instance.PlayerController.NumOfCoinInRoom.text = GamePlayController.Instance.PlayerController.CurPlayerStat.Coin.ToString();
-        }
+            MapSystem.Instance.CurPlayerMap.IsIntoRoom = true;
 
+            MapSystem.Instance.SetActiveMapStore(false);
+
+            if (currentRoom != null) currentRoom.SetActive(true);
+            if (currentMachine != null) currentMachine.SetActive(true);
+            ControllerUIInGame.Instance.OpenUIRoomType(typeRoom);
+
+            Debug.LogError("OK1");
+            if (currentMachine == defaultClawMachineBox.gameObject)
+            {
+                UiPerksList.Instance.SetActivePerk(true);
+            }
+
+            ControllerUIInGame.Instance.OpenRoom();
+            Debug.LogError("OK2");
+            DOVirtual.DelayedCall(0.25f, () =>
+            {
+                Debug.LogError("Open Room: " + typeRoom);
+                CheckTypeRoom(typeRoom);
+            });
+        }
+        public void CheckTypeRoom(string typeRoom)
+        {
+            switch (typeRoom)
+            {
+                case "BossRoom":
+                    Debug.Log("Start Boss Room");
+                    GamePlayController.Instance.StartFightRoom(typeRoom);
+                    break;
+                case "FightRoom":
+                    Debug.Log("Start Fight Room");
+                    GamePlayController.Instance.StartFightRoom(typeRoom);
+                    break;
+                case "HealingRoom":
+                    Debug.Log("Start Healing Room");
+                    GamePlayController.Instance.StartFightRoom(typeRoom);
+                    break;
+                case "MysteryRoom":
+                    Debug.Log("Start Mystery Room");
+                    GamePlayController.Instance.StartFightRoom(typeRoom);
+                    break;
+                case "PerkReward":
+                    TumblerMachine.Instance.Init();
+                    break;
+                case "Pachinko":
+                    PachinkoMachine.Instance.Init();
+                    break;
+                case "Smith":
+                    currentRoom.GetComponent<SmithRoomManager>().Init();
+                    break;
+                case "Shredder":
+                    currentRoom.GetComponent<ShredderRoomManager>().Init();
+                    break;
+
+                default:
+                    Debug.Log("Unknown Room Type: " + typeRoom);
+                    break;
+            }
+        }
         public void OpenRoomFight()
         {
-            OpenRoom();
-            defaultRoom.SetActive(true);
-            defaultClawMachineBox.gameObject.SetActive(true);
-            defaultClawMachineBox.SetBackground(RoomType.FightNormal);
             currentRoom = defaultRoom;
+            currentMachine = defaultClawMachineBox.gameObject;
+
             GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
-            GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "FightRoom");
-            GamePlayController.Instance.StartFightRoom("FightRoom");
+            GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "Fight");
+            OpenRoom("FightRoom");
+            if (currentMachine != null) defaultClawMachineBox.SetBackground(RoomType.FightNormal);
         }
 
         public void OpenRoomBossFight()
         {
-            OpenRoom();
-            bossRoom.SetActive(true);
-            defaultClawMachineBox.gameObject.SetActive(true);
-            defaultClawMachineBox.SetBackground(RoomType.FightBoss);
             currentRoom = bossRoom;
+            currentMachine = defaultClawMachineBox.gameObject;
+
             GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
             GamePlayController.Instance.EnemyController.SetPosEnemy(currentRoom, "BossRoom");
-            GamePlayController.Instance.StartFightRoom("BossRoom");
+            OpenRoom("BossRoom");
+            if (currentMachine != null) defaultClawMachineBox.SetBackground(RoomType.FightBoss);
         }
 
         public void OpenRoomHealing()
         {
-            OpenRoom();
-            healingRoom.SetActive(true);
-            defaultClawMachineBox.gameObject.SetActive(true);
-            defaultClawMachineBox.SetBackground(RoomType.Healing);
             currentRoom = healingRoom;
+            currentMachine = defaultClawMachineBox.gameObject;
+
             GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
             GamePlayController.Instance.NpcController.SetPosSpawnNPC(currentRoom);
-            GamePlayController.Instance.StartFunctionRoom("HealingRoom");
+
+            OpenRoom("HealingRoom");
+            if (currentMachine != null) defaultClawMachineBox.SetBackground(RoomType.Healing);
         }
 
         public void OpenRoomMystery()
         {
-            OpenRoom();
-            mysteryRoom.SetActive(true);
-            defaultClawMachineBox.gameObject.SetActive(true);
-            defaultClawMachineBox.SetBackground(RoomType.Mystery);
             currentRoom = mysteryRoom;
+            currentMachine = defaultClawMachineBox.gameObject;
+
             GamePlayController.Instance.PlayerController.SetPosPlayer(currentRoom);
             GamePlayController.Instance.NpcController.SetPosSpawnNPC(currentRoom);
-            GamePlayController.Instance.StartFunctionRoom("MysteryRoom");
+
+            OpenRoom("MysteryRoom");
+            if (currentMachine != null) defaultClawMachineBox.SetBackground(RoomType.Mystery);
         }
 
         public void OpenRoomPerkReward()
         {
-            OpenRoom();
-            tumblerMachineBox.SetActive(true);
-            ControlerUIInGame.Instance.OpenRoomType(0);
-            perkRewardRoom.SetActive(true);
-            TumblerMachine.Instance.Init();
             currentRoom = perkRewardRoom;
-            Debug.Log(currentRoom.name);
+            currentMachine = tumblerMachineBox;
+
+            OpenRoom("PerkReward");
         }
 
         public void OpenRoomPachinko()
         {
-            OpenRoom();
-            pachinkoRoom.SetActive(true);
-            ControlerUIInGame.Instance.OpenRoomType(1);
-            pachinkoMachineBox.SetActive(true);
             currentRoom = pachinkoRoom;
+            currentMachine = pachinkoMachineBox;
+
+            OpenRoom("Pachinko");
         }
 
         public void OpenRoomSmith()
         {
-            OpenRoom();
-            smithRoom.SetActive(true);
-            ControlerUIInGame.Instance.OpenRoomType(2);
             currentRoom = smithRoom;
-            currentRoom.GetComponent<SmithRoomManager>().Init();
+
+            OpenRoom("Smith");
         }
 
         public void OpenRoomShredder()
         {
-            OpenRoom();
-            shredderRoom.SetActive(true);
-            ControlerUIInGame.Instance.OpenRoomType(3);
             currentRoom = shredderRoom;
-            currentRoom.GetComponent<ShredderRoomManager>().Init();
+
+            OpenRoom("Shredder");
         }
 
         public void OutRoom()
         {
             if (currentRoom != null)
             {
-                ControlerUIInGame.Instance.OutRoom();
-                currentRoom.SetActive(false);
-                CloseAllRoomsAndUIs();
-                MapSystem.Instance.SetActiveRoomVisual(true);
-             
+                UiPerksList.Instance.SetActivePerk(false);
+
+                if (currentRoom != null) currentRoom.SetActive(false);
+                if (currentMachine != null) currentMachine.SetActive(false);
+
+                MapSystem.Instance.SetActiveMapStore(true);
+
+                MapSystem.Instance.CurPlayerMap.IsIntoRoom = false;
+                MapSystem.Instance.CurPlayerMap.IsMoving = false;
+
                 if (intoRoomTrigger != null)
                 {
+                    Debug.LogError("Out Room: " + intoRoomTrigger.IdNameRoom);
+                    Vector3 posNew = intoRoomTrigger.gameObject.transform.position;
                     intoRoomTrigger.gameObject.SetActive(false);
                 }
-                currentRoom = null;
+
                 AudioManager.Instance.PlayMusicSelectRoom();
-                MapSystem.Instance.SetRoomVisited();
-                ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar, GamePlayController.Instance.PlayerController.CurrentPlayer);
                 MapSystem.Instance.SetRoomWhenWin();
+                ObserverManager<IDMap>.PostEven(IDMap.UpdateHpBar, GamePlayController.Instance.PlayerController.CurrentPlayer);
             }
+            currentRoom = null;
+            currentMachine = null;
+            ControllerUIInGame.Instance.OutRoom();
         }
 
         public void BackHome()
@@ -215,6 +268,7 @@ namespace TranDuc
                 DataManager.Instance.GameData.SetKeepPlayState(false);
                 DataManager.Instance.GameData.ClearGameplayData();
             }
+            SettingInGame.Instance.BackHome();
             PoolingManager.ClearAll();
             SceneManager.LoadScene(0);
         }

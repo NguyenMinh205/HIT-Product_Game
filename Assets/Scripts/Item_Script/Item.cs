@@ -39,13 +39,11 @@ public class Item : MonoBehaviour
     }
     public Sprite Sprite => sr.sprite;
 
-    private ItemMoveController _itemMoveController;
-
     private void OnEnable()
     {
         isMove = false;
     }
-    public void Init(ItemBase itemBase, ItemMoveController itemMove)
+    public void Init(ItemBase itemBase)
     {
         idItem = itemBase.id;
         nameItem = itemBase.itemName;
@@ -63,20 +61,12 @@ public class Item : MonoBehaviour
             _itemBase.Action = ItemActionFactory.CreateItemAction(idItem);
             _itemBase.Action.Execute(null, null);
         }
-        _itemMoveController = itemMove;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Basket"))
+        if (collision.CompareTag("Basket"))
         {
-            Debug.Log("Item in Basket");
-            isPickUp = true;
-
-            this.GetComponent<PolygonCollider2D>().isTrigger = true;
-            this.GetComponent<Rigidbody2D>().simulated = false;
-            _itemMoveController.EnqueueItem(this);
-
-            //ObserverManager<IDItem>.PostEven(IDItem.ItemChange, this);
+            ObserverManager<IDItem>.PostEven(IDItem.ItemChange, this);
         }
     }
 
@@ -86,18 +76,13 @@ public class Item : MonoBehaviour
 
         poly.pathCount = sr.sprite.GetPhysicsShapeCount();
 
-        // new paths variable
         List<Vector2> path = new List<Vector2>();
 
 
-        // loop path count
         for (int i = 0; i < poly.pathCount; i++)
         {
-            // clear
             path.Clear();
-            // get shape
             sr.sprite.GetPhysicsShape(i, path);
-            // set path
             poly.SetPath(i, path.ToArray());
         }
     }

@@ -14,7 +14,6 @@ public class PlayerInMap : MonoBehaviour
     private bool isIntoRoom;
 
     private Vector2Int posInMap;
-    private Vector2Int posInGrid;
 
     private Tilemap tilemap;
     private MapRuntimeInstance mapInstance;
@@ -31,12 +30,6 @@ public class PlayerInMap : MonoBehaviour
         set => posInMap = value;
     }
 
-    public Vector2Int PosInGrid
-    {
-        get => posInGrid;
-        set => posInGrid = value;
-    }
-
     public bool IsMoving
     {
         set => isMoving = value;
@@ -47,20 +40,20 @@ public class PlayerInMap : MonoBehaviour
         isIntoRoom = false;
     }
 
-    public void Initialize(Tilemap mapTilemap, MapRuntimeInstance mapData, Vector2Int spawnPosMap, Vector2Int spawnPosGrid, Sprite sprite)
+    public void Initialize(Tilemap mapTilemap, MapRuntimeInstance mapData, Vector2Int spawnPosMap, Sprite sprite)
     {
         spriteRenderer.sprite = sprite;
         tilemap = mapTilemap;
         mapInstance = mapData;  
         posInMap = spawnPosMap;
-        posInGrid = spawnPosGrid;
         rb.velocity = Vector2.zero;
         isMoving = false;
+        DataManager.Instance.GameData.PlayerNodePosition = posInMap;
     }
 
     private void Update()
     {
-        if (isMoving || tilemap == null || mapInstance == null || IsIntoRoom)
+        if (isMoving || tilemap == null || mapInstance == null || IsIntoRoom || SettingInGame.Instance.isPause)
             return;
 
         if (Input.GetKeyDown(KeyCode.W)) TryMove(Vector2Int.up);
@@ -71,7 +64,7 @@ public class PlayerInMap : MonoBehaviour
 
     private void TryMove(Vector2Int direction)
     {
-        Vector2Int newGridPos = posInGrid + direction;
+        Vector2Int newGridPos = posInMap + direction;
         if (IsValidMove(newGridPos))
         {
             GamePlayController.Instance.Dir = direction;
@@ -108,6 +101,7 @@ public class PlayerInMap : MonoBehaviour
         Vector3 startPosition = transform.position;
         Vector3 targetPosition = startPosition + new Vector3(direction.x, direction.y, 0) * tilemap.cellSize.x;
 
+        Debug.LogError($"Moving from {posInMap} to {new Vector2Int(posInMap.x + direction.x, posInMap.y + direction.y)}");
         if (direction.x != 0)
         {
             Vector3 scale = transform.localScale;
@@ -121,12 +115,11 @@ public class PlayerInMap : MonoBehaviour
             {
                 transform.position = targetPosition;
                 posInMap += direction;
-                posInGrid += direction;
                 rb.velocity = Vector2.zero;
                 DataManager.Instance.GameData.PlayerNodePosition = posInMap;
 
-                MapSystem.Instance.SetRoomVisited(); 
-                DOVirtual.DelayedCall(moveDelay, () => isMoving = false);
+                isMoving = false;
+                MapSystem.Instance.SetRoomVisited();
             });
     }
 }

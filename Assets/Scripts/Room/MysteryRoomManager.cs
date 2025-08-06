@@ -41,8 +41,8 @@ public class MysteryRoomManager : MonoBehaviour
             RoomInGameManager.Instance.OutRoom();
             return;
         }
-        ControlerUIInGame.Instance.RewardUI.SetActive(true);
-        ControlerUIInGame.Instance.BtnRoll.SetActive(false);
+        ControllerUIInGame.Instance.RewardUI.SetActive(true);
+        ControllerUIInGame.Instance.BtnRoll.SetActive(false);
         RewardManager.Instance.InitReward(listChest);
     }
 }

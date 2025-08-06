@@ -28,6 +28,12 @@ public class EnemyController : MonoBehaviour
     {
         get => listEnemy;
     }
+
+    private void Awake()
+    {
+        ObserverManager<IDEnemyState>.AddDesgisterEvent(IDEnemyState.EnemyDied, DieEnemy);
+    }
+
     public void Spawn()
     {
         SpawnEnemy(enemySpawController.GetListEnemyToSpawn(MapSystem.Instance.MapIndex));
@@ -103,16 +109,20 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void DieEnemy(Enemy enemy)
+    public void DieEnemy(object obj)
     {
-        Debug.Log("Die Enemy");
-        if (listEnemy.Contains(enemy))
+        if (obj is Enemy enemy)
         {
-            listEnemy.Remove(enemy);
-            GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(1);
-            CheckEnemyCountZero();
+            Debug.Log("Die Enemy");
+            if (listEnemy.Contains(enemy))
+            {
+                listEnemy.Remove(enemy);
+                GamePlayController.Instance.PlayerController.CurrentPlayer.Stats.ChangeCoin(1);
+                CheckEnemyCountZero();
+            }
             enemy.UIAction.UnShowActionEnemy();
             enemy.Health.UnShowHealthBarEnemy();
+            enemy.DesTroy();
         }
     }
 

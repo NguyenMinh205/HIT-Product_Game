@@ -42,7 +42,6 @@ public class ItemMoveController : MonoBehaviour
 
             Item item = itemQueue.Dequeue();
             item.gameObject.SetActive(true);
-            item.SetBalloon(true);
             MoveItem(item);
 
             yield return new WaitForSeconds(delayBetweenItems);

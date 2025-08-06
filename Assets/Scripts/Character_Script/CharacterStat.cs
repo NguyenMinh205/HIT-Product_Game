@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TranDuc;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
@@ -100,7 +101,7 @@ public class CharacterStat
     public void ChangeCoin(int value)
     {
         this.coin += value;
-        GamePlayController.Instance.PlayerController.UpdateCoinText();
+        ControllerUIInGame.Instance.UpdateNumOfCoinInRoom(coin);
         ObserverManager<EventID>.PostEven(EventID.OnTakeCoin, value);
     }
 

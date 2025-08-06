@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TranDuc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,4 +44,14 @@ public class SettingInGame : Singleton<SettingInGame>
         dime.SetActive(true);
         settingUI.SetActive(true);
     }    
+
+    public void BackHome()
+    {
+        isPause = false;
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+            return;
+        }
+    }
 }

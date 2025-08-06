@@ -7,8 +7,6 @@ public class ItemTube : Singleton<ItemTube>
 {
     [SerializeField] public ItemUsage itemUsage;
     [SerializeField] private List<ItemBase> itemIDs;
-    [SerializeField] private GameObject backGround;
-    [SerializeField] private GameObject foreGround;
     [SerializeField] private RectTransform list;
     [SerializeField] private List<ItemDisplay> itemDisplays;
     private bool isItemNull = true;
@@ -42,7 +40,7 @@ public class ItemTube : Singleton<ItemTube>
         set
         {
             isEntryPoint = value;
-            if(!value) // Entry Point rong
+            if(!value)
             {
                 SpawnItemDisplay();
             }
@@ -80,13 +78,7 @@ public class ItemTube : Singleton<ItemTube>
         if (!isSpawn)
             SpawnItemDisplay();
     }
-    public void SetActionBG(bool val)
-    {
-        if (backGround == null || foreGround == null) return;
-
-        backGround.SetActive(val);
-        foreGround.SetActive(val);
-    }
+  
     public void SpawnItemDisplay()
     {
         if (itemIDs.Count <= 0) return;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using TranDuc;
 
 public enum EventID
 {
@@ -99,9 +100,9 @@ public class GamePlayController : Singleton<GamePlayController>
         canvasGroup.alpha = 0f;
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(canvasGroup.DOFade(1f, 0.4f).SetEase(Ease.OutQuad));
-        seq.AppendInterval(0.5f); // chờ 0.5s
-        seq.Append(canvasGroup.DOFade(0f, 0.4f).SetEase(Ease.InQuad));
+        seq.Append(canvasGroup.DOFade(1f, 0.35f).SetEase(Ease.OutQuad));
+        seq.AppendInterval(0.5f);
+        seq.Append(canvasGroup.DOFade(0f, 0.3f).SetEase(Ease.InQuad));
         seq.OnComplete(() =>
         {
             turnGame = turn;
@@ -189,25 +190,23 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     public void StartFightRoom(string typeRoom)
     {
-        isEndGame = false;           //Tat Check End Game
+        isEndGame = false;
         this.typeRoom = typeRoom;
 
-        SpawnEnemyOrNPC(typeRoom);                  //Set Enemy
-        playerController.SpawnPlayer();             //Set Player
-        SpawnItemStartInRoom(typeRoom);             // Set Item sau Player
+        SpawnEnemyOrNPC(typeRoom);
+        playerController.SpawnPlayer();
+        SpawnItemStartInRoom(typeRoom);
 
-        if(clawController != null)                  //Set Claw
+        if(clawController != null)
         {
             if(typeRoom == "HealingRoom" || typeRoom =="MysteryRoom")
-                clawController.Spawn(1);
+                clawController.Spawn(GamePlayController.Instance.PlayerController.CurPlayerStat.ClawInGrannyRoom);
             else clawController.Spawn();
 
             clawController.IsStart = true;
             clawController.SetCurrentClaw();
         }
-        
     }
-
 
     public void TurnPlayer()
     {
@@ -236,9 +235,8 @@ public class GamePlayController : Singleton<GamePlayController>
         itemController.EndGame();
         isLoseGame = true;
 
-        GameData.Instance.startData.isKeepingPlayGame = false;
-        GameData.Instance.SaveStartGameData();
-        GameManager.Instance.BackHome();
+        DataManager.Instance.GameData.SetKeepPlayState(false);
+        RoomInGameManager.Instance.BackHome();
     }
 
     public void WinGame()
@@ -258,11 +256,11 @@ public class GamePlayController : Singleton<GamePlayController>
         enemyController.EndGame();
 
 
-        int bonusGold = 3 + MapManager.Instance.MapIndex;
+        int bonusGold = 3 + MapSystem.Instance.MapIndex;
         playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
         playerController.SavePlayerData();
 
-        GameManager.Instance.RewardUI.SetActive(true);
+        ControllerUIInGame.Instance.RewardUI.SetActive(true);
         RewardManager.Instance.InitReward();
     }
 
@@ -289,7 +287,7 @@ public class GamePlayController : Singleton<GamePlayController>
         }
         else
         {
-            GameManager.Instance.OutRoom();
+            RoomInGameManager.Instance.OutRoom();
         }
     }
 }

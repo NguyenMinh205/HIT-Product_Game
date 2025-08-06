@@ -14,8 +14,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private CharacterStat playerStatBase = new CharacterStat();
     [SerializeField] private CharacterStat curPlayerStat = new CharacterStat();
     [SerializeField] private Inventory totalInventory = new Inventory();
-    [SerializeField] private TextMeshProUGUI numOfCoinInRoom;
-    public TextMeshProUGUI NumOfCoinInRoom => numOfCoinInRoom;
     public Inventory TotalInventory => totalInventory;
     public CharacterStat CurPlayerStat { get { return curPlayerStat; } set { curPlayerStat = value; SavePlayerData(); } }
 
@@ -97,16 +95,6 @@ public class PlayerManager : MonoBehaviour
     public void EndGame()
     {
         currentPlayer?.EndGame();
-    }
-
-    public void UpdateCoinText()
-    {
-        if (currentPlayer == null)
-        {
-            numOfCoinInRoom.text = curPlayerStat.Coin.ToString();
-            return;
-        }
-        numOfCoinInRoom.text = currentPlayer.Stats.Coin.ToString();
     }
 
     public void SavePlayerData()
