@@ -30,7 +30,8 @@ public class MapSystem : Singleton<MapSystem>
 
     private GameObject currentMapInstance;
     private MapRuntimeInstance currentMapInstanceData;
-    private PlayerInMap newPlayer;
+    private PlayerInMap curPlayerMap;
+    public PlayerInMap CurPlayerMap => curPlayerMap;
 
     protected override void Awake() => base.Awake();
 
@@ -43,6 +44,7 @@ public class MapSystem : Singleton<MapSystem>
             DOVirtual.DelayedCall(0.25f, () =>
             {
                 DataManager.Instance.GameData.SetKeepPlayState(false);
+                ControllerUIInGame.Instance.UpdateNumOfCoinInMap(DataManager.Instance.GameData.Player.stats.Coin);
             });
         }
         else
@@ -52,20 +54,15 @@ public class MapSystem : Singleton<MapSystem>
         }
     }
 
+    public void SetActiveMapStore(bool val)
+    {
+        mapStore.gameObject.SetActive(val);
+    }
+
     private void UpdateFloorText()
     {
         floorTxt.SetText($"Floor {currentMapIndex}/{numFloor}");
         floorInRoomTxt.SetText($"Floor {currentMapIndex}/{numFloor}");
-    }
-
-    public void SetActiveRoomVisual(bool val)
-    {
-        RoomVisual.SetActive(val);
-        mapStore.gameObject.SetActive(val);
-
-        if (newPlayer == null) return;
-        newPlayer.IsIntoRoom = !val;
-        newPlayer.IsMoving = !val;
     }
 
     private void LoadInitialMap()
@@ -132,28 +129,6 @@ public class MapSystem : Singleton<MapSystem>
             Vector3 worldPos = tilemap.CellToWorld(new Vector3Int(gridPos.x, gridPos.y, 0));
             Vector3 adjustedPos = new Vector3(worldPos.x + offsetX, worldPos.y + 0.5f, worldPos.z);
 
-/*
-            if (DataManager.Instance.GameData.IsKeepingPlayGame)
-            {
-                if (newPlayer != null) Destroy(newPlayer);
-                var posData = DataManager.Instance.GameData.PlayerNodePosition;
-                Vector3 posPlayer = posData - new Vector2(gridX, gridY);
-                newPlayer = PoolingManager.Spawn(playerPrefab, adjustedPos + posPlayer, Quaternion.identity, mapStore);
-                newPlayer.Initialize(tilemap, currentMapData, posData, posData - new Vector2Int(bounds.xMin, bounds.yMin),
-                    characterDatabase.GetCharacterById(DataManager.Instance.GameData.SelectedCharacterId)
-                        .skins[DataManager.Instance.GameData.SelectedSkinIndex].skin);
-            }
-            else
-            {
-                if (newPlayer != null) Destroy(newPlayer);
-                DataManager.Instance.GameData.PlayerNodePosition = new Vector2Int(x, y);
-                newPlayer = PoolingManager.Spawn(playerPrefab, adjustedPos, Quaternion.identity, mapStore);
-                newPlayer.Initialize(tilemap, currentMapData, new Vector2Int(gridX, gridY),
-                    DataManager.Instance.GameData.PlayerNodePosition,
-                    characterDatabase.GetCharacterById(DataManager.Instance.GameData.SelectedCharacterId)
-                        .skins[DataManager.Instance.GameData.SelectedSkinIndex].skin);
-            }*/
-
             var tileType = tile.tileTypes;
             switch (tileType)
             {
@@ -162,38 +137,24 @@ public class MapSystem : Singleton<MapSystem>
                     break;
                 case EMapTileType.Entrance:
                     PoolingManager.Spawn(tile.iconPrefab, adjustedPos, Quaternion.identity, mapStore);
-                    /*    if (DataManager.Instance.GameData.IsKeepingPlayGame)
-                 {
-                     var posData = DataManager.Instance.GameData.PlayerNodePosition;
-                     Vector3 posPlayer = posData + Vector2.zero;
-                     newPlayer = PoolingManager.Spawn(playerPrefab, posPlayer, Quaternion.identity, mapStore);
-                     newPlayer.Initialize(tilemap, currentMapInstanceData, posData, gridPos,
-                         characterDatabase.GetCharacterById(DataManager.Instance.GameData.SelectedCharacterId)
-                             .skins[DataManager.Instance.GameData.SelectedSkinIndex].skin);
-                 }
-                 else
-                 {
-                 }*/
-                    if(newPlayer != null) Destroy(newPlayer);
+                    if(curPlayerMap != null) Destroy(curPlayerMap);
                     if (DataManager.Instance.GameData.IsKeepingPlayGame)
                     {
                         var posData = DataManager.Instance.GameData.PlayerNodePosition;
                         int posX = posData.x - gridPos.x;
                         int posY = posData.y - gridPos.y;
                         Debug.LogError("SetupPlayerSpawn");
-                        newPlayer = Instantiate(playerPrefab, adjustedPos + new Vector3(posX, posY, 0), Quaternion.identity, mapStore);
-                        newPlayer.Initialize(tilemap, currentMapInstanceData, posData, posData,
-                            characterDatabase.GetCharacterById(DataManager.Instance.GameData.SelectedCharacterId)
-                                .skins[DataManager.Instance.GameData.SelectedSkinIndex].skin);
+                        curPlayerMap = Instantiate(playerPrefab, adjustedPos + new Vector3(posX, posY, 0), Quaternion.identity, mapStore);
+                        curPlayerMap.Initialize(tilemap, currentMapInstanceData, posData,
+                            characterDatabase.GetCharacterById(DataManager.Instance.GameData.SelectedCharacterId).skins[DataManager.Instance.GameData.SelectedSkinIndex].skin);
                         Debug.LogError("Player Spawned at: " + (adjustedPos + new Vector3(posX, posY, 0)));
                     }
                     else
                     {
                         Debug.LogError("SetupPlayerSpawn");
-                        newPlayer = Instantiate(playerPrefab, adjustedPos, Quaternion.identity, mapStore);
-                        newPlayer.Initialize(tilemap, currentMapInstanceData, gridPos, gridPos,
-                            characterDatabase.GetCharacterById(DataManager.Instance.GameData.SelectedCharacterId)
-                                .skins[DataManager.Instance.GameData.SelectedSkinIndex].skin);
+                        curPlayerMap = Instantiate(playerPrefab, adjustedPos, Quaternion.identity, mapStore);
+                        curPlayerMap.Initialize(tilemap, currentMapInstanceData, gridPos,
+                            characterDatabase.GetCharacterById(DataManager.Instance.GameData.SelectedCharacterId).skins[DataManager.Instance.GameData.SelectedSkinIndex].skin);
                         Debug.LogError("Player Spawned at: " + adjustedPos);
                     }
                     break;
@@ -220,7 +181,7 @@ public class MapSystem : Singleton<MapSystem>
     }
     public void SetRoomVisited()
     {
-        Vector2Int position = newPlayer.PosInMap;
+        Vector2Int position = curPlayerMap.PosInMap;
         if (currentMapInstanceData.tileGrid.TryGetValue(position, out var tile))
         {
             if (!tile.visited && tile.tileTypes == EMapTileType.Empty)
@@ -235,7 +196,7 @@ public class MapSystem : Singleton<MapSystem>
     }
     public void SetRoomWhenWin()
     {
-        Vector2Int position = newPlayer.PosInMap;
+        Vector2Int position = curPlayerMap.PosInMap;
         if (currentMapInstanceData.tileGrid.TryGetValue(position, out var tile))
         {
             if (!tile.visited)
@@ -324,7 +285,7 @@ public class MapSystem : Singleton<MapSystem>
             }
             else
             {
-                ControlerUIInGame.Instance.FinishUI.SetActive(true);
+                ControllerUIInGame.Instance.FinishUI.SetActive(true);
                 RoomInGameManager.Instance.IsFinishGame = true;
                 DataManager.Instance.GameData.SetKeepPlayState(false);
             }

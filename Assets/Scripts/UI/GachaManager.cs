@@ -15,8 +15,8 @@ public class GachaManager : Singleton<GachaManager>
 
     private void OnEnable()
     {
-        //numOfCoinTxt.SetText(GameData.Instance.startData.coin.ToString());
         numOfCoinTxt.SetText(DataManager.Instance.GameData.Coin.ToString());
+        //numOfCoinTxt.SetText(DataManager.Instance.GameData.Coin.ToString());
     }
 
     public bool CanSpin()

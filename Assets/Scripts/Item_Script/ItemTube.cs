@@ -7,11 +7,9 @@ public class ItemTube : Singleton<ItemTube>
 {
     [SerializeField] public ItemUsage itemUsage;
     [SerializeField] private List<ItemBase> itemIDs;
-    [SerializeField] private GameObject backGround;
-    [SerializeField] private GameObject foreGround;
     [SerializeField] private RectTransform list;
     [SerializeField] private List<ItemDisplay> itemDisplays;
-    private bool isItemNull = false;
+    private bool isItemNull = true;
     public bool IsItemNull => isItemNull;
 
     [Space]
@@ -34,13 +32,15 @@ public class ItemTube : Singleton<ItemTube>
     private bool isFallPoint = false;
     private bool isConsumePoint = false;
 
+    private bool isSpawn = false;
+
     public bool IsEntryPoint
     {
         get => isEntryPoint;
         set
         {
             isEntryPoint = value;
-            if(!value) // Entry Point rong
+            if(!value)
             {
                 SpawnItemDisplay();
             }
@@ -74,19 +74,17 @@ public class ItemTube : Singleton<ItemTube>
     {
         if (item == null) return;
         itemIDs.Add(item);
-        SpawnItemDisplay();
-    }
-    public void SetActionBG(bool val)
-    {
-        if (backGround == null || foreGround == null) return;
 
-        backGround.SetActive(val);
-        foreGround.SetActive(val);
+        if (!isSpawn)
+            SpawnItemDisplay();
     }
+  
     public void SpawnItemDisplay()
     {
         if (itemIDs.Count <= 0) return;
         if (isEntryPoint) return;
+        if (isSpawn) return;
+        isSpawn = true;
 
         ItemDisplay newItemDisplay = Instantiate(itemDisplay, enTryPoint.position, Quaternion.identity, list);
         newItemDisplay.SetItemDisplay(itemIDs[0]);
@@ -94,6 +92,7 @@ public class ItemTube : Singleton<ItemTube>
         itemDisplays.Add(newItemDisplay);
         CheckItemNull();
         isEntryPoint = true;
+        isSpawn = false;
     }
 
     public void CheckItemNull()

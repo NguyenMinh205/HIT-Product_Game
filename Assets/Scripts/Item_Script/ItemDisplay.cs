@@ -26,7 +26,7 @@ public class ItemDisplay : MonoBehaviour
     private bool isMove = false;
     private bool isBusy = false;
     private bool isUse = false;
-    private float speed = 300f;
+    private float speed = 450f;
 
     private void Update()
     {

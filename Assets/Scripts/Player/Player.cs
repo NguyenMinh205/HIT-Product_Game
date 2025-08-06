@@ -201,19 +201,18 @@ public class Player : MonoBehaviour
     public void EndGame()
     {
         ObserverManager<EventID>.PostEven(EventID.OnEndRound);
-        DOVirtual.DelayedCall(0.5f, () => {
-            ClearAllEffects();
-            //if (effectController != null) // check nếu controller đã bị huỷ
-            effectController.ClearAllEffectUI();
-            addedItems.Clear();
-            inventory.ClearInventory();
-            stats.ResetStatAfterRound();
-            GamePlayController.Instance.PlayerController.CurPlayerStat = stats;
-        });
+
+        ClearAllEffects();
+
+        effectController.ClearAllEffectUI();
+        addedItems.Clear();
+        inventory.ClearInventory();
+        stats.ResetStatAfterRound();
+        GamePlayController.Instance.PlayerController.CurPlayerStat = stats;
+
         this.Health.UnShowHealthBarEnemy();
-        DOVirtual.DelayedCall(0.5f, () => {
-            PoolingManager.Despawn(gameObject);
-            Destroy(transform.parent.gameObject);
-        });
+
+        PoolingManager.Despawn(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }

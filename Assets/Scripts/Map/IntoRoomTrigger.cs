@@ -40,7 +40,7 @@ public class IntoRoomTrigger : MonoBehaviour
                 RoomInGameManager.Instance.OpenRoomPachinko();
                 break;
             case "hard_fight":
-                Debug.Log("Hard FIght");
+                Debug.Log("Hard Fight");
                 RoomInGameManager.Instance.OpenRoomFight();
                 break;
             case "healing":

@@ -1,11 +1,10 @@
-﻿using DG.Tweening;
-using DG.Tweening.Core.Easing;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using TranDuc;
 using UnityEngine;
+using DG.Tweening;
+using TranDuc;
 
 public enum EventID
 {
@@ -59,6 +58,7 @@ public class GamePlayController : Singleton<GamePlayController>
     [Space]
     [Header("CheckTurn")]
     private string typeRoom;
+
     private bool isEndGame = false;
     private bool isNotFight = false;
     public bool IsEndGame => isEndGame;
@@ -90,7 +90,9 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         if (isEndGame) return;
         ChangeTurn(newTurn);
+
     }
+
     private void ChangeTurn(TurnPlay turn)
     {
         textTurn.text = turnGame == TurnPlay.Player ? "Enemy Turn" : "Your Turn";
@@ -98,9 +100,9 @@ public class GamePlayController : Singleton<GamePlayController>
         canvasGroup.alpha = 0f;
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(canvasGroup.DOFade(1f, 0.4f).SetEase(Ease.OutQuad));
-        seq.AppendInterval(0.5f); // chờ 0.5s
-        seq.Append(canvasGroup.DOFade(0f, 0.4f).SetEase(Ease.InQuad));
+        seq.Append(canvasGroup.DOFade(1f, 0.35f).SetEase(Ease.OutQuad));
+        seq.AppendInterval(0.5f);
+        seq.Append(canvasGroup.DOFade(0f, 0.3f).SetEase(Ease.InQuad));
         seq.OnComplete(() =>
         {
             turnGame = turn;
@@ -120,7 +122,8 @@ public class GamePlayController : Singleton<GamePlayController>
     }
     public void CheckTurnPlayer()
     {
-        if (clawController.IsListClawNull && ItemTube.Instance.IsItemNull)
+
+        if(clawController.IsListClawNull && ItemTube.Instance.IsItemNull)
         {
             if (typeRoom == "HealingRoom" || typeRoom == "MysteryRoom")
             {
@@ -132,9 +135,12 @@ public class GamePlayController : Singleton<GamePlayController>
         }
     }
 
+    //Start Room
+
+    //Spawn Enemy Or NPC
     public void SpawnEnemyOrNPC(string typeRoom)
     {
-        switch (typeRoom)
+        switch(typeRoom)
         {
             case "BossRoom":
                 Debug.Log("Start Boss Room");
@@ -182,20 +188,19 @@ public class GamePlayController : Singleton<GamePlayController>
                 break;
         }
     }
-
     public void StartFightRoom(string typeRoom)
     {
-        isEndGame = false;           //Tat Check End Game
+        isEndGame = false;
         this.typeRoom = typeRoom;
 
-        SpawnEnemyOrNPC(typeRoom);                  //Set Enemy
-        playerController.SpawnPlayer();             //Set Player
-        SpawnItemStartInRoom(typeRoom);             // Set Item sau Player
+        SpawnEnemyOrNPC(typeRoom);
+        playerController.SpawnPlayer();
+        SpawnItemStartInRoom(typeRoom);
 
-        if (clawController != null)                  //Set Claw
+        if(clawController != null)
         {
-            if (typeRoom == "HealingRoom" || typeRoom == "MysteryRoom")
-                clawController.Spawn(1);
+            if(typeRoom == "HealingRoom" || typeRoom =="MysteryRoom")
+                clawController.Spawn(GamePlayController.Instance.PlayerController.CurPlayerStat.ClawInGrannyRoom);
             else clawController.Spawn();
 
             clawController.IsStart = true;
@@ -216,6 +221,7 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         StartCoroutine(enemyController.EnemyAction());
     }
+
 
     public void LoseGame()
     {
@@ -254,7 +260,7 @@ public class GamePlayController : Singleton<GamePlayController>
         playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
         playerController.SavePlayerData();
 
-        ControlerUIInGame.Instance.RewardUI.SetActive(true);
+        ControllerUIInGame.Instance.RewardUI.SetActive(true);
         RewardManager.Instance.InitReward();
     }
 
@@ -263,6 +269,7 @@ public class GamePlayController : Singleton<GamePlayController>
         AudioManager.Instance.StopMusic();
         AudioManager.Instance.PlayVictorySound();
         isEndGame = true;
+
 
         clawController.EndGame();
         clawController.IsStart = false;
@@ -274,13 +281,13 @@ public class GamePlayController : Singleton<GamePlayController>
 
         playerController.SavePlayerData();
 
-        if (typeRoom == "MysteryRoom")
+        if(typeRoom == "MysteryRoom")
         {
             ObserverManager<IDMysteryRoom>.PostEven(IDMysteryRoom.CallReward);
         }
         else
         {
-            RoomInGameManager.Instance.BackHome();
+            RoomInGameManager.Instance.OutRoom();
         }
     }
 }

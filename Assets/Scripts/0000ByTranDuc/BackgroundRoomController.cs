@@ -1,19 +1,12 @@
 ﻿using UnityEngine;
 
-public enum RoomType
-{
-    FightNormal,
-    FightBoss,
-    Healing,
-    Mystery
-}
-
 public class BackgroundRoomController : MonoBehaviour
 {
     [Header("SpriteRenderers")]
     [SerializeField] private SpriteRenderer srDefaultRoomBackGround;
     [SerializeField] private SpriteRenderer srBasketBackGround;
     [SerializeField] private SpriteRenderer srMoveBackGround;
+    [SerializeField] private SpriteRenderer srPerkBackGround;
 
     [Header("Sprites")]
     [SerializeField] private Sprite[] fightNormalSprites;
@@ -51,5 +44,14 @@ public class BackgroundRoomController : MonoBehaviour
         srDefaultRoomBackGround.sprite = selectedSprites[0];
         srBasketBackGround.sprite = selectedSprites[1];
         srMoveBackGround.sprite = selectedSprites[2];
+        srPerkBackGround.sprite = selectedSprites[3];
     }
+}
+
+public enum RoomType
+{
+    FightNormal,
+    FightBoss,
+    Healing,
+    Mystery
 }

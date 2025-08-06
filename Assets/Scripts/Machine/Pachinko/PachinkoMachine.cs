@@ -55,7 +55,7 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
     public Transform LeftClawLimit => leftClawLimit;
     public Transform RightClawLimit => rightClawLimit;
 
-    private void OnEnable()
+    public void Init()
     {
         curClaw = Instantiate(claw, spawnPos.position, Quaternion.identity, this.transform.parent).GetComponent<PachinkoClaw>();
         curClaw.Init(this, spawnPos.position);
@@ -172,7 +172,6 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
             coinToStart += 2;
             Destroy(curClaw.gameObject);
             _lastRolledItem = null;
-            //GameManager.Instance.OutRoom();
             RoomInGameManager.Instance.OutRoom();
         }
         else
