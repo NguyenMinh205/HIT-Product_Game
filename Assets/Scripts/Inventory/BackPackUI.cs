@@ -26,6 +26,12 @@ public class Pack : MonoBehaviour
     private int indexTitle = 0;
     private bool isTransitioning = false;
 
+    private void Awake()
+    {
+        indexTitle = 0;
+        CheckButton();
+    }
+
 
     public void CheckBtnLeft()
     {

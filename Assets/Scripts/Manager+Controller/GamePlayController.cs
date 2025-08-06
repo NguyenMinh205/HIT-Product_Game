@@ -120,6 +120,22 @@ public class GamePlayController : Singleton<GamePlayController>
             }
         });
     }
+    public void StartTurnPlayer()
+    {
+        textTurn.text ="Your Turn";
+
+        canvasGroup.alpha = 0f;
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(canvasGroup.DOFade(1f, 0.35f).SetEase(Ease.OutQuad));
+        seq.AppendInterval(0.5f);
+        seq.Append(canvasGroup.DOFade(0f, 0.3f).SetEase(Ease.InQuad));
+        seq.OnComplete(() =>
+        {
+            clawController.IsStart = true;
+            clawController.SetCurrentClaw();
+        });
+    }
     public void CheckTurnPlayer()
     {
 
@@ -203,14 +219,14 @@ public class GamePlayController : Singleton<GamePlayController>
                 clawController.Spawn(GamePlayController.Instance.PlayerController.CurPlayerStat.ClawInGrannyRoom);
             else clawController.Spawn();
 
-            clawController.IsStart = true;
-            clawController.SetCurrentClaw();
+            StartTurnPlayer();
         }
     }
 
     public void TurnPlayer()
     {
         playerController.ResetShield();
+        ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
         clawController.ResetMachineClaw();
         playerController.CurrentPlayer.AddItem();
         itemController.SpawnItem(playerController.CurrentPlayer.AddedItems);

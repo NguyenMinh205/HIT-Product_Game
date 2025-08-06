@@ -10,7 +10,7 @@ public class UIEffectController : MonoBehaviour
     [SerializeField] private Transform effectGood;
     [SerializeField] private Transform effectBad;
 
-    public void InitEffect(int index, IBuffEffect effect)
+    public void InitEffect(IBuffEffect effect)
     {
         foreach(EffectUI effectUI in effectUIs)
         {
@@ -39,9 +39,6 @@ public class UIEffectController : MonoBehaviour
         {
             newEffectUI.InitEffectUI(effect.Icon, newEffectUI.effect.Duration);
         }
-
-        RectTransform rect = newEffectUI.GetComponent<RectTransform>();
-        rect.localPosition = new Vector3((index - 4) * 25f,0f,0f);
     }
 
     public void SetEffect(IBuffEffect effect)
