@@ -299,7 +299,8 @@ public class Enemy : MonoBehaviour
 
         effect.ApplyEnemy(this);
         activeEffects.Add(effect);
-        effectController.InitEffect(activeEffects.Count, effect);
+        if(effect.Icon != null)
+            effectController.InitEffect(effect);
         Debug.Log($"Applied new effect {effectName} with value {value} and duration {duration}.");
     }
 

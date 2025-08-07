@@ -16,7 +16,7 @@ public class UIChoiceDifficulty : MonoBehaviour
     private float extraHealthPercent;
     private int selectIndex = 0;
 
-    void OnEnable()
+    void Start()
     {
         selectIndex = DataManager.Instance.GameData.SelectedDifficultyIndex;
         extraDamagePercent = DataManager.Instance.GameData.ExtraDamagePercent;
