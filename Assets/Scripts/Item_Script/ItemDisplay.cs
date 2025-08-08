@@ -134,8 +134,12 @@ public class ItemDisplay : MonoBehaviour
 
         isUse = true;
         if (rotateTween != null && rotateTween.IsActive()) rotateTween.Kill();
+
         if(GamePlayController.Instance.EnemyController.ListEnemy.Count > 0)
             ItemTube.Instance.itemUsage.UseItem(idItem, GamePlayController.Instance.PlayerController.CurrentPlayer, GamePlayController.Instance.EnemyController.ListEnemy[0], GamePlayController.Instance.EnemyController.ListEnemy);
+        else
+            ItemTube.Instance.itemUsage.UseItem(idItem, GamePlayController.Instance.PlayerController.CurrentPlayer, null, null);
+
         Sequence useSeq = DOTween.Sequence();
         useSeq.Join(rect.DOScale(2f, 1f).SetEase(Ease.OutBack));
         useSeq.Join(rect.DOScale(0f, 1f).SetEase(Ease.InBack));

@@ -80,6 +80,7 @@ public class EnemyController : MonoBehaviour
     }
     public IEnumerator EnemyAction()
     {
+        ObserverManager<EventID>.PostEven(EventID.OnStartListEnemyTurn);
         for (int i = 0; i < listEnemy.Count; i++)
         {
             Debug.Log("Enemy Count : "+listEnemy.Count);

@@ -30,12 +30,12 @@ public class CreateWater : IBuffEffect
 
     public void RegisterEvents()
     {
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartEnemyTurn, ExecuteWater);
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartListEnemyTurn, ExecuteWater);
     }
 
     public void UnregisterEvents()
     {
-        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartEnemyTurn, ExecuteWater);
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartListEnemyTurn, ExecuteWater);
     }
 
     public void ApplyEnemy(Enemy enemy)

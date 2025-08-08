@@ -17,6 +17,7 @@ public enum EventID
     OnGoldChanged,
     OnHealthChanged,
     OnStartEnemyTurn,
+    OnStartListEnemyTurn,
     OnUseClaw,
     OnBasketEmpty,
     OnClawsEmpty,

@@ -38,7 +38,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private UIEffectController effectController;
     private ItemBase itemEffect;
     public ItemBase ItemEffect => itemEffect;
-
+    [SerializeField] private UIInscrease uIInscrease;
+    public UIInscrease UIInscrease => uIInscrease;
 
     [SerializeField] private SpriteRenderer enemySprite;
     [SerializeField] private HealthBar health;
@@ -68,8 +69,8 @@ public class Enemy : MonoBehaviour
         get => this.damageIncreased;
         set
         {
-            ObserverManager<UIInscreaseType>.PostEven(UIInscreaseType.SetText, value);
             this.damageIncreased = value;
+            ObserverManager<UIInscreaseType>.PostEven(UIInscreaseType.SetText, this);
         }
     }
     public int IndexDamage

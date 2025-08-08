@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class EnemySpawController : MonoBehaviour
 {
-    private List<string> listIDEnemy = new List<string> { "enemy01", "enemy02", "enemy03", "enemy04", "enemy05", "enemy06", "enemy07", "enemy08", "enemy09", "enemy10", "enemy11",
-        "enemy12", "enemy13", "enemy15", "enemy16", "enemy17", "enemy18", "enemy21", "enemy22" };
-
+    private List<string> listIDEnemy = new List<string> { "enemy01", "enemy02", "enemy03", "enemy05", "enemy06", "enemy07","enemy13","enemy15", "enemy18","enemy22" };
     private const int numOfEnemyInFloor = 5;
     private List<string> listIDBoss = new List<string> {"boss02","boss06", "finalBoss" };
     private int indexBos = 0;

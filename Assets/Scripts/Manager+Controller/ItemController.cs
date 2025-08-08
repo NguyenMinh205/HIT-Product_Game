@@ -27,6 +27,7 @@ public class ItemController : MonoBehaviour
     [Space]
     [Header("Item Effect")]
     [SerializeField] private ItemBase thorn;
+    [SerializeField] private Item honey;
 
     private void Awake()
     {
@@ -70,6 +71,13 @@ public class ItemController : MonoBehaviour
 
                 Vector3 spawnPos = listPosSpawnItem[randomIndex].transform.position;
                 spawnPos.y += randomY;
+
+                if(item.ItemId == "Buf23")
+                {
+                    Item newHoney = PoolingManager.Spawn(honey, spawnPos, Quaternion.identity, itemParent);
+                    continue;
+                }
+
                 Item newItem = PoolingManager.Spawn(currentObjectPrefab, spawnPos, Quaternion.identity, itemParent);
                 ItemBase itemBase = item.GetItemBase();
 
@@ -109,6 +117,14 @@ public class ItemController : MonoBehaviour
 
             AddListCheck(posSpawn);
             Vector3 spawnPos = listPosSpawnItem[posSpawn].transform.position;
+
+
+            if (item.id == "Buf23")
+            {
+                Item newHoney = PoolingManager.Spawn(honey, spawnPos, Quaternion.identity, itemParent);
+                value--;
+                continue;
+            }
             Item newItem = PoolingManager.Spawn(currentObjectPrefab, spawnPos, Quaternion.identity, itemParent);
             if (newItem != null)
             {

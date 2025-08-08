@@ -16609,6 +16609,7 @@ MonoBehaviour:
   listItemInBox: []
   listIndexUsed: 
   thorn: {fileID: 11400000, guid: b9b846970aaaa0542ada03ea5f49d661, type: 2}
+  honey: {fileID: 4903418309659474509, guid: 04c5abbed062a874d98c1bcf2341d039, type: 3}
 --- !u!1 &2717404463659165048
 GameObject:
   m_ObjectHideFlags: 0
@@ -28650,7 +28651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1795910585040453862, guid: 9d1af318453f318428d15b8b433acdd9, type: 3}
       propertyPath: posYWaterTop
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1795910585040453862, guid: 9d1af318453f318428d15b8b433acdd9, type: 3}
       propertyPath: distanceWater

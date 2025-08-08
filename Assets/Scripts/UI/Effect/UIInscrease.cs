@@ -25,15 +25,18 @@ public class UIInscrease : MonoBehaviour
 
     public void SetText(object obj)
     {
-        if(obj is int t)
+        if(obj is Enemy enemy)
         {
-            if(t > 0 && !icon.gameObject.activeSelf)
+            if(enemy.DamageIncreased > 0 && !icon.gameObject.activeSelf)
             {
-                icon.gameObject.SetActive(true);
-                text.gameObject.SetActive(true);
+                enemy.UIInscrease.icon.gameObject.SetActive(true);
+                enemy.UIInscrease.text.gameObject.SetActive(true);
             }
 
-            text.text = t.ToString();
+            text.text = enemy.DamageIncreased.ToString();
+        }
+        else if(obj is Player player)
+        {
         }
     }
 }

@@ -26,6 +26,7 @@ public class MysteryRoomManager : MonoBehaviour
     {
         if (obj is Rarity rarity)
         {
+            Debug.Log("Add Rarity Chest in List");
             if (listChest.Count < 3)
             {
                 listChest.Add(rarity);

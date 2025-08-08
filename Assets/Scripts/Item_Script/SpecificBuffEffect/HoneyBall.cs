@@ -34,10 +34,15 @@ public class HoneyBall : MonoBehaviour, IItemAction
         if (!isActive) return;
 
         Item item = collision.gameObject.GetComponent<Item>();
-        if (item != null && item != this.GetComponent<Item>() && itemController.ListItemInBox.Contains(item))
+        if (item != null && itemController.ListItemInBox.Contains(item))
         {
+            if(item == this.GetComponent<Item>())
+            {
+                return;
+            }
             item.transform.SetParent(transform);
             Debug.Log($"Vật phẩm {item.ID} dính vào HoneyBall!");
+
         }
     }
 

@@ -98,9 +98,9 @@ public static class ItemActionFactory
             case "Buf21":
                 return new EnergyDrink();
             case "Buf23":
-                GameObject objHoneyBall = new GameObject("HoneyBall");
-                HoneyBall HoneyBall = objHoneyBall.AddComponent<HoneyBall>();
-                return HoneyBall;
+                //GameObject objHoneyBall = new GameObject("HoneyBall");
+                //HoneyBallTest honeyBall = objHoneyBall.AddComponent<HoneyBall>();
+                //return honeyBall;
             case "Buf24":
                 return new HandMirror();
 
