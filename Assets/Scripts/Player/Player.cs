@@ -187,6 +187,11 @@ public class Player : MonoBehaviour
         health.UpdateArmor(this);
     }
 
+    public void UpdateStrengthUI()
+    {
+        health.UpdateStrength(this);
+    }
+
     public void DealDamage(int damage)
     {
         ObserverManager<EventID>.PostEven(EventID.OnDealDamage, damage);

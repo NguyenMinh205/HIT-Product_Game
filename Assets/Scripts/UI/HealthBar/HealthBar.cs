@@ -7,13 +7,8 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    /*[Space]
-    [Header("Object")]
-    [SerializeField] private ObjectBase obj;*/
-
     [Space]
     [Header("Hp")]
-    //[SerializeField] private GameObject imageObject;
     [SerializeField] private Image imageHp;
     [SerializeField] private TextMeshProUGUI textHp;
 
@@ -22,15 +17,19 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private GameObject armor;
     [SerializeField] private TextMeshProUGUI textArmor;
 
-  /*  public ObjectBase Obj
-    {
-        get => this.obj;
-        set => this.obj = value;
-    }*/
+    [Space]
+    [Header("Strength")]
+    [SerializeField] private GameObject strength;
+    [SerializeField] private TextMeshProUGUI textStrength;
+
     public void InitHealthBar(Object obj)
     {
         UpdateArmor(obj);
         UpdateHp(obj);
+        if (obj is Player player)
+        {
+            UpdateStrength(player);
+        }
     }
 
     public void UnShowHealthBarEnemy()
@@ -42,7 +41,6 @@ public class HealthBar : MonoBehaviour
     {
         if (obj is Enemy enemy)
         {
-            Debug.Log("Up Armor");
             if (enemy == null) return;
 
             if (enemy.Armor > 0)
@@ -75,17 +73,27 @@ public class HealthBar : MonoBehaviour
     {
         if (obj is Enemy enemy)
         {
-            Debug.Log("Up Hp");
-            if (enemy == null) return;
-
             textHp.text = enemy.HP + " / " + enemy.CurrentHp;
             imageHp.fillAmount = (float)enemy.HP / enemy.CurrentHp;
         }
         else if (obj is Player player)
         {
-            Debug.Log("Update Hp Player");
             textHp.text = player.Stats.CurrentHP + "/" + player.Stats.MaxHP;
             imageHp.fillAmount = (float)player.Stats.CurrentHP / player.Stats.MaxHP;
+        }
+    }
+
+    public void UpdateStrength(Player player)
+    {
+        if (player == null) return;
+        if (player.Stats.Strength > 0)
+        {
+            strength.SetActive(true);
+            textStrength.text = player.Stats.Strength.ToString();
+        }
+        else
+        {
+            strength.SetActive(false);
         }
     }
 }

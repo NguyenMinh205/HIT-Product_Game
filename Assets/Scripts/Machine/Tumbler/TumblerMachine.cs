@@ -71,6 +71,10 @@ public class TumblerMachine : Singleton<TumblerMachine>
         for (int i = 0; i < numItemsInTumbler && availableItems.Count > 0; i++)
         {
             int randomIndex = Random.Range(0, availableItems.Count);
+            if (tumblerBox.SpawnPoint == null)
+            {
+                Debug.LogError("Item Prefab chưa được gán!");
+            }
             TumblerItem item = PoolingManager.Spawn(itemPrefabs, tumblerBox.SpawnPoint.position, Quaternion.identity, perkStore);
             item.Init(availableItems[randomIndex]);
             _spawnedItems.Add(item);

@@ -11,7 +11,7 @@ public class ItemInventoryUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI numOfItem;
     [SerializeField] private Image starUpgrade;
     private ItemInventory inventoryItem;
-    private UiPerk uiPerk;
+    private PerkInventory perkInven;
     public ItemBase Data => data;
     public TextMeshProUGUI NumOfItem => numOfItem;
 
@@ -57,10 +57,10 @@ public class ItemInventoryUI : MonoBehaviour
         button.onClick.AddListener(() => action(inventoryItem));
     }
 
-    public void Init(UiPerk perk, Action<UiPerk> action)
+    public void Init(PerkInventory perk, Action<PerkInventory> action)
     {
-        uiPerk = perk;
-        iconImage.sprite = perk.Icon.sprite;
+        this.perkInven = perk;
+        iconImage.sprite = perk.icon;
 
         iconImage.SetNativeSize();
         iconImage.rectTransform.sizeDelta *= 0.75f;
@@ -72,6 +72,6 @@ public class ItemInventoryUI : MonoBehaviour
         starUpgrade.gameObject.SetActive(false);
 
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => action(uiPerk));
+        button.onClick.AddListener(() => action(perkInven));
     }
 }

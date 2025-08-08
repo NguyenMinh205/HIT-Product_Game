@@ -58,7 +58,6 @@ public class ItemBase : ScriptableObject
         }
         else if (action != null)
         {
-            Debug.LogError("Execute");
             action.Execute(player, target);
         }
         else

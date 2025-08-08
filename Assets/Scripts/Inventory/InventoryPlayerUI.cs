@@ -79,7 +79,7 @@ public class InventoryPlayerUI : MonoBehaviour
                 ui.Init(item, itemBase, ShowDetail, item.quantity);
             }
         }
-        foreach (UiPerk perk in UiPerksList.Instance.Perks)
+        foreach (PerkInventory perk in GamePlayController.Instance.PlayerController.listPerk)
         {
             GameObject newItemInventoryPrefab = Instantiate(itemInvenPrefab, invenPerkStore);
             ItemInventoryUI ui = newItemInventoryPrefab.GetComponent<ItemInventoryUI>();
@@ -134,7 +134,7 @@ public class InventoryPlayerUI : MonoBehaviour
         canvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
     }
 
-    public void ShowDetail(UiPerk uiPerk)
+    public void ShowDetail(PerkInventory uiPerk)
     {
         if (uiPerk == null)
         {
@@ -151,7 +151,7 @@ public class InventoryPlayerUI : MonoBehaviour
         canvasGroup.alpha = 0f;
         itemDetail.SetActive(true);
 
-        detailIcon.sprite = uiPerk.Icon.sprite;
+        detailIcon.sprite = uiPerk.icon;
         detailIcon.SetNativeSize();
         detailIcon.rectTransform.sizeDelta *= 0.85f;
         detailName.text = uiPerk.perkName;

@@ -20,6 +20,7 @@ public class PlayerManager : MonoBehaviour
     private Character curCharacter;
     private Player currentPlayer;
     private ICharacterAbility ability;
+    public List<PerkInventory> listPerk = new List<PerkInventory>();
     public List<StartRoundBuffInfo> startRoundBuffs = new List<StartRoundBuffInfo>();
 
     public Player CurrentPlayer
@@ -38,7 +39,11 @@ public class PlayerManager : MonoBehaviour
         ability = CharacterAbilityFactory.CreateAbility(curCharacter.id);
         if (DataManager.Instance.GameData.IsKeepingPlayGame)
         {
-            LoadPlayerData();
+
+            DOVirtual.DelayedCall(0.1f, () =>
+            {
+                LoadPlayerData();
+            });
             DataManager.Instance.GameData.SetKeepPlayState(false);
 
             DOVirtual.DelayedCall(0.25f, () =>
@@ -100,41 +105,29 @@ public class PlayerManager : MonoBehaviour
     public void SavePlayerData()
     {
         DataManager.Instance.GameData.Player.stats = curPlayerStat.Clone();
-        if (DataManager.Instance.GameData.Player.stats == null)
-        {
-            Debug.LogError("Player stats are null, cannot save player data!");
-        }
         DataManager.Instance.GameData.Player.inventory = totalInventory;
-        if (DataManager.Instance.GameData.Player.inventory == null)
-        {
-            Debug.LogError("Player inventory is null, cannot save player data!");
-        }
         DataManager.Instance.GameData.Player.startRoundBuffs = startRoundBuffs;
-        if (DataManager.Instance.GameData.Player.startRoundBuffs == null)
-        {
-            Debug.LogError("Player start round buffs are null, cannot save player data!");
-        }
+        DataManager.Instance.GameData.Player.perks = listPerk;
     }
 
     public void LoadPlayerData()
     {
-        DOVirtual.DelayedCall(0.25f, () =>
+        if (DataManager.Instance.GameData.Player != null)
         {
-            if (DataManager.Instance.GameData.Player != null)
+            if (DataManager.Instance.GameData.Player.stats == null)
             {
-                if (DataManager.Instance.GameData.Player.stats == null)
-                {
-                    Debug.LogError("Player stats are null, cannot load player data!");
-                }
-                curPlayerStat = DataManager.Instance.GameData.Player.stats.Clone();
-                totalInventory = DataManager.Instance.GameData.Player.inventory;
-                startRoundBuffs = DataManager.Instance.GameData.Player.startRoundBuffs;
+                Debug.LogError("Player stats are null, cannot load player data!");
+                return;
             }
-            else
-            {
-                Debug.LogError("No player data found!");
-            }
-        });
+            curPlayerStat = DataManager.Instance.GameData.Player.stats.Clone();
+            totalInventory = DataManager.Instance.GameData.Player.inventory;
+            startRoundBuffs = DataManager.Instance.GameData.Player.startRoundBuffs;
+            listPerk = DataManager.Instance.GameData.Player.perks;
+        }
+        else
+        {
+            Debug.LogError("No player data found!");
+        }
     }
 }
 

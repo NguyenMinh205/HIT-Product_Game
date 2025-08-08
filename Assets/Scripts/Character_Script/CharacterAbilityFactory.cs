@@ -10,12 +10,8 @@ public static class CharacterAbilityFactory
         {
             case "Cha01":
                 return new Alex();
-            case "Cha02":
-                return new Liam();
             case "Cha03":
                 return new Damian();
-            case "Cha04":
-                return new Coby();
             case "Cha05":
                 return new Violet();
             default:
