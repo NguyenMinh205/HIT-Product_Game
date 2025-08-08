@@ -20,6 +20,6 @@ public class PerkBase : ScriptableObject
             action = PerkActionFactory.CreatePerkAction(id);
         }
         action.Execute();
-        UiPerksList.Instance.AddPerks(this);
+        GamePlayController.Instance.PlayerController.listPerk.Add(new PerkInventory(icon, perkName, description));
     }
 }

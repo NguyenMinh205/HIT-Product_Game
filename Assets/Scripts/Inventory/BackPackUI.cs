@@ -66,14 +66,14 @@ public class Pack : MonoBehaviour
     {
         if (indexTitle > 0)
         {
-            AnimateTileChange(indexTitle - 1, true);
+            AnimateTitleChange(indexTitle - 1, true);
         }
     }
     public void OnRight()
     {
         if (indexTitle < listTitle.Count - 1)
         {
-            AnimateTileChange(indexTitle + 1, false);
+            AnimateTitleChange(indexTitle + 1, false);
         }
     }
     public void SetTile()
@@ -95,23 +95,21 @@ public class Pack : MonoBehaviour
 
     }
 
-    private void AnimateTileChange(int newIndex, bool slideLeft)
+    private void AnimateTitleChange(int newIndex, bool slideLeft)
     {
         if (isTransitioning) return;
         isTransitioning = true;
 
-        float slideDistance = 50f; // hoặc chiều rộng tile
+        float slideDistance = 50f;
         float duration = 0.3f;
 
         Vector2 startPos = contentPanel.anchoredPosition;
         Vector2 offscreenPos = startPos + new Vector2(slideLeft ? slideDistance : -slideDistance, 0);
 
-        // Fade out + Slide out
         Sequence seq = DOTween.Sequence();
         seq.Append(contentGroup.DOFade(0f, duration / 2));
         seq.Join(contentPanel.DOAnchorPos(offscreenPos, duration / 2));
 
-        // Đổi nội dung sau khi ra ngoài
         seq.AppendCallback(() =>
         {
             indexTitle = newIndex;

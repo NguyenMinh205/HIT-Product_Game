@@ -38,7 +38,12 @@ public class ItemInventory
 
     public ItemBase GetItemBase()
     {
-        ItemBase itemBase = ItemDatabase.Instance.GetItemById(itemId);
+        string id = itemId;
+        if (isUpgraded)
+        {
+            id = id.Substring(0, id.Length - 1);
+        }
+        ItemBase itemBase = ItemDatabase.Instance.GetItemById(id);
         if(itemBase == null)
         {
             itemBase = ItemDatabase.Instance.GetItemEnemyById(itemId);

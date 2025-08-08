@@ -9,7 +9,7 @@ public class Inventory
 
     public void AddItem(string itemId, int quantity, int maxQuantity = 99, bool isUpgraded = false)
     {
-        ItemInventory existingItem = items.Find(item => item.itemId == itemId && item.isUpgraded == isUpgraded);
+        ItemInventory existingItem = items.Find(item => item.itemId == itemId);
         if (existingItem != null)
         {
             existingItem.quantity = Mathf.Min(existingItem.quantity + quantity, maxQuantity);
@@ -19,7 +19,6 @@ public class Inventory
             ItemInventory newItem = new ItemInventory(itemId, quantity, isUpgraded);
             items.Add(newItem);
         }
-        UpdateInventoryUI();
         GamePlayController.Instance.PlayerController.SavePlayerData();
     }
 
@@ -33,7 +32,6 @@ public class Inventory
             {
                 items.Remove(item);
             }
-            UpdateInventoryUI();
             GamePlayController.Instance.PlayerController.SavePlayerData();
         }
     }
@@ -51,9 +49,7 @@ public class Inventory
                     items.Remove(item);
                 }
                 ItemBase upgradedItem = currentItem.upgradedItem;
-                upgradedItem.Action = currentItem.Action;
                 AddItem(upgradedItem.id, 1, 99, true);
-                UpdateInventoryUI();
                 GamePlayController.Instance.PlayerController.SavePlayerData();
             }
         }
@@ -67,12 +63,6 @@ public class Inventory
     public void ClearInventory()
     {
         items.Clear();
-        UpdateInventoryUI();
         GamePlayController.Instance.PlayerController.SavePlayerData();
-    }
-
-    private void UpdateInventoryUI()
-    {
-        // Implementation...
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public enum Rarity
 {
@@ -30,12 +31,17 @@ public class ItemBase : ScriptableObject
     {
         if (action == null)
         {
-            action = ItemActionFactory.CreateItemAction(id);
-        }
+            string itemId = id;
+            if (isUpgraded)
+            {
+                itemId = itemId.Substring(0, itemId.Length - 1);
+            }
+            action = ItemActionFactory.CreateItemAction(itemId);
 
-        if (isUpgraded && action != null)
-        {
-            action.Upgrade();
+            if (isUpgraded && action != null)
+            {
+                action.Upgrade();
+            }
         }
 
         if (action != null && action is GreatSword greatSword)

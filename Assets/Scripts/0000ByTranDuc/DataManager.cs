@@ -17,6 +17,7 @@ namespace TranDuc
 
         private void OnApplicationQuit()
         {
+            GamePlayController.Instance.PlayerController.SavePlayerData();
             if (!RoomInGameManager.Instance.IsFinishGame)
             {
                 DataManager.Instance.GameData.SetKeepPlayState(true);
@@ -237,5 +238,6 @@ namespace TranDuc
         public CharacterStat stats = new();
         public Inventory inventory = new();
         public List<StartRoundBuffInfo> startRoundBuffs = new();
+        public List<PerkInventory> perks = new();
     }
 }

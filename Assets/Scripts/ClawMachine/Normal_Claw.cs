@@ -74,12 +74,12 @@ public class Normal_Claw : ClawMachine
 
     public void OpenClaw()
     {
-        SetClawStrength(clawStrength / 3, true);
+        SetClawStrength(clawStrength / 5, true);
     }
 
     public void CloseClaw()
     {
-        SetClawStrength(clawStrength * 3, false);
+        SetClawStrength(clawStrength * 5, false);
     }
 
     private void SetClawStrength(float strength, bool isOpening)

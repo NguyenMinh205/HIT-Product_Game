@@ -140,7 +140,6 @@ public class SmithRoomManager : MonoBehaviour
 
     public void UpgradeSelectedItem()
     {
-        Debug.LogError("Upgrade Selected Item");
         if (selectedItem != null)
         {
             int reduceCoin = (int)Math.Floor(coinUpgrade * GamePlayController.Instance.PlayerController.CurPlayerStat.PriceReduction);

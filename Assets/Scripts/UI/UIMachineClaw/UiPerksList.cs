@@ -6,10 +6,8 @@ using UnityEngine;
 public class UiPerksList : Singleton<UiPerksList>
 {
     [Header("Perk")]
-    [SerializeField] private List<UiPerk> perks;
     [SerializeField] private RectTransform perkParent;
     [SerializeField] private UiPerk perkPrefabs;
-    public List<UiPerk> Perks => perks;
     [Space]
     [Header("GameObject")]
     [SerializeField] private GameObject title;
@@ -19,42 +17,43 @@ public class UiPerksList : Singleton<UiPerksList>
     {
         title.SetActive(val);
         listPerk.SetActive(val);
-    }
-    public void DisplayPerk(UiPerk uiPerk ,Sprite icon)
-    {
-        if (perkPrefabs == null) return;
-        if (perkParent == null) return;
-
-        if (perks.Count > 10) return;
-
-        int index = perks.Count + 1;
-
-        if (icon == null) return;
-        foreach(UiPerk perk in perks)
+        if (val == true)
         {
-            if (perk.Icon.sprite == icon)
-                return;
+            DisplayPerk(GamePlayController.Instance.PlayerController.listPerk);
         }
-
-        if (uiPerk == null) return;
-
-        uiPerk.SetPos(index);
-        uiPerk.SetPerk(icon);
+        else
+        {
+            ClearPerks();
+        }    
     }
-    public void AddPerks(PerkBase perkBase)
+    public void DisplayPerk(List<PerkInventory> listPerk)
     {
-        UiPerk newPerk = Instantiate(perkPrefabs, Vector2.one, Quaternion.identity, perkParent);
-        DisplayPerk(newPerk, perkBase.icon);
-
-        newPerk.SetPerk(perkBase.icon, perkBase.name, perkBase.description);
-        perks.Add(newPerk);
+        foreach (PerkInventory perkIcon in listPerk)
+        {
+            UiPerk perk = Instantiate(perkPrefabs, this.transform.position, Quaternion.identity, perkParent);
+            perk.SetPerk(perkIcon.icon, perkIcon.perkName, perkIcon.description);
+        }
     }
-    public void AddPerks(Sprite icon = null, string perkName = null, string description = null)
-    {
-        UiPerk newPerk = Instantiate(perkPrefabs, Vector2.one, Quaternion.identity, perkParent);
-        DisplayPerk(newPerk, icon);
 
-        newPerk.SetPerk(icon, perkName, description);
-        perks.Add(newPerk);
+    public void ClearPerks()
+    {
+        foreach (Transform perk in perkParent)
+        {
+            Destroy(perk.gameObject);
+        }
+    }
+}
+
+public class PerkInventory
+{
+    public Sprite icon;
+    public string perkName;
+    public string description;
+
+    public PerkInventory(Sprite icon, string perkName, string description)
+    {
+        this.icon = icon;
+        this.perkName = perkName;
+        this.description = description;
     }
 }

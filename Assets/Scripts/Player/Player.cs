@@ -14,8 +14,7 @@ public class Player : MonoBehaviour
     private CharacterStat stats;
     public CharacterStat Stats => stats;
 
-    private List<IBuffEffect> activeEffects = new List<IBuffEffect>();
-    public List<IBuffEffect> ActiveEffects => activeEffects;
+    [SerializeField] private List<IBuffEffect> activeEffects = new List<IBuffEffect>();
     [SerializeField] private UIEffectController effectController;
     [SerializeField] private Inventory inventory;
     private List<ItemInventory> addedItems = new List<ItemInventory>();
@@ -188,6 +187,11 @@ public class Player : MonoBehaviour
         health.UpdateArmor(this);
     }
 
+    public void UpdateStrengthUI()
+    {
+        health.UpdateStrength(this);
+    }
+
     public void DealDamage(int damage)
     {
         ObserverManager<EventID>.PostEven(EventID.OnDealDamage, damage);
@@ -212,7 +216,6 @@ public class Player : MonoBehaviour
 
         this.Health.UnShowHealthBarEnemy();
 
-        PoolingManager.Despawn(gameObject);
         Destroy(transform.parent.gameObject);
     }
 }

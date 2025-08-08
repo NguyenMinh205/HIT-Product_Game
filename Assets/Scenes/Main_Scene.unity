@@ -2103,8 +2103,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 1516727941}
+        m_TargetAssemblyTypeName: TranDuc.RoomInGameManager, Assembly-CSharp
         m_MethodName: OutRoom
         m_Mode: 1
         m_Arguments:
@@ -2571,8 +2571,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 1516727941}
+        m_TargetAssemblyTypeName: TranDuc.RoomInGameManager, Assembly-CSharp
         m_MethodName: OutRoom
         m_Mode: 1
         m_Arguments:
@@ -4963,8 +4963,8 @@ Transform:
   m_GameObject: {fileID: 987117282}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.6497, y: -1.3535, z: 0}
-  m_LocalScale: {x: 0.72085357, y: 0.70856, z: 1}
+  m_LocalPosition: {x: -9.6497, y: -1.5, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4582163911347312075}
@@ -6477,13 +6477,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1256084561}
   - component: {fileID: 1256084562}
+  - component: {fileID: 1256084563}
   m_Layer: 5
   m_Name: List
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1256084561
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6501,7 +6502,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 10}
-  m_SizeDelta: {x: 134, y: 300}
+  m_SizeDelta: {x: 140, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1256084562
 CanvasRenderer:
@@ -6511,6 +6512,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256084560}
   m_CullTransparentMesh: 1
+--- !u!114 &1256084563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256084560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 65, y: 65}
+  m_Spacing: {x: 10, y: 10}
+  m_Constraint: 1
+  m_ConstraintCount: 2
 --- !u!1 &1260166557
 GameObject:
   m_ObjectHideFlags: 0
@@ -8270,8 +8295,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -749, y: -35}
-  m_SizeDelta: {x: 180, y: 450}
+  m_AnchoredPosition: {x: -750, y: -25}
+  m_SizeDelta: {x: 140, y: 425}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1570586408
 MonoBehaviour:
@@ -10883,7 +10908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2076756050
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15586,7 +15611,7 @@ MonoBehaviour:
   inventoryView: {fileID: 6566418695027046010}
   itemInvenPrefab: {fileID: 8675067341014752667, guid: 03b3b1a6c7e4da1419edeb4534b02b3a, type: 3}
   invenItemStore: {fileID: 1639360766}
-  listInvenPerk: {fileID: 1844417870}
+  invenPerkStore: {fileID: 1844417870}
   itemDetail: {fileID: 8339426994251399211}
   itemDetailBG: {fileID: 141970536793453426}
   detailIcon: {fileID: 3926990463968399869}
@@ -15595,6 +15620,14 @@ MonoBehaviour:
   commonColor: {r: 1, g: 1, b: 1, a: 1}
   rareColor: {r: 0.43529412, g: 0.6313726, b: 1, a: 1}
   epicColor: {r: 0.85882354, g: 0, b: 1, a: 1}
+  title: {fileID: 3049721285386495476}
+  btnLeft: {fileID: 4319190047392105047}
+  btnRight: {fileID: 5312170099014317843}
+  contentPanel: {fileID: 294317784128725131}
+  contentGroup: {fileID: 6268316505691032743}
+  listTitle:
+  - Items
+  - Perks
 --- !u!4 &2139006779055208775
 Transform:
   m_ObjectHideFlags: 0
@@ -19675,8 +19708,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4458584322658265490}
-        m_TargetAssemblyTypeName: Pack, Assembly-CSharp
+      - m_Target: {fileID: 2138025881268197863}
+        m_TargetAssemblyTypeName: InventoryPlayerUI, Assembly-CSharp
         m_MethodName: OnLeft
         m_Mode: 1
         m_Arguments:
@@ -20285,7 +20318,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1925959508703510360}
   - component: {fileID: 2138025881268197863}
-  - component: {fileID: 4458584322658265490}
   m_Layer: 0
   m_Name: InventoryUI
   m_TagString: Untagged
@@ -20293,28 +20325,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &4458584322658265490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4458584322658265489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f5c665b7e09305468a15b4f9e29adce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: {fileID: 3049721285386495476}
-  btnLeft: {fileID: 4319190047392105047}
-  btnRight: {fileID: 5312170099014317843}
-  contentPanel: {fileID: 294317784128725131}
-  contentGroup: {fileID: 6268316505691032743}
-  listInvenItem: {fileID: 1639360765}
-  listInvenPerk: {fileID: 1844417869}
-  listTitle:
-  - Items
-  - Perks
 --- !u!222 &4459422157083955451
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22285,8 +22295,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4458584322658265490}
-        m_TargetAssemblyTypeName: Pack, Assembly-CSharp
+      - m_Target: {fileID: 2138025881268197863}
+        m_TargetAssemblyTypeName: InventoryPlayerUI, Assembly-CSharp
         m_MethodName: OnRight
         m_Mode: 1
         m_Arguments:
@@ -26054,8 +26064,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 1516727941}
+        m_TargetAssemblyTypeName: TranDuc.RoomInGameManager, Assembly-CSharp
         m_MethodName: OutRoom
         m_Mode: 1
         m_Arguments:

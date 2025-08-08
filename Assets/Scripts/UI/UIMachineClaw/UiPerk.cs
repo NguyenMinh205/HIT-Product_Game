@@ -21,18 +21,4 @@ public class UiPerk : MonoBehaviour
         if (pName != null) perkName = pName;
         if (des != null) description = des;
     }
-    
-    public void SetPos(int index)
-    {
-        if(index % 2 == 1)
-        {
-            float y = (3-(index / 2 + 1)) * 60f;
-            rect.anchoredPosition = new Vector2(-33.5f, y);
-        }
-        else
-        {
-            float y = (3-(index / 2)) * 60f;
-            rect.anchoredPosition = new Vector2(33.5f, y);
-        }
-    }
 }

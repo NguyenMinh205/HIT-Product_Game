@@ -95,7 +95,10 @@ public class CharacterStat
         {
             this.shield += value;
         }
-        GamePlayController.Instance.PlayerController.CurrentPlayer.UpdateArmorUI();
+        if (GamePlayController.Instance.PlayerController.CurrentPlayer != null)
+        {
+            GamePlayController.Instance.PlayerController.CurrentPlayer.UpdateArmorUI();
+        }
     }
 
     public void ChangeCoin(int value)
@@ -108,12 +111,19 @@ public class CharacterStat
     public void MultipleShield(int val)
     {
         this.shield *= val;
-        GamePlayController.Instance.PlayerController.CurrentPlayer.UpdateArmorUI();
+        if (GamePlayController.Instance.PlayerController.CurrentPlayer != null)
+        {
+            GamePlayController.Instance.PlayerController.CurrentPlayer.UpdateArmorUI();
+        }
     }
 
     public void ChangeStrength(int value)
     {
         this.strength += value;
+        if (GamePlayController.Instance.PlayerController.CurrentPlayer != null)
+        {
+            GamePlayController.Instance.PlayerController.CurrentPlayer.UpdateStrengthUI();
+        }
     }
 
     public void MultipleStrength(int value)

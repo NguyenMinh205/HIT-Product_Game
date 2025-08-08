@@ -10,10 +10,9 @@ public class Coin : IItemAction
         {
             player.Stats.ChangeCoin(1);
         }
-        Debug.Log("Coin used by player: " + player.name);
     }
     public void Upgrade()
     {
-        Debug.Log("Coin upgraded.");
+
     }
 }
