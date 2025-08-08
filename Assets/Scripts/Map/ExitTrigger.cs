@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,12 +24,15 @@ public class ExitTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        DOVirtual.DelayedCall(0.1f, () =>
         {
-            PoolingManager.Despawn(other.gameObject);
-            MapSystem.Instance.ProceedToNextMap(SubsequentMap);
-            gameObject.SetActive(false);
-        }
+            if (other.CompareTag("Player"))
+            {
+                PoolingManager.Despawn(other.gameObject);
+                MapSystem.Instance.ProceedToNextMap(SubsequentMap);
+                gameObject.SetActive(false);
+            }
+        });
     }
     public void UpdateIconMaps()
     {

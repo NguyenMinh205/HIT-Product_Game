@@ -246,10 +246,36 @@ public class MapSystem : Singleton<MapSystem>
             return;
         }
 
+        if (currentMapInstanceData.sourceData.MapType == EMapType.Bossfight && currentMapInstanceData.sourceData != bossMaps[bossMaps.Count - 1])
+        {
+            if (currentMapInstanceData.spawnedExitTriggers.Count > 1)
+            {
+                if (restMaps.Count > 0 && fightMaps.Count > 0)
+                {
+                    MapData restMap = restMaps[UnityEngine.Random.Range(0, restMaps.Count)];
+                    MapData fightMap = fightMaps[UnityEngine.Random.Range(0, fightMaps.Count)];
+
+                    int restExitIndex = UnityEngine.Random.Range(0, currentMapInstanceData.spawnedExitTriggers.Count);
+                    currentMapInstanceData.spawnedExitTriggers[restExitIndex].SubsequentMap = restMap;
+
+                    int fightExitIndex = (restExitIndex + 1) % currentMapInstanceData.spawnedExitTriggers.Count;
+                    currentMapInstanceData.spawnedExitTriggers[fightExitIndex].SubsequentMap = fightMap;
+                }
+            }
+            return;
+        }
+
+        int mapIndexBefore = -1;
         foreach (var exit in currentMapInstanceData.spawnedExitTriggers)
         {
-            var nextMap = fightMaps[UnityEngine.Random.Range(0, fightMaps.Count)];
+            int mapIndex = UnityEngine.Random.Range(0, fightMaps.Count);
+            while (mapIndex == mapIndexBefore)
+            {
+                mapIndex = UnityEngine.Random.Range(0, fightMaps.Count);
+            }
+            var nextMap = fightMaps[mapIndex];
             exit.SubsequentMap = nextMap;
+            mapIndexBefore = mapIndex;
         }
     }
 
@@ -272,7 +298,7 @@ public class MapSystem : Singleton<MapSystem>
             }
         }
 
-        DOVirtual.DelayedCall(0.2f, () =>
+        DOVirtual.DelayedCall(0.1f, () =>
         {
             currentMapIndex++;
             DataManager.Instance.GameData.CurrentFloor = currentMapIndex;

@@ -59,7 +59,7 @@ public class ClawController : MonoBehaviour
             SetPosClaw();
             ObserverManager<EventID>.PostEven(EventID.OnUseClaw);
         }
-        checkListClaw();
+        CheckListClaw();
     }
     public void SetPosClaw()
     {
@@ -117,9 +117,9 @@ public class ClawController : MonoBehaviour
             newClaw.posStopClaw = posEndClaw;
             claws.Add(newClaw);
         }
-        checkListClaw();
+        CheckListClaw();
     }
-    public void checkListClaw()
+    public void CheckListClaw()
     {
         if (claws.Count <= 0 && currentClaw == null)
             isListClawNull = true;

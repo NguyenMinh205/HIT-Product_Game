@@ -19,7 +19,7 @@ public class ItemInventoryUI : MonoBehaviour
     {
         this.inventoryItem = inventoryItem;
         this.data = itemBase;
-        iconImage.sprite = inventoryItem.Icon;
+        iconImage.sprite = itemBase.icon;
         iconImage.SetNativeSize();
         iconImage.rectTransform.sizeDelta *= 0.75f;
         numOfItem.text = quantity.ToString();

@@ -86,17 +86,14 @@ namespace TranDuc
             if (currentMachine != null) currentMachine.SetActive(true);
             ControllerUIInGame.Instance.OpenUIRoomType(typeRoom);
 
-            Debug.LogError("OK1");
             if (currentMachine == defaultClawMachineBox.gameObject)
             {
                 UiPerksList.Instance.SetActivePerk(true);
             }
 
             ControllerUIInGame.Instance.OpenRoom();
-            Debug.LogError("OK2");
-            DOVirtual.DelayedCall(0.25f, () =>
+            DOVirtual.DelayedCall(0.1f, () =>
             {
-                Debug.LogError("Open Room: " + typeRoom);
                 CheckTypeRoom(typeRoom);
             });
         }
@@ -105,19 +102,9 @@ namespace TranDuc
             switch (typeRoom)
             {
                 case "BossRoom":
-                    Debug.Log("Start Boss Room");
-                    GamePlayController.Instance.StartFightRoom(typeRoom);
-                    break;
                 case "FightRoom":
-                    Debug.Log("Start Fight Room");
-                    GamePlayController.Instance.StartFightRoom(typeRoom);
-                    break;
                 case "HealingRoom":
-                    Debug.Log("Start Healing Room");
-                    GamePlayController.Instance.StartFightRoom(typeRoom);
-                    break;
                 case "MysteryRoom":
-                    Debug.Log("Start Mystery Room");
                     GamePlayController.Instance.StartFightRoom(typeRoom);
                     break;
                 case "PerkReward":

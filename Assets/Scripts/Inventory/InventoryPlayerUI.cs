@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,7 +11,7 @@ public class InventoryPlayerUI : MonoBehaviour
     [SerializeField] private GameObject inventoryView;
     [SerializeField] private GameObject itemInvenPrefab;
     [SerializeField] private Transform invenItemStore;
-    [SerializeField] private Transform listInvenPerk;
+    [SerializeField] private Transform invenPerkStore;
 
     [Space]
     [Header("Item Detail")]
@@ -24,9 +24,23 @@ public class InventoryPlayerUI : MonoBehaviour
     [SerializeField] private Color rareColor;
     [SerializeField] private Color epicColor;
 
+    [Header("Title Setup")]
+    [SerializeField] private TextMeshProUGUI title;
+    [SerializeField] private Button btnLeft;
+    [SerializeField] private Button btnRight;
+    [SerializeField] private RectTransform contentPanel;
+    [SerializeField] private CanvasGroup contentGroup;
+    [SerializeField] private List<string> listTitle;
 
+    private int indexTitle = 0;
+    private bool isTransitioning = false;
     private Inventory inventory;
     private ItemInventory selectedItem;
+
+    private void OnEnable()
+    {
+        indexTitle = 0;
+    }
 
     public void PauseAndShowInventory()
     {
@@ -46,6 +60,9 @@ public class InventoryPlayerUI : MonoBehaviour
     public void Init()
     {
         inventory = GamePlayController.Instance.PlayerController.TotalInventory;
+        indexTitle = 0;
+        SetTitle();
+        SetList();
         LoadInventoryList();
     }
 
@@ -54,7 +71,6 @@ public class InventoryPlayerUI : MonoBehaviour
         DeleteInventoryList();
         foreach (ItemInventory item in inventory.Items)
         {
-            //GameObject newItemInventoryPrefab = PoolingManager.Spawn(itemInvenPrefab, this.transform.position, Quaternion.identity, invenItemStore);
             GameObject newItemInventoryPrefab = Instantiate(itemInvenPrefab, invenItemStore);
             ItemInventoryUI ui = newItemInventoryPrefab.GetComponent<ItemInventoryUI>();
             ItemBase itemBase = item.GetItemBase();
@@ -65,11 +81,11 @@ public class InventoryPlayerUI : MonoBehaviour
         }
         foreach (UiPerk perk in UiPerksList.Instance.Perks)
         {
-            GameObject newItemInventoryPrefab = Instantiate(itemInvenPrefab, listInvenPerk);
+            GameObject newItemInventoryPrefab = Instantiate(itemInvenPrefab, invenPerkStore);
             ItemInventoryUI ui = newItemInventoryPrefab.GetComponent<ItemInventoryUI>();
             ui.Init(perk, ShowDetail);
         }
-        listInvenPerk.gameObject.SetActive(false);
+        invenPerkStore.gameObject.SetActive(false);
     }
 
     private void DeleteInventoryList()
@@ -78,7 +94,7 @@ public class InventoryPlayerUI : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        foreach(Transform child in listInvenPerk)
+        foreach(Transform child in invenPerkStore)
         {
             Destroy(child.gameObject);
         }
@@ -143,5 +159,71 @@ public class InventoryPlayerUI : MonoBehaviour
         itemDetailBG.color = Color.white;
 
         canvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
+    }
+
+    public void OnLeft()
+    {
+        indexTitle--;
+        if (indexTitle < 0)
+        {
+            indexTitle = listTitle.Count - 1;
+        }
+        AnimateTitleChange(indexTitle, true);
+    }
+    public void OnRight()
+    {
+        indexTitle++;
+        if (indexTitle > listTitle.Count - 1)
+        {
+            indexTitle = 0;
+        }
+        AnimateTitleChange(indexTitle, false);
+    }
+    public void SetTitle()
+    {
+        title.text = listTitle[indexTitle];
+    }
+    public void SetList()
+    {
+        if (title.text == "Items")
+        {
+            invenItemStore.gameObject.SetActive(true);
+            invenPerkStore.gameObject.SetActive(false);
+        }
+        else if (title.text == "Perks")
+        {
+            invenItemStore.gameObject.SetActive(false);
+            invenPerkStore.gameObject.SetActive(true);
+        }
+
+    }
+
+    private void AnimateTitleChange(int newIndex, bool slideLeft)
+    {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        float slideDistance = 50f;
+        float duration = 0.3f;
+
+        Vector2 startPos = contentPanel.anchoredPosition;
+        Vector2 offscreenPos = startPos + new Vector2(slideLeft ? slideDistance : -slideDistance, 0);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(contentGroup.DOFade(0f, duration / 2));
+        seq.Join(contentPanel.DOAnchorPos(offscreenPos, duration / 2));
+
+        seq.AppendCallback(() =>
+        {
+            indexTitle = newIndex;
+            SetTitle();
+            SetList();
+            contentPanel.anchoredPosition = startPos - new Vector2(slideLeft ? slideDistance : -slideDistance, 0);
+        });
+
+        seq.Append(contentPanel.DOAnchorPos(startPos, duration / 2));
+        seq.Join(contentGroup.DOFade(1f, duration / 2));
+
+        seq.OnComplete(() => isTransitioning = false);
     }
 }

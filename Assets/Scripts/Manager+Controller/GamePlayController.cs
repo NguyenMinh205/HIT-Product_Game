@@ -226,11 +226,11 @@ public class GamePlayController : Singleton<GamePlayController>
     public void TurnPlayer()
     {
         playerController.ResetShield();
-        ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
         clawController.ResetMachineClaw();
         playerController.CurrentPlayer.AddItem();
         itemController.SpawnItem(playerController.CurrentPlayer.AddedItems);
         enemyController.SetActionEnemyNext();
+        ObserverManager<EventID>.PostEven(EventID.OnStartPlayerTurn);
     }
 
     public void TurnEnemy()

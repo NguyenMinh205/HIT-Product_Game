@@ -114,12 +114,10 @@ public class RewardManager : Singleton<RewardManager>
 
             while (attempts < maxAttempts)
             {
-                Rarity rarity = rarities[i];
-                randomItem = itemDatabase.GetRandomItem(rarity);
+                randomItem = itemDatabase.GetRandomItem(rarities[i]);
 
                 if (randomItem != null &&
-                    !selectedItems.Contains(randomItem) &&
-                    !lastRolledItems.Contains(randomItem))
+                    !selectedItems.Contains(randomItem))
                 {
                     selectedItems.Add(randomItem);
                     break;

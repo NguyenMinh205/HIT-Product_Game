@@ -172,7 +172,10 @@ public class PachinkoMachine : Singleton<PachinkoMachine>
             coinToStart += 2;
             Destroy(curClaw.gameObject);
             _lastRolledItem = null;
-            RoomInGameManager.Instance.OutRoom();
+            DOVirtual.DelayedCall(0.1f , () =>
+            {
+                RoomInGameManager.Instance.OutRoom();
+            });
         }
         else
         {

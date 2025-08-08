@@ -1,4 +1,5 @@
-﻿ using Gameplay;
+﻿using DG.Tweening;
+using Gameplay;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +58,10 @@ public class TumblerMachine : Singleton<TumblerMachine>
         perkMachineTumbler.rotation = Quaternion.Euler(0, 0, 0);
         _spawnedItems = new List<TumblerItem>();
         _droppedItems = new List<TumblerItem>();
-        StartCoroutine(SpawnInitialItems());
+        DOVirtual.DelayedCall(0.1f, () =>
+        {
+            StartCoroutine(SpawnInitialItems());
+        });
     }
 
     private IEnumerator SpawnInitialItems()
@@ -71,9 +75,9 @@ public class TumblerMachine : Singleton<TumblerMachine>
             item.Init(availableItems[randomIndex]);
             _spawnedItems.Add(item);
             availableItems.RemoveAt(randomIndex);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.35f);
         }
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.5f);
         tumblerBox.Collider.enabled = true;
         _state = TumblerState.Waiting;
     }
