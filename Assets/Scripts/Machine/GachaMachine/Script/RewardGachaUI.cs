@@ -41,13 +41,6 @@ public class RewardGachaUI : MonoBehaviour
         ShowWithZoomEffect();
     }
 
-    public void ShowNoReward()
-    {
-        coinReward.SetActive(false);
-        characterIcon.SetActive(false);
-        ShowWithZoomEffect();
-    }
-
     private void ShowWithZoomEffect()
     {
         gameObject.SetActive(true);
