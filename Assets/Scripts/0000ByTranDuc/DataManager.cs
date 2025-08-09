@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TranDuc
 {
@@ -17,17 +18,15 @@ namespace TranDuc
 
         private void OnApplicationQuit()
         {
-            GamePlayController.Instance.PlayerController.SavePlayerData();
-            if (!RoomInGameManager.Instance.IsFinishGame)
+            if (GamePlayController.Instance.PlayerController)
+            {
+                GamePlayController.Instance.PlayerController.SavePlayerData();
+            }
+            if (!RoomInGameManager.Instance.IsFinishGame && SceneManager.GetActiveScene().buildIndex != 0)
             {
                 DataManager.Instance.GameData.SetKeepPlayState(true);
             }
-            else
-            {
-                DataManager.Instance.GameData.SetKeepPlayState(false);
-            }
             GameData.Save();
-            Debug.LogWarning("OK");
         }
     }
 
@@ -43,7 +42,7 @@ namespace TranDuc
         [SerializeField] private int selectedDifficultyIndex = 0;
         [SerializeField] private float extraDamagePercent = 0;
         [SerializeField] private float extraHealthPercent = 0;
-        [SerializeField] private List<CharacterState> characterStates = new();
+        public List<CharacterState> characterStates = new();
         [SerializeField] private bool isKeepingPlayGame = false;
         [SerializeField] private int indexBoss = 0;
 
@@ -94,7 +93,7 @@ namespace TranDuc
 
         public float ExtraDamagePercent => extraDamagePercent;
         public float ExtraHealthPercent => extraHealthPercent;
-        public IReadOnlyList<CharacterState> CharacterStates => characterStates.AsReadOnly();
+        public List<CharacterState> CharacterStates => characterStates;
         public bool IsKeepingPlayGame => isKeepingPlayGame;
         public void SetCharacterStates(List<CharacterState> states)
         {

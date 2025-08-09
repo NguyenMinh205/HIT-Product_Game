@@ -77,23 +77,24 @@ public class CharacterDatabaseSO : ScriptableObject
 
     public void UnlockCharacter(string id)
     {
-        var list = new List<CharacterState>(DataManager.Instance.GameData.CharacterStates);
-        var state = list.Find(s => s.id == id);
+        List<CharacterState> list = new List<CharacterState>(DataManager.Instance.GameData.CharacterStates);
+        CharacterState state = list.Find(s => s.id == id);
         if (state != null)
         {
             state.isUnlocked = true;
+            state.skinUnlocks[0] = true;
             DataManager.Instance.GameData.SetCharacterStates(list);
             DataManager.Instance.GameData.Save();
         }
     }
 
-    public void UnlockSkin(string characterId, int skinIndex)
+    public void UnlockSkin(string id, int skinIndex)
     {
-        var list = new List<CharacterState>(DataManager.Instance.GameData.CharacterStates);
-        var state = list.Find(s => s.id == characterId);
+        List<CharacterState> list = new List<CharacterState>(DataManager.Instance.GameData.CharacterStates);
+        CharacterState state = list.Find(s => s.id == id);
         if (state != null)
         {
-            state.isUnlocked = true;
+            state.skinUnlocks[skinIndex] = true;
             DataManager.Instance.GameData.SetCharacterStates(list);
             DataManager.Instance.GameData.Save();
         }
