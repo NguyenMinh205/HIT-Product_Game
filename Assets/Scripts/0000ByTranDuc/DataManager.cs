@@ -226,6 +226,7 @@ namespace TranDuc
             curMapData = null;
             visitedTilePositions = new List<Vector2Int>();
             usedBossIDs = new List<string>();
+            indexBoss = 0;
         }
 
         #endregion
