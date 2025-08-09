@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using DG.Tweening;
-using TranDuc;
 
 public enum GachaState
 {

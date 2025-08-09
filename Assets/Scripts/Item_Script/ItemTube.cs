@@ -71,6 +71,16 @@ public class ItemTube : Singleton<ItemTube>
             isConsumePoint = value;
         }
     }
+
+    private void OnDisable()
+    {
+        isEntryPoint = false;
+        isFallPoint = false;
+        isRollPoint = false;
+        IsConsumePoint = false;
+
+        ClaerItemDisPlay();
+    }
     public void AddItem(ItemBase item)
     {
         if (item == null) return;
@@ -131,6 +141,15 @@ public class ItemTube : Singleton<ItemTube>
         foreach (ItemDisplay item in itemDisplays)
         {
             item.ContinueTween();
+        }
+    }
+
+    public void ClaerItemDisPlay()
+    {
+        if(itemDisplays.Count > 0)
+        {
+            for(int i = 0; i < itemDisplays.Count; i++)
+                Destroy(itemDisplays[i].gameObject);
         }
     }
 }

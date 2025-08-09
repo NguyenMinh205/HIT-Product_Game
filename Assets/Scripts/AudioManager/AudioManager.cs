@@ -108,7 +108,7 @@ public class AudioManager : Singleton<AudioManager>
             PlayMusicGame(musicSelectRoom);
         }
     }
-    private void PlayMusicGame(AudioClip clip)
+    public void PlayMusicGame(AudioClip clip)
     {
         musicSource.loop = true;
         musicSource.clip = clip;
@@ -162,6 +162,7 @@ public class AudioManager : Singleton<AudioManager>
     public void PlayCoin() { PlaySFX(coin); }
     public void PlayRewardSound() { PlaySFX(reward); }
     public void PlayClawDropSound() { PlaySFX(clawDrop); }
+    public void PlayClawMoveSound() { PlaySFX(clawDrop, true); }
     public void PlayClawMagnetDropSound() { PlaySFX(clawMagnetDrop); }
     public void PlayEnterRoomSound() { PlaySFX(enterRoom); }
     public void PlayVictorySound() { PlaySFX(victory); }

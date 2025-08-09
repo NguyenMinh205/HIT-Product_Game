@@ -12,16 +12,18 @@ public class CreateWaterInBox : MonoBehaviour
     [SerializeField] private float posYWaterTop;
     [SerializeField] private float distanceWater;
     [SerializeField] private float moveSpeed; // tốc độ nước di chuyển (unit/second)
-
+    private Vector3 posOriginal;
     private Coroutine moveCoroutine;
 
     private void Awake()
     {
+        posOriginal = water.transform.position;
         ObserverManager<WaterEffectType>.AddDesgisterEvent(WaterEffectType.CreateWater, CreateWater);
         ObserverManager<WaterEffectType>.AddDesgisterEvent(WaterEffectType.ExecuteWater, ExecuteEffect);
     }
     private void OnDisable()
     {
+        SetWater();
         ObserverManager<WaterEffectType>.RemoveAddListener(WaterEffectType.CreateWater, CreateWater);
         ObserverManager<WaterEffectType>.RemoveAddListener(WaterEffectType.ExecuteWater, ExecuteEffect);
     }
@@ -71,5 +73,8 @@ public class CreateWaterInBox : MonoBehaviour
 
         water.transform.position = target; // đảm bảo đến đúng vị trí cuối cùng
     }
-
+    public void SetWater()
+    {
+        water.transform.position = posOriginal;
+    }
 }

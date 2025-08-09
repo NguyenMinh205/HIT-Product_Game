@@ -118,6 +118,7 @@ public class ClawMachine : MonoBehaviour
             else
                 rb.velocity = new Vector2(0, rb.velocity.y);
         }
+
     }
     public void UpdateRope()
     {
@@ -185,6 +186,7 @@ public class ClawMachine : MonoBehaviour
         {
             Debug.Log("Claw is Pick up");
             mode = ModeClaw.PickUp;
+            AudioManager.Instance.PlayClawDropSound();
         }
     }
     public virtual void PickUp()

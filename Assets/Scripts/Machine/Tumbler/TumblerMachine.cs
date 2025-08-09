@@ -75,7 +75,7 @@ public class TumblerMachine : Singleton<TumblerMachine>
             {
                 Debug.LogError("Item Prefab chưa được gán!");
             }
-            TumblerItem item = PoolingManager.Spawn(itemPrefabs, tumblerBox.SpawnPoint.position, Quaternion.identity, perkStore);
+            TumblerItem item = Instantiate(itemPrefabs, tumblerBox.SpawnPoint.position, Quaternion.identity, perkStore);
             item.Init(availableItems[randomIndex]);
             _spawnedItems.Add(item);
             availableItems.RemoveAt(randomIndex);
@@ -132,7 +132,7 @@ public class TumblerMachine : Singleton<TumblerMachine>
         _state = TumblerState.Selecting;
         foreach (TumblerItem item in _spawnedItems)
         {
-            if (item != null) PoolingManager.Despawn(item.gameObject);
+            if (item != null) Destroy(item.gameObject);
         }
         _spawnedItems.Clear();
         ShowSelectItemUI();

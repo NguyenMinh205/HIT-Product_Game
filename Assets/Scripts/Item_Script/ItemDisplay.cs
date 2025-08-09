@@ -179,7 +179,7 @@ public class ItemDisplay : MonoBehaviour
                 if(ItemTube.Instance.IsEntryPoint)
                 {
                     float distence = Vector2.Distance(startPos.anchoredPosition, rect.anchoredPosition);
-                    if(distence >= 65)
+                    if(distence >= 40)
                         ItemTube.Instance.IsEntryPoint = false;
                 }
                 break;
@@ -187,7 +187,7 @@ public class ItemDisplay : MonoBehaviour
                 if (ItemTube.Instance.IsRollPoint)
                 {
                     float distence = Vector2.Distance(startPos.anchoredPosition, rect.anchoredPosition);
-                    if (distence >= 65)
+                    if (distence >= 40)
                         ItemTube.Instance.IsRollPoint = false;
                 }
                 break;
@@ -195,7 +195,7 @@ public class ItemDisplay : MonoBehaviour
                 if (ItemTube.Instance.IsFallPoint)
                 {
                     float distence = Vector2.Distance(startPos.anchoredPosition, rect.anchoredPosition);
-                    if (distence >= 65)
+                    if (distence >= 40)
                         ItemTube.Instance.IsFallPoint = false;
                 }
                 break;
