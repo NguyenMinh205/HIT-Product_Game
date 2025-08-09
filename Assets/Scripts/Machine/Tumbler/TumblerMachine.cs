@@ -92,6 +92,7 @@ public class TumblerMachine : Singleton<TumblerMachine>
         _state = TumblerState.Tumblering;
         _currentRotation = 0f;
         _currentRotationSpeed = 0f;
+        leaveButton.gameObject.SetActive(false);
         _droppedItems.Clear();
         StartCoroutine(TumblerLoop());
     }

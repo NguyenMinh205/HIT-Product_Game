@@ -610,7 +610,7 @@ Animator:
   m_GameObject: {fileID: 4141940639668383505}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 30b9ab7898af1404797f0d35a619c64e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 46e52a19b6a0284469d79e4e40899210, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -957,6 +957,8 @@ MonoBehaviour:
   textHp: {fileID: 8828557193389059429}
   armor: {fileID: 2229420120394207265}
   textArmor: {fileID: 9074222903200316846}
+  strength: {fileID: 0}
+  textStrength: {fileID: 0}
 --- !u!1 &6828362804754936803
 GameObject:
   m_ObjectHideFlags: 0

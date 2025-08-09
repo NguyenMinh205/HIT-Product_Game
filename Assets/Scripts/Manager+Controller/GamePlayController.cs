@@ -277,6 +277,11 @@ public class GamePlayController : Singleton<GamePlayController>
         playerController.CurrentPlayer.Stats.ChangeCoin(bonusGold);
         playerController.SavePlayerData();
 
+        if(typeRoom == "BossRoom")
+        {
+            DataManager.Instance.GameData.IndexBoss++;
+        }
+
         ControllerUIInGame.Instance.RewardUI.SetActive(true);
         RewardManager.Instance.InitReward();
     }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -100,7 +101,10 @@ public class ItemTube : Singleton<ItemTube>
         if (itemDisplays.Count <= 0)
         {
             isItemNull = true;
-            GamePlayController.Instance.CheckTurnPlayer();
+            DOVirtual.DelayedCall(0.1f, () =>
+            {
+                GamePlayController.Instance.CheckTurnPlayer();
+            });
         }
         else
         {

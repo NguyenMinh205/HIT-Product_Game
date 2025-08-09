@@ -6,13 +6,13 @@ public class ItemUsage : MonoBehaviour
     public void UseItem(string itemId, Player player, Enemy target = null, List<Enemy> targets = null)
     {
         ItemBase item = ItemDatabase.Instance.GetItemById(itemId.TrimEnd('+'));
-        if (itemId == item.upgradedItem.id)
-        {
-            item = item.upgradedItem;
-        }
         if (item == null)
         {
             item = ItemDatabase.Instance.GetItemEnemyById(itemId);
+        }
+        if (item != null && item.upgradedItem != null && itemId == item.upgradedItem.id)
+        {
+            item = item.upgradedItem;
         }
         if (item != null)
         {

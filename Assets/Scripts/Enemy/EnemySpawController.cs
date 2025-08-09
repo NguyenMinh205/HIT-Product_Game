@@ -8,7 +8,6 @@ public class EnemySpawController : MonoBehaviour
     private List<string> listIDEnemy = new List<string> { "enemy01", "enemy02", "enemy03", "enemy05", "enemy06", "enemy07","enemy13","enemy15", "enemy18","enemy22" };
     private const int numOfEnemyInFloor = 5;
     private List<string> listIDBoss = new List<string> {"boss02","boss06", "finalBoss" };
-    private int indexBos = 0;
     private List<string> availableBossIDs;
 
     private void Start()
@@ -86,31 +85,6 @@ public class EnemySpawController : MonoBehaviour
 
     public string GetIDBossToSpawn()
     {
-        //int numFloor = MapManager.Instance.NumFloor;
-        //if (GameData.Instance.mainGameData.curFloor == numFloor)
-        //{
-        //    if (!GameData.Instance.mainGameData.usedBossIDs.Contains("boss07"))
-        //    {
-        //        GameData.Instance.mainGameData.usedBossIDs.Add("boss07");
-        //        GameData.Instance.SaveMainGameData();
-        //    }
-        //    return "boss07";
-        //}
-
-        //if (availableBossIDs.Count == 0)
-        //{
-        //    availableBossIDs = new List<string>(listIDBoss);
-        //    availableBossIDs.Remove("boss07");
-        //}
-
-        //int randomIndex = Random.Range(0, availableBossIDs.Count);
-        //string idBoss = availableBossIDs[randomIndex];
-        //availableBossIDs.RemoveAt(randomIndex);
-        //GameData.Instance.mainGameData.usedBossIDs.Add(idBoss);
-        //GameData.Instance.SaveMainGameData();
-
-        //return idBoss;
-        indexBos++;
-        return listIDBoss[indexBos -1];
+        return listIDBoss[DataManager.Instance.GameData.IndexBoss];
     }
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -125,7 +126,10 @@ public class ClawController : MonoBehaviour
             isListClawNull = true;
         else
             isListClawNull = false;
-        GamePlayController.Instance.CheckTurnPlayer();
+        DOVirtual.DelayedCall(0.1f, () =>
+        {
+            GamePlayController.Instance.CheckTurnPlayer();
+        });
     }
 
     public void EndGame()

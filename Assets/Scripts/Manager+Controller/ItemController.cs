@@ -29,6 +29,12 @@ public class ItemController : MonoBehaviour
     [SerializeField] private ItemBase thorn;
     [SerializeField] private Item honey;
 
+    [Space]
+    [Header("Limit Item")]
+    [SerializeField] public Transform topItem;
+    [SerializeField] public Transform downItem;
+    [SerializeField] public Transform leftItem;
+    [SerializeField] public Transform rightItem;
     private void Awake()
     {
         ObserverManager<IDItem>.AddDesgisterEvent(IDItem.ItemChange, RemoveItemBox);

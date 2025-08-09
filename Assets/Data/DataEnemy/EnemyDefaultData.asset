@@ -152,10 +152,10 @@ MonoBehaviour:
     - actionEnemy: 06000000
   - idEnemy: enemy13
     nameEnemy: 
-    hpEnemy: 62
+    hpEnemy: 12
     damageEnemy: 0f000000
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: 134605525, guid: e9a743dfb4e18d449a009b816aaa3229, type: 3}
+    spriteEnemyIdle: {fileID: 21300000, guid: d9ff15c9892fb3e419351db68e602aa7, type: 3}
     controller: {fileID: 9100000, guid: e8b2cf93703e01c408acee343921244d, type: 2}
     itemEffect: {fileID: 0}
     actions:
@@ -176,10 +176,10 @@ MonoBehaviour:
     - actionEnemy: 03000000
   - idEnemy: enemy15
     nameEnemy: 100
-    hpEnemy: 58
+    hpEnemy: 12
     damageEnemy: 08000000
     armorIncreased: 0
-    spriteEnemyIdle: {fileID: -913989469, guid: afe4b0c79719a294f8cb7552a8ca9921, type: 3}
+    spriteEnemyIdle: {fileID: 21300000, guid: c1aa24d767543a840990a2be2953d164, type: 3}
     controller: {fileID: 9100000, guid: e133af8c2339de44092310fa9c69f3b5, type: 2}
     itemEffect: {fileID: 0}
     actions:
@@ -209,10 +209,10 @@ MonoBehaviour:
     - actionEnemy: 0000000000000000
   - idEnemy: enemy18
     nameEnemy: 100
-    hpEnemy: 98
+    hpEnemy: 12
     damageEnemy: 14000000
     armorIncreased: 30
-    spriteEnemyIdle: {fileID: 251771158, guid: 0e09ee99986c769469980947843bf0fa, type: 3}
+    spriteEnemyIdle: {fileID: 21300000, guid: 94276014d5fca1e4d9c195fd0185d19b, type: 3}
     controller: {fileID: 9100000, guid: 2c6c8bcb38628594eaacbfea888d15fa, type: 2}
     itemEffect: {fileID: 0}
     actions:
@@ -220,7 +220,7 @@ MonoBehaviour:
     - actionEnemy: 01000000
   - idEnemy: enemy19
     nameEnemy: 100
-    hpEnemy: 35
+    hpEnemy: 12
     damageEnemy: 0f000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 419740717, guid: 23153bf85235a0e45b38c1fcc1539185, type: 3}
@@ -243,7 +243,7 @@ MonoBehaviour:
     - actionEnemy: 00000000
   - idEnemy: enemy21
     nameEnemy: 100
-    hpEnemy: 67
+    hpEnemy: 12
     damageEnemy: 09000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1154898096, guid: 0437ccdd3bb60b34c9822f51bbd4fd5a, type: 3}
@@ -291,7 +291,7 @@ MonoBehaviour:
     damageEnemy: 0d00000032000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: 1513823624, guid: c5e5a640ffbc89642a1e08e36f25e65c, type: 3}
-    controller: {fileID: 0}
+    controller: {fileID: 9100000, guid: a8a49d15e0e0bed47836608413cabb19, type: 2}
     itemEffect: {fileID: 11400000, guid: a118456c5e9804842bafb5b530dd6ce1, type: 2}
     actions:
     - actionEnemy: 0400000006000000

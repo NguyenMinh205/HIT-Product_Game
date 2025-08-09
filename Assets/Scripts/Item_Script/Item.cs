@@ -14,6 +14,13 @@ public class Item : MonoBehaviour
     [SerializeField] public bool isStackable;
     [SerializeField] public int maxStackSize = 99;
 
+    [Space]
+    [Header("Pos Limit")]
+    private Transform top;
+    private Transform down;
+    private Transform left;
+    private Transform right;
+
     [SerializeField] private float moveForce;
 
     [SerializeField] private PolygonCollider2D poly;
@@ -43,6 +50,42 @@ public class Item : MonoBehaviour
     {
         isMove = false;
     }
+    private void Update()
+    {
+        CheckPosItem();
+    }
+    public void CheckPosItem()
+    {
+        if (top == null || down == null || left == null || right == null) return;
+
+        if(transform.position.x >= right.position.x)
+        {
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(-1f,0f));
+        }
+        else if(transform.position.x <= left.position.x)
+        {
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(1f, 0f));
+        }
+        else if(transform.position.y >= top.position.y)
+        {
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(0f,-1f));
+        }
+        else if(transform.position.y <= down.position.y)
+        {
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(0f,1f));
+        }
+    }
+    public void SetPosLimit()
+    {
+        top = GamePlayController.Instance.ItemController.topItem;
+        down = GamePlayController.Instance.ItemController.downItem;
+        left = GamePlayController.Instance.ItemController.leftItem;
+        right = GamePlayController.Instance.ItemController.rightItem;
+    }
     public void Init(ItemBase itemBase)
     {
         idItem = itemBase.id;
@@ -61,6 +104,7 @@ public class Item : MonoBehaviour
             _itemBase.Action = ItemActionFactory.CreateItemAction(idItem);
             _itemBase.Action.Execute(null, null);
         }
+        SetPosLimit();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

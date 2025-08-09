@@ -8,6 +8,7 @@ public class PoisonEffect : IBuffEffect
 
     public Sprite Icon { get; set; }
     private Player player;
+    private Enemy enemy;
 
     public PoisonEffect(float value, float duration)
     {
@@ -43,23 +44,43 @@ public class PoisonEffect : IBuffEffect
     {
         if (Duration <= 0)
         {
-            Remove(player);
+            if(player != null) Remove(player);
             return;
         }
 
         Duration--;
         player.Stats.ChangeCurHP(-Value);
         player.UpdateHpUI();
+
         Debug.Log($"Poison deals {Value} damage. Turns remaining: {Duration}");
     }
+    private void OnStartEnemyTurn(object obj)
+    {
+        if (Duration <= 0)
+        {
+            if (enemy != null) RemoveEnemy(enemy);
+            return;
+        }
 
+        Duration--;
+        enemy.HP -= (int)Value;
+
+        if (enemy.HP < 0)
+            enemy.HP = 0;
+
+        ObserverManager<IDEnemyStateAnimation>.PostEven(IDEnemyStateAnimation.Hit, this);
+        enemy.Health.UpdateHp(enemy);
+
+        Debug.Log($"Poison deals {Value} damage. Turns remaining: {Duration}");
+    }
     public void ApplyEnemy(Enemy enemy)
     {
-        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartEnemyTurn, OnStartPlayerTurn);
+        this.enemy = enemy;
+        ObserverManager<EventID>.AddDesgisterEvent(EventID.OnStartEnemyTurn, OnStartEnemyTurn);
     }
 
     public void RemoveEnemy(Enemy enemy)
     {
-        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartEnemyTurn, OnStartPlayerTurn);
+        ObserverManager<EventID>.RemoveAddListener(EventID.OnStartEnemyTurn, OnStartEnemyTurn);
     }
 }

@@ -45,6 +45,7 @@ namespace TranDuc
         [SerializeField] private float extraHealthPercent = 0;
         [SerializeField] private List<CharacterState> characterStates = new();
         [SerializeField] private bool isKeepingPlayGame = false;
+        [SerializeField] private int indexBoss = 0;
 
         // MAIN GAME DATA
         [SerializeField] private PlayerData playerData = new();
@@ -109,6 +110,12 @@ namespace TranDuc
 
         public void SetKeepPlayState(bool isKeep) =>
             isKeepingPlayGame = isKeep;
+
+        public int IndexBoss
+        {
+            get => indexBoss;
+            set => indexBoss = value;
+        }
         #endregion
 
         #region PROPERTIES - MAIN
