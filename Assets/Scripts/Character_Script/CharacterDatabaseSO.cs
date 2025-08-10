@@ -9,7 +9,7 @@ public class CharacterDatabaseSO : ScriptableObject
 
     public void SetupStartData()
     {
-        if (DataManager.Instance.GameData.CharacterStates.Count > 0)
+        if (DataManager.Instance.GameData.CharacterStates.Count > 0 || !DataManager.Instance.GameData.IsFirstTimeStartGame)
         {
             Debug.Log("Character states already initialized, skipping default save.");
             return;
@@ -30,9 +30,15 @@ public class CharacterDatabaseSO : ScriptableObject
                     state.skinUnlocks.Add(skin.isUnlocked);
                 }
             }
+            if (state.id == "Cha01")
+            {
+                UnlockCharacter(state.id);
+            }    
             lstCharacter.Add(state);
         }
         if(lstCharacter.Count > 0) DataManager.Instance.GameData.SetCharacterStates(lstCharacter);
+        DataManager.Instance.GameData.IsFirstTimeStartGame = false;
+        DataManager.Instance.GameData.Save();
         Debug.Log("Initialized character and skin states.");
     }
 

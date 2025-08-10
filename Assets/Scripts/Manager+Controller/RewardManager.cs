@@ -153,8 +153,6 @@ public class RewardManager : Singleton<RewardManager>
             if (RoomInGameManager.Instance.CurrentRoom == RoomInGameManager.Instance.PerkRewardRoom)
             {
                 selectedReward.Perk.Execute();
-                Debug.LogError($"Đã chọn perk: {selectedReward.Perk.perkName}");
-                GamePlayController.Instance.PlayerController.SavePlayerData();
                 rollBtn.gameObject.SetActive(true);
                 rewardUI.SetActive(false);
                 RoomInGameManager.Instance.OutRoom();

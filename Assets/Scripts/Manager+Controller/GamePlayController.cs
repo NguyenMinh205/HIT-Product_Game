@@ -135,6 +135,13 @@ public class GamePlayController : Singleton<GamePlayController>
         {
             clawController.IsStart = true;
             clawController.SetCurrentClaw();
+            if (DataManager.Instance.GameData.IsFirstTimePlayGame)
+            {
+                DataManager.Instance.GameData.IsFirstTimePlayGame = false;
+                DataManager.Instance.GameData.Save();
+                ControllerUIInGame.Instance.ShowTutorial();
+            }
+
         });
     }
     public void CheckTurnPlayer()
@@ -152,9 +159,6 @@ public class GamePlayController : Singleton<GamePlayController>
         }
     }
 
-    //Start Room
-
-    //Spawn Enemy Or NPC
     public void SpawnEnemyOrNPC(string typeRoom)
     {
         switch(typeRoom)
@@ -284,6 +288,11 @@ public class GamePlayController : Singleton<GamePlayController>
 
         ControllerUIInGame.Instance.RewardUI.SetActive(true);
         RewardManager.Instance.InitReward();
+
+        if (ControllerUIInGame.Instance.TutorialUI.activeSelf && !DataManager.Instance.GameData.IsFirstTimePlayGame)
+        {
+            ControllerUIInGame.Instance.CloseTutorial();
+        }
     }
 
     public void EndGame()

@@ -19,6 +19,7 @@ namespace TranDuc
         [SerializeField] private GameObject uiShredderRoom;
         [SerializeField] private GameObject rewardUI;
         [SerializeField] private GameObject finishUI;
+        [SerializeField] private GameObject tutorialUI;
         [SerializeField] private TextMeshProUGUI numOfCoinTxt;
         [SerializeField] private TextMeshProUGUI numOfCoinInRoomTxt;
         [SerializeField] private CanvasGroup fadeCanvasGroup;
@@ -27,6 +28,7 @@ namespace TranDuc
         public GameObject RewardUI => rewardUI;
         public GameObject FinishUI => finishUI;
         public GameObject BtnRoll => btnRoll.gameObject;
+        public GameObject TutorialUI => tutorialUI;
 
         private GameObject curUIRoom;
         private void Start()
@@ -117,6 +119,26 @@ namespace TranDuc
             }
             uiMap.SetActive(true);
             UpdateNumOfCoinInMap(GamePlayController.Instance.PlayerController.CurPlayerStat.Coin);
+        }
+
+        public void ShowTutorial()
+        {
+            CanvasGroup canvasGroup = tutorialUI.GetComponent<CanvasGroup>();
+            if (canvasGroup != null)
+            {
+                tutorialUI.SetActive(true);
+                canvasGroup.alpha = 0f;
+                canvasGroup.DOFade(0.5f, 0.5f).SetEase(Ease.InOutQuad);
+            }
+            else
+            {
+                tutorialUI.SetActive(true);
+            }
+        }    
+
+        public void CloseTutorial()
+        {
+            tutorialUI.SetActive(false);
         }
     }
 }

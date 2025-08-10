@@ -21,5 +21,6 @@ public class PerkBase : ScriptableObject
         }
         action.Execute();
         GamePlayController.Instance.PlayerController.listPerk.Add(new PerkInventory(icon, perkName, description));
+        GamePlayController.Instance.PlayerController.SavePlayerData();
     }
 }
