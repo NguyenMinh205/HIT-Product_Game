@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TranDuc;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ public class UiPerksList : Singleton<UiPerksList>
         listPerk.SetActive(val);
         if (val == true)
         {
-            DisplayPerk(GamePlayController.Instance.PlayerController.listPerk);
+            DisplayPerk(DataManager.Instance.GameData.Player.perks);
         }
         else
         {
@@ -44,6 +45,7 @@ public class UiPerksList : Singleton<UiPerksList>
     }
 }
 
+[System.Serializable]
 public class PerkInventory
 {
     public Sprite icon;

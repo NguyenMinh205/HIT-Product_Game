@@ -33,6 +33,9 @@ namespace TranDuc
     [System.Serializable]
     public class SecureGameData
     {
+        [SerializeField] private bool isFirstTimeStartGame = true;
+        [SerializeField] private bool isFirstTimePlayGame = true;
+
         // START DATA
         [SerializeField] private float musicVolume = 0.5f;
         [SerializeField] private float soundVolume = 0.5f;
@@ -55,6 +58,12 @@ namespace TranDuc
         [SerializeField] private List<string> usedBossIDs = new();
 
         #region PROPERTIES - START
+        public bool IsFirstTimeStartGame
+        {
+            get => isFirstTimeStartGame;
+            set => isFirstTimeStartGame = value;
+        }
+
         public float MusicVolume
         {
             get => musicVolume;
@@ -118,6 +127,12 @@ namespace TranDuc
         #endregion
 
         #region PROPERTIES - MAIN
+        public bool IsFirstTimePlayGame
+        {
+            get => isFirstTimePlayGame;
+            set => isFirstTimePlayGame = value;
+        }
+
         public PlayerData Player => playerData;
         public Vector2Int PlayerNodePosition
         {
@@ -164,6 +179,8 @@ namespace TranDuc
         }
         private void CopyFrom(SecureGameData other)
         {
+            isFirstTimeStartGame = other.isFirstTimeStartGame;
+            isFirstTimePlayGame = other.isFirstTimePlayGame;
             musicVolume = other.musicVolume;
             soundVolume = other.soundVolume;
             coin = other.coin;
