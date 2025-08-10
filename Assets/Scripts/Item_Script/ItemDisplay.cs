@@ -130,6 +130,7 @@ public class ItemDisplay : MonoBehaviour
     {
         if (isUse) return;
 
+        Invoke("CheckItem", 1.2f);
         ItemTube.Instance.UseItem(this);
 
         isUse = true;
@@ -150,6 +151,13 @@ public class ItemDisplay : MonoBehaviour
             Destroy(gameObject);
             ItemTube.Instance.CheckItemNull();
         });
+    }
+    public void CheckItem()
+    {
+        if(this != null)
+        {
+            Destroy(gameObject);
+        }
     }
     public void OnMoveComplete()
     {

@@ -23428,7 +23428,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 37e8ed00fbf8cb54ba7e086fb40f0c78, type: 2}
   - {fileID: 11400000, guid: 908cd9f6a86e5124a8332ed1f9ce43f7, type: 2}
   - {fileID: 11400000, guid: 3c5b21b774ac9c74ba7fefc1e4a65158, type: 2}
-  - {fileID: 11400000, guid: a8b6b29856c9c7d40830330aa2823eaa, type: 2}
   - {fileID: 11400000, guid: dc4402146fadcf144ab2b12ccbf6f3da, type: 2}
   itemsByEnemy:
   - {fileID: 11400000, guid: 04021228ccd47da47b9386ce20bbf767, type: 2}
@@ -28970,8 +28969,8 @@ MonoBehaviour:
   - {fileID: -130634862, guid: 690e05aa7c5987d47ae4e65092a00e9b, type: 3}
   fightBossSprites:
   - {fileID: 539330309, guid: a90989494893eeb41bf8aeb0f0e6ab3d, type: 3}
-  - {fileID: 2023107312, guid: cbb24aa47ef4c894795094dfadf844d9, type: 3}
-  - {fileID: 1068064826, guid: cbb24aa47ef4c894795094dfadf844d9, type: 3}
+  - {fileID: 933638098, guid: fa68aab1f9476c94bb654587db8d0f71, type: 3}
+  - {fileID: 1795268951, guid: 7e415ba1aa508564a8b1631e8cfcf264, type: 3}
   - {fileID: -301941200, guid: 690e05aa7c5987d47ae4e65092a00e9b, type: 3}
   healingRoomSprites:
   - {fileID: 1681672346, guid: edc9dc8baeda2d349a55acdb5895f746, type: 3}
