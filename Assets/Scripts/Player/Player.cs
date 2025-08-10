@@ -171,10 +171,10 @@ public class Player : MonoBehaviour
         UIDamageController.Instance.ShowDamageText((int)effectiveDamage, this);
         UpdateHpUI();
 
-        if (stats.CurrentHP <= 0)
+/*        if (stats.CurrentHP <= 0)
         {
             EndGame();
-        }
+        }*/
     }
 
     public void UpdateHpUI()

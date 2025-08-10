@@ -85,7 +85,10 @@ public class EnemyController : MonoBehaviour
         {
             Debug.Log("Enemy Count : "+listEnemy.Count);
             StartCoroutine(listEnemy[i].ExecuteAction());
-            float time = listEnemy[i].actions[listEnemy[i].IndexAction].actionEnemy.Count;
+            float time = 1f;
+            if (listEnemy[i] != null)
+                if (listEnemy[i].actions[listEnemy[i].IndexAction] != null)
+                    time = listEnemy[i].actions[listEnemy[i].IndexAction].actionEnemy.Count;
 
             if(listEnemy[i].actions[listEnemy[i].IndexAction].actionEnemy.Count > 3)
             {

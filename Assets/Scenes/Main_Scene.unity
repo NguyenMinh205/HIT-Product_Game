@@ -2208,7 +2208,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377703624}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
@@ -7879,7 +7879,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 511.73663, y: -49.45224}
+  m_AnchoredPosition: {x: 511.73663, y: -49.444168}
   m_SizeDelta: {x: 200, y: 80.87833}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1476799141
@@ -8435,7 +8435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 187.52225, y: -49.45224}
+  m_AnchoredPosition: {x: 187.52225, y: -49.444168}
   m_SizeDelta: {x: 301.66028, y: 80.87833}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1533344756
@@ -14941,6 +14941,7 @@ MonoBehaviour:
     rerollFreeTurn: 0
   totalInventory:
     items: []
+  listPerk: []
   startRoundBuffs: []
 --- !u!224 &1332741030316490233
 RectTransform:

@@ -25,7 +25,7 @@ public class AddStrengthTakeDamage : IBuffEffect
 
     public void ApplyEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        RegisterEvents();
     }
 
     public void RegisterEvents()
@@ -35,12 +35,12 @@ public class AddStrengthTakeDamage : IBuffEffect
 
     public void Remove(Player player)
     {
-        throw new System.NotImplementedException();
+        UnregisterEvents();
     }
 
     public void RemoveEnemy(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        UnregisterEvents();
     }
 
     public void UnregisterEvents()

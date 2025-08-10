@@ -249,11 +249,14 @@ public class GamePlayController : Singleton<GamePlayController>
         AudioManager.Instance.StopMusic();
         AudioManager.Instance.PlayDefeatSound();
         isEndGame = true;
+
         clawController.EndGame();
         clawController.IsStart = false;
+
         enemyController.EndGame();
         playerController.EndGame();
         itemController.EndGame();
+
         isLoseGame = true;
 
         DataManager.Instance.GameData.SetKeepPlayState(false);

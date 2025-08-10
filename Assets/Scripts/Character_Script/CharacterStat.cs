@@ -78,6 +78,11 @@ public class CharacterStat
         {
             this.currentHP = this.maxHP;
         }
+        if(this.currentHP <= 0)
+        {
+            currentHP = 0;
+            GamePlayController.Instance.LoseGame();
+        }
     }
 
     public void ChangeMaxHP(float value)

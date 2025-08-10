@@ -155,7 +155,7 @@ public class Enemy : MonoBehaviour
         idEnemy = data.idEnemy;
         nameEnemy = data.nameEnemy;
 
-        damage = data.damageEnemy;
+        damage = new List<int>(data.damageEnemy);
         maxHp = data.hpEnemy;
         HP = data.hpEnemy;
         armorIncreased = data.armorIncreased;

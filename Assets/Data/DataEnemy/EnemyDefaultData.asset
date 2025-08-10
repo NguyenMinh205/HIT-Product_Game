@@ -143,7 +143,7 @@ MonoBehaviour:
   - idEnemy: boss02
     nameEnemy: 
     hpEnemy: 100
-    damageEnemy: 0c000000
+    damageEnemy: 03000000
     armorIncreased: 0
     spriteEnemyIdle: {fileID: -1074711646, guid: ffe401bd7e581eb4e8902bbe42a2bde9, type: 3}
     controller: {fileID: 9100000, guid: 360d7d1dd92c8bf43b7982574a972d2d, type: 2}
